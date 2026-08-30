@@ -1,0 +1,124 @@
+% ============================================================
+% P2 - User & Film Lab Management
+% ============================================================
+
+\subsection{User \& Film Lab Management}
+
+\subsubsection{User Management}
+
+The database must store and manage information about users participating
+in the FilmLab platform. The system supports multiple user roles, including
+Photographer/Customer, Film Lab Owner, Photography Expert, Delivery Partner,
+and System Administrator.
+
+The main user management requirements are:
+
+\begin{itemize}
+    \item Store basic user information such as full name, email address,
+    phone number, address, account status, and account creation time.
+    
+    \item Support user authentication and account management.
+    
+    \item Associate each user with an appropriate system role.
+    
+    \item Support role-based access control so that users can access
+    functions according to their assigned roles.
+    
+    \item Maintain the current status of each user account, such as active,
+    inactive, or suspended.
+    
+    \item Allow users to manage their personal profile information.
+\end{itemize}
+
+\subsubsection{Role and Permission Management}
+
+The database must support role-based management of system users. Each user
+is assigned a role that determines the functions and resources that the
+user is authorized to access.
+
+The main roles identified from the system requirements are:
+
+\begin{itemize}
+    \item Photographer / Customer.
+    \item Film Lab Owner.
+    \item Photography Expert.
+    \item Delivery Partner.
+    \item System Administrator.
+\end{itemize}
+
+The database should allow roles to be managed independently from user
+accounts so that role information can be maintained consistently.
+
+\subsubsection{Film Lab Management}
+
+The system must store information about Film Labs participating in the
+platform. A Film Lab represents a service provider that offers film
+processing-related services to photographers.
+
+The main Film Lab management requirements are:
+
+\begin{itemize}
+    \item Store the Film Lab name and description.
+    
+    \item Store contact information such as phone number and email address.
+    
+    \item Store the physical address of the Film Lab.
+    
+    \item Associate a Film Lab with its owner.
+    
+    \item Maintain the current status of the Film Lab.
+    
+    \item Store the time when the Film Lab is registered on the platform.
+    
+    \item Support Film Lab approval by the System Administrator.
+\end{itemize}
+
+\subsubsection{Film Lab Service Management}
+
+A Film Lab may provide multiple services to photographers. The database
+must therefore store information about the services offered by each Film
+Lab.
+
+The main service management requirements are:
+
+\begin{itemize}
+    \item Store the name of each service.
+    
+    \item Store a description of the service.
+    
+    \item Store the service price.
+    
+    \item Store the expected processing time.
+    
+    \item Maintain the current availability status of the service.
+    
+    \item Associate each service with the Film Lab that provides it.
+\end{itemize}
+
+Typical services may include film developing, film scanning, photo
+printing, and other film-processing services described in the system
+requirements.
+
+\subsubsection{Data Relationships for User and Film Lab Management}
+
+The database design must support the relationships between users, roles,
+Film Labs, and services.
+
+The main relationships are:
+
+\begin{itemize}
+    \item A role can be assigned to multiple users.
+    
+    \item Each user is associated with an appropriate system role.
+    
+    \item A user may own a Film Lab.
+    
+    \item A Film Lab has an owner.
+    
+    \item A Film Lab can provide multiple services.
+    
+    \item Each service belongs to a Film Lab.
+\end{itemize}
+
+These requirements provide the basis for designing the conceptual ERD and
+logical database schema for the User and Film Lab Management module.
