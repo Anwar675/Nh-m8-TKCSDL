@@ -1,0 +1,98 @@
+% =====================================================================
+% main.tex - File chính để biên dịch toàn bộ đồ án
+% Biên dịch với: pdflatex -> bibtex -> pdflatex -> pdflatex
+% =====================================================================
+
+\documentclass[12pt,a4paper]{report}
+
+% =====================================================================
+% NHÚNG PREAMBLE (chứa tất cả cấu hình, package, font, margin...)
+% =====================================================================
+\input{preamble}
+
+% =====================================================================
+% BẮT ĐẦU TÀI LIỆU
+% =====================================================================
+\begin{document}
+
+% =====================================================================
+% PHẦN ĐẦU: Trang bìa, trang phụ bìa, lời cam đoan, tóm tắt, mục lục...
+% =====================================================================
+
+% Trang bìa
+\input{titlepage}
+
+% Trang phụ bìa (nếu có)
+% \input{second_titlepage}
+
+% Lời cam đoan (nếu có)
+% \input{declaration}
+
+% Tóm tắt đồ án
+\input{abstract}
+
+% Mục lục
+\tableofcontents
+\clearpage
+
+% Danh sách hình
+\listoffigures
+\addcontentsline{toc}{chapter}{Danh sách hình ảnh}
+\clearpage
+
+% Danh sách bảng
+\listoftables
+\addcontentsline{toc}{chapter}{Danh sách bảng biểu}
+\clearpage
+
+% Danh sách từ viết tắt (nếu có)
+% \input{acronyms}
+
+% =====================================================================
+% PHẦN NỘI DUNG CHÍNH: Các chương
+% =====================================================================
+
+% Chương 1: Giới thiệu
+\input{chapters/01_introduction}
+
+% Chương 2: Phân tích yêu cầu
+\input{chapters/02_requirement}
+
+% Chương 3: Thiết kế mức khái niệm (ERD)
+\input{chapters/03_conceptual}
+
+% Chương 4: Thiết kế mức logic
+\input{chapters/04_logical}
+
+% Chương 5: Thiết kế mức vật lý
+\input{chapters/05_physical}
+
+% Chương 6: Từ điển dữ liệu
+\input{chapters/06_datadictionary}
+
+% Chương 7: SQL Scripts
+\input{chapters/07_sql_scripts}
+
+% Chương 8: Truy vấn mẫu
+\input{chapters/08_sample_queries}
+
+% Chương 9: Kết luận
+\input{chapters/09_conclusion}
+
+% =====================================================================
+% PHẦN CUỐI: Tài liệu tham khảo và phụ lục
+% =====================================================================
+
+% Tài liệu tham khảo
+\bibliography{refs}
+\bibliographystyle{plain}
+\addcontentsline{toc}{chapter}{Tài liệu tham khảo}
+
+% File phân công được biên dịch độc lập tại:
+% appendices/A_phan_cong.tex
+
+
+% =====================================================================
+% KẾT THÚC TÀI LIỆU
+% =====================================================================
+\end{document}

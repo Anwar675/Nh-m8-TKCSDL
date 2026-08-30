@@ -1,0 +1,227 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+
+\geometry{left=2cm,right=2cm,top=2cm,bottom=2cm}
+
+% ============= ĐỊNH DẠNG TIÊU ĐỀ =============
+\titleformat{\section}{\Large\bfseries\color{blue!70!black}}{}{0em}{\thesection.\ }
+\titlespacing{\section}{0pt}{12pt plus 2pt minus 1pt}{6pt plus 1pt minus 1pt}
+
+\titleformat{\subsection}{\large\bfseries\color{blue!60!black}}{}{0em}{\thesubsection.\ }
+\titlespacing{\subsection}{0pt}{10pt plus 1pt minus 1pt}{4pt plus 0.5pt minus 0.5pt}
+
+% ============= HEADER & FOOTER =============
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{Phân công nhiệm vụ -- Thiết kế Cơ sở dữ liệu}}
+\fancyhead[R]{Nhóm 5 người -- 7 ngày}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+
+% ============= TIÊU ĐỀ CHÍNH =============
+\title{\textbf{\Large PHÂN CÔNG NHIỆM VỤ}\\[0.2em]\textbf{\Large THIẾT KẾ CƠ SỞ DỮ LIỆU}\\[0.5em]
+{\normalsize Nền tảng kết nối cộng đồng nhiếp ảnh phim\\và các Film Lab tích hợp AI}\\[0.3em]
+{\small\textit{(AI-powered Platform Connecting Film Photography Enthusiasts with Film Processing Labs)}}}
+\author{Nhóm 5 thành viên}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+% =========================================================================
+\section{Mục tiêu}
+% =========================================================================
+
+Thiết kế đầy đủ cơ sở dữ liệu PostgreSQL cho hệ thống, bao gồm:
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Conceptual Design} (ERD)
+    \item \textbf{Logical Design} (quan hệ, chuẩn hóa 3NF)
+    \item \textbf{Physical Design} (kiểu dữ liệu, constraint, index)
+    \item \textbf{Data Dictionary}
+    \item \textbf{File SQL} hoàn chỉnh
+\end{itemize}
+
+Đảm bảo các thành viên \textbf{xen kẽ} công việc để hiểu rõ phần của nhau trong thời gian \textbf{7 ngày}.
+
+\vspace{10pt}
+
+% =========================================================================
+\section{Phân công vai trò}
+% =========================================================================
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}clp{5.5cm}p{5cm}@{}}
+\toprule
+\textbf{Thành viên} & \textbf{Vai trò} & \textbf{Phạm vi Ownership} & \textbf{Phải Review \& hiểu sâu} \\
+\midrule
+P1 & \textbf{Lead DB + Core Domain} & User -- Role -- FilmLab -- Order (trung tâm) & Toàn bộ quan hệ Order $\leftrightarrow$ Processing $\leftrightarrow$ Archive \\
+P2 & \textbf{User \& Lab Management} & Auth, Profile, FilmLab, Service, Review, Rating & Order + Marketplace \\
+P3 & \textbf{Order \& Processing} & Đặt hàng + Vòng đời xử lý phim & Digital Archive + Status History \\
+P4 & \textbf{Digital Archive + Marketplace} & Kho ảnh số + Mua bán thiết bị & Order + Knowledge \\
+P5 & \textbf{Knowledge + AI + Integration} & Community, Knowledge, AI, Logistics, Notification & Recommendation + Core User \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{10pt}
+
+% =========================================================================
+\section{Chi tiết nhiệm vụ từng thành viên}
+% =========================================================================
+
+\subsection{P1 -- Lead DB + Core Domain}
+
+\begin{itemize}[leftmargin=*]
+    \item Phân tích yêu cầu và xác định entity trung tâm.
+    \item Thiết kế ERD tổng thể (Conceptual Design).
+    \item Làm chủ các bảng: \texttt{users}, \texttt{roles}, \texttt{user\_roles}, \texttt{permissions}, \texttt{film\_labs}, \texttt{lab\_services}, \texttt{service\_packages}, \texttt{orders}, \texttt{order\_items}.
+    \item Chịu trách nhiệm chuẩn hóa 3NF toàn bộ schema.
+    \item Định nghĩa Business Rules và Integrity Constraints quan trọng.
+    \item Tạo Data Dictionary tổng hợp.
+    \item Quản lý version ERD và file SQL cuối cùng.
+    \item Review sâu phần của P3 và P4.
+\end{itemize}
+
+\vspace{8pt}
+
+\subsection{P2 -- User \& Film Lab Management}
+
+\begin{itemize}[leftmargin=*]
+    \item Thiết kế các entity: \texttt{user\_profiles}, \texttt{addresses}, \texttt{user\_preferences}, \texttt{film\_labs} (chi tiết), \texttt{lab\_working\_hours}, \texttt{lab\_capacity}, \texttt{lab\_services}, \texttt{service\_options}, \texttt{reviews}, \texttt{ratings}.
+    \item Thiết kế phân quyền RBAC đầy đủ.
+    \item Xử lý multi-tenant (mỗi Film Lab là một tenant).
+    \item Định nghĩa các constraint: unique, check, foreign key.
+    \item Review bắt buộc phần Order (P3) và Marketplace (P4).
+\end{itemize}
+
+\vspace{8pt}
+
+\subsection{P3 -- Order \& Processing Lifecycle}
+
+\begin{itemize}[leftmargin=*]
+    \item Thiết kế các entity: \texttt{orders}, \texttt{order\_items}, \texttt{film\_rolls}, \texttt{processing\_stages}, \texttt{order\_status\_history}, \texttt{stage\_logs}, \texttt{pickup\_delivery\_requests}.
+    \item Thiết kế state machine cho trạng thái đơn hàng.
+    \item Xây dựng quan hệ chặt chẽ với Digital Archive (khi scan hoàn thành).
+    \item Thiết kế index phục vụ truy vấn real-time tracking.
+    \item Review bắt buộc phần Archive (P4) và Core (P1).
+\end{itemize}
+
+\vspace{8pt}
+
+\subsection{P4 -- Digital Film Archive + Marketplace}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Digital Archive}: \texttt{scan\_files}, \texttt{photo\_metadata}, \texttt{albums}, \texttt{album\_photos}, \texttt{tags}, \texttt{photo\_tags}, \texttt{film\_stocks}, \texttt{camera\_models}, \texttt{lenses}.
+    \item \textbf{Marketplace}: \texttt{products}, \texttt{product\_categories}, \texttt{listings}, \texttt{marketplace\_transactions}, \texttt{seller\_reviews}.
+    \item Thiết kế metadata phong phú và cơ chế versioning file scan.
+    \item Review bắt buộc phần Order (P3) và Knowledge (P5).
+\end{itemize}
+
+\vspace{8pt}
+
+\subsection{P5 -- Knowledge + AI + Integration}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Knowledge \& Community}: \texttt{articles}, \texttt{tutorials}, \texttt{events}, \texttt{comments}, \texttt{knowledge\_categories}.
+    \item \textbf{AI-related}: \texttt{recommendation\_logs}, \texttt{user\_behavior\_logs}, \texttt{knowledge\_chunks}, \texttt{embeddings} (metadata), \texttt{ai\_chat\_histories}, \texttt{scan\_quality\_scores}.
+    \item \textbf{Integration}: \texttt{delivery\_partners}, \texttt{notifications}, \texttt{payment\_transactions}, \texttt{admin\_logs}.
+    \item Thiết kế hỗ trợ semantic search và recommendation.
+    \item Review bắt buộc phần User (P2) và Core (P1).
+\end{itemize}
+
+\vspace{10pt}
+
+% =========================================================================
+\section{Lịch trình 7 ngày (bắt buộc xen kẽ)}
+% =========================================================================
+
+\begin{description}[style=nextline, leftmargin=1.5cm, font=\bfseries\color{blue!60!black}]
+
+    \item[\textbf{Ngày 1 -- Phân tích \& Conceptual Design (cả nhóm)}]
+    \vspace{4pt}
+    Đọc kỹ Functional Requirements và Core Flows; liệt kê toàn bộ Entity + Relationship; vẽ ERD sơ bộ chung; thống nhất naming convention, audit fields, soft-delete; chốt phân công chính thức.
+
+    \vspace{8pt}
+
+    \item[\textbf{Ngày 2 -- Logical Design phần riêng}]
+    \vspace{4pt}
+    Mỗi thành viên thiết kế đầy đủ Attribute, Domain, Primary Key, Foreign Key, Relationship và Constraint cho phần mình phụ trách.
+
+    \vspace{8pt}
+
+    \item[\textbf{Ngày 3 -- Cross-review lần 1 (bắt buộc)}]
+    \vspace{4pt}
+    \begin{itemize}[leftmargin=1.5em, font=\normalfont]
+        \item P1 review P3 và P5
+        \item P2 review P1 và P4
+        \item P3 review P2 và P4
+        \item P4 review P3 và P5
+        \item P5 review P1 và P2
+    \end{itemize}
+    Mỗi người phải viết nhận xét và đề xuất thay đổi trực tiếp trên ERD/schema.
+
+    \vspace{8pt}
+
+    \item[\textbf{Ngày 4 -- Chỉnh sửa \& Quan hệ cross-module}]
+    \vspace{4pt}
+    Tập trung thiết kế các bảng trung gian và quan hệ phức tạp (Order $\leftrightarrow$ Archive, Lab $\leftrightarrow$ Review, User $\leftrightarrow$ AI\ldots).
+
+    \vspace{8pt}
+
+    \item[\textbf{Ngày 5 -- Normalization + Physical Design}]
+    \vspace{4pt}
+    Kiểm tra chuẩn hóa 3NF/BCNF; chọn kiểu dữ liệu PostgreSQL; thiết kế Index (đặc biệt search Lab theo vị trí, tracking order, full-text Knowledge); P5 dẫn dắt phần hỗ trợ AI.
+
+    \vspace{8pt}
+
+    \item[\textbf{Ngày 6 -- Gộp schema + Data Dictionary + Review lần 2}]
+    \vspace{4pt}
+    Tạo file SQL hoàn chỉnh (CREATE TABLE + CONSTRAINT + INDEX); viết Data Dictionary; thực hiện review xoay vòng lần 2; viết mẫu câu truy vấn quan trọng theo các Core Flow.
+
+    \vspace{8pt}
+
+    \item[\textbf{Ngày 7 -- Hoàn thiện \& Nộp bài}]
+    \vspace{4pt}
+    Hoàn thiện ERD cuối cùng (có màu theo module); file SQL PostgreSQL; Data Dictionary; Document thiết kế (giải thích các quyết định quan trọng); Checklist đối chiếu với Functional Requirements; P1 tổng hợp, cả nhóm xác nhận.
+
+\end{description}
+
+\vspace{10pt}
+
+% =========================================================================
+\section{Quy định bắt buộc để hiểu phần của nhau}
+% =========================================================================
+
+\begin{enumerate}[leftmargin=*]
+    \item Mỗi thành viên \textbf{phải review ít nhất 2 phần} của người khác và viết nhận xét cụ thể.
+    \item Mọi thay đổi phải được commit lên GitHub kèm theo lý do rõ ràng.
+    \item Sử dụng chung một file ERD trực tuyến (dbdiagram.io hoặc draw.io).
+    \item Cuối ngày 3 và ngày 6: mỗi thành viên trình bày ngắn phần mình đã review (5--7 phút).
+    \item Không được chỉ hoàn thành phần mình mà bỏ qua phần còn lại của hệ thống.
+\end{enumerate}
+
+\vspace{15pt}
+
+% =========================================================================
+\begin{center}
+\large\textit{Tài liệu này dùng làm căn cứ phân công và theo dõi tiến độ nhóm}\\
+\textit{trong môn Thiết kế Cơ sở dữ liệu}
+\end{center}
+% =========================================================================
+
+\end{document}

@@ -1,0 +1,80 @@
+% =====================================================================
+% config.tex - Cấu hình toàn cục (margin, header, footer, colors, styles)
+% =====================================================================
+
+% ======================== CẤUHÀNH PAGE =============================
+\onehalfspacing                      % Giãn dòng 1.5
+
+% ======================== HEADER & FOOTER =============================
+\pagestyle{fancy}
+\fancyhf{}                           % Xóa mặc định
+\fancyhead[L]{\nouppercase{\leftmark}}    % Chương hiện tại bên trái
+\fancyhead[R]{\thepage}                   % Số trang bên phải
+\renewcommand{\headrulewidth}{0.4pt}      % Đường kẻ header
+
+% ======================== ĐỊNH NGHĨA MÀU SẮC =============================
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0,0,0.8}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% ======================== CẤU HÌNH LISTINGS (CODE) =============================
+\lstdefinestyle{sqlstyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codeblue}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codegreen},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    language=SQL,
+    frame=single,
+    rulecolor=\color{black}
+}
+\lstset{style=sqlstyle}
+
+% ======================== CẤU HÌNH TIÊU ĐỀ =============================
+\setcounter{secnumdepth}{3}          % Đánh số đến subsubsection
+\setcounter{tocdepth}{3}             % Hiển thị đến subsubsection trong mục lục
+
+% ======================== LIÊN KẾT HYPERREF =============================
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    pdftitle={Thiết Kế Cơ Sở Dữ Liệu},
+    pdfauthor={Nhóm Thiết Kế},
+    bookmarksnumbered=true
+}
+
+% ======================== LỆNH TÙY CHỈNH =============================
+
+% Lệnh cho từ điển dữ liệu
+\newcommand{\datadict}[4]{%
+    \textbf{#1} & #2 & #3 & #4 \\ \hline
+}
+
+% Lệnh cho bảng thuật ngữ
+\newcommand{\term}[2]{%
+    \textbf{#1} & #2 \\ \hline
+}
+
+% Lệnh highlight cho entity/table names
+\newcommand{\entity}[1]{\texttt{#1}}
+
+% Lệnh cho các ký hiệu quan trọng
+\newcommand{\highlight}[1]{\textbf{\textcolor{codeblue}{#1}}}
+
+% ======================== CẤU HÌNH PARAGRAPH =============================
+\parindent=1cm                       % Thụt đầu dòng
+\renewcommand{\baselinestretch}{1.5} % Giãn dòng 1.5
