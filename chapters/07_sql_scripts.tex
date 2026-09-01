@@ -1,0 +1,71 @@
+\section{Mã kịch bản SQL phân hệ P5: Knowledge Base \& AI Integration}
+
+\begin{verbatim}
+-- =====================================================
+-- PHAN HE P5: KNOWLEDGE BASE & AI INTERACTION
+-- =====================================================
+
+-- 1. Bang danh muc bai viet kien thuc
+CREATE TABLE article_categories (
+    category_id SERIAL PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 2. Bang bai viet chia se ky thuat / review
+CREATE TABLE articles (
+    article_id SERIAL PRIMARY KEY,
+    author_id INT NOT NULL, -- Khoa ngoai lien ket bang Users cua P1
+    category_id INT REFERENCES article_categories(category_id) ON DELETE SET NULL,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    tags VARCHAR(255), -- Vi du: 'kodak, iso400, developing'
+    view_count INT DEFAULT 0,
+    status VARCHAR(20) DEFAULT 'published', -- draft, published, archived
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 3. Bang danh gia chat luong Film Lab & Cuon phim
+CREATE TABLE lab_reviews (
+    review_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL, -- Khoa ngoai bang Users cua P1
+    lab_id INT NOT NULL,  -- Khoa ngoai bang FilmLabs cua P2
+    rating INT CHECK (rating >= 1 AND rating <= 5),
+    comment TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 4. Bang su kien Workshop / Photowalk giao luu nhiep anh
+CREATE TABLE community_events (
+    event_id SERIAL PRIMARY KEY,
+    host_id INT NOT NULL, -- Khoa ngoai bang Users (Chuyen gia to chuc)
+    title VARCHAR(200) NOT NULL,
+    description TEXT,
+    location VARCHAR(255) NOT NULL,
+    event_date TIMESTAMP NOT NULL,
+    max_participants INT DEFAULT 20,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 5. Bang ghi nhan hanh vi nguoi dung (phuc vu AI Recommendation System)
+CREATE TABLE user_interactions (
+    interaction_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    target_type VARCHAR(50) NOT NULL, -- 'film_lab', 'article', 'film_stock'
+    target_id INT NOT NULL,
+    interaction_type VARCHAR(50) NOT NULL, -- 'view', 'like', 'search', 'bookmark'
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 6. Bang luu lich su hoi dap voi AI Assistant (RAG Chatbot)
+CREATE TABLE ai_chat_logs (
+    chat_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    user_query TEXT NOT NULL,
+    bot_response TEXT NOT NULL,
+    context_retrieved TEXT, -- Doan tai lieu trich xuat tu Knowledge Base
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+\end{verbatim}
