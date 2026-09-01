@@ -197,3 +197,28 @@ Các yêu cầu dữ liệu chính của Chợ giao dịch bao gồm:
 Dữ liệu của Chợ giao dịch được quản lý nhằm hỗ trợ việc mua bán
 và trao đổi thiết bị nhiếp ảnh một cách minh bạch và thuận tiện
 trong cộng đồng.
+\subsection{Yêu cầu phân hệ Quản lý Tri thức \& Tích hợp AI (P5: Knowledge \& AI Integration)}
+
+Phân hệ Quản lý Tri thức và Tích hợp AI đảm nhiệm việc xây dựng kho dữ liệu kiến thức nhiếp ảnh film, kết nối chuyên gia với cộng đồng, đồng thời cung cấp hạ tầng dữ liệu phục vụ hệ thống gợi ý (Recommendation Engine) và Trợ lý ảo AI (RAG Assistant).
+
+Các yêu cầu chức năng chính bao gồm:
+
+\begin{itemize}
+    \item \textbf{Quản lý Cơ sở tri thức (Knowledge Base):} Cho phép Chuyên gia nhiếp ảnh (Photography Experts) biên soạn, đăng tải, gắn thẻ danh mục cho các bài viết chia sẻ kỹ thuật, review máy ảnh, ống kính và các dòng film.
+    \item \textbf{Tổ chức sự kiện cộng đồng:} Hỗ trợ chuyên gia tạo và quản lý các buổi Workshop, Photowalk offline cùng danh sách thành viên đăng ký tham gia.
+    \item \textbf{Đánh giá và phản hồi (Reviews):} Cho phép người dùng đánh giá điểm (rating) và để lại nhận xét chi tiết sau khi trải nghiệm dịch vụ tại các Film Lab.
+    \item \textbf{Thu thập dữ liệu hành vi (User Interactions):} Ghi nhận các hành động xem, tìm kiếm, lưu trữ dịch vụ của người dùng nhằm cung cấp tập dữ liệu đầu vào cho mô hình AI gợi ý Film Lab và loại film phù hợp.
+    \item \textbf{Lưu vết hội thoại AI Assistant:} Lưu lại lịch sử câu hỏi và câu trả lời giữa người dùng với Trợ lý ảo AI để kiểm tra ngữ cảnh và cải thiện chất lượng mô hình RAG.
+\end{itemize}
+
+\subsubsection{Mối quan hệ dữ liệu trong phân hệ P5}
+
+Thiết kế cơ sở dữ liệu phải đảm bảo các mối quan hệ logic giữa người dùng, bài viết, sự kiện, đánh giá và dữ liệu AI:
+
+\begin{itemize}
+    \item Một người dùng (chuyên gia) có thể xuất bản nhiều bài viết khác nhau.
+    \item Mỗi bài viết thuộc về một tác giả và có thể gắn với một danh mục cụ thể.
+    \item Một người dùng có thể viết nhiều lượt đánh giá cho các Film Lab khác nhau.
+    \item Một chuyên gia có thể tổ chức nhiều sự kiện; mỗi sự kiện có thể có nhiều người dùng đăng ký tham gia.
+    \item Một người dùng có thể tạo ra nhiều nhật ký tương tác và các phiên hỏi đáp với AI Assistant.
+\end{itemize}
