@@ -1,68 +1,31 @@
-% =====================================================================
-% 01_introduction.tex - Chương 1: Giới thiệu
-% =====================================================================
-
+% Chương 1: Giới thiệu
 \chapter{GIỚI THIỆU}
-
-\section{Lý do chọn đề tài}
-
-Trong thời đại công nghệ số, các nền tảng streaming phim trực tuyến như Netflix, HBO Go, Disney+ đang trở nên phổ biến. Việc xây dựng một cơ sở dữ liệu hiệu quả là nền tảng cho sự phát triển của các hệ thống này.
 
 \section{Mục tiêu của đồ án}
 
 \subsection{Mục tiêu tổng quát}
-Thiết kế cơ sở dữ liệu cho hệ thống FilmLab, đáp ứng các yêu cầu nghiệp vụ cốt lõi.
+Thiết kế cơ sở dữ liệu PostgreSQL nhất quán, bảo toàn dữ liệu và đáp ứng các luồng nghiệp vụ cốt lõi của nền tảng FilmLab.
 
 \subsection{Mục tiêu cụ thể}
 \begin{enumerate}
-    \item Phân tích yêu cầu của hệ thống FilmLab
-    \item Xây dựng mô hình ERD ở mức khái niệm
-    \item Chuyển đổi sang mô hình quan hệ ở mức logic
-    \item Thiết kế mức vật lý trên PostgreSQL
-    \item Tạo từ điển dữ liệu chi tiết
-    \item Viết các truy vấn SQL mẫu
+    \item Phân tích tác nhân, yêu cầu chức năng, phi chức năng và các Core Flow.
+    \item Xây dựng ERD tổng thể và xác định cardinality giữa các thực thể.
+    \item Chuyển mô hình khái niệm sang mô hình quan hệ, chuẩn hóa tối thiểu đến 3NF.
+    \item Thiết kế vật lý trên PostgreSQL với constraint, index, audit và soft-delete.
+    \item Xây dựng Data Dictionary, script SQL và truy vấn mẫu kiểm chứng nghiệp vụ.
+    \item Chuẩn bị cấu trúc dữ liệu có thể mở rộng cho tìm kiếm, gợi ý và trợ lý AI.
 \end{enumerate}
 
 \section{Phạm vi và giới hạn}
 
-\subsection{Phạm vi}
-\begin{itemize}
-    \item Quản lý phim: Thông tin phim, thể loại, diễn viên, đạo diễn
-    \item Quản lý người dùng: Đăng ký, đăng nhập, gói đăng ký
-    \item Quản lý hoạt động: Xem phim, đánh giá, bình luận
-    \item Quản lý danh sách yêu thích
-    \item Lịch sử xem phim
-\end{itemize}
+Phạm vi dữ liệu gồm người dùng và RBAC; Film Lab và dịch vụ; đơn hàng và vòng đời xử lý phim; giao nhận và thanh toán; kho ảnh phim số; marketplace; knowledge/community; notification và dữ liệu hỗ trợ AI.
 
-\subsection{Giới hạn}
-\begin{itemize}
-    \item Không xây dựng ứng dụng thực tế (chỉ thiết kế CSDL)
-    \item Không triển khai trên server thực (chỉ thiết kế)
-    \item Không bao gồm các tính năng thanh toán phức tạp
-\end{itemize}
+Đồ án chỉ tập trung thiết kế cơ sở dữ liệu, không triển khai đầy đủ giao diện, API hay mô hình AI. File ảnh dung lượng lớn được lưu tại cloud object storage; cơ sở dữ liệu quản lý URI và metadata. Tích hợp thanh toán, vận chuyển và AI được mô hình hóa ở mức dữ liệu.
 
 \section{Phương pháp thực hiện}
 
-\begin{enumerate}
-    \item Thu thập và phân tích yêu cầu
-    \item Thiết kế mức khái niệm (ERD)
-    \item Thiết kế mức logic (Chuẩn hóa 3NF)
-    \item Thiết kế mức vật lý (PostgreSQL)
-    \item Viết SQL scripts và truy vấn mẫu
-    \item Hoàn thiện tài liệu
-\end{enumerate}
+Quy trình gồm phân tích yêu cầu, thiết kế khái niệm, thiết kế logic và chuẩn hóa, thiết kế vật lý PostgreSQL, xây dựng Data Dictionary và SQL, sau đó kiểm chứng bằng truy vấn theo Core Flow. Thiết kế được cross-review theo module để phát hiện quan hệ thiếu và ràng buộc không nhất quán.
 
-\section{Cấu trúc đồ án}
+\section{Cấu trúc báo cáo}
 
-Đồ án gồm 9 chương:
-\begin{enumerate}
-    \item Giới thiệu
-    \item Phân tích yêu cầu
-    \item Thiết kế mức khái niệm
-    \item Thiết kế mức logic
-    \item Thiết kế mức vật lý
-    \item Từ điển dữ liệu
-    \item SQL Scripts
-    \item Truy vấn mẫu
-    \item Kết luận
-\end{enumerate}
+Báo cáo gồm chín chương: giới thiệu; phân tích yêu cầu; thiết kế khái niệm; thiết kế logic; thiết kế vật lý; từ điển dữ liệu; kịch bản SQL; truy vấn mẫu; và kết luận.

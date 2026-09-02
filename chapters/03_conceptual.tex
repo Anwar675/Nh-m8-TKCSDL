@@ -1,0 +1,66 @@
+% Chương 3: Thiết kế mức khái niệm -- kết quả sơ bộ ngày 1
+\chapter{THIẾT KẾ MỨC KHÁI NIỆM}
+
+\section{Nguyên tắc mô hình hóa}
+
+Mô hình được chia theo module nhưng dùng chung thực thể \entity{users}. Quan hệ nghiệp vụ được biểu diễn rõ cardinality; quan hệ nhiều--nhiều được giải quyết bằng thực thể kết hợp. Dữ liệu lịch sử được tách khỏi trạng thái hiện tại để vừa truy vấn nhanh vừa bảo đảm khả năng kiểm toán.
+
+\section{Danh mục thực thể sơ bộ}
+
+\small
+\begin{longtable}{>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{10cm}}
+\toprule
+\textbf{Module} & \textbf{Thực thể chính và vai trò} \\
+\midrule
+\endhead
+Identity/RBAC & \entity{users}, \entity{roles}, \entity{permissions}, \entity{user_roles}. Quản lý danh tính, hồ sơ và quyền truy cập. \\
+Lab/Catalog & \entity{film_labs}, \entity{lab_services}, \entity{service_packages}, \entity{working_hours}, \entity{lab_capacity}. Quản lý nhà cung cấp, danh mục dịch vụ và khả năng phục vụ. \\
+Order/Processing & \entity{orders}, \entity{order_items}, \entity{film_rolls}, \entity{processing_stages}, \entity{stage_logs}, \entity{order_status_history}. Quản lý đơn hàng và vòng đời từng cuộn phim. \\
+Archive & \entity{scan_files}, \entity{photo_metadata}, \entity{albums}, \entity{album_photos}, \entity{tags}, \entity{photo_tags}. Quản lý file quét, metadata và bộ sưu tập cá nhân. \\
+Marketplace & \entity{products}, \entity{product_categories}, \entity{listings}, \entity{marketplace_transactions}, \entity{seller_reviews}. Quản lý tin đăng và giao dịch thiết bị. \\
+Knowledge/\newline Community & \entity{articles}, \entity{knowledge_categories}, \entity{comments}, \entity{events}, \entity{event_registrations}. Quản lý nội dung và hoạt động cộng đồng. \\
+AI/Integration & \entity{user_behavior_logs}, \entity{recommendation_logs}, \entity{ai_chat_histories}, \entity{notifications}, \entity{payment_transactions}. Lưu dữ liệu tích hợp, kiểm toán và hỗ trợ AI. \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\section{Quan hệ và cardinality quan trọng}
+
+\begin{itemize}
+    \item \entity{users} và \entity{roles} là N--N qua \entity{user_roles}; role và permission cũng là N--N.
+    \item Một user có thể sở hữu nhiều Film Lab; một Film Lab có nhiều service và service package.
+    \item Một user tạo nhiều order; mỗi order thuộc đúng một Film Lab và có nhiều order item/film roll.
+    \item Một film roll đi qua nhiều processing stage; mỗi lần cập nhật tạo stage log và có thể phát sinh lịch sử trạng thái order.
+    \item Một film roll có nhiều scan file; scan file có metadata ảnh và thuộc kho của người sở hữu đơn hàng.
+    \item User có nhiều album; album--ảnh và ảnh--tag là N--N qua các bảng trung gian.
+    \item Một user tạo nhiều listing; listing liên kết buyer và seller thông qua marketplace transaction.
+    \item User có thể viết article/comment, đăng ký event và sinh behavior log, recommendation log hoặc AI chat history.
+\end{itemize}
+
+\section{ERD tổng quan sơ bộ}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[module/.style={draw,rounded corners,align=center,minimum width=3.4cm,minimum height=1cm,fill=blue!6},link/.style={->,>=stealth,thick}]
+\node[module] (user) {User / RBAC};
+\node[module, right=2.4cm of user] (lab) {Film Lab / Service};
+\node[module, below=1.5cm of lab] (order) {Order / Processing};
+\node[module, left=2.4cm of order] (archive) {Digital Archive};
+\node[module, left=2.4cm of user] (market) {Marketplace};
+\node[module, left=2.4cm of archive] (knowledge) {Knowledge / AI};
+\draw[link] (user) -- node[above]{sở hữu} (lab);
+\draw[link] (user) -- node[sloped,above]{đặt dịch vụ} (order);
+\draw[link] (lab) -- node[right]{xử lý} (order);
+\draw[link] (order) -- node[above]{tạo file scan} (archive);
+\draw[link] (user) -- (market);
+\draw[link] (user) -- (knowledge);
+\draw[link] (archive) -- node[above]{cung cấp metadata} (knowledge);
+\end{tikzpicture}
+\caption{ERD tổng quan ở mức module}
+\label{fig:conceptual-overview}
+\end{figure}
+
+\section{Quy ước dữ liệu chung}
+
+Tên bảng/cột dùng tiếng Anh, chữ thường và \texttt{snake\_case}; tên bảng ở dạng số nhiều. Khóa chính dùng \texttt{<entity>\_id}, khóa ngoại giữ cùng tên với khóa được tham chiếu. Thực thể nghiệp vụ chính ưu tiên UUID; thời gian dùng \texttt{TIMESTAMPTZ}. Bảng nghiệp vụ có \texttt{created\_at}, \texttt{updated\_at}; dùng \texttt{deleted\_at} khi soft-delete phù hợp. Dữ liệu lịch sử, đơn hàng, thanh toán và giao dịch không bị xóa cứng.
+

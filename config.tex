@@ -69,8 +69,9 @@
     \textbf{#1} & #2 \\ \hline
 }
 
-% Lệnh highlight cho entity/table names
-\newcommand{\entity}[1]{\texttt{#1}}
+% Tên entity/table có thể chứa dấu gạch dưới mà không cần escape thủ công.
+% \detokenize ngăn ký tự "_" làm LaTeX chuyển nhầm sang chế độ toán.
+\newcommand{\entity}[1]{\texttt{\detokenize{#1}}}
 
 % Lệnh cho các ký hiệu quan trọng
 \newcommand{\highlight}[1]{\textbf{\textcolor{codeblue}{#1}}}
