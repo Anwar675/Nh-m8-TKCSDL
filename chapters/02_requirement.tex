@@ -122,3 +122,103 @@ The main relationships are:
 
 These requirements provide the basis for designing the conceptual ERD and
 logical database schema for the User and Film Lab Management module.
+
+% ============================================================
+% P4 - Kho lưu trữ ảnh phim số và Chợ giao dịch
+% ============================================================
+
+\subsection{Kho lưu trữ ảnh phim số và Chợ giao dịch}
+
+\subsubsection{Quản lý kho lưu trữ ảnh phim số}
+
+Cơ sở dữ liệu cần lưu trữ và quản lý các ảnh phim đã được số hóa
+sau khi quá trình tráng và quét phim tại Film Lab hoàn tất.
+Kho lưu trữ ảnh phim số cho phép người dùng truy cập, sắp xếp
+và quản lý lâu dài các ảnh đã được quét trên hệ thống.
+
+Các yêu cầu dữ liệu chính của kho lưu trữ ảnh phim số bao gồm:
+
+\begin{itemize}
+    \item Liên kết các ảnh phim đã số hóa với người dùng sở hữu tương ứng.
+
+    \item Lưu thông tin về cuộn phim liên quan đến từng ảnh đã được quét.
+
+    \item Lưu đường dẫn của file ảnh số để người dùng có thể xem
+    và tải xuống khi cần.
+
+    \item Lưu metadata của ảnh như loại phim, máy ảnh, ống kính
+    và ngày chụp.
+
+    \item Lưu thông tin về phương pháp xử lý phim và các thông số quét ảnh.
+
+    \item Lưu thời gian tạo và thời gian cập nhật dữ liệu của ảnh.
+
+    \item Hỗ trợ người dùng xem, sắp xếp và quản lý bộ sưu tập
+    ảnh phim số cá nhân.
+\end{itemize}
+
+Các file ảnh số thực tế được lưu trữ trên dịch vụ lưu trữ đám mây.
+Cơ sở dữ liệu chỉ lưu đường dẫn đến file cùng các thông tin metadata
+cần thiết để quản lý ảnh.
+
+\subsubsection{Quản lý Chợ giao dịch}
+
+Chợ giao dịch cho phép các thành viên trong cộng đồng đăng bán,
+mua hoặc trao đổi máy ảnh phim, ống kính, cuộn phim và các phụ kiện
+nhiếp ảnh. Cơ sở dữ liệu cần lưu trữ đầy đủ thông tin của các tin đăng
+và các giao dịch phát sinh giữa người mua và người bán.
+
+Các yêu cầu dữ liệu chính của Chợ giao dịch bao gồm:
+
+\begin{itemize}
+    \item Liên kết mỗi tin đăng với người dùng đăng bán tương ứng.
+
+    \item Lưu thông tin của tin đăng như tiêu đề, mô tả sản phẩm,
+    giá bán, tình trạng sản phẩm và trạng thái tin đăng.
+
+    \item Phân loại sản phẩm theo các nhóm như máy ảnh phim,
+    ống kính, film và phụ kiện nhiếp ảnh.
+
+    \item Lưu hình ảnh minh họa cho các sản phẩm được đăng bán.
+
+    \item Hỗ trợ tìm kiếm và lọc các tin đăng theo thông tin sản phẩm,
+    danh mục, giá và trạng thái.
+
+    \item Lưu thông tin người mua và người bán trong các giao dịch
+    phát sinh trên hệ thống.
+
+    \item Theo dõi trạng thái của giao dịch từ khi được tạo
+    cho đến khi hoàn thành hoặc bị hủy.
+
+    \item Hỗ trợ lưu thông tin cần thiết để người mua và người bán
+    có thể trao đổi trong quá trình giao dịch.
+\end{itemize}
+
+Dữ liệu của Chợ giao dịch được quản lý nhằm hỗ trợ việc mua bán
+và trao đổi thiết bị nhiếp ảnh một cách minh bạch và thuận tiện
+trong cộng đồng.
+\subsection{Yêu cầu phân hệ Quản lý Tri thức \& Tích hợp AI (P5: Knowledge \& AI Integration)}
+
+Phân hệ Quản lý Tri thức và Tích hợp AI đảm nhiệm việc xây dựng kho dữ liệu kiến thức nhiếp ảnh film, kết nối chuyên gia với cộng đồng, đồng thời cung cấp hạ tầng dữ liệu phục vụ hệ thống gợi ý (Recommendation Engine) và Trợ lý ảo AI (RAG Assistant).
+
+Các yêu cầu chức năng chính bao gồm:
+
+\begin{itemize}
+    \item \textbf{Quản lý Cơ sở tri thức (Knowledge Base):} Cho phép Chuyên gia nhiếp ảnh (Photography Experts) biên soạn, đăng tải, gắn thẻ danh mục cho các bài viết chia sẻ kỹ thuật, review máy ảnh, ống kính và các dòng film.
+    \item \textbf{Tổ chức sự kiện cộng đồng:} Hỗ trợ chuyên gia tạo và quản lý các buổi Workshop, Photowalk offline cùng danh sách thành viên đăng ký tham gia.
+    \item \textbf{Đánh giá và phản hồi (Reviews):} Cho phép người dùng đánh giá điểm (rating) và để lại nhận xét chi tiết sau khi trải nghiệm dịch vụ tại các Film Lab.
+    \item \textbf{Thu thập dữ liệu hành vi (User Interactions):} Ghi nhận các hành động xem, tìm kiếm, lưu trữ dịch vụ của người dùng nhằm cung cấp tập dữ liệu đầu vào cho mô hình AI gợi ý Film Lab và loại film phù hợp.
+    \item \textbf{Lưu vết hội thoại AI Assistant:} Lưu lại lịch sử câu hỏi và câu trả lời giữa người dùng với Trợ lý ảo AI để kiểm tra ngữ cảnh và cải thiện chất lượng mô hình RAG.
+\end{itemize}
+
+\subsubsection{Mối quan hệ dữ liệu trong phân hệ P5}
+
+Thiết kế cơ sở dữ liệu phải đảm bảo các mối quan hệ logic giữa người dùng, bài viết, sự kiện, đánh giá và dữ liệu AI:
+
+\begin{itemize}
+    \item Một người dùng (chuyên gia) có thể xuất bản nhiều bài viết khác nhau.
+    \item Mỗi bài viết thuộc về một tác giả và có thể gắn với một danh mục cụ thể.
+    \item Một người dùng có thể viết nhiều lượt đánh giá cho các Film Lab khác nhau.
+    \item Một chuyên gia có thể tổ chức nhiều sự kiện; mỗi sự kiện có thể có nhiều người dùng đăng ký tham gia.
+    \item Một người dùng có thể tạo ra nhiều nhật ký tương tác và các phiên hỏi đáp với AI Assistant.
+\end{itemize}

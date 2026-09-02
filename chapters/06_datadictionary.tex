@@ -1,0 +1,37 @@
+\section{Từ điển dữ liệu phân hệ P5: Knowledge \& AI Integration}
+
+\subsection{Bảng \texttt{articles} (Bài viết kiến thức \& Hướng dẫn)}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|l|l|p{6.5cm}|}
+\hline
+\textbf{Tên thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ràng buộc} & \textbf{Mô tả} \\ \hline
+article\_id & SERIAL & PK & Mã định danh bài viết \\ \hline
+author\_id & INT & FK, Not Null & Mã tác giả (liên kết bảng Users) \\ \hline
+category\_id & INT & FK & Mã danh mục bài viết \\ \hline
+title & VARCHAR(255) & Not Null & Tiêu đề bài viết \\ \hline
+content & TEXT & Not Null & Nội dung chi tiết bài viết/hướng dẫn \\ \hline
+tags & VARCHAR(255) & Nullable & Thẻ từ khóa (tags) \\ \hline
+view\_count & INT & Default 0 & Lượt xem bài viết \\ \hline
+status & VARCHAR(20) & Default 'published' & Trạng thái (draft, published, archived) \\ \hline
+created\_at & TIMESTAMP & Default Now & Thời gian đăng bài \\ \hline
+updated\_at & TIMESTAMP & Default Now & Thời gian cập nhật bài \\ \hline
+\end{tabular}
+\caption{Từ điển dữ liệu bảng articles}
+\end{table}
+
+\subsection{Bảng \texttt{user\_interactions} (Dữ liệu hành vi phục vụ AI gợi ý)}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|l|l|p{6.5cm}|}
+\hline
+\textbf{Tên thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ràng buộc} & \textbf{Mô tả} \\ \hline
+interaction\_id & SERIAL & PK & Mã phiên tương tác \\ \hline
+user\_id & INT & FK, Not Null & Mã người dùng thực hiện tương tác \\ \hline
+target\_type & VARCHAR(50) & Not Null & Loại đối tượng (film\_lab, article, film\_stock) \\ \hline
+target\_id & INT & Not Null & Mã đối tượng tương tác \\ \hline
+interaction\_type & VARCHAR(50) & Not Null & Hành động (view, like, search, bookmark) \\ \hline
+created\_at & TIMESTAMP & Default Now & Thời điểm phát sinh hành vi \\ \hline
+\end{tabular}
+\caption{Từ điển dữ liệu bảng user\_interactions}
+\end{table}
