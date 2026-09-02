@@ -1,6 +1,45 @@
-% ============================================================
+\chapter{PHÂN TÍCH YÊU CẦU}
+
+\section{Tác nhân và các luồng nghiệp vụ cốt lõi}
+
+Hệ thống gồm Photographer/Customer, Film Lab Owner, Photography Expert, Delivery Partner và System Administrator. AI Assistant là thành phần hỗ trợ, truy cập dữ liệu theo quyền và ngữ cảnh của người dùng.
+
+\begin{enumerate}[label=\textbf{CF\arabic*:}]
+    \item \textbf{Khám phá Film Lab thông minh:} tìm và so sánh Lab theo vị trí, định dạng phim, dịch vụ, giá, thời gian xử lý và đánh giá.
+    \item \textbf{Đặt dịch vụ và nhận phim:} tạo đơn, chọn tùy chọn tráng/scan/in và hình thức tự giao hoặc yêu cầu lấy phim.
+    \item \textbf{Theo dõi vòng đời xử lý:} ghi nhận các bước tiếp nhận, tráng, rửa, sấy, scan, hậu kỳ và kiểm tra chất lượng.
+    \item \textbf{Giao file và kho phim số:} công bố file scan, thông báo cho khách và lưu metadata trong Digital Film Archive.
+    \item \textbf{Marketplace:} đăng tin, tìm kiếm, mua bán/trao đổi thiết bị, theo dõi giao dịch và đánh giá người bán.
+    \item \textbf{Tri thức và cộng đồng:} xuất bản bài viết, thảo luận, workshop/photowalk và tạo nguồn tri thức cho AI.
+\end{enumerate}
+
+\section{Nhóm dữ liệu và thực thể trung tâm}
+
+\begin{itemize}
+    \item \textbf{Identity/RBAC:} \entity{users}, \entity{roles}, \entity{permissions}, \entity{user_roles}.
+    \item \textbf{Lab/Catalog:} \entity{film_labs}, \entity{lab_services}, \entity{service_packages}, lịch làm việc và công suất.
+    \item \textbf{Order/Processing:} \entity{orders}, \entity{order_items}, \entity{film_rolls}, \entity{processing_stages}, lịch sử trạng thái và giao nhận.
+    \item \textbf{Archive:} file scan, metadata ảnh, album, tag, film stock, camera và lens.
+    \item \textbf{Marketplace:} product, category, listing, transaction và seller review.
+    \item \textbf{Knowledge/AI:} article, event, comment, behavior log, AI chat, recommendation và notification.
+\end{itemize}
+
+\section{Quy tắc nghiệp vụ và toàn vẹn dữ liệu}
+
+\begin{enumerate}
+    \item Email người dùng là duy nhất; tài khoản bị khóa không được tạo đơn hoặc tin đăng mới.
+    \item Film Lab phải có chủ sở hữu hợp lệ; dịch vụ được đặt phải đang hoạt động và thuộc Lab nhận đơn.
+    \item Mỗi order item tham chiếu một dịch vụ; giá được chốt tại thời điểm đặt và không được âm.
+    \item Trạng thái đơn chỉ chuyển theo vòng đời cho phép; mọi lần chuyển phải lưu người thực hiện và thời điểm.
+    \item File scan chỉ được công bố sau khi scan hoàn tất và phải truy vết được cuộn phim, đơn hàng, chủ sở hữu.
+    \item Review chỉ được tạo sau đơn hoặc giao dịch hợp lệ; lịch sử, thanh toán và giao dịch không bị xóa cứng.
+\end{enumerate}
+
+\section{Yêu cầu phi chức năng đối với cơ sở dữ liệu}
+
+Hệ thống cần bảo đảm toàn vẹn tham chiếu, RBAC, cô lập dữ liệu theo tenant, kết nối an toàn, audit, sao lưu/khôi phục và index cho tìm Lab, theo dõi đơn, tìm kiếm nội dung. Thời gian lưu theo UTC bằng \texttt{TIMESTAMPTZ}; file lớn nằm ngoài CSDL; dữ liệu AI phải truy vết được nguồn và người dùng liên quan.
+
 % P2 - User & Film Lab Management
-% ============================================================
 
 \subsection{User \& Film Lab Management}
 
