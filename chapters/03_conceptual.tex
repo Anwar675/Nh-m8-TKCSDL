@@ -1,66 +1,168 @@
-% Chương 3: Thiết kế mức khái niệm -- kết quả sơ bộ ngày 1
-\chapter{THIẾT KẾ MỨC KHÁI NIỆM}
+% ============================================================
+% P2 - User & Film Lab Management
+% ============================================================
 
-\section{Nguyên tắc mô hình hóa}
+\section{P2 -- User \& Film Lab Management}
 
-Mô hình được chia theo module nhưng dùng chung thực thể \entity{users}. Quan hệ nghiệp vụ được biểu diễn rõ cardinality; quan hệ nhiều--nhiều được giải quyết bằng thực thể kết hợp. Dữ liệu lịch sử được tách khỏi trạng thái hiện tại để vừa truy vấn nhanh vừa bảo đảm khả năng kiểm toán.
+\subsection{Phạm vi của module}
 
-\section{Danh mục thực thể sơ bộ}
+Module User \& Film Lab Management chịu trách nhiệm quản lý
+thông tin người dùng, vai trò và quyền truy cập, thông tin Film Lab
+cũng như các dịch vụ mà Film Lab cung cấp.
 
-\small
-\begin{longtable}{>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{10cm}}
-\toprule
-\textbf{Module} & \textbf{Thực thể chính và vai trò} \\
-\midrule
-\endhead
-Identity/RBAC & \entity{users}, \entity{roles}, \entity{permissions}, \entity{user_roles}. Quản lý danh tính, hồ sơ và quyền truy cập. \\
-Lab/Catalog & \entity{film_labs}, \entity{lab_services}, \entity{service_packages}, \entity{working_hours}, \entity{lab_capacity}. Quản lý nhà cung cấp, danh mục dịch vụ và khả năng phục vụ. \\
-Order/Processing & \entity{orders}, \entity{order_items}, \entity{film_rolls}, \entity{processing_stages}, \entity{stage_logs}, \entity{order_status_history}. Quản lý đơn hàng và vòng đời từng cuộn phim. \\
-Archive & \entity{scan_files}, \entity{photo_metadata}, \entity{albums}, \entity{album_photos}, \entity{tags}, \entity{photo_tags}. Quản lý file quét, metadata và bộ sưu tập cá nhân. \\
-Marketplace & \entity{products}, \entity{product_categories}, \entity{listings}, \entity{marketplace_transactions}, \entity{seller_reviews}. Quản lý tin đăng và giao dịch thiết bị. \\
-Knowledge/\newline Community & \entity{articles}, \entity{knowledge_categories}, \entity{comments}, \entity{events}, \entity{event_registrations}. Quản lý nội dung và hoạt động cộng đồng. \\
-AI/Integration & \entity{user_behavior_logs}, \entity{recommendation_logs}, \entity{ai_chat_histories}, \entity{notifications}, \entity{payment_transactions}. Lưu dữ liệu tích hợp, kiểm toán và hỗ trợ AI. \\
-\bottomrule
-\end{longtable}
-\normalsize
+Module này là cơ sở cho các module khác trong hệ thống như
+Order/Processing, Digital Archive, Marketplace và Knowledge/Community.
+Các thực thể được sử dụng thống nhất với mô hình dữ liệu chung của hệ thống.
 
-\section{Quan hệ và cardinality quan trọng}
+\subsection{Các thực thể chính}
+
+\subsubsection{Thực thể \texttt{users}}
+
+Thực thể \texttt{users} lưu trữ thông tin cơ bản của người dùng
+tham gia hệ thống.
+
+Các thuộc tính chính gồm:
 
 \begin{itemize}
-    \item \entity{users} và \entity{roles} là N--N qua \entity{user_roles}; role và permission cũng là N--N.
-    \item Một user có thể sở hữu nhiều Film Lab; một Film Lab có nhiều service và service package.
-    \item Một user tạo nhiều order; mỗi order thuộc đúng một Film Lab và có nhiều order item/film roll.
-    \item Một film roll đi qua nhiều processing stage; mỗi lần cập nhật tạo stage log và có thể phát sinh lịch sử trạng thái order.
-    \item Một film roll có nhiều scan file; scan file có metadata ảnh và thuộc kho của người sở hữu đơn hàng.
-    \item User có nhiều album; album--ảnh và ảnh--tag là N--N qua các bảng trung gian.
-    \item Một user tạo nhiều listing; listing liên kết buyer và seller thông qua marketplace transaction.
-    \item User có thể viết article/comment, đăng ký event và sinh behavior log, recommendation log hoặc AI chat history.
+    \item \texttt{user\_id}: Mã định danh duy nhất của người dùng,
+    là khóa chính.
+    \item \texttt{full\_name}: Họ và tên của người dùng.
+    \item \texttt{email}: Địa chỉ email của người dùng.
+    \item \texttt{phone}: Số điện thoại liên hệ.
+    \item \texttt{address}: Địa chỉ của người dùng.
+    \item \texttt{status}: Trạng thái hoạt động của tài khoản.
+    \item \texttt{created\_at}: Thời điểm tạo tài khoản.
+    \item \texttt{updated\_at}: Thời điểm cập nhật thông tin
+    người dùng.
 \end{itemize}
 
-\section{ERD tổng quan sơ bộ}
+Thực thể \texttt{users} là thực thể dùng chung cho nhiều module
+trong hệ thống. Người dùng có thể tham gia với các vai trò khác nhau
+như Photographer/Customer, Film Lab Owner, Photography Expert,
+Delivery Partner và System Administrator.
 
-\begin{figure}[ht]
-\centering
-\begin{tikzpicture}[module/.style={draw,rounded corners,align=center,minimum width=3.4cm,minimum height=1cm,fill=blue!6},link/.style={->,>=stealth,thick}]
-\node[module] (user) {User / RBAC};
-\node[module, right=2.4cm of user] (lab) {Film Lab / Service};
-\node[module, below=1.5cm of lab] (order) {Order / Processing};
-\node[module, left=2.4cm of order] (archive) {Digital Archive};
-\node[module, left=2.4cm of user] (market) {Marketplace};
-\node[module, left=2.4cm of archive] (knowledge) {Knowledge / AI};
-\draw[link] (user) -- node[above]{sở hữu} (lab);
-\draw[link] (user) -- node[sloped,above]{đặt dịch vụ} (order);
-\draw[link] (lab) -- node[right]{xử lý} (order);
-\draw[link] (order) -- node[above]{tạo file scan} (archive);
-\draw[link] (user) -- (market);
-\draw[link] (user) -- (knowledge);
-\draw[link] (archive) -- node[above]{cung cấp metadata} (knowledge);
-\end{tikzpicture}
-\caption{ERD tổng quan ở mức module}
-\label{fig:conceptual-overview}
-\end{figure}
+\subsubsection{Thực thể \texttt{roles}}
 
-\section{Quy ước dữ liệu chung}
+Thực thể \texttt{roles} dùng để quản lý các vai trò của người dùng
+trong hệ thống.
 
-Tên bảng/cột dùng tiếng Anh, chữ thường và \texttt{snake\_case}; tên bảng ở dạng số nhiều. Khóa chính dùng \texttt{<entity>\_id}, khóa ngoại giữ cùng tên với khóa được tham chiếu. Thực thể nghiệp vụ chính ưu tiên UUID; thời gian dùng \texttt{TIMESTAMPTZ}. Bảng nghiệp vụ có \texttt{created\_at}, \texttt{updated\_at}; dùng \texttt{deleted\_at} khi soft-delete phù hợp. Dữ liệu lịch sử, đơn hàng, thanh toán và giao dịch không bị xóa cứng.
+Các thuộc tính chính gồm:
 
+\begin{itemize}
+    \item \texttt{role\_id}: Mã định danh của vai trò,
+    là khóa chính.
+    \item \texttt{role\_name}: Tên của vai trò.
+    \item \texttt{description}: Mô tả chức năng và phạm vi
+    của vai trò.
+\end{itemize}
+
+Một số vai trò chính gồm Photographer/Customer, Film Lab Owner,
+Photography Expert, Delivery Partner và System Administrator.
+
+\subsubsection{Thực thể \texttt{user\_roles}}
+
+Thực thể \texttt{user\_roles} là thực thể kết hợp dùng để giải quyết
+mối quan hệ nhiều--nhiều giữa \texttt{users} và \texttt{roles}.
+
+Các thuộc tính chính gồm:
+
+\begin{itemize}
+    \item \texttt{user\_id}: Mã người dùng, đồng thời là khóa ngoại
+    tham chiếu đến \texttt{users}.
+    \item \texttt{role\_id}: Mã vai trò, đồng thời là khóa ngoại
+    tham chiếu đến \texttt{roles}.
+\end{itemize}
+
+Cặp \texttt{user\_id} và \texttt{role\_id} có thể được sử dụng
+làm khóa chính của thực thể kết hợp này.
+
+\subsubsection{Thực thể \texttt{film\_labs}}
+
+Thực thể \texttt{film\_labs} lưu trữ thông tin của các Film Lab
+tham gia vào nền tảng.
+
+Các thuộc tính chính gồm:
+
+\begin{itemize}
+    \item \texttt{lab\_id}: Mã định danh duy nhất của Film Lab,
+    là khóa chính.
+    \item \texttt{owner\_id}: Mã người dùng sở hữu Film Lab,
+    là khóa ngoại tham chiếu đến \texttt{users}.
+    \item \texttt{lab\_name}: Tên của Film Lab.
+    \item \texttt{description}: Mô tả về Film Lab.
+    \item \texttt{phone}: Số điện thoại liên hệ của Film Lab.
+    \item \texttt{email}: Địa chỉ email liên hệ của Film Lab.
+    \item \texttt{address}: Địa chỉ của Film Lab.
+    \item \texttt{status}: Trạng thái hoạt động của Film Lab.
+    \item \texttt{created\_at}: Thời điểm Film Lab được tạo.
+    \item \texttt{updated\_at}: Thời điểm thông tin Film Lab
+    được cập nhật.
+\end{itemize}
+
+Thuộc tính \texttt{owner\_id} cho phép xác định người dùng chịu
+trách nhiệm sở hữu và quản lý Film Lab.
+
+\subsubsection{Thực thể \texttt{lab\_services}}
+
+Thực thể \texttt{lab\_services} lưu trữ danh mục các dịch vụ
+do Film Lab cung cấp.
+
+Các thuộc tính chính gồm:
+
+\begin{itemize}
+    \item \texttt{service\_id}: Mã định danh duy nhất của dịch vụ,
+    là khóa chính.
+    \item \texttt{lab\_id}: Mã Film Lab cung cấp dịch vụ,
+    là khóa ngoại tham chiếu đến \texttt{film\_labs}.
+    \item \texttt{service\_name}: Tên của dịch vụ.
+    \item \texttt{description}: Mô tả chi tiết về dịch vụ.
+    \item \texttt{price}: Giá của dịch vụ.
+    \item \texttt{processing\_time}: Thời gian xử lý dự kiến
+    của dịch vụ.
+    \item \texttt{status}: Trạng thái cung cấp của dịch vụ.
+    \item \texttt{created\_at}: Thời điểm tạo dịch vụ.
+    \item \texttt{updated\_at}: Thời điểm cập nhật dịch vụ.
+\end{itemize}
+
+Một Film Lab có thể cung cấp nhiều dịch vụ khác nhau. Mỗi dịch vụ
+thuộc về đúng một Film Lab.
+
+\subsection{Các mối quan hệ và cardinality}
+
+Các mối quan hệ chính trong module P2 được xác định như sau:
+
+\begin{itemize}
+
+    \item \textbf{\texttt{users} -- \texttt{roles}:}
+    Đây là mối quan hệ nhiều--nhiều (N--N). Một người dùng có thể
+    được gán nhiều vai trò và một vai trò có thể được gán cho nhiều
+    người dùng. Mối quan hệ này được giải quyết thông qua thực thể
+    kết hợp \texttt{user\_roles}.
+
+    \item \textbf{\texttt{users} -- \texttt{film\_labs}:}
+    Một người dùng có thể sở hữu nhiều Film Lab. Mỗi Film Lab có
+    một người dùng làm chủ sở hữu. Quan hệ này được biểu diễn thông
+    qua thuộc tính \texttt{owner\_id} trong \texttt{film\_labs}.
+
+    \item \textbf{\texttt{film\_labs} -- \texttt{lab\_services}:}
+    Một Film Lab có thể cung cấp nhiều dịch vụ, trong khi mỗi dịch
+    vụ thuộc về một Film Lab. Đây là quan hệ một--nhiều (1--N).
+
+\end{itemize}
+
+\subsection{Vai trò của module P2 trong mô hình tổng thể}
+
+Module User \& Film Lab Management cung cấp các thực thể nền tảng
+cho những module còn lại của hệ thống.
+
+Thực thể \texttt{users} được sử dụng chung để liên kết người dùng
+với đơn hàng, kho lưu trữ số, marketplace, nội dung cộng đồng và
+các chức năng hỗ trợ AI.
+
+Thực thể \texttt{film\_labs} và \texttt{lab\_services} là cơ sở
+để module Order/Processing xác định Film Lab thực hiện đơn hàng
+và dịch vụ được lựa chọn.
+
+Mô hình này giúp các module có thể dùng chung định danh người dùng
+và Film Lab, đồng thời hạn chế việc tạo các thực thể trùng lặp
+giữa các module.
