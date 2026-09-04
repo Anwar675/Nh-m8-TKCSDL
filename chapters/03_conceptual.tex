@@ -166,3 +166,141 @@ và dịch vụ được lựa chọn.
 Mô hình này giúp các module có thể dùng chung định danh người dùng
 và Film Lab, đồng thời hạn chế việc tạo các thực thể trùng lặp
 giữa các module.
+
+% ============================================================
+% P4 - Digital Film Archive & Marketplace
+% ============================================================
+
+\section{P4 -- Kho lưu trữ ảnh phim số và Chợ giao dịch}
+
+\subsection{Các thực thể của Kho lưu trữ ảnh phim số}
+
+Kho lưu trữ ảnh phim số quản lý các ảnh được số hóa sau quá trình
+quét phim, thông tin mô tả của ảnh và cách người dùng tổ chức
+bộ sưu tập cá nhân.
+
+Các thực thể chính gồm:
+
+\begin{itemize}
+
+    \item \texttt{scan\_files}: Lưu thông tin các file ảnh số
+    được tạo ra sau quá trình quét phim.
+
+    \item \texttt{photo\_metadata}: Lưu thông tin mô tả của ảnh
+    như loại film, máy ảnh, ống kính, ngày chụp và thông số quét.
+
+    \item \texttt{albums}: Lưu các album ảnh do người dùng tạo
+    trong kho lưu trữ cá nhân.
+
+    \item \texttt{album\_photos}: Thực thể kết hợp giữa album
+    và các file ảnh số.
+
+    \item \texttt{tags}: Lưu các thẻ dùng để phân loại
+    và hỗ trợ tìm kiếm ảnh.
+
+    \item \texttt{photo\_tags}: Thực thể kết hợp giữa ảnh số
+    và các thẻ.
+
+    \item \texttt{film\_stocks}: Lưu thông tin về các loại film.
+
+    \item \texttt{camera\_models}: Lưu thông tin về các mẫu máy ảnh.
+
+    \item \texttt{lenses}: Lưu thông tin về các loại ống kính.
+
+\end{itemize}
+
+\subsection{Các mối quan hệ của Kho lưu trữ ảnh phim số}
+
+Các mối quan hệ chính gồm:
+
+\begin{itemize}
+
+    \item Một \texttt{users} có thể tạo nhiều \texttt{albums}.
+    Đây là quan hệ một--nhiều (1--N).
+
+    \item Một \texttt{albums} có thể chứa nhiều \texttt{scan\_files}
+    và một file ảnh có thể xuất hiện trong nhiều album.
+    Quan hệ nhiều--nhiều (N--N) được giải quyết thông qua
+    \texttt{album\_photos}.
+
+    \item Một \texttt{scan\_files} có một bộ
+    \texttt{photo\_metadata} tương ứng.
+
+    \item Một \texttt{scan\_files} có thể có nhiều \texttt{tags}
+    và một thẻ có thể được sử dụng cho nhiều ảnh.
+    Quan hệ N--N được giải quyết thông qua \texttt{photo\_tags}.
+
+    \item Một \texttt{film\_stocks} có thể được tham chiếu
+    bởi metadata của nhiều ảnh.
+
+    \item Một \texttt{camera\_models} có thể được tham chiếu
+    bởi metadata của nhiều ảnh.
+
+    \item Một \texttt{lenses} có thể được tham chiếu
+    bởi metadata của nhiều ảnh.
+
+\end{itemize}
+
+Kho lưu trữ ảnh số cũng liên kết với dữ liệu cuộn phim từ module
+xử lý phim. Tên thực thể dùng chung sẽ được giữ theo quy ước
+thống nhất của nhóm khi các module được tổng hợp.
+
+\subsection{Các thực thể của Chợ giao dịch}
+
+Chợ giao dịch hỗ trợ người dùng mua, bán và trao đổi máy ảnh phim,
+ống kính, film và các phụ kiện nhiếp ảnh.
+
+Các thực thể chính gồm:
+
+\begin{itemize}
+
+    \item \texttt{product\_categories}: Lưu các danh mục sản phẩm.
+
+    \item \texttt{products}: Lưu thông tin mô tả sản phẩm.
+
+    \item \texttt{listings}: Lưu các tin đăng bán hoặc trao đổi
+    sản phẩm của người dùng.
+
+    \item \texttt{marketplace\_transactions}: Lưu thông tin
+    các giao dịch phát sinh từ tin đăng.
+
+    \item \texttt{seller\_reviews}: Lưu đánh giá của người mua
+    dành cho người bán sau giao dịch.
+
+\end{itemize}
+
+\subsection{Các mối quan hệ của Chợ giao dịch}
+
+Các mối quan hệ chính gồm:
+
+\begin{itemize}
+
+    \item Một \texttt{product\_categories} có thể chứa nhiều
+    \texttt{products}. Đây là quan hệ một--nhiều (1--N).
+
+    \item Một \texttt{products} có thể xuất hiện trong nhiều
+    \texttt{listings}. Đây là quan hệ một--nhiều (1--N).
+
+    \item Một \texttt{users} có thể tạo nhiều \texttt{listings}.
+    Đây là quan hệ một--nhiều (1--N).
+
+    \item Mỗi \texttt{marketplace\_transactions} được tạo
+    từ một \texttt{listings}.
+
+    \item Một \texttt{users} có thể tham gia nhiều
+    \texttt{marketplace\_transactions} với vai trò người mua.
+
+    \item Mỗi \texttt{seller\_reviews} được liên kết với
+    một giao dịch và một người bán.
+
+\end{itemize}
+
+\subsection{Vai trò của module P4 trong mô hình tổng thể}
+
+Module P4 sử dụng thực thể \texttt{users} đã được định nghĩa ở
+module User Management để liên kết người dùng với kho ảnh số,
+tin đăng, giao dịch và đánh giá.
+
+Thiết kế của P4 tập trung vào hai nhóm dữ liệu chính là
+Digital Film Archive và Marketplace, đồng thời giữ cách đặt tên
+thống nhất để thuận tiện cho việc tích hợp với các module khác.
