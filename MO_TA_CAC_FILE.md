@@ -20,7 +20,7 @@ Tài liệu này mô tả vai trò của file nguồn và phân biệt chúng v�
 
 | File | Mục đích và nội dung chính |
 |---|---|
-| `chapters/01_introduction.tex` | Bối cảnh nhiếp ảnh phim, vấn đề kết nối Film Lab, mục tiêu, phạm vi, giới hạn và cấu trúc báo cáo. |
+| `chapters/01_introduction.tex` | Bối cảnh phục hồi nhiếp ảnh phim, hạn chế của quy trình hiện tại, lý do chọn đề tài, mục tiêu, phạm vi, phương pháp thực hiện và cấu trúc báo cáo. |
 | `chapters/02_requirement.tex` | Tác nhân, sáu Core Flow, nhóm dữ liệu, business rule, yêu cầu phi chức năng và yêu cầu chi tiết theo module. |
 | `chapters/03_conceptual.tex` | Danh sách entity, relationship/cardinality, ERD tổng quan theo module và quy ước thiết kế. |
 | `chapters/04_logical.tex` | Chuyển ERD thành mô hình quan hệ, xác định khóa/phụ thuộc hàm và chuẩn hóa 3NF/BCNF. |
