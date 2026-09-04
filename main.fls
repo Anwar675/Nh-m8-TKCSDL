@@ -344,14 +344,6 @@ INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\tex\latex\vntex\t5cmtt.fd
 INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\tex\latex\vntex\t5cmtt.fd
 INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\tfm\vntex\vnr\vntt12.tfm
 OUTPUT main.toc
-INPUT .\main.lof
-INPUT .\main.lof
-INPUT main.lof
-OUTPUT main.lof
-INPUT .\main.lot
-INPUT .\main.lot
-INPUT main.lot
-OUTPUT main.lot
 INPUT .\chapters\01_introduction.tex
 INPUT .\chapters\01_introduction.tex
 INPUT .\chapters\01_introduction.tex
@@ -375,6 +367,8 @@ INPUT .\chapters\04_logical.tex
 INPUT .\chapters\04_logical.tex
 INPUT .\chapters\04_logical.tex
 INPUT chapters\04_logical.tex
+INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\tfm\vntex\vnr\vnbx8.tfm
+INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\tfm\vntex\vnr\vntt8.tfm
 INPUT .\chapters\05_physical.tex
 INPUT .\chapters\05_physical.tex
 INPUT .\chapters\05_physical.tex
@@ -410,6 +404,8 @@ INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\vnr\vnbx10.
 INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\vnr\vnbx10.pfb
 INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\vnr\vnbx12.pfb
 INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\vnr\vnbx12.pfb
+INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\vnr\vnbx8.pfb
+INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\vnr\vnbx8.pfb
 INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\vnr\vnr10.pfb
 INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\vnr\vnr10.pfb
 INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\vnr\vnr12.pfb
@@ -420,3 +416,5 @@ INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\vnr\vntt10.
 INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\vnr\vntt10.pfb
 INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\vnr\vntt12.pfb
 INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\vnr\vntt12.pfb
+INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\vnr\vntt8.pfb
+INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\fonts\type1\vntex\vnr\vntt8.pfb

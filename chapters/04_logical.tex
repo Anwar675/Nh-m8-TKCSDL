@@ -1,0 +1,101 @@
+% Chương 4: Logical Design -- kết quả Day 2 của P1
+\chapter{THIẾT KẾ MỨC LOGIC VÀ CHUẨN HÓA}
+
+
+\section{Miền dữ liệu dùng chung}
+
+\begin{itemize}
+    \item Định danh chính dùng \texttt{UUID}; thời gian dùng \texttt{TIMESTAMPTZ} theo UTC.
+    \item Tiền tệ dùng \texttt{NUMERIC(12,2)} và phải lớn hơn hoặc bằng 0; mã tiền tệ dùng \texttt{CHAR(3)}.
+    \item Email được chuẩn hóa chữ thường trước khi kiểm tra duy nhất; trạng thái dùng \texttt{VARCHAR} kèm \texttt{CHECK}, có thể chuyển thành PostgreSQL enum ở thiết kế vật lý.
+    \item \texttt{created\_at} và \texttt{updated\_at} mặc định \texttt{CURRENT\_TIMESTAMP}; \texttt{deleted\_at} rỗng khi bản ghi còn hiệu lực.
+\end{itemize}
+
+\section{Lược đồ quan hệ Core Domain}
+
+\scriptsize
+\begin{longtable}{>{\raggedright\arraybackslash}p{2.4cm}>{\raggedright\arraybackslash}p{6.4cm}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{3cm}}
+\toprule
+\textbf{Quan hệ} & \textbf{Thuộc tính và domain} & \textbf{Khóa} & \textbf{Ràng buộc chính} \\
+\midrule
+\endhead
+
+\entity{users} &
+\entity{user_id} UUID; \entity{email} VARCHAR(255); \entity{password_hash} VARCHAR(255); \entity{full_name} VARCHAR(150); \entity{phone} VARCHAR(20) NULL; \entity{status} VARCHAR(20); \entity{created_at}, \entity{updated_at}, \entity{deleted_at} TIMESTAMPTZ &
+PK: \entity{user_id}; AK: \entity{email} &
+Email duy nhất; status thuộc active, inactive, suspended; email, mật khẩu băm và họ tên NOT NULL. \\
+
+\entity{roles} &
+\entity{role_id} UUID; \entity{role_code} VARCHAR(50); \entity{role_name} VARCHAR(100); \entity{description} TEXT NULL; \entity{created_at} TIMESTAMPTZ &
+PK: \entity{role_id}; AK: \entity{role_code} &
+Mã vai trò duy nhất và NOT NULL. \\
+
+\entity{permissions} &
+\entity{permission_id} UUID; \entity{permission_code} VARCHAR(100); \entity{permission_name} VARCHAR(150); \entity{description} TEXT NULL; \entity{created_at} TIMESTAMPTZ &
+PK: \entity{permission_id}; AK: \entity{permission_code} &
+Mã quyền duy nhất và NOT NULL. \\
+
+\entity{user_roles} &
+\entity{user_id} UUID; \entity{role_id} UUID; \entity{assigned_at} TIMESTAMPTZ; \entity{assigned_by} UUID NULL &
+PK: (\entity{user_id}, \entity{role_id}); FK tới users, roles và users &
+Không gán trùng vai trò cho cùng user; \entity{assigned_at} mặc định thời điểm hiện tại. \\
+
+\entity{role_permissions} &
+\entity{role_id} UUID; \entity{permission_id} UUID &
+PK ghép; FK tới roles và permissions &
+Mỗi cặp role--permission chỉ xuất hiện một lần. \\
+
+\entity{film_labs} &
+\entity{lab_id} UUID; \entity{owner_id} UUID; \entity{lab_name} VARCHAR(150); \entity{email} VARCHAR(255); \entity{phone} VARCHAR(20); \entity{address} TEXT; \entity{status} VARCHAR(20); \entity{approved_at} TIMESTAMPTZ NULL; \entity{created_at}, \entity{updated_at}, \entity{deleted_at} TIMESTAMPTZ &
+PK: \entity{lab_id}; FK \entity{owner_id} tới users; AK: \entity{email} &
+Owner, tên, email, phone, address NOT NULL; status thuộc pending, approved, suspended, closed. \\
+
+\entity{lab_services} &
+\entity{service_id} UUID; \entity{lab_id} UUID; \entity{service_code} VARCHAR(50); \entity{service_name} VARCHAR(150); \entity{description} TEXT NULL; \entity{base_price} NUMERIC(12,2); \entity{turnaround_hours} INTEGER; \entity{is_active} BOOLEAN; \entity{created_at}, \entity{updated_at} TIMESTAMPTZ &
+PK: \entity{service_id}; FK tới \entity{film_labs}; AK: (\entity{lab_id}, \entity{service_code}) &
+Giá không âm; thời gian xử lý lớn hơn 0; mã dịch vụ duy nhất trong từng Lab. \\
+
+\entity{service_packages} &
+\entity{package_id} UUID; \entity{lab_id} UUID; \entity{package_code} VARCHAR(50); \entity{package_name} VARCHAR(150); \entity{description} TEXT NULL; \entity{package_price} NUMERIC(12,2); \entity{is_active} BOOLEAN; \entity{created_at}, \entity{updated_at} TIMESTAMPTZ &
+PK: \entity{package_id}; FK tới \entity{film_labs}; AK: (\entity{lab_id}, \entity{package_code}) &
+Giá gói không âm; mã gói duy nhất trong từng Lab. \\
+
+\entity{package_services} &
+\entity{package_id} UUID; \entity{service_id} UUID; \entity{quantity} INTEGER &
+PK ghép; FK tới \entity{service_packages} và \entity{lab_services} &
+Số lượng lớn hơn 0; package và service phải thuộc cùng Film Lab. \\
+
+\entity{orders} &
+\entity{order_id} UUID; \entity{customer_id} UUID; \entity{lab_id} UUID; \entity{order_code} VARCHAR(30); \entity{status} VARCHAR(30); \entity{fulfillment_method} VARCHAR(20); \entity{subtotal}, \entity{delivery_fee}, \entity{discount_amount}, \entity{total_amount} NUMERIC(12,2); \entity{currency_code} CHAR(3); \entity{special_instructions} TEXT NULL; \entity{placed_at} TIMESTAMPTZ; \entity{created_at}, \entity{updated_at} TIMESTAMPTZ &
+PK: \entity{order_id}; FK tới \entity{users} và \entity{film_labs}; AK: \entity{order_code} &
+Các khoản tiền không âm; total = subtotal + delivery fee - discount; fulfillment thuộc dropoff, pickup; status theo state machine. \\
+
+\entity{order_items} &
+\entity{order_item_id} UUID; \entity{order_id} UUID; \entity{service_id} UUID; \entity{package_id} UUID NULL; \entity{quantity} INTEGER; \entity{unit_price} NUMERIC(12,2); \entity{service_options} JSONB NULL; \entity{item_note} TEXT NULL; \entity{created_at} TIMESTAMPTZ &
+PK: \entity{order_item_id}; FK tới \entity{orders}, \entity{lab_services} và \entity{service_packages} &
+Số lượng lớn hơn 0; unit price không âm; service/package phải thuộc Lab của order; lưu giá chốt tại lúc đặt. \\
+
+\bottomrule
+\end{longtable}
+\normalsize
+
+\section{Quan hệ và quy tắc tham chiếu}
+
+\begin{enumerate}
+    \item Một user có nhiều role và một role có nhiều user thông qua \entity{user_roles}; tương tự, role và permission liên kết qua \entity{role_permissions}.
+    \item Một owner có thể sở hữu nhiều Film Lab; khi user bị soft-delete, Film Lab không bị xóa theo mà phải chuyển quyền sở hữu hoặc khóa hoạt động.
+    \item Một Film Lab có nhiều service và package. \entity{package_services} chỉ cho phép ghép service cùng tenant với package.
+    \item Một customer tạo nhiều order; mỗi order thuộc đúng một Film Lab và có ít nhất một order item trước khi chuyển sang trạng thái \texttt{confirmed}.
+    \item Không cascade delete từ user, Film Lab hoặc service sang order. Dữ liệu danh mục đã ngừng hoạt động được giữ để các đơn cũ vẫn truy vết được.
+    \item \entity{order_items.unit_price} là snapshot giá, không tự cập nhật khi \entity{lab_services.base_price} thay đổi.
+\end{enumerate}
+
+\section{Kiểm tra chuẩn hóa đến 3NF}
+
+Mỗi quan hệ có thuộc tính nguyên tố và không chứa nhóm lặp nên đạt 1NF. Các quan hệ có khóa ghép chỉ chứa thuộc tính phụ thuộc vào toàn bộ khóa: thời điểm gán phụ thuộc vào cặp user--role, số lượng dịch vụ phụ thuộc vào cặp package--service; vì vậy đạt 2NF. Thông tin user, Film Lab, service và package được tách riêng; order item chỉ giữ khóa tham chiếu cùng snapshot giá cần bảo toàn lịch sử, không lặp tên hoặc địa chỉ của thực thể khác. Không có thuộc tính không khóa phụ thuộc bắc cầu vào khóa chính, nên các quan hệ đạt 3NF.
+
+Giá trị \entity{orders.total_amount} là dữ liệu dẫn xuất nhưng được giữ như snapshot tài chính để kiểm toán. Tính nhất quán của tổng tiền phải được kiểm tra trong transaction hoặc trigger ở thiết kế vật lý. \entity{service_options} dùng JSONB cho tùy chọn thay đổi theo loại dịch vụ; các thuộc tính cần tìm kiếm hoặc ràng buộc thường xuyên phải được tách thành quan hệ riêng khi chốt schema.
+
+\section{Điểm tích hợp cần cross-review}
+
+P3 cần xác nhận liên kết giữa \entity{order_items} và \entity{film_rolls}, state machine của order cùng lịch sử xử lý. P4 cần xác nhận đường truy vết từ film roll tới scan file và chủ sở hữu. Module Logistics/Payment cần dùng \entity{order_id} làm khóa tham chiếu, không lưu lặp thông tin customer hoặc Film Lab.
