@@ -6,10 +6,10 @@ Tài liệu này mô tả vai trò của file nguồn và phân biệt chúng v�
 
 | File | Mô tả |
 |---|---|
-| `main.tex` | Điểm vào để biên dịch báo cáo; nạp cấu hình, trang bìa, tóm tắt và chín chương theo thứ tự. |
+| `main.tex` | Điểm vào để biên dịch báo cáo; nạp cấu hình, trang bìa, tóm tắt và bảy chương lý thuyết theo thứ tự. |
 | `preamble.tex` | Nạp tập trung `packages.tex` và `config.tex`. |
 | `packages.tex` | Khai báo package cho tiếng Việt, bố cục, bảng, TikZ, mã nguồn và liên kết. |
-| `config.tex` | Quy định header/footer, màu sắc, kiểu SQL, mục lục và lệnh LaTeX dùng chung. |
+| `config.tex` | Quy định header/footer, màu sắc, mục lục và các lệnh LaTeX dùng chung. |
 | `titlepage.tex` | Nội dung và định dạng trang bìa. |
 | `abstract.tex` | Tóm tắt bài toán, giải pháp thiết kế và phạm vi đồ án. |
 | `AGENTS.md` | Rule của P1: ownership, quy ước dữ liệu và trách nhiệm đồng bộ thiết kế. |
@@ -24,11 +24,9 @@ Tài liệu này mô tả vai trò của file nguồn và phân biệt chúng v�
 | `chapters/02_requirement.tex` | Tác nhân, sáu Core Flow, nhóm dữ liệu, business rule, yêu cầu phi chức năng và yêu cầu chi tiết theo module. |
 | `chapters/03_conceptual.tex` | Danh sách entity, relationship/cardinality, ERD tổng quan theo module và quy ước thiết kế. |
 | `chapters/04_logical.tex` | Chuyển ERD thành mô hình quan hệ, xác định khóa/phụ thuộc hàm và chuẩn hóa 3NF/BCNF. |
-| `chapters/05_physical.tex` | Ánh xạ PostgreSQL: kiểu dữ liệu, constraint, index, audit, soft-delete và multi-tenant. |
+| `chapters/05_physical.tex` | Trình bày lý thuyết ánh xạ sang PostgreSQL: kiểu dữ liệu, constraint, index, audit, soft-delete và multi-tenant; không chứa mã SQL thực thi. |
 | `chapters/06_datadictionary.tex` | Từ điển bảng/cột: kiểu dữ liệu, ràng buộc, ý nghĩa và ví dụ. |
-| `chapters/07_sql_scripts.tex` | DDL PostgreSQL gồm type, table, foreign key, index và trigger/function cần thiết. |
-| `chapters/08_sample_queries.tex` | Truy vấn kiểm chứng Core Flow: tìm Lab, theo dõi đơn, kho ảnh, doanh thu và tìm kiếm tri thức. |
-| `chapters/09_conclusion.tex` | Kết quả, hạn chế, hướng phát triển và đóng góp của nhóm. |
+| `chapters/07_conclusion.tex` | Tổng kết kết quả thiết kế lý thuyết, hạn chế, hướng phát triển và đóng góp của nhóm. |
 
 ## Phụ lục và tài nguyên
 

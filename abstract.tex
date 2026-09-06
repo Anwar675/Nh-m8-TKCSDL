@@ -1,45 +1,25 @@
-% =====================================================================
-% abstract.tex - Tóm tắt đồ án
-% =====================================================================
-
+% Tóm tắt đồ án
 \chapter*{TÓM TẮT ĐỒ ÁN}
 \addcontentsline{toc}{chapter}{TÓM TẮT ĐỒ ÁN}
 
-Đồ án này tập trung vào việc thiết kế cơ sở dữ liệu cho hệ thống \textbf{FilmLab} - một nền tảng quản lý và phân phối phim trực tuyến.
+Đồ án tập trung thiết kế cơ sở dữ liệu ở mức lý thuyết cho nền tảng kết nối cộng đồng nhiếp ảnh phim với các Film Lab tích hợp AI. Hệ thống hỗ trợ tìm kiếm và so sánh Film Lab, đặt dịch vụ, theo dõi vòng đời xử lý phim, quản lý kho ảnh số, giao dịch thiết bị, chia sẻ kiến thức và lưu dữ liệu phục vụ các tính năng AI.
 
 \section*{Mục tiêu}
-Xây dựng một cơ sở dữ liệu quan hệ hoàn chỉnh cho FilmLab, bao gồm:
+
 \begin{itemize}
-    \item Thiết kế mức khái niệm (ERD)
-    \item Thiết kế mức logic (chuẩn hóa đến 3NF)
-    \item Thiết kế mức vật lý trên PostgreSQL
-    \item Xây dựng từ điển dữ liệu chi tiết
-    \item Viết các truy vấn SQL cho nghiệp vụ cốt lõi
+    \item Phân tích tác nhân, Core Flow, yêu cầu dữ liệu và quy tắc nghiệp vụ.
+    \item Xây dựng mô hình thực thể--quan hệ ở mức khái niệm.
+    \item Chuyển đổi sang lược đồ quan hệ và chuẩn hóa đến 3NF.
+    \item Trình bày định hướng thiết kế vật lý trên PostgreSQL.
+    \item Xây dựng từ điển dữ liệu thống nhất cho toàn hệ thống.
 \end{itemize}
 
 \section*{Phạm vi}
-Hệ thống quản lý các đối tượng:
-\begin{itemize}
-    \item Quản lý phim, diễn viên, đạo diễn, thể loại
-    \item Quản lý người dùng và gói đăng ký
-    \item Quản lý đánh giá, bình luận
-    \item Quản lý lịch sử xem phim
-    \item Quản lý danh sách yêu thích
-\end{itemize}
 
-\section*{Kết quả đạt được}
-\begin{itemize}
-    \item Mô hình ERD với 12+ thực thể và các mối quan hệ
-    \item 12 bảng trong cơ sở dữ liệu được chuẩn hóa 3NF
-    \item 20+ truy vấn SQL cho các nghiệp vụ chính
-    \item Tài liệu thiết kế đầy đủ 9 chương
-\end{itemize}
+Phạm vi dữ liệu gồm User/RBAC, Film Lab và dịch vụ, Order/Processing, Digital Film Archive, Marketplace, Knowledge/Community, Logistics, Notification và dữ liệu hỗ trợ AI. Báo cáo không triển khai câu lệnh SQL, truy vấn thực thi, API, giao diện hoặc mô hình AI.
 
-\section*{Công nghệ sử dụng}
-\begin{itemize}
-    \item \textbf{DBMS:} PostgreSQL 15+
-    \item \textbf{Ngôn ngữ:} SQL, \LaTeX
-\end{itemize}
+\section*{Kết quả mong đợi}
 
-\vspace{1cm}
-\textbf{Từ khóa:} FilmLab, Cơ sở dữ liệu, ERD, PostgreSQL, Thiết kế CSDL, SQL.
+Sản phẩm của đồ án là bộ tài liệu thiết kế gồm phân tích yêu cầu, ERD tổng quan và theo module, lược đồ quan hệ chuẩn hóa, thiết kế vật lý ở mức lý thuyết và Data Dictionary. Các phần được tổ chức trong bảy chương và dùng chung quy ước đặt tên, khóa, audit field, soft-delete và multi-tenant.
+
+\textbf{Từ khóa:} FilmLab, cơ sở dữ liệu, ERD, lược đồ quan hệ, PostgreSQL, chuẩn hóa 3NF.

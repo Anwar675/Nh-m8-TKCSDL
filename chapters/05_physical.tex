@@ -1,0 +1,26 @@
+% Chương 5: Thiết kế mức vật lý ở mức lý thuyết
+\chapter{THIẾT KẾ MỨC VẬT LÝ}
+
+\section{Mục tiêu thiết kế}
+
+Thiết kế mức vật lý chuyển lược đồ quan hệ thành các quyết định phù hợp với PostgreSQL nhưng không trình bày câu lệnh SQL thực thi. Nội dung tập trung vào kiểu dữ liệu, ràng buộc, chỉ mục, lưu trữ, bảo mật và khả năng mở rộng.
+
+\section{Lựa chọn kiểu dữ liệu}
+
+Định danh của các thực thể nghiệp vụ chính sử dụng \texttt{UUID}. Chuỗi có giới hạn rõ ràng sử dụng \texttt{VARCHAR}; nội dung dài sử dụng \texttt{TEXT}; tiền tệ sử dụng \texttt{NUMERIC(12,2)}; thời gian sử dụng \texttt{TIMESTAMPTZ} và lưu theo UTC. \texttt{JSONB} chỉ dành cho tùy chọn linh hoạt, không thay thế các thuộc tính cần ràng buộc hoặc truy vấn thường xuyên.
+
+\section{Ràng buộc toàn vẹn}
+
+Mỗi bảng có khóa chính; các liên kết giữa module dùng khóa ngoại. Email, mã vai trò, mã quyền và mã dịch vụ trong phạm vi Film Lab cần ràng buộc duy nhất. Giá trị tiền không âm, số lượng lớn hơn không và trạng thái chỉ nhận các giá trị thuộc vòng đời đã xác định. Dữ liệu lịch sử, đơn hàng và thanh toán không bị xóa dây chuyền.
+
+\section{Chiến lược chỉ mục}
+
+Chỉ mục được ưu tiên cho khóa ngoại và các điều kiện tìm kiếm phổ biến như email người dùng, vị trí/trạng thái Film Lab, mã/trạng thái đơn hàng và thời gian cập nhật. Chỉ mục ghép phải bám theo thứ tự cột của truy vấn thực tế; không tạo chỉ mục cho mọi cột vì làm tăng chi phí ghi dữ liệu.
+
+\section{Audit, soft-delete và multi-tenant}
+
+Các bảng nghiệp vụ sử dụng \texttt{created\_at}, \texttt{updated\_at} và khi cần có \texttt{deleted\_at}. Dữ liệu của từng Film Lab được phân tách bằng \texttt{lab\_id}; mọi truy cập tenant phải kiểm tra vai trò và quyền sở hữu. Các thao tác quan trọng như đổi trạng thái đơn, thanh toán và công bố file scan cần lưu lịch sử người thực hiện cùng thời điểm.
+
+\section{Lưu trữ và sao lưu}
+
+File scan được lưu trên dịch vụ object storage; cơ sở dữ liệu chỉ giữ URI, checksum, metadata và phiên bản. Cơ sở dữ liệu cần có chính sách sao lưu định kỳ, kiểm tra phục hồi và giới hạn quyền truy cập theo nguyên tắc tối thiểu.

@@ -21,9 +21,7 @@ Nh-m8-TKCSDL/
 │   ├── 04_logical.tex             # Thiết kế mức logic và chuẩn hóa dữ liệu
 │   ├── 05_physical.tex            # Thiết kế mức vật lý
 │   ├── 06_datadictionary.tex      # Từ điển dữ liệu
-│   ├── 07_sql_scripts.tex         # Trình bày các câu lệnh SQL
-│   ├── 08_sample_queries.tex      # Các truy vấn dữ liệu mẫu
-│   └── 09_conclusion.tex          # Kết luận và hướng phát triển
+│   └── 07_conclusion.tex          # Kết luận và hướng phát triển
 │
 ├── appendices/                    # Các nội dung phụ lục
 │   └── A_phan_cong.tex            # Bảng phân công nhiệm vụ của nhóm
@@ -41,7 +39,7 @@ Nh-m8-TKCSDL/
 
 - **File điều phối:** `main.tex` xác định thứ tự các phần và là file cần biên dịch để tạo báo cáo hoàn chỉnh.
 - **File cấu hình:** `preamble.tex`, `packages.tex`, `config.tex` và thư mục `config/` quản lý package, bố cục trang cùng các thiết lập dùng chung.
-- **Nội dung báo cáo:** thư mục `chapters/` chứa chín chương, đi từ phân tích yêu cầu đến thiết kế, truy vấn mẫu và kết luận.
+- **Nội dung báo cáo:** thư mục `chapters/` chứa bảy chương lý thuyết, đi từ phân tích yêu cầu, ERD, thiết kế logic và vật lý đến từ điển dữ liệu và kết luận.
 - **Phụ lục:** thư mục `appendices/` chứa tài liệu bổ sung, hiện gồm bảng phân công công việc của nhóm.
 - **Tài nguyên hình ảnh:** thư mục `figures/` dùng để lưu ERD, sơ đồ và hình minh họa được chèn vào báo cáo.
 - **Kết quả biên dịch:** các file như `main.pdf`, `*.aux`, `*.log`, `*.toc`, `*.fls`, `*.fdb_latexmk`, `*.out` và `*.synctex.gz` được LaTeX tự động tạo, không phải mã nguồn chính.
