@@ -5,7 +5,7 @@
 P1 là **Lead DB + Core Domain**, chịu trách nhiệm giữ thiết kế cơ sở dữ liệu thống nhất trên toàn bộ báo cáo.
 
 - Sở hữu các thực thể cốt lõi: `users`, `roles`, `user_roles`, `permissions`, `film_labs`, `lab_services`, `service_packages`, `orders`, `order_items`.
-- Thiết kế ERD tổng thể và quản lý phiên bản ERD, schema SQL cuối cùng.
+- Thiết kế ERD tổng thể và quản lý phiên bản tài liệu thiết kế cuối cùng.
 - Kiểm tra chuẩn hóa 3NF, business rule và integrity constraint trên toàn schema.
 - Tổng hợp Data Dictionary; review sâu quan hệ Order--Processing--Archive và phần của P3, P4.
 
