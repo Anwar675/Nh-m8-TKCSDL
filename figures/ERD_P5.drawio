@@ -1,0 +1,97 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0">
+  <diagram id="erd_p5_diagram" name="ERD_P5">
+    <mxGraphModel dx="1212" dy="671" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="user_table" parent="1" style="swimlane;fontStyle=1;align=left;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;strokeColor=#333333;fillColor=#F8F9FA;swimlaneLine=1;fontColor=#000000;" value="&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;USER" vertex="1">
+          <mxGeometry height="150" width="140" x="630" y="15" as="geometry" />
+        </mxCell>
+        <mxCell id="film_lab_table" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;strokeColor=#333333;fillColor=#F8F9FA;swimlaneLine=1;fontColor=#000000;" value="FILM_LAB" vertex="1">
+          <mxGeometry height="110" width="160" x="1120" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="film_lab_content" parent="film_lab_table" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+PK lab_id&#xa;+name&#xa;+address&#xa;+phone" vertex="1">
+          <mxGeometry height="82" width="160" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="category_table" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;strokeColor=#000000;fillColor=#FFFFFF;swimlaneLine=1;fontColor=#000000;" value="ARTICLE_CATEGORY" vertex="1">
+          <mxGeometry height="115" width="180" x="80" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="category_content" parent="category_table" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+PK category_id&#xa;+category_name&#xa;+description&#xa;+created_at" vertex="1">
+          <mxGeometry height="87" width="180" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="article_table" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;strokeColor=#000000;fillColor=#FFFFFF;swimlaneLine=1;fontColor=#000000;" value="ARTICLE" vertex="1">
+          <mxGeometry height="200" width="190" x="350" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="article_content" parent="article_table" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+PK article_id&#xa;+FK author_id&#xa;+FK category_id&#xa;+title&#xa;+content&#xa;+tags&#xa;+view_count&#xa;+status&#xa;+created_at&#xa;+updated_at" vertex="1">
+          <mxGeometry height="172" width="190" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="review_table" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;strokeColor=#000000;fillColor=#FFFFFF;swimlaneLine=1;fontColor=#000000;" value="LAB_REVIEW" vertex="1">
+          <mxGeometry height="130" width="180" x="840" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="review_content" parent="review_table" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+PK review_id&#xa;+FK user_id&#xa;+FK lab_id&#xa;+rating&#xa;+comment&#xa;+created_at" vertex="1">
+          <mxGeometry height="102" width="180" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="event_table" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;strokeColor=#000000;fillColor=#FFFFFF;swimlaneLine=1;fontColor=#000000;" value="COMMUNITY_EVENT" vertex="1">
+          <mxGeometry height="150" width="190" x="210" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="event_content" parent="event_table" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+PK event_id&#xa;+FK host_id&#xa;+title&#xa;+description&#xa;+location&#xa;+event_date&#xa;+max_participants&#xa;+created_at" vertex="1">
+          <mxGeometry height="122" width="190" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="interaction_table" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;strokeColor=#000000;fillColor=#FFFFFF;swimlaneLine=1;fontColor=#000000;" value="USER_INTERACTION" vertex="1">
+          <mxGeometry height="135" width="190" x="560" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="interaction_content" parent="interaction_table" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+PK interaction_id&#xa;+FK user_id&#xa;+target_type&#xa;+target_id&#xa;+interaction_type&#xa;+created_at" vertex="1">
+          <mxGeometry height="107" width="190" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="chat_table" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;strokeColor=#000000;fillColor=#FFFFFF;swimlaneLine=1;fontColor=#000000;" value="AI_CHAT_LOG" vertex="1">
+          <mxGeometry height="135" width="190" x="870" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="chat_content" parent="chat_table" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+PK chat_id&#xa;+FK user_id&#xa;+user_query&#xa;+bot_response&#xa;+context_retrieved&#xa;+created_at" vertex="1">
+          <mxGeometry height="107" width="190" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_user_article" edge="1" parent="1" source="user_table" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;" target="article_table" value="1          N">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="670" y="240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_category_article" edge="1" parent="1" source="category_table" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;" target="article_table" value="1          N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_user_review" edge="1" parent="1" source="user_table" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;" target="review_table" value="1          N">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="750" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_lab_review" edge="1" parent="1" source="film_lab_table" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;" target="review_table" value="1          N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_user_event" edge="1" parent="1" source="user_table" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;" target="event_table" value="1          N">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="710" y="390" />
+              <mxPoint x="305" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_user_interaction" edge="1" parent="1" source="user_table" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;" target="interaction_table" value="1          N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_user_chat" edge="1" parent="1" source="user_table" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;" target="chat_table" value="1          N">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="710" y="390" />
+              <mxPoint x="965" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="egjnxUmGjeZY5DsAmzdL-2" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontSize=14;" value="&lt;div&gt;+PK user_id&lt;/div&gt;&lt;div&gt;+full_name&lt;/div&gt;&lt;div&gt;+email&lt;/div&gt;&lt;div&gt;+role&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="80" x="640" y="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
