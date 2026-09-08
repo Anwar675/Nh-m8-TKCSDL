@@ -72,13 +72,16 @@ Tên bảng/cột dùng tiếng Anh, chữ thường và \texttt{snake\_case}; t
 
 \subsection{Phạm vi của module}
 
-Module User \& Film Lab Management chịu trách nhiệm quản lý
-thông tin người dùng, vai trò và quyền truy cập, thông tin Film Lab
-cũng như các dịch vụ mà Film Lab cung cấp.
+Module User \& Film Lab Management chịu trách nhiệm quản lý thông tin
+người dùng, vai trò và quyền truy cập, thông tin Film Lab cũng như
+các dịch vụ mà Film Lab cung cấp.
 
 Module này là cơ sở cho các module khác trong hệ thống như
-Order/Processing, Digital Archive, Marketplace và Knowledge/Community.
-Các thực thể được sử dụng thống nhất với mô hình dữ liệu chung của hệ thống.
+Order/Processing, Digital Archive, Marketplace và
+Knowledge/Community.
+
+Các thực thể trong module được thiết kế để có thể dùng chung với
+các module khác trong toàn bộ hệ thống.
 
 \subsection{Các thực thể chính}
 
@@ -92,20 +95,27 @@ Các thuộc tính chính gồm:
 \begin{itemize}
     \item \texttt{user\_id}: Mã định danh duy nhất của người dùng,
     là khóa chính.
+
     \item \texttt{full\_name}: Họ và tên của người dùng.
+
     \item \texttt{email}: Địa chỉ email của người dùng.
+
     \item \texttt{phone}: Số điện thoại liên hệ.
+
     \item \texttt{address}: Địa chỉ của người dùng.
+
     \item \texttt{status}: Trạng thái hoạt động của tài khoản.
+
     \item \texttt{created\_at}: Thời điểm tạo tài khoản.
+
     \item \texttt{updated\_at}: Thời điểm cập nhật thông tin
     người dùng.
 \end{itemize}
 
 Thực thể \texttt{users} là thực thể dùng chung cho nhiều module
-trong hệ thống. Người dùng có thể tham gia với các vai trò khác nhau
-như Photographer/Customer, Film Lab Owner, Photography Expert,
-Delivery Partner và System Administrator.
+trong hệ thống. Một người dùng có thể tham gia hệ thống với một hoặc
+nhiều vai trò khác nhau như Photographer/Customer, Film Lab Owner,
+Photography Expert, Delivery Partner và System Administrator.
 
 \subsubsection{Thực thể \texttt{roles}}
 
@@ -117,7 +127,9 @@ Các thuộc tính chính gồm:
 \begin{itemize}
     \item \texttt{role\_id}: Mã định danh của vai trò,
     là khóa chính.
+
     \item \texttt{role\_name}: Tên của vai trò.
+
     \item \texttt{description}: Mô tả chức năng và phạm vi
     của vai trò.
 \end{itemize}
@@ -127,40 +139,50 @@ Photography Expert, Delivery Partner và System Administrator.
 
 \subsubsection{Thực thể \texttt{user\_roles}}
 
-Thực thể \texttt{user\_roles} là thực thể kết hợp dùng để giải quyết
+Thực thể \texttt{user\_roles} là thực thể kết hợp dùng để biểu diễn
 mối quan hệ nhiều--nhiều giữa \texttt{users} và \texttt{roles}.
 
 Các thuộc tính chính gồm:
 
 \begin{itemize}
-    \item \texttt{user\_id}: Mã người dùng, đồng thời là khóa ngoại
-    tham chiếu đến \texttt{users}.
-    \item \texttt{role\_id}: Mã vai trò, đồng thời là khóa ngoại
-    tham chiếu đến \texttt{roles}.
+    \item \texttt{user\_id}: Khóa ngoại tham chiếu đến
+    \texttt{users}.
+
+    \item \texttt{role\_id}: Khóa ngoại tham chiếu đến
+    \texttt{roles}.
 \end{itemize}
 
-Cặp \texttt{user\_id} và \texttt{role\_id} có thể được sử dụng
-làm khóa chính của thực thể kết hợp này.
+Cặp thuộc tính \texttt{user\_id} và \texttt{role\_id} tạo thành
+khóa chính kết hợp của thực thể \texttt{user\_roles}.
 
 \subsubsection{Thực thể \texttt{film\_labs}}
 
 Thực thể \texttt{film\_labs} lưu trữ thông tin của các Film Lab
-tham gia vào nền tảng.
+tham gia vào hệ thống.
 
 Các thuộc tính chính gồm:
 
 \begin{itemize}
     \item \texttt{lab\_id}: Mã định danh duy nhất của Film Lab,
     là khóa chính.
+
     \item \texttt{owner\_id}: Mã người dùng sở hữu Film Lab,
     là khóa ngoại tham chiếu đến \texttt{users}.
+
     \item \texttt{lab\_name}: Tên của Film Lab.
-    \item \texttt{description}: Mô tả về Film Lab.
+
+    \item \texttt{description}: Mô tả Film Lab.
+
     \item \texttt{phone}: Số điện thoại liên hệ của Film Lab.
+
     \item \texttt{email}: Địa chỉ email liên hệ của Film Lab.
+
     \item \texttt{address}: Địa chỉ của Film Lab.
+
     \item \texttt{status}: Trạng thái hoạt động của Film Lab.
+
     \item \texttt{created\_at}: Thời điểm Film Lab được tạo.
+
     \item \texttt{updated\_at}: Thời điểm thông tin Film Lab
     được cập nhật.
 \end{itemize}
@@ -178,15 +200,23 @@ Các thuộc tính chính gồm:
 \begin{itemize}
     \item \texttt{service\_id}: Mã định danh duy nhất của dịch vụ,
     là khóa chính.
+
     \item \texttt{lab\_id}: Mã Film Lab cung cấp dịch vụ,
     là khóa ngoại tham chiếu đến \texttt{film\_labs}.
+
     \item \texttt{service\_name}: Tên của dịch vụ.
+
     \item \texttt{description}: Mô tả chi tiết về dịch vụ.
+
     \item \texttt{price}: Giá của dịch vụ.
+
     \item \texttt{processing\_time}: Thời gian xử lý dự kiến
     của dịch vụ.
+
     \item \texttt{status}: Trạng thái cung cấp của dịch vụ.
+
     \item \texttt{created\_at}: Thời điểm tạo dịch vụ.
+
     \item \texttt{updated\_at}: Thời điểm cập nhật dịch vụ.
 \end{itemize}
 
@@ -206,15 +236,159 @@ Các mối quan hệ chính trong module P2 được xác định như sau:
     kết hợp \texttt{user\_roles}.
 
     \item \textbf{\texttt{users} -- \texttt{film\_labs}:}
-    Một người dùng có thể sở hữu nhiều Film Lab. Mỗi Film Lab có
-    một người dùng làm chủ sở hữu. Quan hệ này được biểu diễn thông
-    qua thuộc tính \texttt{owner\_id} trong \texttt{film\_labs}.
+    Đây là mối quan hệ một--nhiều (1--N). Một người dùng có thể
+    sở hữu nhiều Film Lab, trong khi mỗi Film Lab có một người dùng
+    làm chủ sở hữu. Mối quan hệ được biểu diễn thông qua thuộc tính
+    \texttt{owner\_id} trong \texttt{film\_labs}.
 
     \item \textbf{\texttt{film\_labs} -- \texttt{lab\_services}:}
-    Một Film Lab có thể cung cấp nhiều dịch vụ, trong khi mỗi dịch
-    vụ thuộc về một Film Lab. Đây là quan hệ một--nhiều (1--N).
+    Đây là mối quan hệ một--nhiều (1--N). Một Film Lab có thể cung
+    cấp nhiều dịch vụ, trong khi mỗi dịch vụ thuộc về một Film Lab.
 
 \end{itemize}
+
+\subsection{Sơ đồ ERD của module P2}
+
+Sơ đồ dưới đây mô tả các thực thể chính của module User \& Film Lab
+Management, bao gồm các thuộc tính, khóa chính (PK), khóa ngoại (FK)
+và cardinality giữa các thực thể.
+
+\begin{figure}[htbp]
+    \centering
+
+    \begin{tikzpicture}[
+        scale=0.72,
+        transform shape,
+        entity/.style={
+            rectangle,
+            draw,
+            rounded corners,
+            minimum width=4.5cm,
+            align=left,
+            font=\small,
+            inner sep=6pt
+        },
+        relation/.style={
+            thick
+        },
+        card/.style={
+            font=\scriptsize,
+            fill=white,
+            inner sep=2pt
+        }
+    ]
+
+    % ========================================================
+    % ROLES
+    % ========================================================
+
+    \node[entity] (roles) at (0,7) {
+        \textbf{\large roles}\\
+        \rule{4cm}{0.4pt}\\
+        \underline{\texttt{role\_id}} \quad PK\\
+        \texttt{role\_name}\\
+        \texttt{description}
+    };
+
+    % ========================================================
+    % USER ROLES
+    % ========================================================
+
+    \node[entity] (userroles) at (0,0) {
+        \textbf{\large user\_roles}\\
+        \rule{4cm}{0.4pt}\\
+        \underline{\texttt{user\_id}} \quad PK, FK\\
+        \underline{\texttt{role\_id}} \quad PK, FK
+    };
+
+    % ========================================================
+    % USERS
+    % ========================================================
+
+    \node[entity] (users) at (6,0) {
+        \textbf{\large users}\\
+        \rule{4cm}{0.4pt}\\
+        \underline{\texttt{user\_id}} \quad PK\\
+        \texttt{full\_name}\\
+        \texttt{email}\\
+        \texttt{phone}\\
+        \texttt{address}\\
+        \texttt{status}\\
+        \texttt{created\_at}\\
+        \texttt{updated\_at}
+    };
+
+    % ========================================================
+    % FILM LABS
+    % ========================================================
+
+    \node[entity] (filmlabs) at (12,0) {
+        \textbf{\large film\_labs}\\
+        \rule{4cm}{0.4pt}\\
+        \underline{\texttt{lab\_id}} \quad PK\\
+        \texttt{owner\_id} \quad FK\\
+        \texttt{lab\_name}\\
+        \texttt{description}\\
+        \texttt{phone}\\
+        \texttt{email}\\
+        \texttt{address}\\
+        \texttt{status}\\
+        \texttt{created\_at}\\
+        \texttt{updated\_at}
+    };
+
+    % ========================================================
+    % LAB SERVICES
+    % ========================================================
+
+    \node[entity] (labservices) at (12,-7) {
+        \textbf{\large lab\_services}\\
+        \rule{4cm}{0.4pt}\\
+        \underline{\texttt{service\_id}} \quad PK\\
+        \texttt{lab\_id} \quad FK\\
+        \texttt{service\_name}\\
+        \texttt{description}\\
+        \texttt{price}\\
+        \texttt{processing\_time}\\
+        \texttt{status}\\
+        \texttt{created\_at}\\
+        \texttt{updated\_at}
+    };
+
+    % ========================================================
+    % RELATIONSHIPS
+    % ========================================================
+
+    % roles - user_roles
+    \draw[relation]
+        (roles.south)
+        -- node[card, right] {1:N}
+        (userroles.north);
+
+    % users - user_roles
+    \draw[relation]
+        (users.west)
+        -- node[card, above] {1:N}
+        (userroles.east);
+
+    % users - film_labs
+    \draw[relation]
+        (users.east)
+        -- node[card, above] {1:N}
+        (filmlabs.west);
+
+    % film_labs - lab_services
+    \draw[relation]
+        (filmlabs.south)
+        -- node[card, right] {1:N}
+        (labservices.north);
+
+    \end{tikzpicture}
+
+    \caption{ERD của module User \& Film Lab Management}
+    \label{fig:erd-p2}
+
+\end{figure}
 
 \subsection{Vai trò của module P2 trong mô hình tổng thể}
 
@@ -233,6 +407,9 @@ Mô hình này giúp các module có thể dùng chung định danh người dù
 và Film Lab, đồng thời hạn chế việc tạo các thực thể trùng lặp
 giữa các module.
 
+% ============================================================
+% KẾT THÚC P2
+% ============================================================
 % ============================================================
 % P4 - Digital Film Archive & Marketplace
 % ============================================================
