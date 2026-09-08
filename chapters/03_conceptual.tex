@@ -558,3 +558,26 @@ Digital Film Archive và Marketplace trong module P4.
     \caption{ERD chi tiết của module P4 -- Digital Film Archive và Marketplace}
     \label{fig:erd-p4}
 \end{figure}
+\section{Mô hình quan niệm phân hệ P5: Knowledge \& AI Integration}
+
+Phân hệ Quản lý Tri thức và Tích hợp AI (P5) đóng vai trò hỗ trợ cộng đồng chia sẻ kinh nghiệm kỹ thuật nhiếp ảnh phim, tổ chức các sự kiện Photowalk/Workshop offline, ghi nhận trải nghiệm dịch vụ tại các Film Lab và thu thập nhật ký tương tác để phục vụ cho các mô hình AI gợi ý cũng như trợ lý ảo RAG.
+
+\subsection{Danh sách các thực thể chính trong phân hệ P5}
+\begin{itemize}
+    \item \textbf{ARTICLE\_CATEGORY:} Phân loại các nhóm bài viết chia sẻ tri thức (kỹ thuật chụp ảnh film, kỹ thuật buồng tối tráng quét, đánh giá máy ảnh và cuộn phim).
+    \item \textbf{ARTICLE:} Lưu trữ thông tin bài viết hướng dẫn chuyên sâu do các chuyên gia (Photography Experts) biên soạn, bao gồm tiêu đề, nội dung chi tiết, thẻ tag và lượt xem.
+    \item \textbf{LAB\_REVIEW:} Quản lý các đánh giá chất lượng dịch vụ của người dùng dành cho các đối tác Film Lab (điểm đánh giá từ 1 đến 5 sao và bình luận).
+    \item \textbf{COMMUNITY\_EVENT:} Quản lý lịch trình sự kiện cộng đồng (Photowalk, Workshop) do chuyên gia tổ chức, thời gian diễn ra và số lượng người tham gia tối đa.
+    \item \textbf{USER\_INTERACTION:} Thu thập nhật ký hành vi của người dùng (xem, thích, tìm kiếm, lưu trữ) nhằm cung cấp dữ liệu huấn luyện cho hệ thống AI Recommendation.
+    \item \textbf{AI\_CHAT\_LOG:} Ghi nhận toàn bộ lịch sử hỏi đáp giữa người dùng và Trợ lý ảo AI Assistant phục vụ truy xuất ngữ cảnh (RAG) và cải thiện chất lượng phản hồi.
+\end{itemize}
+
+\subsection{Sơ đồ ERD phân hệ P5}
+Hình~\ref{fig:erd_p5} biểu diễn mô hình thực thể mối kết hợp (ERD) của phân hệ Knowledge \& AI Integration cùng các mối quan hệ liên kết với thực thể bên ngoài bao gồm \textbf{USER} (thuộc Phân hệ 1) và \textbf{FILM\_LAB} (thuộc Phân hệ 2).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/ERD_P5.png}
+    \caption{Sơ đồ quan niệm ERD phân hệ Knowledge \& AI Integration}
+    \label{fig:erd_p5}
+\end{figure}
