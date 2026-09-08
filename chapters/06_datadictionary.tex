@@ -3,12 +3,159 @@
 
 Từ điển dữ liệu mô tả thống nhất tên bảng, thuộc tính, miền dữ liệu, khóa và ý nghĩa nghiệp vụ. Nội dung được tổng hợp theo từng module và phải đồng bộ với ERD cùng lược đồ quan hệ.
 
+\section{Từ điển dữ liệu P1 -- Core Domain}
+
+P1 phụ trách nhóm dữ liệu người dùng và phân quyền, Film Lab và danh mục dịch vụ, cùng phần lõi của đơn hàng. Ngoài chín bảng được phân công, hai bảng nối \texttt{role\_permissions} và \texttt{package\_services} được bổ sung để biểu diễn đầy đủ các quan hệ nhiều--nhiều.
+
+\footnotesize
+\begin{longtable}{>{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}p{5.0cm}}
+\caption{Từ điển dữ liệu P1 -- Core Domain}\label{tab:dd-p1-core}\\
+\toprule
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ràng buộc} & \textbf{Mô tả} \\
+\midrule
+\endfirsthead
+\multicolumn{4}{c}{\textit{Bảng~\thetable\ (tiếp theo)}}\\
+\toprule
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ràng buộc} & \textbf{Mô tả} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+\multicolumn{4}{l}{\textbf{Bảng users -- Tài khoản người dùng}}\\
+\entity{user_id} & UUID & PK, Not Null & Mã định danh duy nhất của người dùng. \\
+\entity{email} & VARCHAR(255) & Unique, Not Null & Email đăng nhập, được chuẩn hóa về chữ thường. \\
+\entity{password_hash} & VARCHAR(255) & Not Null & Giá trị băm của mật khẩu; không lưu mật khẩu gốc. \\
+\entity{full_name} & VARCHAR(150) & Not Null & Họ và tên hiển thị của người dùng. \\
+\entity{phone} & VARCHAR(20) & Nullable & Số điện thoại liên hệ. \\
+\entity{status} & VARCHAR(20) & Not Null, Default active & Trạng thái active, inactive hoặc suspended. \\
+\entity{created_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm tạo tài khoản. \\
+\entity{updated_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm cập nhật gần nhất. \\
+\entity{deleted_at} & TIMESTAMPTZ & Nullable & Thời điểm soft-delete tài khoản. \\
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng roles -- Vai trò hệ thống}}\\
+\entity{role_id} & UUID & PK, Not Null & Mã định danh vai trò. \\
+\entity{role_code} & VARCHAR(50) & Unique, Not Null & Mã ổn định dùng khi kiểm tra quyền. \\
+\entity{role_name} & VARCHAR(100) & Not Null & Tên hiển thị của vai trò. \\
+\entity{description} & TEXT & Nullable & Mô tả phạm vi trách nhiệm của vai trò. \\
+\entity{created_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm tạo vai trò. \\
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng permissions -- Quyền thao tác}}\\
+\entity{permission_id} & UUID & PK, Not Null & Mã định danh quyền. \\
+\entity{permission_code} & VARCHAR(100) & Unique, Not Null & Mã quyền, ví dụ quản lý đơn hoặc duyệt Film Lab. \\
+\entity{permission_name} & VARCHAR(150) & Not Null & Tên hiển thị của quyền. \\
+\entity{description} & TEXT & Nullable & Mô tả tài nguyên và hành động được phép. \\
+\entity{created_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm tạo quyền. \\
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng user\_roles -- Gán vai trò cho người dùng}}\\
+\entity{user_id} & UUID & PK, FK, Not Null & Tham chiếu \texttt{users.user\_id}. \\
+\entity{role_id} & UUID & PK, FK, Not Null & Tham chiếu \texttt{roles.role\_id}. \\
+\entity{assigned_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm vai trò được gán. \\
+\entity{assigned_by} & UUID & FK, Nullable & Người quản trị thực hiện việc gán vai trò. \\
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng role\_permissions -- Gán quyền cho vai trò}}\\
+\entity{role_id} & UUID & PK, FK, Not Null & Tham chiếu \texttt{roles.role\_id}. \\
+\entity{permission_id} & UUID & PK, FK, Not Null & Tham chiếu \texttt{permissions.permission\_id}. \\
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng film\_labs -- Film Lab tham gia nền tảng}}\\
+\entity{lab_id} & UUID & PK, Not Null & Mã định danh Film Lab. \\
+\entity{owner_id} & UUID & FK, Not Null & Người dùng sở hữu và quản lý Film Lab. \\
+\entity{lab_name} & VARCHAR(150) & Not Null & Tên Film Lab. \\
+\entity{email} & VARCHAR(255) & Unique, Not Null & Email liên hệ của Film Lab. \\
+\entity{phone} & VARCHAR(20) & Not Null & Số điện thoại liên hệ. \\
+\entity{address} & TEXT & Not Null & Địa chỉ hoạt động của Film Lab. \\
+\entity{status} & VARCHAR(20) & Not Null, Default pending & Trạng thái pending, approved, suspended hoặc closed. \\
+\entity{approved_at} & TIMESTAMPTZ & Nullable & Thời điểm quản trị viên phê duyệt Film Lab. \\
+\entity{created_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm đăng ký Film Lab. \\
+\entity{updated_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm cập nhật gần nhất. \\
+\entity{deleted_at} & TIMESTAMPTZ & Nullable & Thời điểm ngừng hiển thị theo cơ chế soft-delete. \\
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng lab\_services -- Dịch vụ do Film Lab cung cấp}}\\
+\entity{service_id} & UUID & PK, Not Null & Mã định danh dịch vụ. \\
+\entity{lab_id} & UUID & FK, Not Null & Film Lab cung cấp dịch vụ. \\
+\entity{service_code} & VARCHAR(50) & Unique theo Lab, Not Null & Mã dịch vụ trong phạm vi một Film Lab. \\
+\entity{service_name} & VARCHAR(150) & Not Null & Tên dịch vụ tráng, scan hoặc in ảnh. \\
+\entity{description} & TEXT & Nullable & Mô tả chi tiết dịch vụ và điều kiện áp dụng. \\
+\entity{base_price} & NUMERIC(12,2) & Not Null, $\geq 0$ & Giá cơ sở của dịch vụ. \\
+\entity{turnaround_hours} & INTEGER & Not Null, $>0$ & Thời gian xử lý dự kiến theo giờ. \\
+\entity{is_active} & BOOLEAN & Not Null, Default true & Dịch vụ có đang nhận đơn hay không. \\
+\entity{created_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm tạo dịch vụ. \\
+\entity{updated_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm cập nhật dịch vụ. \\
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng service\_packages -- Gói dịch vụ}}\\
+\entity{package_id} & UUID & PK, Not Null & Mã định danh gói dịch vụ. \\
+\entity{lab_id} & UUID & FK, Not Null & Film Lab phát hành gói dịch vụ. \\
+\entity{package_code} & VARCHAR(50) & Unique theo Lab, Not Null & Mã gói trong phạm vi một Film Lab. \\
+\entity{package_name} & VARCHAR(150) & Not Null & Tên hiển thị của gói dịch vụ. \\
+\entity{description} & TEXT & Nullable & Nội dung và điều kiện của gói. \\
+\entity{package_price} & NUMERIC(12,2) & Not Null, $\geq 0$ & Giá bán của toàn bộ gói. \\
+\entity{is_active} & BOOLEAN & Not Null, Default true & Gói có đang được cung cấp hay không. \\
+\entity{created_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm tạo gói. \\
+\entity{updated_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm cập nhật gói. \\
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng package\_services -- Thành phần của gói dịch vụ}}\\
+\entity{package_id} & UUID & PK, FK, Not Null & Gói dịch vụ được cấu thành. \\
+\entity{service_id} & UUID & PK, FK, Not Null & Dịch vụ thuộc gói; phải cùng Film Lab với gói. \\
+\entity{quantity} & INTEGER & Not Null, $>0$ & Số lượt dịch vụ có trong gói. \\
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng orders -- Đơn sử dụng dịch vụ Film Lab}}\\
+\entity{order_id} & UUID & PK, Not Null & Mã định danh đơn hàng. \\
+\entity{customer_id} & UUID & FK, Not Null & Người dùng đặt dịch vụ. \\
+\entity{lab_id} & UUID & FK, Not Null & Film Lab tiếp nhận và xử lý đơn. \\
+\entity{order_code} & VARCHAR(30) & Unique, Not Null & Mã nghiệp vụ dùng để tra cứu đơn. \\
+\entity{status} & VARCHAR(30) & Not Null, Default pending & Trạng thái hiện tại theo state machine của đơn. \\
+\entity{fulfillment_method} & VARCHAR(20) & Not Null & Hình thức dropoff hoặc pickup. \\
+\entity{subtotal} & NUMERIC(12,2) & Not Null, $\geq 0$ & Tổng tiền các hạng mục trước phí và giảm giá. \\
+\entity{delivery_fee} & NUMERIC(12,2) & Not Null, Default 0 & Phí lấy hoặc giao cuộn phim. \\
+\entity{discount_amount} & NUMERIC(12,2) & Not Null, Default 0 & Số tiền được giảm. \\
+\entity{total_amount} & NUMERIC(12,2) & Not Null, $\geq 0$ & Tổng tiền chốt của đơn hàng. \\
+\entity{currency_code} & CHAR(3) & Not Null, Default VND & Mã tiền tệ theo chuẩn ba ký tự. \\
+\entity{special_instructions} & TEXT & Nullable & Yêu cầu bổ sung của khách hàng. \\
+\entity{placed_at} & TIMESTAMPTZ & Not Null & Thời điểm khách xác nhận đặt dịch vụ. \\
+\entity{created_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm tạo bản ghi đơn. \\
+\entity{updated_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm cập nhật đơn gần nhất. \\
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng order\_items -- Hạng mục dịch vụ trong đơn}}\\
+\entity{order_item_id} & UUID & PK, Not Null & Mã định danh hạng mục đơn. \\
+\entity{order_id} & UUID & FK, Not Null & Đơn hàng chứa hạng mục. \\
+\entity{service_id} & UUID & FK, Not Null & Dịch vụ được lựa chọn; phải thuộc Lab nhận đơn. \\
+\entity{package_id} & UUID & FK, Nullable & Gói dịch vụ áp dụng nếu khách đặt theo gói. \\
+\entity{quantity} & INTEGER & Not Null, $>0$ & Số lượng hạng mục dịch vụ. \\
+\entity{unit_price} & NUMERIC(12,2) & Not Null, $\geq 0$ & Giá chốt tại thời điểm đặt, không đổi theo giá danh mục. \\
+\entity{service_options} & JSONB & Nullable & Tùy chọn tráng, chất lượng scan, in ảnh hoặc yêu cầu khác. \\
+\entity{item_note} & TEXT & Nullable & Ghi chú riêng cho hạng mục. \\
+\entity{created_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm thêm hạng mục vào đơn. \\
+
+\end{longtable}
+\normalsize
+
+\subsection{Quy tắc toàn vẹn của nhóm P1}
+
+\begin{itemize}
+    \item Mỗi email người dùng và mã đơn hàng là duy nhất; mã dịch vụ và mã gói chỉ cần duy nhất trong từng Film Lab.
+    \item Dịch vụ, gói dịch vụ và đơn hàng liên quan phải thuộc cùng một Film Lab.
+    \item \texttt{total\_amount} bằng tổng tạm tính cộng phí giao nhận và trừ giảm giá; kết quả không được âm.
+    \item Giá trong \texttt{order\_items} là giá chốt phục vụ kiểm toán, không thay đổi khi giá danh mục được cập nhật.
+    \item Không xóa cứng user, Film Lab hoặc dịch vụ nếu đã phát sinh đơn hàng; sử dụng trạng thái hoặc soft-delete.
+\end{itemize}
+
 \section{Từ điển dữ liệu phân hệ P5: Knowledge \& AI Integration}
 
 \subsection{Bảng \texttt{articles} (Bài viết kiến thức \& Hướng dẫn)}
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|l|l|l|p{6.5cm}|}
+\footnotesize
+\begin{tabular}{|p{2.7cm}|p{2.5cm}|p{2.7cm}|p{5.4cm}|}
 \hline
 \textbf{Tên thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ràng buộc} & \textbf{Mô tả} \\ \hline
 article\_id & SERIAL & PK & Mã định danh bài viết \\ \hline
@@ -22,13 +169,15 @@ status & VARCHAR(20) & Default 'published' & Trạng thái (draft, published, ar
 created\_at & TIMESTAMP & Default Now & Thời gian đăng bài \\ \hline
 updated\_at & TIMESTAMP & Default Now & Thời gian cập nhật bài \\ \hline
 \end{tabular}
+\normalsize
 \caption{Từ điển dữ liệu bảng articles}
 \end{table}
 
 \subsection{Bảng \texttt{user\_interactions} (Dữ liệu hành vi phục vụ AI gợi ý)}
 \begin{table}[htbp]
 \centering
-\begin{tabular}{|l|l|l|p{6.5cm}|}
+\footnotesize
+\begin{tabular}{|p{2.7cm}|p{2.5cm}|p{2.7cm}|p{5.4cm}|}
 \hline
 \textbf{Tên thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ràng buộc} & \textbf{Mô tả} \\ \hline
 interaction\_id & SERIAL & PK & Mã phiên tương tác \\ \hline
@@ -38,5 +187,6 @@ target\_id & INT & Not Null & Mã đối tượng tương tác \\ \hline
 interaction\_type & VARCHAR(50) & Not Null & Hành động (view, like, search, bookmark) \\ \hline
 created\_at & TIMESTAMP & Default Now & Thời điểm phát sinh hành vi \\ \hline
 \end{tabular}
+\normalsize
 \caption{Từ điển dữ liệu bảng user\_interactions}
 \end{table}

@@ -60,11 +60,13 @@
 \contentsline {section}{\numberline {5.5}Audit, soft-delete và multi-tenant}{32}{section.5.5}%
 \contentsline {section}{\numberline {5.6}Lưu trữ và sao lưu}{32}{section.5.6}%
 \contentsline {chapter}{\numberline {6}TỪ ĐIỂN DỮ LIỆU}{33}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Từ điển dữ liệu phân hệ P5: Knowledge \& AI Integration}{33}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Bảng \texttt {articles} (Bài viết kiến thức \& Hướng dẫn)}{33}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Bảng \texttt {user\_interactions} (Dữ liệu hành vi phục vụ AI gợi ý)}{34}{subsection.6.1.2}%
-\contentsline {chapter}{\numberline {7}KẾT LUẬN}{35}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Kết quả đạt được}{35}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Hạn chế}{35}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Hướng phát triển}{35}{section.7.3}%
-\contentsline {chapter}{Tài liệu tham khảo}{35}{section.7.3}%
+\contentsline {section}{\numberline {6.1}Từ điển dữ liệu P1 -- Core Domain}{33}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Quy tắc toàn vẹn của nhóm P1}{37}{subsection.6.1.1}%
+\contentsline {section}{\numberline {6.2}Từ điển dữ liệu phân hệ P5: Knowledge \& AI Integration}{38}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Bảng \texttt {articles} (Bài viết kiến thức \& Hướng dẫn)}{38}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Bảng \texttt {user\_interactions} (Dữ liệu hành vi phục vụ AI gợi ý)}{38}{subsection.6.2.2}%
+\contentsline {chapter}{\numberline {7}KẾT LUẬN}{39}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Kết quả đạt được}{39}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Hạn chế}{39}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Hướng phát triển}{39}{section.7.3}%
+\contentsline {chapter}{Tài liệu tham khảo}{39}{section.7.3}%
