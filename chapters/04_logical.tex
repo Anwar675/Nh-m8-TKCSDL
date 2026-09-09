@@ -99,3 +99,194 @@ Giá trị \entity{orders.total_amount} là dữ liệu dẫn xuất nhưng đư
 \section{Điểm tích hợp cần cross-review}
 
 P3 cần xác nhận liên kết giữa \entity{order_items} và \entity{film_rolls}, state machine của order cùng lịch sử xử lý. P4 cần xác nhận đường truy vết từ film roll tới scan file và chủ sở hữu. Module Logistics/Payment cần dùng \entity{order_id} làm khóa tham chiếu, không lưu lặp thông tin customer hoặc Film Lab.
+
+\section{Lược đồ quan hệ P4 -- Kho ảnh số và Chợ giao dịch}
+
+Module P4 sử dụng lại \entity{users} của Core Domain. Các quan hệ dưới đây
+được chuyển từ ERD P4; các kiểu dữ liệu cụ thể là đề xuất để thống nhất
+với miền dữ liệu của chương này, chưa phải câu lệnh SQL.
+Liên kết tới \entity{film_rolls} và các quy tắc giao dịch còn cần cross-review.
+
+\scriptsize
+\begin{longtable}{>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}p{6.2cm}>{\raggedright\arraybackslash}p{2.7cm}>{\raggedright\arraybackslash}p{2.2cm}}
+\toprule
+\textbf{Quan hệ} & \textbf{Thuộc tính và domain} & \textbf{Khóa} & \textbf{Ràng buộc chính} \\
+\midrule
+\endhead
+
+\texttt{scan\_\allowbreak files} &
+\entity{scan_file_id} UUID; \entity{film_roll_id} UUID; \entity{storage_url} TEXT; \entity{file_name} VARCHAR(255); \entity{file_format} VARCHAR(20); \entity{file_size} BIGINT; \entity{status} VARCHAR(20); \entity{created_at} TIMESTAMPTZ; \entity{updated_at} TIMESTAMPTZ &
+PK: \entity{scan_file_id}; FK: \entity{film_roll_id} &
+Đường dẫn lưu trữ không chứa dữ liệu ảnh; kích thước không âm. FK film\_roll\_id tham chiếu film\_rolls.film\_roll\_id; P3 cần xác nhận đường nối tới order\_items. \\
+
+\texttt{photo\_\allowbreak metadata} &
+\entity{photo_metadata_id} UUID; \entity{scan_file_id} UUID; \entity{film_stock_id} UUID NULL; \entity{camera_model_id} UUID NULL; \entity{lens_id} UUID NULL; \entity{shooting_date} DATE NULL; \entity{scan_resolution} VARCHAR(100) NULL; \entity{location} TEXT NULL; \entity{notes} TEXT NULL &
+PK: \entity{photo_metadata_id}; FK: \entity{scan_file_id}, \entity{film_stock_id}, \entity{camera_model_id}, \entity{lens_id} &
+UNIQUE scan\_file\_id để bảo đảm mỗi file scan có tối đa một bộ metadata. \\
+
+\texttt{albums} &
+\entity{album_id} UUID; \entity{user_id} UUID; \entity{album_name} VARCHAR(150); \entity{description} TEXT NULL; \entity{visibility} VARCHAR(20); \entity{created_at} TIMESTAMPTZ; \entity{updated_at} TIMESTAMPTZ &
+PK: \entity{album_id}; FK: \entity{user_id} &
+Mỗi album thuộc một user; miền visibility cần thống nhất. \\
+
+\texttt{album\_\allowbreak photos} &
+\entity{album_id} UUID; \entity{scan_file_id} UUID; \entity{display_order} INTEGER; \entity{added_at} TIMESTAMPTZ &
+PK: \entity{album_id}, \entity{scan_file_id}; FK: \entity{album_id}, \entity{scan_file_id} &
+PK ghép ngăn thêm trùng một ảnh vào cùng album; display\_order không âm. \\
+
+\texttt{tags} &
+\entity{tag_id} UUID; \entity{tag_name} VARCHAR(100); \entity{created_at} TIMESTAMPTZ &
+PK: \entity{tag_id} &
+AK: tag\_name; tên thẻ được chuẩn hóa chữ thường và duy nhất trong phạm vi toàn hệ thống. \\
+
+\texttt{photo\_\allowbreak tags} &
+\entity{scan_file_id} UUID; \entity{tag_id} UUID; \entity{created_at} TIMESTAMPTZ &
+PK: \entity{scan_file_id}, \entity{tag_id}; FK: \entity{scan_file_id}, \entity{tag_id} &
+PK ghép ngăn gắn trùng một tag cho cùng ảnh. \\
+
+\texttt{film\_\allowbreak stocks} &
+\entity{film_stock_id} UUID; \entity{brand} VARCHAR(100); \entity{stock_name} VARCHAR(150); \entity{iso} INTEGER; \entity{film_format} VARCHAR(50); \entity{film_type} VARCHAR(50) &
+PK: \entity{film_stock_id} &
+ISO lớn hơn 0; các thuộc tính mô tả phụ thuộc vào mã loại film. \\
+
+\texttt{camera\_\allowbreak models} &
+\entity{camera_model_id} UUID; \entity{brand} VARCHAR(100); \entity{model_name} VARCHAR(150); \entity{camera_type} VARCHAR(50); \entity{film_format} VARCHAR(50) &
+PK: \entity{camera_model_id} &
+Thông tin mẫu máy được lưu một lần để tránh lặp ở từng ảnh. \\
+
+\texttt{lenses} &
+\entity{lens_id} UUID; \entity{brand} VARCHAR(100); \entity{model_name} VARCHAR(150); \entity{focal_length} VARCHAR(100); \entity{max_aperture} VARCHAR(50); \entity{mount_type} VARCHAR(50) &
+PK: \entity{lens_id} &
+Miền tiêu cự và khẩu độ cần chốt nếu muốn hỗ trợ ống kính zoom. \\
+
+\texttt{product\_\allowbreak categories} &
+\entity{product_category_id} UUID; \entity{category_name} VARCHAR(150); \entity{description} TEXT NULL &
+PK: \entity{product_category_id} &
+Danh mục được quản lý riêng, không lặp tên danh mục trong products. \\
+
+\texttt{products} &
+\entity{product_id} UUID; \entity{product_category_id} UUID; \entity{product_name} VARCHAR(150); \entity{brand} VARCHAR(100) NULL; \entity{model_name} VARCHAR(150) NULL; \entity{condition} VARCHAR(50); \entity{description} TEXT NULL &
+PK: \entity{product_id}; FK: \entity{product_category_id} &
+Mỗi product thuộc một category; cần chốt condition thuộc sản phẩm hay tin đăng. \\
+
+\texttt{listings} &
+\entity{listing_id} UUID; \entity{product_id} UUID; \entity{seller_id} UUID; \entity{title} VARCHAR(200); \entity{price} NUMERIC(12,2); \entity{status} VARCHAR(20); \entity{created_at} TIMESTAMPTZ; \entity{updated_at} TIMESTAMPTZ &
+PK: \entity{listing_id}; FK: \entity{product_id}, \entity{seller_id} &
+Giá không âm; seller\_id tham chiếu users.user\_id; miền status cần thống nhất. \\
+
+\texttt{marketplace\_\allowbreak transactions} &
+\entity{marketplace_transaction_id} UUID; \entity{listing_id} UUID; \entity{buyer_id} UUID; \entity{agreed_price} NUMERIC(12,2); \entity{status} VARCHAR(20); \entity{created_at} TIMESTAMPTZ; \entity{updated_at} TIMESTAMPTZ &
+PK: \entity{marketplace_transaction_id}; FK: \entity{listing_id}, \entity{buyer_id} &
+Giá chốt không âm; UNIQUE listing\_id; mỗi tin đăng có tối đa một bản ghi giao dịch, kể cả khi giao dịch bị hủy. \\
+
+\texttt{seller\_\allowbreak reviews} &
+\entity{seller_review_id} UUID; \entity{marketplace_transaction_id} UUID; \entity{reviewer_id} UUID; \entity{seller_id} UUID; \entity{rating} INTEGER; \entity{comment} TEXT NULL; \entity{created_at} TIMESTAMPTZ &
+PK: \entity{seller_review_id}; FK: \entity{marketplace_transaction_id}, \entity{reviewer_id}, \entity{seller_id} &
+UNIQUE marketplace\_transaction\_id; rating từ 1 đến 5; reviewer là buyer, seller là người đăng bán. \\
+
+\bottomrule
+\end{longtable}
+\normalsize
+
+\subsection{Chuyển quan hệ và quy tắc tham chiếu P4}
+
+\begin{enumerate}
+    \item \entity{albums.user_id} tham chiếu \entity{users.user_id}.
+    Hai quan hệ N--N được tách qua \entity{album_photos} và \entity{photo_tags};
+    các cặp khóa ghép ngăn bản ghi liên kết trùng nhau.
+    \item \entity{photo_metadata.scan_file_id} tham chiếu
+    \entity{scan_files.scan_file_id} và có UNIQUE.
+    Các khóa \entity{film_stock_id}, \entity{camera_model_id}, \entity{lens_id}
+    tham chiếu các bảng danh mục tương ứng.
+    \item \entity{products.product_category_id} tham chiếu
+    \entity{product_categories.product_category_id};
+    \entity{listings.product_id} tham chiếu \entity{products.product_id}.
+    \entity{listings.seller_id} và \entity{marketplace_transactions.buyer_id}
+    đều tham chiếu \entity{users.user_id}.
+    \item \entity{seller_reviews.marketplace_transaction_id} tham chiếu
+    \entity{marketplace_transactions.marketplace_transaction_id} và có UNIQUE.
+    \entity{reviewer_id} và \entity{seller_id} đều tham chiếu
+    \entity{users.user_id}, nhưng mang hai vai trò khác nhau.
+    \item Không xóa dây chuyền dữ liệu giao dịch khi user hoặc listing ngừng
+    hoạt động. Giá đã chốt ở \entity{agreed_price} được giữ để truy vết lịch sử.
+\end{enumerate}
+
+\subsection{Kiểm tra chuẩn hóa đến 3NF}
+
+Các phụ thuộc hàm chính được xác định theo giả định nghiệp vụ của P4:
+\begin{enumerate}
+    \item \entity{scan_file_id} xác định các thuộc tính còn lại của
+    \entity{scan_files}; \entity{photo_metadata_id} xác định các thuộc tính
+    của \entity{photo_metadata}. Do \entity{scan_file_id} duy nhất trong
+    \entity{photo_metadata}, khóa này cũng xác định bộ metadata tương ứng.
+    \item \entity{album_id} xác định thông tin album;
+    \entity{tag_id} xác định thông tin thẻ.
+    Trong \entity{album_photos}, cặp
+    (\entity{album_id}, \entity{scan_file_id}) xác định
+    \entity{display_order} và \entity{added_at}.
+    Trong \entity{photo_tags}, cặp
+    (\entity{scan_file_id}, \entity{tag_id}) xác định
+    \entity{created_at}.
+    \item \entity{film_stock_id}, \entity{camera_model_id} và \entity{lens_id}
+    lần lượt xác định thông tin của loại film, mẫu máy ảnh và ống kính.
+    \item \entity{product_category_id} xác định thông tin danh mục;
+    \entity{product_id} xác định thông tin sản phẩm;
+    \entity{listing_id} xác định thông tin tin đăng.
+    \item \entity{marketplace_transaction_id} xác định thông tin giao dịch.
+    Với giả định mỗi listing có tối đa một giao dịch,
+    \entity{listing_id} cũng là khóa ứng viên của
+    \entity{marketplace_transactions}.
+    \entity{seller_review_id} xác định thông tin đánh giá;
+    \entity{marketplace_transaction_id} là khóa ứng viên của
+    \entity{seller_reviews}.
+\end{enumerate}
+
+Các quan hệ có thuộc tính nguyên tố, không chứa nhóm lặp nên đáp ứng 1NF.
+Phần lớn quan hệ dùng khóa đơn nên không có phụ thuộc bộ phận vào khóa ghép.
+Hai quan hệ kết hợp chỉ chứa thuộc tính phụ thuộc vào toàn bộ cặp khóa,
+vì vậy đáp ứng 2NF. Thông tin người dùng, danh mục, film, máy ảnh và ống kính
+được tách riêng; các quan hệ giao dịch chỉ giữ khóa tham chiếu và dữ liệu
+nghiệp vụ của chính giao dịch. Theo các phụ thuộc hàm đã nêu và giả định
+mỗi thuộc tính mô tả phụ thuộc vào khóa của quan hệ tương ứng, mô hình
+đáp ứng mục tiêu 3NF.
+
+\entity{marketplace_transactions.agreed_price} là giá chốt tại thời điểm
+giao dịch, được giữ để bảo toàn lịch sử và không tự cập nhật khi
+\entity{listings.price} thay đổi. Đây là snapshot có chủ đích, không phải
+sao chép tùy ý dữ liệu sản phẩm.
+
+\subsection{Giả định nghiệp vụ và điểm tích hợp P4}
+
+Để hoàn thành bản thiết kế tạm thời, P4 sử dụng các quy tắc sau:
+\begin{enumerate}
+    \item Mỗi \entity{scan_files} thuộc đúng một cuộn phim.
+    \entity{film_roll_id} tham chiếu \entity{film_rolls.film_roll_id}.
+    Chủ sở hữu ảnh được xác định qua đơn hàng của cuộn phim; không tạo
+    thêm bảng users hoặc lưu lặp owner\_id trong scan\_files.
+    Đường nối cụ thể tới order\_items cần đối chiếu với mô hình P3.
+    \item Mỗi scan file có tối đa một metadata.
+    UNIQUE \entity{photo_metadata.scan_file_id} bảo đảm ràng buộc này
+    mà vẫn giữ PK \entity{photo_metadata_id} như ERD.
+    \item Mỗi listing có tối đa một bản ghi giao dịch.
+    Giao dịch có thể ở trạng thái chờ, hoàn thành hoặc hủy;
+    không tạo nhiều bản ghi giao dịch cho cùng listing.
+    UNIQUE \entity{marketplace_transactions.listing_id} bảo đảm
+    cardinality 1--0..1. Nếu sau này cần lịch sử nhiều lần thử,
+    nhóm phải điều chỉnh quy tắc này trước khi triển khai.
+    \item Mỗi giao dịch có tối đa một đánh giá.
+    \entity{seller_reviews.reviewer_id} phải là buyer của giao dịch,
+    còn \entity{seller_reviews.seller_id} phải là seller của listing.
+    Chỉ cho phép đánh giá giao dịch hoàn thành; người dùng không tự
+    đánh giá chính mình. Rating nhận giá trị từ 1 đến 5.
+    \item \entity{tags.tag_name} được chuẩn hóa chữ thường và duy nhất
+    trong toàn hệ thống. \entity{products.condition} mô tả tình trạng
+    của sản phẩm cụ thể, không phải tình trạng chung của một dòng máy.
+    \item Không xóa dây chuyền dữ liệu giao dịch khi user hoặc listing
+    ngừng hoạt động. Các kiểm tra xuyên nhiều bảng và quy tắc trạng thái
+    sẽ được triển khai ở tầng nghiệp vụ hoặc cơ chế ràng buộc phù hợp
+    trong giai đoạn thiết kế vật lý.
+\end{enumerate}
+
+Các quy tắc trên là phương án P4 chọn để thống nhất bản logic hiện tại,
+không phải yêu cầu đã được nhóm trưởng xác nhận. Khi tích hợp với P3,
+cần kiểm tra lại tên khóa cuộn phim và đường truy vết tới đơn hàng.
