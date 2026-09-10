@@ -1,14 +1,34 @@
 % Chương 7: Kết luận
 \chapter{KẾT LUẬN}
 
+\section{Tổng kết quá trình thiết kế}
+
+Báo cáo đã tiếp cận bài toán nền tảng FilmLab theo quy trình thiết kế cơ sở dữ liệu từ yêu cầu nghiệp vụ đến mô hình khái niệm, mô hình logic và định hướng vật lý. Sáu Core Flow được sử dụng làm căn cứ nhận diện dữ liệu cần quản lý, gồm tìm kiếm Film Lab, đặt dịch vụ, theo dõi quá trình xử lý phim, giao file và lưu trữ ảnh số, giao dịch thiết bị, chia sẻ tri thức và hỗ trợ AI.
+
+Trên cơ sở đó, các thực thể được chia thành những nhóm: người dùng và phân quyền; Film Lab và dịch vụ; đơn hàng và xử lý phim; kho ảnh số; chợ giao dịch; tri thức, cộng đồng và AI. Cách phân chia theo module giúp từng thành viên phát triển phần phụ trách, đồng thời vẫn duy trì liên kết xuyên suốt thông qua các thực thể trung tâm như \entity{users}, \entity{film_labs} và \entity{orders}.
+
 \section{Kết quả đạt được}
 
-Báo cáo đã phân tích yêu cầu dữ liệu của nền tảng FilmLab, xác định các thực thể và quan hệ nghiệp vụ, xây dựng mô hình ERD, chuyển đổi sang lược đồ quan hệ và trình bày định hướng thiết kế vật lý trên PostgreSQL. Từ điển dữ liệu giúp thống nhất ý nghĩa, miền giá trị và ràng buộc của các thành phần trong mô hình.
+\begin{itemize}
+    \item Xác định tác nhân, yêu cầu dữ liệu, quy tắc nghiệp vụ và các mối quan hệ quan trọng của hệ thống.
+    \item Xây dựng sơ đồ tổng quan cùng ERD chi tiết cho các module đã hoàn thiện, qua đó thể hiện thực thể, khóa và cardinality.
+    \item Chuyển các thực thể cốt lõi và module P4 thành lược đồ quan hệ; giải quyết quan hệ nhiều--nhiều bằng bảng trung gian và kiểm tra chuẩn hóa đến 3NF.
+    \item Đề xuất định hướng thiết kế vật lý trên PostgreSQL về kiểu dữ liệu, ràng buộc, chỉ mục, audit, soft-delete, multi-tenant và lưu trữ file scan.
+    \item Xây dựng Data Dictionary cho Core Domain P1 và phần Knowledge/AI, làm cơ sở thống nhất tên thuộc tính, miền dữ liệu và ràng buộc.
+\end{itemize}
+
+\section{Đánh giá thiết kế}
+
+Thiết kế bảo đảm khả năng truy vết dữ liệu từ người dùng, Film Lab và đơn hàng đến quá trình xử lý và kho ảnh số. RBAC hỗ trợ một người dùng có nhiều vai trò; phạm vi tenant được nhận diện thông qua Film Lab; lịch sử nghiệp vụ quan trọng được giữ lại thay vì xóa cứng. Giá dịch vụ tại thời điểm đặt được lưu như một snapshot, giúp đơn hàng không bị thay đổi khi danh mục giá được cập nhật.
+
+Việc tách file ảnh khỏi cơ sở dữ liệu và chỉ lưu URI, checksum cùng metadata phù hợp với đặc điểm dữ liệu scan có dung lượng lớn. Các nhóm dữ liệu hành vi, tri thức và hội thoại cũng tạo nền tảng để mở rộng recommendation, semantic search và trợ lý RAG trong tương lai.
 
 \section{Hạn chế}
 
-Phạm vi hiện tại tập trung vào thiết kế cơ sở dữ liệu ở mức lý thuyết. Báo cáo chưa triển khai mã SQL, dữ liệu mẫu, truy vấn thực thi hoặc đánh giá hiệu năng trên hệ quản trị cơ sở dữ liệu thực tế.
+Báo cáo hiện tập trung vào thiết kế lý thuyết và chưa triển khai schema trên PostgreSQL, dữ liệu mẫu hoặc đánh giá hiệu năng thực tế. Một số module vẫn cần được hoàn thiện đồng đều ở cả ERD, lược đồ quan hệ và Data Dictionary, đặc biệt là vòng đời Order/Processing cùng các quan hệ tích hợp Logistics, Payment và Notification. Các giả định về trạng thái nghiệp vụ, chính sách lưu trữ và quyền truy cập cũng cần được kiểm chứng với người dùng thực tế.
 
 \section{Hướng phát triển}
 
-Trong giai đoạn tiếp theo, mô hình có thể được hiện thực hóa trên PostgreSQL, kiểm thử bằng dữ liệu thực tế và tối ưu index theo tải truy vấn. Các hướng mở rộng gồm phân vùng dữ liệu, tìm kiếm ngữ nghĩa, vector search, recommendation, quản lý phiên bản file scan và tăng cường chính sách bảo mật multi-tenant.
+Trong giai đoạn tiếp theo, nhóm cần hoàn thiện ERD tổng thể sau cross-review, đồng bộ tên bảng và khóa giữa tất cả module, sau đó kiểm thử mô hình bằng một bộ dữ liệu đại diện. Khi chuyển sang triển khai, hệ thống có thể bổ sung chỉ mục không gian cho tìm Film Lab, full-text hoặc vector search cho kho tri thức, phân vùng bảng log theo thời gian, chính sách Row-Level Security cho multi-tenant và cơ chế sao lưu/khôi phục định kỳ.
+
+Nhìn chung, mô hình hiện tại đã hình thành nền tảng dữ liệu có cấu trúc cho hệ sinh thái nhiếp ảnh phim. Việc tiếp tục hoàn thiện các module còn thiếu và kiểm chứng bằng dữ liệu thực tế sẽ giúp thiết kế đạt tính nhất quán, khả năng mở rộng và độ tin cậy cần thiết trước khi được hiện thực hóa.

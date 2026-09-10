@@ -46,6 +46,26 @@
 \setcounter{secnumdepth}{3}          % Đánh số đến subsubsection
 \setcounter{tocdepth}{3}             % Hiển thị đến subsubsection trong mục lục
 
+% ======================== ĐỊNH DẠNG MỤC LỤC =============================
+% Chương nổi bật; các cấp bên dưới nhỏ dần, màu xanh và thụt sâu dần.
+\renewcommand{\cftchapfont}{\bfseries\color{blue!70!black}}
+\renewcommand{\cftchappagefont}{\bfseries\color{blue!70!black}}
+
+\renewcommand{\cftsecfont}{\small\color{blue!70!black}}
+\renewcommand{\cftsecpagefont}{\small\color{blue!70!black}}
+\setlength{\cftsecindent}{1.5em}
+\setlength{\cftsecnumwidth}{3.2em}
+
+\renewcommand{\cftsubsecfont}{\footnotesize\color{blue!65!black}}
+\renewcommand{\cftsubsecpagefont}{\footnotesize\color{blue!65!black}}
+\setlength{\cftsubsecindent}{4.7em}
+\setlength{\cftsubsecnumwidth}{4.0em}
+
+\renewcommand{\cftsubsubsecfont}{\scriptsize\color{blue!60!black}}
+\renewcommand{\cftsubsubsecpagefont}{\scriptsize\color{blue!60!black}}
+\setlength{\cftsubsubsecindent}{8.7em}
+\setlength{\cftsubsubsecnumwidth}{4.8em}
+
 % ======================== LIÊN KẾT HYPERREF =============================
 \hypersetup{
     colorlinks=true,
