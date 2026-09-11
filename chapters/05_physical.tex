@@ -1,4 +1,4 @@
-% Chương 5: Thiết kế mức vật lý ở mức lý thuyết
+Copy-Item .\chapters\05_physical.tex "$env:USERPROFILE\Downloads\05_physical_backup.tex"% Chương 5: Thiết kế mức vật lý ở mức lý thuyết
 \chapter{THIẾT KẾ MỨC VẬT LÝ}
 
 \section{Mục tiêu thiết kế}
@@ -24,3 +24,107 @@ Các bảng nghiệp vụ sử dụng \texttt{created\_at}, \texttt{updated\_at}
 \section{Lưu trữ và sao lưu}
 
 File scan được lưu trên dịch vụ object storage; cơ sở dữ liệu chỉ giữ URI, checksum, metadata và phiên bản. Cơ sở dữ liệu cần có chính sách sao lưu định kỳ, kiểm tra phục hồi và giới hạn quyền truy cập theo nguyên tắc tối thiểu.
+
+
+\section{Thiết kế vật lý cho module P4}
+
+Module P4 gồm hai nhóm dữ liệu chính là Kho ảnh phim số và Chợ giao dịch.
+Thiết kế vật lý sử dụng lại các quy ước chung của hệ thống: khóa chính dùng
+\texttt{UUID}, thời gian dùng \texttt{TIMESTAMPTZ}, giá tiền dùng
+\texttt{NUMERIC(12,2)} và các khóa ngoại phải được lập chỉ mục khi thường
+xuyên tham gia truy vấn.
+
+\subsection{Kho ảnh phim số}
+
+Bảng \texttt{scan\_files} sử dụng \texttt{scan\_file\_id UUID} làm khóa chính.
+\texttt{film\_roll\_id UUID} là khóa ngoại tham chiếu đến cuộn phim của module
+P3 và không được rỗng. Đường dẫn ảnh được lưu trong
+\texttt{storage\_url TEXT}, không lưu trực tiếp dữ liệu nhị phân của ảnh
+trong cơ sở dữ liệu. Tên file dùng \texttt{VARCHAR(255)}, định dạng file dùng
+\texttt{VARCHAR(20)}, kích thước file dùng \texttt{BIGINT} và phải lớn hơn
+hoặc bằng 0.
+
+Bảng \texttt{photo\_metadata} dùng
+\texttt{photo\_metadata\_id UUID} làm khóa chính.
+\texttt{scan\_file\_id UUID} là khóa ngoại đồng thời có ràng buộc
+\texttt{UNIQUE} để bảo đảm mỗi file scan có tối đa một bộ metadata.
+Các khóa \texttt{film\_stock\_id}, \texttt{camera\_model\_id} và
+\texttt{lens\_id} là khóa ngoại và có thể rỗng nếu thông tin ảnh chưa đầy đủ.
+
+Bảng \texttt{albums} dùng \texttt{album\_id UUID} làm khóa chính và
+\texttt{user\_id UUID} tham chiếu người sở hữu album.
+Quan hệ nhiều--nhiều giữa album và file scan được triển khai bằng
+\texttt{album\_photos}, với khóa chính ghép
+(\texttt{album\_id}, \texttt{scan\_file\_id}).
+
+Bảng \texttt{tags} sử dụng \texttt{tag\_id UUID} làm khóa chính.
+\texttt{tag\_name VARCHAR(100)} được chuẩn hóa chữ thường và có ràng buộc
+duy nhất. Quan hệ nhiều--nhiều giữa file scan và tag được triển khai bằng
+\texttt{photo\_tags}, sử dụng khóa chính ghép
+(\texttt{scan\_file\_id}, \texttt{tag\_id}).
+
+Các bảng danh mục \texttt{film\_stocks}, \texttt{camera\_models} và
+\texttt{lenses} đều sử dụng khóa chính UUID. Các thuộc tính mô tả như brand,
+model, film format, focal length và mount type sử dụng \texttt{VARCHAR}
+với độ dài phù hợp nhằm hạn chế dữ liệu không cần thiết.
+
+\subsection{Chợ giao dịch}
+
+Bảng \texttt{product\_categories} dùng
+\texttt{product\_category\_id UUID} làm khóa chính.
+Tên danh mục dùng \texttt{VARCHAR(150)} và không được rỗng.
+
+Bảng \texttt{products} dùng \texttt{product\_id UUID} làm khóa chính và
+\texttt{product\_category\_id UUID} làm khóa ngoại.
+Tên sản phẩm dùng \texttt{VARCHAR(150)}, thương hiệu và model dùng
+\texttt{VARCHAR}, còn mô tả dài sử dụng \texttt{TEXT}.
+
+Bảng \texttt{listings} sử dụng \texttt{listing\_id UUID} làm khóa chính.
+\texttt{product\_id} tham chiếu sản phẩm và \texttt{seller\_id} tham chiếu
+\texttt{users.user\_id}. Giá bán dùng \texttt{NUMERIC(12,2)} và phải lớn hơn
+hoặc bằng 0. Trạng thái tin đăng sử dụng \texttt{VARCHAR(20)} kết hợp
+ràng buộc \texttt{CHECK}.
+
+Bảng \texttt{marketplace\_transactions} sử dụng
+\texttt{marketplace\_transaction\_id UUID} làm khóa chính.
+\texttt{listing\_id UUID} là khóa ngoại và có ràng buộc \texttt{UNIQUE},
+phù hợp với quy tắc mỗi tin đăng có tối đa một giao dịch.
+\texttt{buyer\_id UUID} tham chiếu \texttt{users.user\_id}.
+Giá chốt dùng \texttt{NUMERIC(12,2)} và được giữ như snapshot lịch sử.
+
+Bảng \texttt{seller\_reviews} sử dụng
+\texttt{seller\_review\_id UUID} làm khóa chính.
+\texttt{marketplace\_transaction\_id UUID} là khóa ngoại có
+\texttt{UNIQUE}, bảo đảm mỗi giao dịch có tối đa một đánh giá.
+\texttt{reviewer\_id} và \texttt{seller\_id} đều tham chiếu
+\texttt{users.user\_id}. Điểm đánh giá dùng \texttt{INTEGER} và được giới hạn
+từ 1 đến 5 bằng ràng buộc \texttt{CHECK}.
+
+\subsection{Chỉ mục và tối ưu truy vấn cho P4}
+
+Các khóa ngoại thường xuyên được sử dụng để join như
+\texttt{film\_roll\_id}, \texttt{user\_id}, \texttt{product\_category\_id},
+\texttt{product\_id}, \texttt{seller\_id} và \texttt{buyer\_id} cần được
+lập chỉ mục.
+
+Đối với Chợ giao dịch, nên có chỉ mục kết hợp trên
+(\texttt{status}, \texttt{created\_at}) của \texttt{listings} để hỗ trợ
+lọc các tin đang hoạt động và sắp xếp theo thời gian mới nhất.
+Có thể lập thêm chỉ mục cho giá nếu chức năng tìm kiếm thường xuyên lọc
+theo khoảng giá.
+
+Đối với Kho ảnh số, chỉ mục trên \texttt{scan\_files.film\_roll\_id},
+\texttt{albums.user\_id} và các khóa ngoại của
+\texttt{photo\_metadata} giúp tăng tốc truy vấn ảnh theo cuộn phim,
+người sở hữu và metadata.
+
+\subsection{Lưu trữ và toàn vẹn dữ liệu P4}
+
+File ảnh scan được lưu ở object storage, cơ sở dữ liệu chỉ lưu URI và
+metadata cần thiết. Việc xóa bản ghi không được tự động xóa file ảnh vật lý
+nếu chưa hoàn tất quy trình kiểm tra quyền sở hữu và tham chiếu.
+
+Dữ liệu giao dịch và đánh giá cần được giữ lại để truy vết lịch sử.
+Không cascade delete từ \texttt{users}, \texttt{listings} hoặc sản phẩm
+sang các giao dịch đã phát sinh. Các trạng thái nghiệp vụ phải được kiểm tra
+ở tầng ứng dụng kết hợp với ràng buộc cơ sở dữ liệu.
