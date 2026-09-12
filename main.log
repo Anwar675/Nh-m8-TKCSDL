@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.8.15)  12 SEP 2026 21:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.8.15)  12 SEP 2026 23:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1783,7 +1783,62 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[59]) (chapters/07_conclusion.tex
+[59]
+Overfull \hbox (9.14835pt too wide) in paragraph at lines 418--418
+[]|\T5/cmr/m/n/10.95 VARCHAR(100)| 
+ []
+
+
+Overfull \hbox (32.92809pt too wide) in paragraph at lines 414--423
+ [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 435--435
+[]|\T5/cmr/m/n/10.95 Tham chi¸u ^^_¸n ar-ti-
+ []
+
+
+Overfull \hbox (9.14835pt too wide) in paragraph at lines 436--436
+[]|\T5/cmr/m/n/10.95 VARCHAR(255)| 
+ []
+
+
+Overfull \hbox (9.14835pt too wide) in paragraph at lines 438--438
+[]|\T5/cmr/m/n/10.95 VARCHAR(255)| 
+ []
+
+
+Overfull \hbox (3.6747pt too wide) in paragraph at lines 440--440
+[]|\T5/cmr/m/n/10.95 VARCHAR(20)| 
+ []
+
+
+Overfull \hbox (32.92809pt too wide) in paragraph at lines 430--445
+ [][] 
+ []
+
+
+Overfull \hbox (32.92809pt too wide) in paragraph at lines 452--463
+ [][] 
+ []
+
+
+Overfull \hbox (9.14835pt too wide) in paragraph at lines 475--475
+[]|\T5/cmr/m/n/10.95 VARCHAR(255)| 
+ []
+
+
+Overfull \hbox (9.14835pt too wide) in paragraph at lines 477--477
+[]|\T5/cmr/m/n/10.95 VARCHAR(255)| 
+ []
+
+
+Overfull \hbox (32.92809pt too wide) in paragraph at lines 470--483
+ [][] 
+ []
+
+) (chapters/07_conclusion.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1792,8 +1847,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [60]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[61]
 Ch\uhorn \ohorn ng 7.
-[61
+[62
 
 ]
 
@@ -1803,7 +1866,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[62])
+[63])
 No file main.bbl.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1812,7 +1875,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[63] (main.aux)
+[64] (main.aux)
  ***********
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-07-20>
@@ -1821,17 +1884,17 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: EAF9AD6E02969C205A3EAFCCB1271D71;27572.
  ) 
 Here is how much of TeX's memory you used:
- 26429 strings out of 467500
- 514729 string characters out of 5408529
+ 26434 strings out of 467500
+ 514772 string characters out of 5408529
  1175227 words of memory out of 5000000
  54995 multiletter control sequences out of 15000+600000
  650537 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  112i,12n,113p,770b,826s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Admin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnbx10.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnbx12.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnbx8.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr10.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr12.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr8.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnti10.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnti12.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt10.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt12.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt8.pfb>
-Output written on main.pdf (64 pages, 657531 bytes).
+Output written on main.pdf (65 pages, 662149 bytes).
 PDF statistics:
- 984 PDF objects out of 1000 (max. 8388607)
- 224 named destinations out of 1000 (max. 500000)
+ 993 PDF objects out of 1000 (max. 8388607)
+ 229 named destinations out of 1000 (max. 500000)
  855 words of extra memory for PDF output out of 10000 (max. 10000000)
 
