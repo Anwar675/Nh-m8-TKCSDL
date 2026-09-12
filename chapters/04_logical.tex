@@ -290,3 +290,55 @@ sao chép tùy ý dữ liệu sản phẩm.
 Các quy tắc trên là phương án P4 chọn để thống nhất bản logic hiện tại,
 không phải yêu cầu đã được nhóm trưởng xác nhận. Khi tích hợp với P3,
 cần kiểm tra lại tên khóa cuộn phim và đường truy vết tới đơn hàng.
+\section{Thiet ke muc logic phan he P5: Knowledge and AI Integration}
+
+\subsection{Chuyen doi mo hinh ERD sang luoc do quan he}
+Dua tren mo hinh quan niem ERD da xay dung o Chuong 3, phan he P5 duoc chuyen doi thanh cac luoc do quan he theo cac quy tac anh xa chuan:
+
+\begin{enumerate}
+    \item \textbf{ARTICLE\_CATEGORY}(\underline{category\_id}, category\_name, description, created\_at)
+    \item \textbf{ARTICLE}(\underline{article\_id}, \textit{author\_id}, \textit{category\_id}, title, content, tags, view\_count, status, created\_at, updated\_at)
+    \begin{itemize}
+        \item Khoa ngoai: author\_id tham chieu den USER(user\_id)
+        \item Khoa ngoai: category\_id tham chieu den ARTICLE\_CATEGORY(category\_id)
+    \end{itemize}
+    \item \textbf{LAB\_REVIEW}(\underline{review\_id}, \textit{user\_id}, \textit{lab\_id}, rating, comment, created\_at)
+    \begin{itemize}
+        \item Khoa ngoai: user\_id tham chieu den USER(user\_id)
+        \item Khoa ngoai: lab\_id tham chieu den FILM\_LAB(lab\_id)
+    \end{itemize}
+    \item \textbf{COMMUNITY\_EVENT}(\underline{event\_id}, \textit{host\_id}, title, description, location, event\_date, max\_participants, created\_at)
+    \begin{itemize}
+        \item Khoa ngoai: host\_id tham chieu den USER(user\_id)
+    \end{itemize}
+    \item \textbf{USER\_INTERACTION}(\underline{interaction\_id}, \textit{user\_id}, target\_type, target\_id, interaction\_type, created\_at)
+    \begin{itemize}
+        \item Khoa ngoai: user\_id tham chieu den USER(user\_id)
+    \end{itemize}
+    \item \textbf{AI\_CHAT\_LOG}(\underline{chat\_id}, \textit{user\_id}, user\_query, bot\_response, context\_retrieved, created\_at)
+    \begin{itemize}
+        \item Khoa ngoai: user\_id tham chieu den USER(user\_id)
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Xac dinh phu thuoc ham va danh gia dang chuan}
+
+\subsubsection{Tap phu thuoc ham (Functional Dependencies)}
+\begin{itemize}
+    \item ARTICLE\_CATEGORY: category\_id $\rightarrow$ category\_name, description, created\_at
+    \item ARTICLE: article\_id $\rightarrow$ author\_id, category\_id, title, content, tags, view\_count, status, created\_at, updated\_at
+    \item LAB\_REVIEW: review\_id $\rightarrow$ user\_id, lab\_id, rating, comment, created\_at
+    \item COMMUNITY\_EVENT: event\_id $\rightarrow$ host\_id, title, description, location, event\_date, max\_participants, created\_at
+    \item USER\_INTERACTION: interaction\_id $\rightarrow$ user\_id, target\_type, target\_id, interaction\_type, created\_at
+    \item AI\_CHAT\_LOG: chat\_id $\rightarrow$ user\_id, user\_query, bot\_response, context\_retrieved, created\_at
+\end{itemize}
+
+\subsubsection{Xac dinh khoa va danh gia dang chuan 3NF / BCNF}
+\begin{itemize}
+    \item \textbf{Xac dinh khoa bang bao dong:} Tinh toan bao dong cho cac thuoc tinh khoa chinh cho thay moi thuoc tinh dinh danh deu xac dinh duoc toan bo cac thuoc tinh con lai trong bang. Do do, moi quan he deu co duy nhat mot khoa chinh don: category\_id, article\_id, review\_id, event\_id, interaction\_id, chat\_id.
+    \item \textbf{Dang chuan 1 (1NF):} Tat ca cac cot du lieu deu mang gia tri nguyen to, khong co cot da tri hay lap lai.
+    \item \textbf{Dang chuan 2 (2NF):} Do toan bo khoa chinh deu la khoa don nen khong ton tai bat ky phu thuoc ham bo phan nao vao mot phan cua khoa.
+    \item \textbf{Dang chuan 3 (3NF) va BCNF:} Voi moi phu thuoc ham, ve trai deu la sieu khoa (khoa chinh). Khong co phu thuoc ham bac cau giua cac thuoc tinh khong khoa.
+\end{itemize}
+
+\textbf{Ket luan:} Toan bo cac bang trong phan he P5 dat dang chuan BCNF va 3NF, khong bi du thua du lieu va khong can thuc hien phan ra.
