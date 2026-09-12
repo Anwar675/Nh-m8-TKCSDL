@@ -149,6 +149,223 @@ P1 phụ trách nhóm dữ liệu người dùng và phân quyền, Film Lab và
     \item Không xóa cứng user, Film Lab hoặc dịch vụ nếu đã phát sinh đơn hàng; sử dụng trạng thái hoặc soft-delete.
 \end{itemize}
 
+\section{Từ điển dữ liệu P4 -- Kho ảnh số và Chợ giao dịch}
+
+P4 gồm hai nhóm dữ liệu chính: Kho ảnh phim số và Chợ giao dịch.
+Các bảng \texttt{users} và \texttt{film\_rolls} được sử dụng lại từ
+module khác và chỉ được tham chiếu bằng khóa ngoại.
+
+\footnotesize
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}p{5.0cm}}
+
+\caption{Từ điển dữ liệu P4 -- Kho ảnh số và Chợ giao dịch}
+\label{tab:dd-p4}\\
+
+\toprule
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ràng buộc} & \textbf{Mô tả} \\
+\midrule
+\endfirsthead
+
+\multicolumn{4}{c}{\textit{Bảng \thetable\ (tiếp theo)}}\\
+
+\toprule
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ràng buộc} & \textbf{Mô tả} \\
+\midrule
+\endhead
+
+\bottomrule
+\endfoot
+
+% =========================================================
+% DIGITAL FILM ARCHIVE
+% =========================================================
+
+\multicolumn{4}{l}{\textbf{Bảng scan\_files -- File ảnh được số hóa}}\\
+
+\entity{scan\_file\_id} & UUID & PK, Not Null & Mã định danh file scan. \\
+\entity{film\_roll\_id} & UUID & FK, Not Null & Tham chiếu cuộn phim từ module P3. \\
+\entity{storage\_url} & TEXT & Not Null & URI hoặc đường dẫn file ảnh trên object storage. \\
+\entity{file\_name} & VARCHAR(255) & Not Null & Tên file ảnh. \\
+\entity{file\_format} & VARCHAR(20) & Not Null & Định dạng file như JPEG, PNG hoặc TIFF. \\
+\entity{file\_size} & BIGINT & Not Null, $\geq 0$ & Kích thước file theo byte. \\
+\entity{status} & VARCHAR(20) & Not Null & Trạng thái xử lý hoặc khả dụng của file scan. \\
+\entity{created\_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm tạo bản ghi. \\
+\entity{updated\_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm cập nhật gần nhất. \\
+
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng photo\_metadata -- Metadata của ảnh scan}}\\
+
+\entity{photo\_metadata\_id} & UUID & PK, Not Null & Mã định danh metadata. \\
+\entity{scan\_file\_id} & UUID & FK, Unique, Not Null & File scan sở hữu bộ metadata; mỗi file tối đa một metadata. \\
+\entity{film\_stock\_id} & UUID & FK, Nullable & Loại film được sử dụng. \\
+\entity{camera\_model\_id} & UUID & FK, Nullable & Mẫu máy ảnh được sử dụng. \\
+\entity{lens\_id} & UUID & FK, Nullable & Ống kính được sử dụng. \\
+\entity{shooting\_date} & DATE & Nullable & Ngày chụp ảnh nếu xác định được. \\
+\entity{scan\_resolution} & VARCHAR(100) & Nullable & Độ phân giải hoặc thông số scan. \\
+\entity{location} & TEXT & Nullable & Địa điểm chụp ảnh. \\
+\entity{notes} & TEXT & Nullable & Ghi chú bổ sung về ảnh. \\
+
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng albums -- Album ảnh của người dùng}}\\
+
+\entity{album\_id} & UUID & PK, Not Null & Mã định danh album. \\
+\entity{user\_id} & UUID & FK, Not Null & Người dùng sở hữu album. \\
+\entity{album\_name} & VARCHAR(150) & Not Null & Tên album. \\
+\entity{description} & TEXT & Nullable & Mô tả album. \\
+\entity{visibility} & VARCHAR(20) & Not Null & Phạm vi hiển thị của album. \\
+\entity{created\_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm tạo album. \\
+\entity{updated\_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm cập nhật album. \\
+
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng album\_photos -- Ảnh thuộc album}}\\
+
+\entity{album\_id} & UUID & PK, FK, Not Null & Album chứa ảnh. \\
+\entity{scan\_file\_id} & UUID & PK, FK, Not Null & File scan được thêm vào album. \\
+\entity{display\_order} & INTEGER & Not Null, $\geq 0$ & Thứ tự hiển thị ảnh trong album. \\
+\entity{added\_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm thêm ảnh vào album. \\
+
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng tags -- Thẻ phân loại ảnh}}\\
+
+\entity{tag\_id} & UUID & PK, Not Null & Mã định danh thẻ. \\
+\entity{tag\_name} & VARCHAR(100) & Unique, Not Null & Tên thẻ, được chuẩn hóa về chữ thường. \\
+\entity{created\_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm tạo thẻ. \\
+
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng photo\_tags -- Gán thẻ cho ảnh}}\\
+
+\entity{scan\_file\_id} & UUID & PK, FK, Not Null & File scan được gắn thẻ. \\
+\entity{tag\_id} & UUID & PK, FK, Not Null & Thẻ được gắn vào ảnh. \\
+\entity{created\_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm gắn thẻ. \\
+
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng film\_stocks -- Loại film}}\\
+
+\entity{film\_stock\_id} & UUID & PK, Not Null & Mã định danh loại film. \\
+\entity{brand} & VARCHAR(100) & Not Null & Thương hiệu film. \\
+\entity{stock\_name} & VARCHAR(150) & Not Null & Tên dòng film. \\
+\entity{iso} & INTEGER & Not Null, $>0$ & Độ nhạy sáng ISO. \\
+\entity{film\_format} & VARCHAR(50) & Not Null & Khổ film như 35mm hoặc 120. \\
+\entity{film\_type} & VARCHAR(50) & Not Null & Loại film màu, đen trắng hoặc slide. \\
+
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng camera\_models -- Mẫu máy ảnh}}\\
+
+\entity{camera\_model\_id} & UUID & PK, Not Null & Mã định danh mẫu máy ảnh. \\
+\entity{brand} & VARCHAR(100) & Not Null & Thương hiệu máy ảnh. \\
+\entity{model\_name} & VARCHAR(150) & Not Null & Tên model máy ảnh. \\
+\entity{camera\_type} & VARCHAR(50) & Nullable & Loại máy ảnh. \\
+\entity{film\_format} & VARCHAR(50) & Nullable & Khổ film máy hỗ trợ. \\
+
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng lenses -- Ống kính}}\\
+
+\entity{lens\_id} & UUID & PK, Not Null & Mã định danh ống kính. \\
+\entity{brand} & VARCHAR(100) & Not Null & Thương hiệu ống kính. \\
+\entity{model\_name} & VARCHAR(150) & Not Null & Tên model ống kính. \\
+\entity{focal\_length} & VARCHAR(100) & Nullable & Tiêu cự hoặc khoảng tiêu cự. \\
+\entity{max\_aperture} & VARCHAR(50) & Nullable & Khẩu độ tối đa. \\
+\entity{mount\_type} & VARCHAR(50) & Nullable & Ngàm ống kính. \\
+
+% =========================================================
+% MARKETPLACE
+% =========================================================
+
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng product\_categories -- Danh mục sản phẩm}}\\
+
+\entity{product\_category\_id} & UUID & PK, Not Null & Mã định danh danh mục. \\
+\entity{category\_name} & VARCHAR(150) & Not Null & Tên danh mục sản phẩm. \\
+\entity{description} & TEXT & Nullable & Mô tả danh mục. \\
+
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng products -- Sản phẩm giao dịch}}\\
+
+\entity{product\_id} & UUID & PK, Not Null & Mã định danh sản phẩm. \\
+\entity{product\_category\_id} & UUID & FK, Not Null & Danh mục chứa sản phẩm. \\
+\entity{product\_name} & VARCHAR(150) & Not Null & Tên sản phẩm. \\
+\entity{brand} & VARCHAR(100) & Nullable & Thương hiệu sản phẩm. \\
+\entity{model\_name} & VARCHAR(150) & Nullable & Tên model sản phẩm. \\
+\entity{condition} & VARCHAR(50) & Not Null & Tình trạng sản phẩm. \\
+\entity{description} & TEXT & Nullable & Mô tả chi tiết sản phẩm. \\
+
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng listings -- Tin đăng Marketplace}}\\
+
+\entity{listing\_id} & UUID & PK, Not Null & Mã định danh tin đăng. \\
+\entity{product\_id} & UUID & FK, Not Null & Sản phẩm được đăng bán. \\
+\entity{seller\_id} & UUID & FK, Not Null & Người dùng đăng bán sản phẩm. \\
+\entity{title} & VARCHAR(200) & Not Null & Tiêu đề tin đăng. \\
+\entity{price} & NUMERIC(12,2) & Not Null, $\geq 0$ & Giá bán được niêm yết. \\
+\entity{status} & VARCHAR(20) & Not Null & Trạng thái của tin đăng. \\
+\entity{created\_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm tạo tin đăng. \\
+\entity{updated\_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm cập nhật tin đăng. \\
+
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng marketplace\_transactions -- Giao dịch Marketplace}}\\
+
+\entity{marketplace\_transaction\_id} & UUID & PK, Not Null & Mã định danh giao dịch. \\
+\entity{listing\_id} & UUID & FK, Unique, Not Null & Tin đăng phát sinh giao dịch; mỗi listing tối đa một giao dịch. \\
+\entity{buyer\_id} & UUID & FK, Not Null & Người mua sản phẩm. \\
+\entity{agreed\_price} & NUMERIC(12,2) & Not Null, $\geq 0$ & Giá được hai bên chốt tại thời điểm giao dịch. \\
+\entity{status} & VARCHAR(20) & Not Null & Trạng thái của giao dịch. \\
+\entity{created\_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm tạo giao dịch. \\
+\entity{updated\_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm cập nhật giao dịch. \\
+
+\midrule
+
+\multicolumn{4}{l}{\textbf{Bảng seller\_reviews -- Đánh giá người bán}}\\
+
+\entity{seller\_review\_id} & UUID & PK, Not Null & Mã định danh đánh giá. \\
+\entity{marketplace\_transaction\_id} & UUID & FK, Unique, Not Null & Giao dịch được đánh giá. \\
+\entity{reviewer\_id} & UUID & FK, Not Null & Người dùng viết đánh giá. \\
+\entity{seller\_id} & UUID & FK, Not Null & Người bán được đánh giá. \\
+\entity{rating} & INTEGER & Not Null, $1 \leq rating \leq 5$ & Điểm đánh giá người bán. \\
+\entity{comment} & TEXT & Nullable & Nội dung nhận xét. \\
+\entity{created\_at} & TIMESTAMPTZ & Not Null, Default now & Thời điểm tạo đánh giá. \\
+
+\end{longtable}
+
+\normalsize
+
+\subsection{Quy tắc toàn vẹn của P4}
+
+\begin{itemize}
+    \item Mỗi file scan phải thuộc một cuộn phim và
+    \texttt{scan\_files.film\_roll\_id} tham chiếu
+    \texttt{film\_rolls.film\_roll\_id} của P3.
+
+    \item Mỗi file scan có tối đa một bộ metadata.
+
+    \item Một ảnh không được xuất hiện lặp lại trong cùng một album
+    và một tag không được gắn lặp cho cùng một ảnh.
+
+    \item Mỗi listing có tối đa một giao dịch; giá chốt trong giao dịch
+    không thay đổi khi giá của listing được cập nhật.
+
+    \item Mỗi giao dịch có tối đa một đánh giá.
+    Người đánh giá phải là buyer của giao dịch và người được đánh giá
+    phải là seller của listing.
+
+    \item Rating chỉ nhận giá trị từ 1 đến 5.
+
+    \item Không xóa cứng dữ liệu giao dịch hoặc đánh giá đã phát sinh;
+    ưu tiên trạng thái nghiệp vụ để bảo toàn lịch sử.
+\end{itemize}
+
 \section{Từ điển dữ liệu phân hệ P5: Knowledge \& AI Integration}
 
 \subsection{Bảng \texttt{articles} (Bài viết kiến thức \& Hướng dẫn)}
