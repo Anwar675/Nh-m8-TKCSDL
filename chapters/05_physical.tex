@@ -337,3 +337,143 @@ Dữ liệu giao dịch và đánh giá cần được giữ lại để truy v�
 Không cascade delete từ \texttt{users}, \texttt{listings} hoặc sản phẩm
 sang các giao dịch đã phát sinh. Các trạng thái nghiệp vụ phải được kiểm tra
 ở tầng ứng dụng kết hợp với ràng buộc cơ sở dữ liệu.
+\section{Thiết kế vật lý cho module P5 -- Knowledge \& AI Integration}
+
+Module P5 chịu trách nhiệm xây dựng kho tri thức nhiếp ảnh film, kết nối cộng đồng thông qua sự kiện, thu thập đánh giá dịch vụ Film Lab, theo dõi hành vi tương tác và lưu vết hội thoại với trợ lý AI. Thiết kế mức vật lý cho module P5 được chuyển đổi từ lược đồ quan hệ đã chuẩn hóa ở Chương 4, đồng thời tuân thủ toàn bộ các nguyên tắc thiết kế chung của hệ thống trên hệ quản trị cơ sở dữ liệu PostgreSQL.
+
+Các quyết định thiết kế cốt lõi bao gồm:
+\begin{itemize}
+    \item \textbf{Khóa chính:} Toàn bộ các thực thể nghiệp vụ độc lập sử dụng định danh duy nhất \texttt{UUID} (v4) nhằm đảm bảo tính phân tán, tránh đoán trước khóa và an toàn khi tích hợp với các hệ thống phân tán.
+    \item \textbf{Kiểu thời gian:} Mọi thuộc tính mốc thời gian đều sử dụng \texttt{TIMESTAMPTZ} (timestamp with time zone) để đồng bộ múi giờ quốc tế và đảm bảo độ chính xác cho việc sắp xếp dòng thời gian sự kiện.
+    \item \textbf{Dữ liệu phi cấu trúc và văn bản dài:} Các trường nội dung bài viết, mã ngữ cảnh RAG và phản hồi AI sử dụng kiểu \texttt{TEXT} có cơ chế lưu trữ ngoài dòng (TOAST) của PostgreSQL nhằm tránh làm phình trang đĩa chính (heap page).
+    \item \textbf{Chiến lược toàn vẹn tham chiếu:} Áp dụng nghiêm ngặt các tùy chọn \texttt{ON DELETE CASCADE}, \texttt{ON DELETE RESTRICT} và \texttt{ON DELETE SET NULL} tương ứng với từng mối quan hệ logic nghiệp vụ.
+    \item \textbf{Tối ưu hóa truy vấn (Indexing):} Đánh chỉ mục B-tree trên tất cả các khóa ngoại, chỉ mục phức hợp (composite index) cho dữ liệu gợi ý và chỉ mục GIN hỗ trợ tìm kiếm toàn văn (Full-text Search).
+\end{itemize}
+
+\subsection{Thiết kế vật lý nhóm Cơ sở tri thức và Đánh giá}
+
+\subsubsection{Thiết kế vật lý bảng \texttt{article\_categories}}
+
+Bảng \texttt{article\_categories} đóng vai trò là bảng danh mục phân loại bài viết kiến thức, có tần suất ghi thấp nhưng tần suất đọc rất cao.
+
+\begin{itemize}
+    \item \textbf{Khóa chính:} Thuộc tính \texttt{category\_id} dùng kiểu \texttt{UUID} với giá trị mặc định sinh tự động \texttt{gen\_random\_uuid()}.
+    \item \textbf{Thuộc tính nghiệp vụ:}
+    \begin{itemize}
+        \item \texttt{category\_name}: Sử dụng \texttt{VARCHAR(100)} đi kèm ràng buộc \texttt{NOT NULL} và \texttt{UNIQUE} để ngăn chặn trùng lặp danh mục.
+        \item \texttt{description}: Dùng kiểu \texttt{TEXT}, cho phép \texttt{NULL} để người quản trị bổ sung phần diễn giải phạm vi chủ đề khi cần thiết.
+        \item \texttt{created\_at}: Sử dụng \texttt{TIMESTAMPTZ} với giá trị mặc định là \texttt{CURRENT\_TIMESTAMP}.
+    \end{itemize}
+    \item \textbf{Chỉ mục:} Hệ thống tự động tạo chỉ mục B-tree duy nhất cho khóa chính và ràng buộc \texttt{UNIQUE} trên cột \texttt{category\_name}. Do số lượng danh mục bài viết không lớn, bảng này không yêu cầu phân vùng hay chỉ mục mở rộng.
+\end{itemize}
+
+\subsubsection{Thiết kế vật lý bảng \texttt{articles}}
+
+Bảng \texttt{articles} là bảng nghiệp vụ trung tâm của kho tri thức, lưu trữ các bài viết chia sẻ kinh nghiệm, đánh giá máy ảnh/film và kỹ thuật phòng tối.
+
+\begin{itemize}
+    \item \textbf{Khóa chính:} \texttt{article\_id} dùng kiểu \texttt{UUID}.
+    \item \textbf{Khóa ngoại và toàn vẹn dữ liệu:}
+    \begin{itemize}
+        \item \texttt{author\_id} (\texttt{UUID}, \texttt{NOT NULL}): Tham chiếu đến \texttt{users(user\_id)} thuộc module P2. Sử dụng chính sách \texttt{ON DELETE CASCADE} nhằm đảm bảo khi tài khoản tác giả bị xóa khỏi hệ thống, các bài viết liên quan sẽ được xử lý tương ứng theo quy định bảo mật.
+        \item \texttt{category\_id} (\texttt{UUID}, \texttt{NOT NULL}): Tham chiếu đến \texttt{article\_categories(category\_id)}. Áp dụng chính sách \texttt{ON DELETE RESTRICT} để ngăn chặn việc xóa danh mục khi vẫn còn các bài viết trực thuộc.
+    \end{itemize}
+    \item \textbf{Thuộc tính nghiệp vụ và lưu trữ:}
+    \begin{itemize}
+        \item \texttt{title}: Sử dụng \texttt{VARCHAR(255)} có ràng buộc \texttt{NOT NULL}.
+        \item \texttt{content}: Kiểu \texttt{TEXT} có kích thước biến thiên lớn. Thuộc tính này tự động kích hoạt cơ chế TOAST khi độ dài vượt quá ngưỡng kích thước trang chuẩn (thường là 2KB), giúp các truy vấn quét danh sách tiêu đề bài viết không bị suy giảm hiệu năng do phải đọc dữ liệu nội dung thô.
+        \item \texttt{tags}: Sử dụng \texttt{VARCHAR(255)} lưu chuỗi từ khóa phân tách.
+        \item \texttt{view\_count}: Dùng kiểu \texttt{INT}, mặc định \texttt{0}, đi kèm ràng buộc kiểm tra \texttt{CHECK (view\_count >= 0)}.
+        \item \texttt{status}: Dùng \texttt{VARCHAR(20)} mặc định \texttt{'published'}, áp dụng \texttt{CHECK (status IN ('draft', 'published', 'archived'))} nhằm kiểm soát chặt chẽ vòng đời của bài viết.
+        \item \texttt{created\_at} và \texttt{updated\_at}: Kiểu \texttt{TIMESTAMPTZ}, mặc định \texttt{CURRENT\_TIMESTAMP}. Cột \texttt{updated\_at} được cập nhật tự động thông qua cơ chế trigger khi có thay đổi nội dung.
+    \end{itemize}
+    \item \textbf{Chiến lược chỉ mục:}
+    \begin{itemize}
+        \item Chỉ mục B-tree trên \texttt{author\_id} nhằm tăng tốc độ tải trang danh sách bài viết cá nhân của tác giả.
+        \item Chỉ mục B-tree trên \texttt{category\_id} phục vụ lọc bài viết theo từng phân mục cụ thể.
+        \item Chỉ mục phức hợp \texttt{(status, created\_at DESC)} phục vụ cho câu truy vấn phổ biến nhất trên trang chủ cộng đồng: lấy danh sách các bài viết đã xuất bản mới nhất.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Thiết kế vật lý bảng \texttt{lab\_reviews}}
+
+Bảng \texttt{lab\_reviews} lưu trữ các phản hồi, đánh giá thực tế của cộng đồng về chất lượng tráng scan của từng Film Lab.
+
+\begin{itemize}
+    \item \textbf{Khóa chính:} \texttt{review\_id} kiểu \texttt{UUID}.
+    \item \textbf{Khóa ngoại:}
+    \begin{itemize}
+        \item \texttt{user\_id} (\texttt{UUID}, \texttt{NOT NULL}): Tham chiếu đến \texttt{users(user\_id)} với chính sách \texttt{ON DELETE CASCADE}.
+        \item \texttt{lab\_id} (\texttt{UUID}, \texttt{NOT NULL}): Tham chiếu đến bảng phòng lab \texttt{film\_labs(lab\_id)} của module P2 với chính sách \texttt{ON DELETE CASCADE}.
+    \end{itemize}
+    \item \textbf{Thuộc tính kiểm tra và đánh giá:}
+    \begin{itemize}
+        \item \texttt{rating}: Kiểu \texttt{INT} có ràng buộc \texttt{CHECK (rating >= 1 AND rating <= 5)} đảm bảo thang điểm chuẩn 5 sao.
+        \item \texttt{comment}: Kiểu \texttt{TEXT}, cho phép \texttt{NULL} trong trường hợp người dùng chỉ để lại số sao mà không viết nhận xét dài.
+        \item \texttt{created\_at}: Kiểu \texttt{TIMESTAMPTZ}, mặc định \texttt{CURRENT\_TIMESTAMP}.
+    \end{itemize}
+    \item \textbf{Chiến lược chỉ mục:} Thiết lập chỉ mục B-tree trên \texttt{lab\_id} để tối ưu hóa truy vấn tính điểm trung bình (AVG rating) và hiển thị danh sách đánh giá của từng Lab.
+\end{itemize}
+
+\subsection{Thiết kế vật lý nhóm Sự kiện, Tương tác và Trí tuệ nhân tạo}
+
+\subsubsection{Thiết kế vật lý bảng \texttt{community\_events}}
+
+Bảng \texttt{community\_events} quản lý dữ liệu lịch trình của các buổi offline, photowalk săn ảnh film và workshop kỹ thuật cộng đồng.
+
+\begin{itemize}
+    \item \textbf{Khóa chính:} \texttt{event\_id} kiểu \texttt{UUID}.
+    \item \textbf{Khóa ngoại:} \texttt{host\_id} (\texttt{UUID}, \texttt{NOT NULL}) tham chiếu đến tài khoản người dùng đại diện tổ chức \texttt{users(user\_id)} với chính sách \texttt{ON DELETE CASCADE}.
+    \item \textbf{Thuộc tính sự kiện:}
+    \begin{itemize}
+        \item \texttt{title} (\texttt{VARCHAR(255)}, \texttt{NOT NULL}): Tên buổi sự kiện.
+        \item \texttt{description} (\texttt{TEXT}, \texttt{NULL}): Chi tiết lộ trình, yêu cầu cuộn film hay thiết bị mang theo.
+        \item \texttt{location} (\texttt{VARCHAR(255)}, \texttt{NOT NULL}): Địa điểm tập trung hoặc địa chỉ tổ chức.
+        \item \texttt{event\_date} (\texttt{TIMESTAMPTZ}, \texttt{NOT NULL}): Thời gian bắt đầu diễn ra sự kiện.
+        \item \texttt{max\_participants}: Kiểu \texttt{INT}, cho phép \texttt{NULL} (không giới hạn số lượng tham dự) hoặc có ràng buộc \texttt{CHECK (max\_participants > 0)}.
+        \item \texttt{created\_at}: Kiểu \texttt{TIMESTAMPTZ}, mặc định \texttt{CURRENT\_TIMESTAMP}.
+    \end{itemize}
+    \item \textbf{Chiến lược chỉ mục:} Tạo chỉ mục B-tree trên cột \texttt{event\_date} hỗ trợ lọc danh sách sự kiện sắp diễn ra (\texttt{event\_date >= NOW()}) theo thứ tự thời gian tăng dần.
+\end{itemize}
+
+\subsubsection{Thiết kế vật lý bảng \texttt{user\_interactions}}
+
+Bảng \texttt{user\_interactions} là bảng ghi nhận nhật ký hành vi người dùng, có tần suất ghi cực kỳ lớn và tăng trưởng kích thước liên tục theo thời gian thực.
+
+\begin{itemize}
+    \item \textbf{Khóa chính:} \texttt{interaction\_id} kiểu \texttt{UUID}.
+    \item \textbf{Khóa ngoại và quan hệ đa hình (Polymorphic Pattern):}
+    \begin{itemize}
+        \item \texttt{user\_id} (\texttt{UUID}, \texttt{NOT NULL}): Tham chiếu đến \texttt{users(user\_id)} với tùy chọn \texttt{ON DELETE CASCADE}.
+        \item \texttt{target\_type} (\texttt{VARCHAR(50)}, \texttt{NOT NULL}): Xác định phân loại đối tượng tương tác, nhận các giá trị định danh như \texttt{'article'}, \texttt{'film\_lab'}, \texttt{'film\_stock'}.
+        \item \texttt{target\_id} (\texttt{UUID}, \texttt{NOT NULL}): Lưu trữ mã định danh của đối tượng được tương tác tương ứng.
+    \end{itemize}
+    \item \textbf{Thuộc tính hành vi:}
+    \begin{itemize}
+        \item \texttt{interaction\_type} (\texttt{VARCHAR(20)}, \texttt{NOT NULL}): Loại tương tác của người dùng như \texttt{'view'}, \texttt{'like'}, \texttt{'bookmark'}, \texttt{'share'}.
+        \item \texttt{created\_at}: Kiểu \texttt{TIMESTAMPTZ} mặc định \texttt{CURRENT\_TIMESTAMP}.
+    \end{itemize}
+    \item \textbf{Chiến lược chỉ mục và tối ưu hóa:}
+    \begin{itemize}
+        \item Tạo chỉ mục phức hợp \texttt{(target\_type, target\_id)} nhằm phục vụ truy vấn tổng hợp lượt tương tác cho một bài viết hoặc lab cụ thể.
+        \item Tạo chỉ mục phức hợp \texttt{(user\_id, interaction\_type)} hỗ trợ thuật toán trích xuất danh sách bài viết đã lưu (bookmark) hoặc lịch sử xem của từng cá nhân.
+        \item Đối với bảng này ở môi trường sản xuất thực tế, kiến trúc đề xuất áp dụng giải pháp phân vùng theo thời gian (Table Partitioning by Range trên cột \texttt{created\_at}) theo từng tháng hoặc quý để duy trì tốc độ đọc ghi ổn định.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Thiết kế vật lý bảng \texttt{ai\_chat\_log}}
+
+Bảng \texttt{ai\_chat\_log} quản lý lịch sử tương tác giữa người dùng và trợ lý tư vấn thông số nhiếp ảnh AI sử dụng kiến trúc RAG (Retrieval-Augmented Generation).
+
+\begin{itemize}
+    \item \textbf{Khóa chính:} \texttt{chat\_id} kiểu \texttt{UUID}.
+    \item \textbf{Khóa ngoại:} \texttt{user\_id} dùng kiểu \texttt{UUID} nhưng được phép rỗng (\texttt{NULL}) đi kèm chính sách \texttt{ON DELETE SET NULL}. Điều này cho phép hệ thống lưu vết cả các câu hỏi của khách vãng lai (guest) chưa đăng ký tài khoản, đồng thời vẫn bảo toàn dữ liệu thống kê huấn luyện AI khi một tài khoản người dùng bị xóa.
+    \item \textbf{Thuộc tính hội thoại và kiến thức AI:}
+    \begin{itemize}
+        \item \texttt{user\_query} (\texttt{TEXT}, \texttt{NOT NULL}): Câu hỏi tra cứu kỹ thuật của người dùng.
+        \item \texttt{bot\_response} (\texttt{TEXT}, \texttt{NOT NULL}): Phản hồi hướng dẫn hoặc gợi ý thông số film từ mô hình AI.
+        \item \texttt{context\_retrieved} (\texttt{TEXT}, \texttt{NULL}): Đoạn trích xuất kiến thức ngữ cảnh (retrieved context chunks) từ kho dữ liệu vector được nạp vào mô hình sinh câu trả lời, phục vụ mục đích kiểm toán (audit) chất lượng câu trả lời.
+        \item \texttt{created\_at}: Kiểu \texttt{TIMESTAMPTZ}, mặc định \texttt{CURRENT\_TIMESTAMP}.
+    \end{itemize}
+    \item \textbf{Chiến lược chỉ mục:} Thiết lập chỉ mục B-tree trên \texttt{user\_id} và \texttt{created\_at} nhằm tải lại giao diện lịch sử hội thoại của người dùng theo thứ tự thời gian một cách nhanh chóng.
+\end{itemize}
