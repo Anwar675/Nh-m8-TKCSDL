@@ -407,3 +407,78 @@ created\_at & TIMESTAMP & Default Now & Thời điểm phát sinh hành vi \\ \h
 \normalsize
 \caption{Từ điển dữ liệu bảng user\_interactions}
 \end{table}
+% Bảng article_categories
+\begin{table}[!htbp]
+\centering
+\small
+\begin{tabular}{|p{3.2cm}|p{2.5cm}|p{3.2cm}|p{5.5cm}|}
+\hline
+\textbf{Tên thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ràng buộc} & \textbf{Mô tả} \\ \hline
+category\_id & SERIAL & PK & Mã định danh danh mục bài viết \\ \hline
+category\_name & VARCHAR(100) & Not Null, Unique & Tên danh mục kiến thức, kinh nghiệm \\ \hline
+description & TEXT & Nullable & Mô tả phạm vi chủ đề bài viết \\ \hline
+created\_at & TIMESTAMP & Default Now & Thời điểm tạo danh mục \\ \hline
+\end{tabular}
+\normalsize
+\caption{Từ điển dữ liệu bảng article\_categories}
+\end{table}
+
+% Bảng articles
+\begin{table}[!htbp]
+\centering
+\small
+\begin{tabular}{|p{3.2cm}|p{2.5cm}|p{3.2cm}|p{5.5cm}|}
+\hline
+\textbf{Tên thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ràng buộc} & \textbf{Mô tả} \\ \hline
+article\_id & SERIAL & PK & Mã định danh duy nhất của bài viết \\ \hline
+author\_id & INT & Not Null, FK & Mã tác giả, tham chiếu đến users \\ \hline
+category\_id & INT & Not Null, FK & Tham chiếu đến article\_categories \\ \hline
+title & VARCHAR(255) & Not Null & Tiêu đề bài viết chia sẻ \\ \hline
+content & TEXT & Not Null & Nội dung chi tiết bài viết \\ \hline
+tags & VARCHAR(255) & Nullable & Thẻ từ khóa liên quan tìm kiếm \\ \hline
+view\_count & INT & Default 0 & Tổng số lượt đọc bài viết \\ \hline
+status & VARCHAR(20) & Default 'published' & Trạng thái bài viết: draft, published \\ \hline
+created\_at & TIMESTAMP & Default Now & Thời điểm đăng tải bài viết \\ \hline
+updated\_at & TIMESTAMP & Default Now & Thời điểm cập nhật nội dung \\ \hline
+\end{tabular}
+\normalsize
+\caption{Từ điển dữ liệu bảng articles}
+\end{table}
+
+% Bảng lab_reviews
+\begin{table}[!htbp]
+\centering
+\small
+\begin{tabular}{|p{3.2cm}|p{2.5cm}|p{3.2cm}|p{5.5cm}|}
+\hline
+\textbf{Tên thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ràng buộc} & \textbf{Mô tả} \\ \hline
+review\_id & SERIAL & PK & Mã định danh bản ghi đánh giá \\ \hline
+user\_id & INT & Not Null, FK & Mã người đánh giá, tham chiếu users \\ \hline
+lab\_id & INT & Not Null, FK & Mã lab được đánh giá, tham chiếu film\_labs \\ \hline
+rating & INT & Not Null & Điểm đánh giá chất lượng từ 1 đến 5 sao \\ \hline
+comment & TEXT & Nullable & Nhận xét chi tiết về dịch vụ của lab \\ \hline
+created\_at & TIMESTAMP & Default Now & Thời điểm gửi đánh giá \\ \hline
+\end{tabular}
+\normalsize
+\caption{Từ điển dữ liệu bảng lab\_reviews}
+\end{table}
+
+% Bảng community_events
+\begin{table}[!htbp]
+\centering
+\small
+\begin{tabular}{|p{3.2cm}|p{2.5cm}|p{3.2cm}|p{5.5cm}|}
+\hline
+\textbf{Tên thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ràng buộc} & \textbf{Mô tả} \\ \hline
+event\_id & SERIAL & PK & Mã định danh sự kiện cộng đồng \\ \hline
+host\_id & INT & Not Null, FK & Mã người đại diện tổ chức, tham chiếu users \\ \hline
+title & VARCHAR(255) & Not Null & Tên sự kiện offline, workshop \\ \hline
+description & TEXT & Nullable & Thông tin chi tiết nội dung sự kiện \\ \hline
+location & VARCHAR(255) & Not Null & Địa điểm tổ chức sự kiện \\ \hline
+event\_date & TIMESTAMP & Not Null & Thời gian bắt đầu diễn ra sự kiện \\ \hline
+max\_participants & INT & Nullable & Số lượng người tham gia tối đa \\ \hline
+created\_at & TIMESTAMP & Default Now & Thời điểm khởi tạo sự kiện \\ \hline
+\end{tabular}
+\normalsize
+\caption{Từ điển dữ liệu bảng community\_events}
+\end{table}

@@ -95,10 +95,10 @@
 \contentsline {section}{\numberline {6.3}Từ điển dữ liệu phân hệ P5: Knowledge \& AI Integration}{59}{section.6.3}%
 \contentsline {subsection}{\numberline {6.3.1}Bảng \texttt {articles} (Bài viết kiến thức \& Hướng dẫn)}{59}{subsection.6.3.1}%
 \contentsline {subsection}{\numberline {6.3.2}Bảng \texttt {user\_interactions} (Dữ liệu hành vi phục vụ AI gợi ý)}{60}{subsection.6.3.2}%
-\contentsline {chapter}{\numberline {7}KẾT LUẬN}{61}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Tổng kết quá trình thiết kế}{61}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Kết quả đạt được}{61}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Đánh giá thiết kế}{62}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Hạn chế}{62}{section.7.4}%
-\contentsline {section}{\numberline {7.5}Hướng phát triển}{62}{section.7.5}%
-\contentsline {chapter}{Tài liệu tham khảo}{63}{section.7.5}%
+\contentsline {chapter}{\numberline {7}KẾT LUẬN}{62}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Tổng kết quá trình thiết kế}{62}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Kết quả đạt được}{62}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Đánh giá thiết kế}{63}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Hạn chế}{63}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Hướng phát triển}{63}{section.7.5}%
+\contentsline {chapter}{Tài liệu tham khảo}{64}{section.7.5}%
