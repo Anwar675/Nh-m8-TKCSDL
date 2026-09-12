@@ -1,4 +1,4 @@
-Copy-Item .\chapters\05_physical.tex "$env:USERPROFILE\Downloads\05_physical_backup.tex"% Chương 5: Thiết kế mức vật lý ở mức lý thuyết
+% Chương 5: Thiết kế mức vật lý ở mức lý thuyết
 \chapter{THIẾT KẾ MỨC VẬT LÝ}
 
 \section{Mục tiêu thiết kế}
@@ -25,6 +25,215 @@ Các bảng nghiệp vụ sử dụng \texttt{created\_at}, \texttt{updated\_at}
 
 File scan được lưu trên dịch vụ object storage; cơ sở dữ liệu chỉ giữ URI, checksum, metadata và phiên bản. Cơ sở dữ liệu cần có chính sách sao lưu định kỳ, kiểm tra phục hồi và giới hạn quyền truy cập theo nguyên tắc tối thiểu.
 
+\section{Thiết kế vật lý cho module P2 -- User \& Film Lab Management}
+
+Module P2 quản lý người dùng, vai trò, Film Lab và các dịch vụ xử lý
+ảnh phim. Thiết kế vật lý được xây dựng dựa trên lược đồ quan hệ đã
+chuyển đổi ở mức logic, đồng thời tuân theo các quy ước chung của hệ thống
+PostgreSQL.
+
+\subsection{Thiết kế vật lý bảng \texttt{users}}
+
+Bảng \texttt{users} lưu thông tin tài khoản người dùng trong hệ thống.
+
+Khóa chính \texttt{user\_id} sử dụng kiểu dữ liệu \texttt{UUID} nhằm tạo
+định danh duy nhất cho mỗi người dùng. Các thuộc tính \texttt{full\_name},
+\texttt{email}, \texttt{phone} và \texttt{address} sử dụng kiểu
+\texttt{VARCHAR} với độ dài phù hợp. Thuộc tính \texttt{status} sử dụng
+\texttt{VARCHAR(20)} để lưu trạng thái tài khoản.
+
+Thuộc tính \texttt{email} phải có ràng buộc \texttt{UNIQUE} để tránh nhiều
+tài khoản sử dụng cùng một địa chỉ email. Email và họ tên không được để
+trống đối với tài khoản hợp lệ.
+
+Hai thuộc tính \texttt{created\_at} và \texttt{updated\_at} sử dụng
+\texttt{TIMESTAMPTZ} và được lưu theo múi giờ UTC. Khi tài khoản được cập
+nhật, giá trị \texttt{updated\_at} được thay đổi tương ứng.
+
+Để hỗ trợ truy vấn đăng nhập và tìm kiếm người dùng, chỉ mục được ưu tiên
+trên \texttt{email}. Chỉ mục trên \texttt{status} có thể được sử dụng khi
+hệ thống thường xuyên lọc người dùng theo trạng thái.
+
+\subsection{Thiết kế vật lý bảng \texttt{roles}}
+
+Bảng \texttt{roles} lưu danh mục các vai trò được định nghĩa trong hệ
+thống.
+
+Khóa chính \texttt{role\_id} sử dụng kiểu \texttt{UUID}. Thuộc tính
+\texttt{role\_name} sử dụng \texttt{VARCHAR(50)} và không được để trống.
+Tên vai trò phải có ràng buộc \texttt{UNIQUE} để tránh tồn tại nhiều bản
+ghi biểu diễn cùng một vai trò.
+
+Thuộc tính \texttt{description} sử dụng \texttt{TEXT} để mô tả chức năng
+và phạm vi của vai trò.
+
+Do bảng \texttt{roles} có kích thước nhỏ và ít thay đổi, chỉ mục chủ yếu
+được bảo đảm thông qua khóa chính và ràng buộc duy nhất trên
+\texttt{role\_name}.
+
+\subsection{Thiết kế vật lý bảng \texttt{user\_roles}}
+
+Bảng \texttt{user\_roles} triển khai quan hệ nhiều--nhiều giữa người dùng
+và vai trò.
+
+Thuộc tính \texttt{user\_id} và \texttt{role\_id} đều sử dụng kiểu
+\texttt{UUID}. Hai thuộc tính đồng thời là khóa ngoại lần lượt tham chiếu
+đến \texttt{users.user\_id} và \texttt{roles.role\_id}.
+
+Khóa chính của bảng là khóa ghép
+(\texttt{user\_id}, \texttt{role\_id}), bảo đảm một người dùng không thể
+được gán trùng cùng một vai trò.
+
+Do bảng thường xuyên được sử dụng khi kiểm tra quyền truy cập, khóa ngoại
+\texttt{user\_id} và \texttt{role\_id} cần được lập chỉ mục phù hợp với
+các truy vấn thực tế.
+
+Việc xóa người dùng hoặc vai trò không được thực hiện theo kiểu cascade
+đối với dữ liệu nghiệp vụ quan trọng. Chính sách xóa phải bảo đảm không
+làm mất dữ liệu lịch sử liên quan đến người dùng.
+
+\subsection{Thiết kế vật lý bảng \texttt{film\_labs}}
+
+Bảng \texttt{film\_labs} lưu thông tin các Film Lab tham gia hệ thống.
+
+Khóa chính \texttt{lab\_id} sử dụng kiểu \texttt{UUID}. Thuộc tính
+\texttt{owner\_id} sử dụng \texttt{UUID} và là khóa ngoại tham chiếu đến
+\texttt{users.user\_id}, biểu diễn người sở hữu Film Lab.
+
+Các thuộc tính \texttt{lab\_name}, \texttt{phone}, \texttt{email} và
+\texttt{address} sử dụng kiểu \texttt{VARCHAR} với độ dài phù hợp.
+Thuộc tính \texttt{description} sử dụng \texttt{TEXT} để lưu thông tin
+mô tả chi tiết về Film Lab.
+
+Thuộc tính \texttt{status} sử dụng \texttt{VARCHAR(20)} và chỉ nhận các
+giá trị thuộc vòng đời đã xác định của Film Lab. Các trạng thái không hợp
+lệ phải bị ngăn chặn bằng ràng buộc toàn vẹn.
+
+Hai thuộc tính \texttt{created\_at} và \texttt{updated\_at} sử dụng
+\texttt{TIMESTAMPTZ}.
+
+Khóa ngoại \texttt{owner\_id} cần được lập chỉ mục để hỗ trợ truy vấn
+Film Lab theo người sở hữu. Chỉ mục kết hợp trên
+(\texttt{status}, \texttt{updated\_at}) có thể được sử dụng khi hệ thống
+thường xuyên tìm kiếm các Film Lab đang hoạt động và sắp xếp theo thời
+gian cập nhật.
+
+\subsection{Thiết kế vật lý bảng \texttt{lab\_services}}
+
+Bảng \texttt{lab\_services} lưu danh sách các dịch vụ mà mỗi Film Lab
+cung cấp.
+
+Khóa chính \texttt{service\_id} sử dụng kiểu \texttt{UUID}. Thuộc tính
+\texttt{lab\_id} sử dụng \texttt{UUID} và là khóa ngoại tham chiếu đến
+\texttt{film\_labs.lab\_id}.
+
+Thuộc tính \texttt{service\_name} sử dụng \texttt{VARCHAR(150)} và không
+được để trống. Thuộc tính \texttt{description} sử dụng \texttt{TEXT}.
+
+Giá dịch vụ \texttt{price} sử dụng \texttt{NUMERIC(12,2)} và phải lớn hơn
+hoặc bằng 0. Không sử dụng kiểu dữ liệu số thực cho tiền nhằm tránh sai
+số khi tính toán.
+
+Thuộc tính \texttt{processing\_time} lưu thời gian xử lý dự kiến và sử
+dụng kiểu dữ liệu số nguyên phù hợp với đơn vị thời gian được thống nhất
+trong hệ thống.
+
+Thuộc tính \texttt{status} sử dụng \texttt{VARCHAR(20)} và được giới hạn
+bởi ràng buộc \texttt{CHECK} theo vòng đời của dịch vụ.
+
+Các thuộc tính \texttt{created\_at} và \texttt{updated\_at} sử dụng
+\texttt{TIMESTAMPTZ}.
+
+Khóa ngoại \texttt{lab\_id} cần được lập chỉ mục để hỗ trợ truy vấn danh
+sách dịch vụ của một Film Lab. Có thể sử dụng chỉ mục kết hợp trên
+(\texttt{lab\_id}, \texttt{status}) khi thường xuyên lấy các dịch vụ đang
+hoạt động của một Film Lab.
+
+\subsection{Kiểu dữ liệu và ràng buộc chính của P2}
+
+Thiết kế vật lý của P2 sử dụng các kiểu dữ liệu thống nhất với toàn hệ
+thống. Các định danh sử dụng \texttt{UUID}; dữ liệu văn bản ngắn sử dụng
+\texttt{VARCHAR}; mô tả dài sử dụng \texttt{TEXT}; thời gian sử dụng
+\texttt{TIMESTAMPTZ}; tiền sử dụng \texttt{NUMERIC(12,2)}.
+
+Các khóa chính phải có giá trị duy nhất và không được rỗng. Các khóa ngoại
+phải tham chiếu đến bản ghi hợp lệ của bảng cha. Những thuộc tính bắt buộc
+như tên người dùng, email, tên vai trò, tên Film Lab và tên dịch vụ không
+được để trống.
+
+Các ràng buộc \texttt{UNIQUE} được áp dụng cho các thuộc tính cần bảo đảm
+không trùng lặp, điển hình là \texttt{users.email} và
+\texttt{roles.role\_name}. Đối với bảng \texttt{user\_roles}, khóa chính
+ghép ngăn chặn việc gán trùng vai trò cho cùng một người dùng.
+
+Các thuộc tính trạng thái phải được giới hạn trong tập giá trị hợp lệ
+bằng ràng buộc \texttt{CHECK}. Giá dịch vụ không được âm và các giá trị
+thời gian xử lý không được nhỏ hơn 0.
+
+\subsection{Chiến lược chỉ mục cho P2}
+
+Các chỉ mục của P2 được thiết kế dựa trên các khóa ngoại và điều kiện
+truy vấn thường xuyên.
+
+Bảng \texttt{users} ưu tiên chỉ mục trên \texttt{email} để hỗ trợ tìm
+kiếm tài khoản và xác thực người dùng.
+
+Bảng \texttt{user\_roles} ưu tiên chỉ mục trên \texttt{user\_id} và
+\texttt{role\_id} để hỗ trợ kiểm tra vai trò và các truy vấn liên kết với
+bảng \texttt{users} và \texttt{roles}.
+
+Bảng \texttt{film\_labs} cần chỉ mục trên \texttt{owner\_id}. Trong trường
+hợp tìm kiếm Film Lab theo trạng thái và thời gian cập nhật, có thể sử
+dụng chỉ mục kết hợp
+(\texttt{status}, \texttt{updated\_at}).
+
+Bảng \texttt{lab\_services} cần chỉ mục trên \texttt{lab\_id}. Khi thường
+xuyên lọc dịch vụ đang hoạt động của một Film Lab, chỉ mục kết hợp
+(\texttt{lab\_id}, \texttt{status}) được ưu tiên.
+
+Không tạo chỉ mục cho tất cả các thuộc tính vì chỉ mục làm tăng dung
+lượng lưu trữ và chi phí khi thêm hoặc cập nhật dữ liệu. Việc lựa chọn
+chỉ mục cần dựa trên các truy vấn thực tế của hệ thống.
+
+\subsection{Audit, soft-delete và multi-tenant cho P2}
+
+Các bảng nghiệp vụ của P2 sử dụng \texttt{created\_at} và
+\texttt{updated\_at} để theo dõi thời điểm tạo và cập nhật dữ liệu.
+
+Đối với những dữ liệu cần bảo toàn lịch sử, có thể bổ sung
+\texttt{deleted\_at} để thực hiện soft-delete thay vì xóa vật lý ngay
+khỏi cơ sở dữ liệu. Cách tiếp cận này giúp hệ thống có thể truy vết và
+khôi phục trạng thái dữ liệu khi cần.
+
+Đối với Film Lab, thuộc tính \texttt{lab\_id} đóng vai trò quan trọng
+trong việc phân tách dữ liệu giữa các tenant. Các truy vấn liên quan đến
+dịch vụ và dữ liệu của Film Lab phải kiểm tra quyền sở hữu hoặc quyền truy
+cập tương ứng.
+
+Người dùng có thể đảm nhiệm nhiều vai trò thông qua bảng
+\texttt{user\_roles}. Việc kiểm tra quyền phải dựa trên vai trò đã được
+gán và phạm vi dữ liệu mà người dùng được phép truy cập.
+
+\subsection{Bảo mật và toàn vẹn dữ liệu P2}
+
+Dữ liệu người dùng và thông tin Film Lab phải được bảo vệ theo nguyên tắc
+quyền tối thiểu. Người dùng chỉ được truy cập các dữ liệu phù hợp với vai
+trò và phạm vi được cấp quyền.
+
+Các khóa ngoại phải bảo đảm tính toàn vẹn tham chiếu giữa
+\texttt{users}, \texttt{roles}, \texttt{user\_roles}, \texttt{film\_labs}
+và \texttt{lab\_services}. Không sử dụng cascade delete đối với các dữ
+liệu có khả năng được tham chiếu bởi đơn hàng, giao dịch hoặc dữ liệu lịch
+sử của các module khác.
+
+Các thay đổi quan trọng liên quan đến quyền người dùng, quyền sở hữu Film
+Lab và trạng thái dịch vụ cần có khả năng truy vết thông qua cơ chế audit
+của hệ thống.
+
+Như vậy, thiết kế vật lý của P2 bảo đảm các yêu cầu chính về kiểu dữ liệu,
+toàn vẹn tham chiếu, tính duy nhất, khả năng truy vấn, bảo mật và khả năng
+mở rộng, đồng thời giữ sự thống nhất với các quy ước thiết kế vật lý chung
+của toàn bộ cơ sở dữ liệu.
 
 \section{Thiết kế vật lý cho module P4}
 
