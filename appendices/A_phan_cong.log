@@ -1,9 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.8.15)  30 AUG 2026 12:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.8.15)  13 SEP 2026 11:52
 entering extended mode
  restricted \write18 enabled.
+ file:line:error style messages enabled.
  %&-line parsing enabled.
-**./A_phan_cong.tex
-(A_phan_cong.tex
+**c:/Users/admin/Documents/TKCSDL/Nh-m8-TKCSDL/appendices/A_phan_cong.tex
+(c:/Users/admin/Documents/TKCSDL/Nh-m8-TKCSDL/appendices/A_phan_cong.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -22,21 +23,17 @@ File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
 \bibindent=\dimen148
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
 Package: inputenc 2024/02/08 v1.3d Input encoding file
 \inpenc@prehook=\toks17
 \inpenc@posthook=\toks18
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5enc.def
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5enc.def
 File: t5enc.def 2006/11/21 v1.4 Vietnamese T5 encoding
 Now handling font encoding T5 ...
 ... processing UTF-8 mapping file for font encoding T5
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5enc.dfu
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5enc.dfu
 File: t5enc.dfu 2006/08/19 v1.1 UTF8 support for Vietnamese
    defining Unicode char U+00AB (decimal 171)
    defining Unicode char U+00BB (decimal 187)
@@ -190,34 +187,22 @@ File: t5enc.dfu 2006/08/19 v1.1 UTF8 support for Vietnamese
    defining Unicode char U+203A (decimal 8250)
    defining Unicode char U+2423 (decimal 9251)
 ))
-LaTeX Font Info:    Trying to load font information for T5+cmr on input line 11
-6.
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmr.fd
+LaTeX Font Info:    Trying to load font information for T5+cmr on input line 116.
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmr.fd
 File: t5cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-))
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
-Package: babel 2025/12/11 v25.17 The multilingual framework for LuaLaTeX, pdfLa
-TeX and XeLaTeX
+)) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
+Package: babel 2025/12/11 v25.17 The multilingual framework for LuaLaTeX, pdfLaTeX and XeLaTeX
 \babel@savecnt=\count283
-LaTeX Encoding Info:    Redeclaring text command \ij (encoding OT1) on input li
-ne 2068.
-LaTeX Encoding Info:    Redeclaring text command \IJ (encoding OT1) on input li
-ne 2070.
-LaTeX Encoding Info:    Redeclaring text command \ij (encoding T1) on input lin
-e 2072.
-LaTeX Encoding Info:    Redeclaring text command \IJ (encoding T1) on input lin
-e 2073.
-LaTeX Encoding Info:    Ignoring declaration for text command \ij (encoding ?) 
-on input line 2074.
-LaTeX Encoding Info:    Ignoring declaration for text command \IJ (encoding ?) 
-on input line 2076.
-LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) 
-on input line 2101.
+LaTeX Encoding Info:    Redeclaring text command \ij (encoding OT1) on input line 2068.
+LaTeX Encoding Info:    Redeclaring text command \IJ (encoding OT1) on input line 2070.
+LaTeX Encoding Info:    Redeclaring text command \ij (encoding T1) on input line 2072.
+LaTeX Encoding Info:    Redeclaring text command \IJ (encoding T1) on input line 2073.
+LaTeX Encoding Info:    Ignoring declaration for text command \ij (encoding ?) on input line 2074.
+LaTeX Encoding Info:    Ignoring declaration for text command \IJ (encoding ?) on input line 2076.
+LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) on input line 2101.
 \U@D=\dimen149
 \l@unhyphenated=\language79
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
 \bbl@readstream=\read2
 \bbl@dirlevel=\count284
 Package babel Info: Configuration files are deprecated, as
@@ -228,16 +213,11 @@ Package babel Info: Configuration files are deprecated, as
 * Local config file bblopts.cfg used
 *
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopts.cfg
-File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
- babel
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/vi\babel
--vietnamese.tex)
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of babel
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/vi\babel-vietnamese.tex)
 Package babel Info: Importing font and identification data for vietnamese
 (babel)             from babel-vi.ini. Reported on input line 4320.
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/babel-vietnamese\vietna
-mese.ldf
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/babel-vietnamese\vietnamese.ldf
 Language: vietnamese 
 
 
@@ -251,150 +231,82 @@ Package babel Info: Hyphen rules for 'vietnamese' set to \l@english
 (babel)             (\language0). Reported on input line 37.
 Package babel Info: Hyphen rules for 'vietnam' set to \l@english
 (babel)             (\language0). Reported on input line 38.
-Loading definitions for the Vietnamese font encoding
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5enc.def
+Loading definitions for the Vietnamese font encoding (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5enc.def
 File: t5enc.def 2006/11/21 v1.4 Vietnamese T5 encoding
 LaTeX Font Info:    Redeclaring font encoding T5 on input line 75.
-LaTeX Encoding Info:    Redeclaring text command \` (encoding T5) on input line
- 79.
-LaTeX Encoding Info:    Redeclaring text command \' (encoding T5) on input line
- 80.
-LaTeX Encoding Info:    Redeclaring text command \^ (encoding T5) on input line
- 81.
-LaTeX Encoding Info:    Redeclaring text command \~ (encoding T5) on input line
- 82.
-LaTeX Encoding Info:    Redeclaring text command \" (encoding T5) on input line
- 83.
-LaTeX Encoding Info:    Redeclaring text command \r (encoding T5) on input line
- 84.
-LaTeX Encoding Info:    Redeclaring text command \v (encoding T5) on input line
- 85.
-LaTeX Encoding Info:    Redeclaring text command \u (encoding T5) on input line
- 86.
-LaTeX Encoding Info:    Redeclaring text command \= (encoding T5) on input line
- 87.
-LaTeX Encoding Info:    Redeclaring text command \. (encoding T5) on input line
- 88.
-LaTeX Encoding Info:    Redeclaring text command \b (encoding T5) on input line
- 90.
-LaTeX Encoding Info:    Redeclaring text command \c (encoding T5) on input line
- 94.
-LaTeX Encoding Info:    Redeclaring text command \d (encoding T5) on input line
- 98.
-LaTeX Encoding Info:    Redeclaring text command \h (encoding T5) on input line
- 103.
-LaTeX Encoding Info:    Redeclaring text symbol \quotesinglbase (encoding T5) o
-n input line 105.
-LaTeX Encoding Info:    Redeclaring text symbol \guilsinglleft (encoding T5) on
- input line 106.
-LaTeX Encoding Info:    Redeclaring text symbol \guilsinglright (encoding T5) o
-n input line 107.
-LaTeX Encoding Info:    Redeclaring text symbol \textquotedblleft (encoding T5)
- on input line 108.
-LaTeX Encoding Info:    Redeclaring text symbol \textquotedblright (encoding T5
-) on input line 109.
-LaTeX Encoding Info:    Redeclaring text symbol \quotedblbase (encoding T5) on 
-input line 110.
-LaTeX Encoding Info:    Redeclaring text symbol \guillemotleft (encoding T5) on
- input line 111.
-LaTeX Encoding Info:    Redeclaring text symbol \guillemotright (encoding T5) o
-n input line 112.
-LaTeX Encoding Info:    Redeclaring text symbol \textendash (encoding T5) on in
-put line 113.
-LaTeX Encoding Info:    Redeclaring text symbol \textemdash (encoding T5) on in
-put line 114.
-LaTeX Encoding Info:    Redeclaring text symbol \textcompwordmark (encoding T5)
- on input line 115.
-LaTeX Encoding Info:    Redeclaring text command \textperthousand (encoding T5)
- on input line 117.
-LaTeX Encoding Info:    Redeclaring text command \textpertenthousand (encoding 
-T5) on input line 118.
-LaTeX Encoding Info:    Redeclaring text symbol \i (encoding T5) on input line 
-119.
-LaTeX Encoding Info:    Redeclaring text symbol \textvisiblespace (encoding T5)
- on input line 121.
-LaTeX Encoding Info:    Redeclaring text symbol \textquotedbl (encoding T5) on 
-input line 122.
-LaTeX Encoding Info:    Redeclaring text symbol \textdollar (encoding T5) on in
-put line 123.
-LaTeX Encoding Info:    Redeclaring text symbol \textquoteright (encoding T5) o
-n input line 124.
-LaTeX Encoding Info:    Redeclaring text symbol \textless (encoding T5) on inpu
-t line 125.
-LaTeX Encoding Info:    Redeclaring text symbol \textgreater (encoding T5) on i
-nput line 126.
-LaTeX Encoding Info:    Redeclaring text symbol \textbackslash (encoding T5) on
- input line 127.
-LaTeX Encoding Info:    Redeclaring text symbol \textasciicircum (encoding T5) 
-on input line 128.
-LaTeX Encoding Info:    Redeclaring text symbol \textunderscore (encoding T5) o
-n input line 129.
-LaTeX Encoding Info:    Redeclaring text symbol \textquoteleft (encoding T5) on
- input line 130.
-LaTeX Encoding Info:    Redeclaring text symbol \textbraceleft (encoding T5) on
- input line 131.
-LaTeX Encoding Info:    Redeclaring text symbol \textbar (encoding T5) on input
- line 132.
-LaTeX Encoding Info:    Redeclaring text symbol \textbraceright (encoding T5) o
-n input line 133.
-LaTeX Encoding Info:    Redeclaring text symbol \textasciitilde (encoding T5) o
-n input line 134.
-LaTeX Encoding Info:    Redeclaring text command \horn (encoding T5) on input l
-ine 137.
-LaTeX Encoding Info:    Redeclaring text symbol \DJ (encoding T5) on input line
- 306.
-LaTeX Encoding Info:    Redeclaring text symbol \dj (encoding T5) on input line
- 307.
-LaTeX Encoding Info:    Redeclaring text symbol \Acircumflex (encoding T5) on i
-nput line 312.
-LaTeX Encoding Info:    Redeclaring text symbol \Abreve (encoding T5) on input 
-line 319.
-LaTeX Encoding Info:    Redeclaring text symbol \Ecircumflex (encoding T5) on i
-nput line 326.
-LaTeX Encoding Info:    Redeclaring text symbol \Ocircumflex (encoding T5) on i
-nput line 333.
-LaTeX Encoding Info:    Redeclaring text symbol \Ohorn (encoding T5) on input l
-ine 340.
-LaTeX Encoding Info:    Redeclaring text symbol \Uhorn (encoding T5) on input l
-ine 347.
-LaTeX Encoding Info:    Redeclaring text symbol \acircumflex (encoding T5) on i
-nput line 354.
-LaTeX Encoding Info:    Redeclaring text symbol \abreve (encoding T5) on input 
-line 361.
-LaTeX Encoding Info:    Redeclaring text symbol \ecircumflex (encoding T5) on i
-nput line 368.
-LaTeX Encoding Info:    Redeclaring text symbol \ocircumflex (encoding T5) on i
-nput line 375.
-LaTeX Encoding Info:    Redeclaring text symbol \ohorn (encoding T5) on input l
-ine 382.
-LaTeX Encoding Info:    Redeclaring text symbol \uhorn (encoding T5) on input l
-ine 389.
-LaTeX Encoding Info:    Redeclaring text symbol \ACIRCUMFLEX (encoding T5) on i
-nput line 397.
-LaTeX Encoding Info:    Redeclaring text symbol \ABREVE (encoding T5) on input 
-line 404.
-LaTeX Encoding Info:    Redeclaring text symbol \ECIRCUMFLEX (encoding T5) on i
-nput line 411.
-LaTeX Encoding Info:    Redeclaring text symbol \OCIRCUMFLEX (encoding T5) on i
-nput line 418.
-LaTeX Encoding Info:    Redeclaring text symbol \OHORN (encoding T5) on input l
-ine 425.
-LaTeX Encoding Info:    Redeclaring text symbol \UHORN (encoding T5) on input l
-ine 432.
+LaTeX Encoding Info:    Redeclaring text command \` (encoding T5) on input line 79.
+LaTeX Encoding Info:    Redeclaring text command \' (encoding T5) on input line 80.
+LaTeX Encoding Info:    Redeclaring text command \^ (encoding T5) on input line 81.
+LaTeX Encoding Info:    Redeclaring text command \~ (encoding T5) on input line 82.
+LaTeX Encoding Info:    Redeclaring text command \" (encoding T5) on input line 83.
+LaTeX Encoding Info:    Redeclaring text command \r (encoding T5) on input line 84.
+LaTeX Encoding Info:    Redeclaring text command \v (encoding T5) on input line 85.
+LaTeX Encoding Info:    Redeclaring text command \u (encoding T5) on input line 86.
+LaTeX Encoding Info:    Redeclaring text command \= (encoding T5) on input line 87.
+LaTeX Encoding Info:    Redeclaring text command \. (encoding T5) on input line 88.
+LaTeX Encoding Info:    Redeclaring text command \b (encoding T5) on input line 90.
+LaTeX Encoding Info:    Redeclaring text command \c (encoding T5) on input line 94.
+LaTeX Encoding Info:    Redeclaring text command \d (encoding T5) on input line 98.
+LaTeX Encoding Info:    Redeclaring text command \h (encoding T5) on input line 103.
+LaTeX Encoding Info:    Redeclaring text symbol \quotesinglbase (encoding T5) on input line 105.
+LaTeX Encoding Info:    Redeclaring text symbol \guilsinglleft (encoding T5) on input line 106.
+LaTeX Encoding Info:    Redeclaring text symbol \guilsinglright (encoding T5) on input line 107.
+LaTeX Encoding Info:    Redeclaring text symbol \textquotedblleft (encoding T5) on input line 108.
+LaTeX Encoding Info:    Redeclaring text symbol \textquotedblright (encoding T5) on input line 109.
+LaTeX Encoding Info:    Redeclaring text symbol \quotedblbase (encoding T5) on input line 110.
+LaTeX Encoding Info:    Redeclaring text symbol \guillemotleft (encoding T5) on input line 111.
+LaTeX Encoding Info:    Redeclaring text symbol \guillemotright (encoding T5) on input line 112.
+LaTeX Encoding Info:    Redeclaring text symbol \textendash (encoding T5) on input line 113.
+LaTeX Encoding Info:    Redeclaring text symbol \textemdash (encoding T5) on input line 114.
+LaTeX Encoding Info:    Redeclaring text symbol \textcompwordmark (encoding T5) on input line 115.
+LaTeX Encoding Info:    Redeclaring text command \textperthousand (encoding T5) on input line 117.
+LaTeX Encoding Info:    Redeclaring text command \textpertenthousand (encoding T5) on input line 118.
+LaTeX Encoding Info:    Redeclaring text symbol \i (encoding T5) on input line 119.
+LaTeX Encoding Info:    Redeclaring text symbol \textvisiblespace (encoding T5) on input line 121.
+LaTeX Encoding Info:    Redeclaring text symbol \textquotedbl (encoding T5) on input line 122.
+LaTeX Encoding Info:    Redeclaring text symbol \textdollar (encoding T5) on input line 123.
+LaTeX Encoding Info:    Redeclaring text symbol \textquoteright (encoding T5) on input line 124.
+LaTeX Encoding Info:    Redeclaring text symbol \textless (encoding T5) on input line 125.
+LaTeX Encoding Info:    Redeclaring text symbol \textgreater (encoding T5) on input line 126.
+LaTeX Encoding Info:    Redeclaring text symbol \textbackslash (encoding T5) on input line 127.
+LaTeX Encoding Info:    Redeclaring text symbol \textasciicircum (encoding T5) on input line 128.
+LaTeX Encoding Info:    Redeclaring text symbol \textunderscore (encoding T5) on input line 129.
+LaTeX Encoding Info:    Redeclaring text symbol \textquoteleft (encoding T5) on input line 130.
+LaTeX Encoding Info:    Redeclaring text symbol \textbraceleft (encoding T5) on input line 131.
+LaTeX Encoding Info:    Redeclaring text symbol \textbar (encoding T5) on input line 132.
+LaTeX Encoding Info:    Redeclaring text symbol \textbraceright (encoding T5) on input line 133.
+LaTeX Encoding Info:    Redeclaring text symbol \textasciitilde (encoding T5) on input line 134.
+LaTeX Encoding Info:    Redeclaring text command \horn (encoding T5) on input line 137.
+LaTeX Encoding Info:    Redeclaring text symbol \DJ (encoding T5) on input line 306.
+LaTeX Encoding Info:    Redeclaring text symbol \dj (encoding T5) on input line 307.
+LaTeX Encoding Info:    Redeclaring text symbol \Acircumflex (encoding T5) on input line 312.
+LaTeX Encoding Info:    Redeclaring text symbol \Abreve (encoding T5) on input line 319.
+LaTeX Encoding Info:    Redeclaring text symbol \Ecircumflex (encoding T5) on input line 326.
+LaTeX Encoding Info:    Redeclaring text symbol \Ocircumflex (encoding T5) on input line 333.
+LaTeX Encoding Info:    Redeclaring text symbol \Ohorn (encoding T5) on input line 340.
+LaTeX Encoding Info:    Redeclaring text symbol \Uhorn (encoding T5) on input line 347.
+LaTeX Encoding Info:    Redeclaring text symbol \acircumflex (encoding T5) on input line 354.
+LaTeX Encoding Info:    Redeclaring text symbol \abreve (encoding T5) on input line 361.
+LaTeX Encoding Info:    Redeclaring text symbol \ecircumflex (encoding T5) on input line 368.
+LaTeX Encoding Info:    Redeclaring text symbol \ocircumflex (encoding T5) on input line 375.
+LaTeX Encoding Info:    Redeclaring text symbol \ohorn (encoding T5) on input line 382.
+LaTeX Encoding Info:    Redeclaring text symbol \uhorn (encoding T5) on input line 389.
+LaTeX Encoding Info:    Redeclaring text symbol \ACIRCUMFLEX (encoding T5) on input line 397.
+LaTeX Encoding Info:    Redeclaring text symbol \ABREVE (encoding T5) on input line 404.
+LaTeX Encoding Info:    Redeclaring text symbol \ECIRCUMFLEX (encoding T5) on input line 411.
+LaTeX Encoding Info:    Redeclaring text symbol \OCIRCUMFLEX (encoding T5) on input line 418.
+LaTeX Encoding Info:    Redeclaring text symbol \OHORN (encoding T5) on input line 425.
+LaTeX Encoding Info:    Redeclaring text symbol \UHORN (encoding T5) on input line 432.
 )
 Package babel Info: Making " an active character on input line 147.
-))
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+)) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
 Package: geometry 2026/03/07 v6.0 Page Geometry
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks19
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
 ))
 \Gm@cnth=\count285
@@ -409,9 +321,7 @@ Package: iftex 2024/12/12 v1.0g TeX engine tests
 \Gm@layouthoffset=\dimen156
 \Gm@layoutvoffset=\dimen157
 \Gm@dimlist=\toks20
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg)) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen158
 \lightrulewidth=\dimen159
@@ -430,8 +340,7 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count290
 \@lastruleclass=\count291
 \@thisrulewidth=\dimen170
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty
 Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
 \LTleft=\skip51
 \LTright=\skip52
@@ -449,8 +358,7 @@ Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
 \c@LT@tables=\count295
 \c@LT@chunks=\count296
 \LT@p@ftn=\toks21
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
 Package: enumitem 2025/02/06 v3.11 Customized lists
 \labelindent=\skip55
 \enit@outerparindent=\dimen172
@@ -458,8 +366,7 @@ Package: enumitem 2025/02/06 v3.11 Customized lists
 \enit@inbox=\box58
 \enit@count@id=\count297
 \enitdp@description=\count298
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
 Package: titlesec 2025/01/04 v2.17 Sectioning titles
 \ttl@box=\box59
 \beforetitleunit=\skip56
@@ -470,63 +377,41 @@ Package: titlesec 2025/01/04 v2.17 Sectioning titles
 \titlewidth=\dimen175
 \titlewidthlast=\dimen176
 \titlewidthfirst=\dimen177
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2025-07-12 v7.01o Hypertext links for LaTeX
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefine
-keys.sty
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.s
-ty
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
 Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds
-.sty
-Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
-)
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.s
-ty
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-))
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
+)) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2025-06-21 v2.57 Cross-referencing by name of section
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettit
-lestring.sty
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
 \c@section@level=\count299
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count300
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.s
-ty
-Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
-)
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
 \@linkdim=\dimen178
 \Hy@linkcounter=\count301
@@ -552,21 +437,16 @@ Package hyperref Info: Backreferencing OFF on input line 4215.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4462.
 \c@Hy@tempcnt=\count304
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4801.
 \XeTeXLinkMargin=\dimen179
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc
-.sty
-Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
-)
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
 \Fld@menulength=\count305
 \Field@Width=\dimen180
@@ -583,37 +463,27 @@ Package hyperref Info: PDF/A mode OFF on input line 6108.
 \c@Hfootnote=\count308
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
 File: hpdftex.def 2025-07-12 v7.01o Hyperref driver for pdfTeX
 \Fld@listcount=\count309
 \c@bookmark@seq@number=\count310
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfil
-echeck.sty
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty
 Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquec
-ounter.sty
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
-84.
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 284.
 )
 \Hy@SectionHShift=\skip58
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
 Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 274.
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
 File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
 Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
 Package xcolor Info: Model `RGB' extended on input line 1365.
@@ -625,7 +495,6 @@ Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
 ) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
 Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
-
 \f@nch@headwidth=\skip59
 \f@nch@offset@elh=\skip60
 \f@nch@offset@erh=\skip61
@@ -641,9 +510,7 @@ Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@widthC=\skip71
 \f@nch@widthR=\skip72
 \@temptokenb=\toks24
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
-tex.def
+) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count311
 ) (A_phan_cong.aux
@@ -712,9 +579,7 @@ Package hyperref Info: Link coloring OFF on input line 38.
 \@outlinefile=\write3
 \openout3 = `A_phan_cong.out'.
 
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
-ii
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count312
 \scratchdimen=\dimen182
@@ -761,8 +626,7 @@ Overfull \hbox (102.85661pt too wide) in paragraph at lines 68--79
  [][] 
  []
 
-LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 9
-2.
+LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 92.
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmtt.fd
 File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
@@ -774,34 +638,23 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.2807pt}.
 
 [2]
-Overfull \hbox (48.78418pt too wide) in paragraph at lines 117--118
-[]\T5/cmr/m/n/12 Thi¸t k¸ c¡c en-tity: \T5/cmtt/m/n/12 orders\T5/cmr/m/n/12 , \
-T5/cmtt/m/n/12 order_items\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 film_rolls\T5/cmr/m/
-n/12 , \T5/cmtt/m/n/12 processing_stages\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 order_
-status_history\T5/cmr/m/n/12 ,
+Overfull \hbox (48.78418pt too wide) in paragraph at lines 116--117
+[]\T5/cmr/m/n/12 Thi¸t k¸ c¡c en-tity: \T5/cmtt/m/n/12 orders\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 order_items\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 film_rolls\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 processing_stages\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 order_status_history\T5/cmr/m/n/12 ,
  []
 
 
-Overfull \hbox (0.90277pt too wide) in paragraph at lines 129--130
-[]\T5/cmr/bx/n/12 Digital Archive\T5/cmr/m/n/12 : \T5/cmtt/m/n/12 scan_files\T5
-/cmr/m/n/12 , \T5/cmtt/m/n/12 photo_metadata\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 al
-bums\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 album_photos\T5/cmr/m/n/12 , \T5/cmtt/m/n/
-12 tags\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 photo_tags\T5/cmr/m/n/12 ,
+Overfull \hbox (0.90277pt too wide) in paragraph at lines 127--128
+[]\T5/cmr/bx/n/12 Digital Archive\T5/cmr/m/n/12 : \T5/cmtt/m/n/12 scan_files\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 photo_metadata\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 albums\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 album_photos\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 tags\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 photo_tags\T5/cmr/m/n/12 ,
  []
 
 
-Overfull \hbox (26.07025pt too wide) in paragraph at lines 140--141
-[]\T5/cmr/bx/n/12 Knowledge & Com-mu-nity\T5/cmr/m/n/12 : \T5/cmtt/m/n/12 artic
-les\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 tutorials\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 e
-vents\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 comments\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 
-knowledge_categories\T5/cmr/m/n/12 . 
+Overfull \hbox (26.07025pt too wide) in paragraph at lines 137--138
+[]\T5/cmr/bx/n/12 Knowledge & Com-mu-nity\T5/cmr/m/n/12 : \T5/cmtt/m/n/12 articles\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 tutorials\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 events\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 comments\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 knowledge_categories\T5/cmr/m/n/12 . 
  []
 
 
-Overfull \hbox (1.07913pt too wide) in paragraph at lines 141--142
-[]\T5/cmr/bx/n/12 AI-related\T5/cmr/m/n/12 : \T5/cmtt/m/n/12 recommendation_log
-s\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 user_behavior_logs\T5/cmr/m/n/12 , \T5/cmtt/m
-/n/12 knowledge_chunks\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 embeddings
+Overfull \hbox (1.07913pt too wide) in paragraph at lines 138--139
+[]\T5/cmr/bx/n/12 AI-related\T5/cmr/m/n/12 : \T5/cmtt/m/n/12 recommendation_logs\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 user_behavior_logs\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 knowledge_chunks\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 embeddings
  []
 
 
@@ -819,15 +672,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-3.2807pt}.
 
-[4]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 15.2807pt, for example:
-(fancyhdr)                \setlength{\headheight}{15.2807pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-3.2807pt}.
-
-[5] (A_phan_cong.aux)
+[4] (A_phan_cong.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
@@ -836,24 +681,17 @@ Package rerunfilecheck Info: File `A_phan_cong.out' has not changed.
 (rerunfilecheck)             Checksum: 11B0CC44C9EEE40411A762B1A670E631;2238.
  ) 
 Here is how much of TeX's memory you used:
- 11971 strings out of 467871
- 188364 string characters out of 5418376
+ 11972 strings out of 467871
+ 188526 string characters out of 5418376
  628558 words of memory out of 5000000
  40706 multiletter control sequences out of 15000+600000
  642449 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,11n,79p,365b,615s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\admin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
-1200.pk><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmsy10.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/type1/vnte
-x/vnr/vnbx12.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/type1/vnte
-x/vnr/vnr12.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex
-/vnr/vnti10.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex
-/vnr/vnti12.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex
-/vnr/vntt12.pfb>
-Output written on A_phan_cong.pdf (5 pages, 108149 bytes).
+ 75i,11n,79p,419b,707s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\admin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnbx12.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr12.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnti10.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnti12.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt12.pfb>
+Output written on A_phan_cong.pdf (4 pages, 107210 bytes).
 PDF statistics:
- 112 PDF objects out of 1000 (max. 8388607)
- 21 named destinations out of 1000 (max. 500000)
+ 108 PDF objects out of 1000 (max. 8388607)
+ 20 named destinations out of 1000 (max. 500000)
  81 words of extra memory for PDF output out of 10000 (max. 10000000)
 

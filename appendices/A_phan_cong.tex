@@ -55,7 +55,7 @@ Thiết kế đầy đủ cơ sở dữ liệu PostgreSQL cho hệ thống, bao 
     \item \textbf{File SQL} hoàn chỉnh
 \end{itemize}
 
-Đảm bảo các thành viên \textbf{xen kẽ} công việc để hiểu rõ phần của nhau trong thời gian \textbf{7 ngày}.
+
 
 \vspace{10pt}
 
@@ -94,7 +94,7 @@ P5 & \textbf{Knowledge + AI + Integration} & Community, Knowledge, AI, Logistics
     \item Định nghĩa Business Rules và Integrity Constraints quan trọng.
     \item Tạo Data Dictionary tổng hợp.
     \item Quản lý version ERD và file SQL cuối cùng.
-    \item Review sâu phần của P3 và P4.
+   
 \end{itemize}
 
 \vspace{8pt}
@@ -106,7 +106,6 @@ P5 & \textbf{Knowledge + AI + Integration} & Community, Knowledge, AI, Logistics
     \item Thiết kế phân quyền RBAC đầy đủ.
     \item Xử lý multi-tenant (mỗi Film Lab là một tenant).
     \item Định nghĩa các constraint: unique, check, foreign key.
-    \item Review bắt buộc phần Order (P3) và Marketplace (P4).
 \end{itemize}
 
 \vspace{8pt}
@@ -118,7 +117,6 @@ P5 & \textbf{Knowledge + AI + Integration} & Community, Knowledge, AI, Logistics
     \item Thiết kế state machine cho trạng thái đơn hàng.
     \item Xây dựng quan hệ chặt chẽ với Digital Archive (khi scan hoàn thành).
     \item Thiết kế index phục vụ truy vấn real-time tracking.
-    \item Review bắt buộc phần Archive (P4) và Core (P1).
 \end{itemize}
 
 \vspace{8pt}
@@ -129,7 +127,6 @@ P5 & \textbf{Knowledge + AI + Integration} & Community, Knowledge, AI, Logistics
     \item \textbf{Digital Archive}: \texttt{scan\_files}, \texttt{photo\_metadata}, \texttt{albums}, \texttt{album\_photos}, \texttt{tags}, \texttt{photo\_tags}, \texttt{film\_stocks}, \texttt{camera\_models}, \texttt{lenses}.
     \item \textbf{Marketplace}: \texttt{products}, \texttt{product\_categories}, \texttt{listings}, \texttt{marketplace\_transactions}, \texttt{seller\_reviews}.
     \item Thiết kế metadata phong phú và cơ chế versioning file scan.
-    \item Review bắt buộc phần Order (P3) và Knowledge (P5).
 \end{itemize}
 
 \vspace{8pt}
@@ -141,7 +138,6 @@ P5 & \textbf{Knowledge + AI + Integration} & Community, Knowledge, AI, Logistics
     \item \textbf{AI-related}: \texttt{recommendation\_logs}, \texttt{user\_behavior\_logs}, \texttt{knowledge\_chunks}, \texttt{embeddings} (metadata), \texttt{ai\_chat\_histories}, \texttt{scan\_quality\_scores}.
     \item \textbf{Integration}: \texttt{delivery\_partners}, \texttt{notifications}, \texttt{payment\_transactions}, \texttt{admin\_logs}.
     \item Thiết kế hỗ trợ semantic search và recommendation.
-    \item Review bắt buộc phần User (P2) và Core (P1).
 \end{itemize}
 
 \vspace{10pt}
