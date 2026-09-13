@@ -24,7 +24,7 @@ Tài liệu này mô tả vai trò của file nguồn và phân biệt chúng v�
 | `chapters/02_requirement.tex` | Tác nhân, sáu Core Flow, nhóm dữ liệu, business rule, yêu cầu phi chức năng và yêu cầu chi tiết theo module. |
 | `chapters/03_conceptual.tex` | Danh sách entity, relationship/cardinality, ERD tổng quan theo module và quy ước thiết kế. |
 | `chapters/04_logical.tex` | Chuyển ERD thành mô hình quan hệ, xác định khóa/phụ thuộc hàm và chuẩn hóa 3NF/BCNF. |
-| `chapters/05_physical.tex` | Trình bày lý thuyết ánh xạ sang PostgreSQL: kiểu dữ liệu, constraint, index, audit, soft-delete và multi-tenant; không chứa mã SQL thực thi. |
+| `chapters/05_physical.tex` | Trình bày lý thuyết ánh xạ sang PostgreSQL: kiểu dữ liệu, constraint, index, audit, soft-delete và multi-tenant; . |
 | `chapters/06_datadictionary.tex` | Từ điển bảng/cột: kiểu dữ liệu, ràng buộc, ý nghĩa và ví dụ. |
 | `chapters/07_conclusion.tex` | Tổng kết kết quả thiết kế lý thuyết, hạn chế, hướng phát triển và đóng góp của nhóm. |
 

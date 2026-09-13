@@ -1,6 +1,6 @@
-PWD C:\Users\admin\Documents\TKCSDL\Nh-m8-TKCSDL\appendices
+PWD c:\Users\admin\Documents\TKCSDL\Nh-m8-TKCSDL\appendices
 INPUT C:\Users\admin\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT A_phan_cong.tex
+INPUT c:\Users\admin\Documents\TKCSDL\Nh-m8-TKCSDL\appendices\A_phan_cong.tex
 OUTPUT A_phan_cong.log
 INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
 INPUT C:\Users\admin\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls

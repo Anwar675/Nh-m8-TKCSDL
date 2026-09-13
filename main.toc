@@ -66,39 +66,35 @@
 \contentsline {subsubsection}{\numberline {4.7.2.1}Tap phu thuoc ham (Functional Dependencies)}{39}{subsubsection.4.7.2.1}%
 \contentsline {subsubsection}{\numberline {4.7.2.2}Xac dinh khoa va danh gia dang chuan 3NF / BCNF}{39}{subsubsection.4.7.2.2}%
 \contentsline {chapter}{\numberline {5}THIẾT KẾ MỨC VẬT LÝ}{41}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Mục tiêu thiết kế}{41}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Lựa chọn kiểu dữ liệu}{41}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Ràng buộc toàn vẹn}{41}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Chiến lược chỉ mục}{42}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Audit, soft-delete và multi-tenant}{42}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Lưu trữ và sao lưu}{42}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Thiết kế vật lý cho module P2 -- User \& Film Lab Management}{42}{section.5.7}%
-\contentsline {subsection}{\numberline {5.7.1}Thiết kế vật lý bảng \texttt {users}}{42}{subsection.5.7.1}%
-\contentsline {subsection}{\numberline {5.7.2}Thiết kế vật lý bảng \texttt {roles}}{43}{subsection.5.7.2}%
-\contentsline {subsection}{\numberline {5.7.3}Thiết kế vật lý bảng \texttt {user\_roles}}{43}{subsection.5.7.3}%
-\contentsline {subsection}{\numberline {5.7.4}Thiết kế vật lý bảng \texttt {film\_labs}}{44}{subsection.5.7.4}%
-\contentsline {subsection}{\numberline {5.7.5}Thiết kế vật lý bảng \texttt {lab\_services}}{44}{subsection.5.7.5}%
-\contentsline {subsection}{\numberline {5.7.6}Kiểu dữ liệu và ràng buộc chính của P2}{45}{subsection.5.7.6}%
-\contentsline {subsection}{\numberline {5.7.7}Chiến lược chỉ mục cho P2}{45}{subsection.5.7.7}%
-\contentsline {subsection}{\numberline {5.7.8}Audit, soft-delete và multi-tenant cho P2}{46}{subsection.5.7.8}%
-\contentsline {subsection}{\numberline {5.7.9}Bảo mật và toàn vẹn dữ liệu P2}{46}{subsection.5.7.9}%
-\contentsline {section}{\numberline {5.8}Thiết kế vật lý cho module P4}{47}{section.5.8}%
-\contentsline {subsection}{\numberline {5.8.1}Kho ảnh phim số}{47}{subsection.5.8.1}%
-\contentsline {subsection}{\numberline {5.8.2}Chợ giao dịch}{47}{subsection.5.8.2}%
-\contentsline {subsection}{\numberline {5.8.3}Chỉ mục và tối ưu truy vấn cho P4}{48}{subsection.5.8.3}%
-\contentsline {subsection}{\numberline {5.8.4}Lưu trữ và toàn vẹn dữ liệu P4}{48}{subsection.5.8.4}%
-\contentsline {chapter}{\numberline {6}TỪ ĐIỂN DỮ LIỆU}{50}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Từ điển dữ liệu P1 -- Core Domain}{50}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Quy tắc toàn vẹn của nhóm P1}{54}{subsection.6.1.1}%
-\contentsline {section}{\numberline {6.2}Từ điển dữ liệu P4 -- Kho ảnh số và Chợ giao dịch}{55}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Quy tắc toàn vẹn của P4}{59}{subsection.6.2.1}%
-\contentsline {section}{\numberline {6.3}Từ điển dữ liệu phân hệ P5: Knowledge \& AI Integration}{59}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Bảng \texttt {articles} (Bài viết kiến thức \& Hướng dẫn)}{59}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Bảng \texttt {user\_interactions} (Dữ liệu hành vi phục vụ AI gợi ý)}{60}{subsection.6.3.2}%
-\contentsline {chapter}{\numberline {7}KẾT LUẬN}{62}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Tổng kết quá trình thiết kế}{62}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Kết quả đạt được}{62}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Đánh giá thiết kế}{63}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Hạn chế}{63}{section.7.4}%
-\contentsline {section}{\numberline {7.5}Hướng phát triển}{63}{section.7.5}%
-\contentsline {chapter}{Tài liệu tham khảo}{64}{section.7.5}%
+\contentsline {subsection}{\numberline {5.0.1}Định hướng thiết kế vật lý}{41}{subsection.5.0.1}%
+\contentsline {subsection}{\numberline {5.0.2}Ràng buộc và tối ưu chính}{41}{subsection.5.0.2}%
+\contentsline {subsection}{\numberline {5.0.3}Một số câu lệnh minh họa}{42}{subsection.5.0.3}%
+\contentsline {section}{\numberline {5.1}Thiết kế vật lý cho module P4}{43}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Kho ảnh phim số}{43}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Chợ giao dịch}{44}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Chỉ mục và tối ưu truy vấn cho P4}{44}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.1.4}Lưu trữ và toàn vẹn dữ liệu P4}{45}{subsection.5.1.4}%
+\contentsline {section}{\numberline {5.2}Thiết kế vật lý cho module P5 -- Knowledge \& AI Integration}{45}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Thiết kế vật lý nhóm Cơ sở tri thức và Đánh giá}{46}{subsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.1.1}Thiết kế vật lý bảng \texttt {article\_categories}}{46}{subsubsection.5.2.1.1}%
+\contentsline {subsubsection}{\numberline {5.2.1.2}Thiết kế vật lý bảng \texttt {articles}}{46}{subsubsection.5.2.1.2}%
+\contentsline {subsubsection}{\numberline {5.2.1.3}Thiết kế vật lý bảng \texttt {lab\_reviews}}{48}{subsubsection.5.2.1.3}%
+\contentsline {subsection}{\numberline {5.2.2}Thiết kế vật lý nhóm Sự kiện, Tương tác và Trí tuệ nhân tạo}{48}{subsection.5.2.2}%
+\contentsline {subsubsection}{\numberline {5.2.2.1}Thiết kế vật lý bảng \texttt {community\_events}}{48}{subsubsection.5.2.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.2.2}Thiết kế vật lý bảng \texttt {user\_interactions}}{49}{subsubsection.5.2.2.2}%
+\contentsline {subsubsection}{\numberline {5.2.2.3}Thiết kế vật lý bảng \texttt {ai\_chat\_log}}{50}{subsubsection.5.2.2.3}%
+\contentsline {chapter}{\numberline {6}TỪ ĐIỂN DỮ LIỆU}{52}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Từ điển dữ liệu P1 -- Core Domain}{52}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Quy tắc toàn vẹn của nhóm P1}{56}{subsection.6.1.1}%
+\contentsline {section}{\numberline {6.2}Từ điển dữ liệu P4 -- Kho ảnh số và Chợ giao dịch}{57}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Quy tắc toàn vẹn của P4}{61}{subsection.6.2.1}%
+\contentsline {section}{\numberline {6.3}Từ điển dữ liệu phân hệ P5: Knowledge \& AI Integration}{61}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Bảng \texttt {articles} (Bài viết kiến thức \& Hướng dẫn)}{61}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Bảng \texttt {user\_interactions} (Dữ liệu hành vi phục vụ AI gợi ý)}{62}{subsection.6.3.2}%
+\contentsline {chapter}{\numberline {7}KẾT LUẬN}{64}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Tổng kết quá trình thiết kế}{64}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Kết quả đạt được}{64}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Đánh giá thiết kế}{65}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Hạn chế}{65}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Hướng phát triển}{65}{section.7.5}%
+\contentsline {chapter}{Tài liệu tham khảo}{66}{section.7.5}%
