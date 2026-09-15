@@ -482,3 +482,104 @@ created\_at & TIMESTAMP & Default Now & Thời điểm khởi tạo sự kiện 
 \normalsize
 \caption{Từ điển dữ liệu bảng community\_events}
 \end{table}
+% ====================================================================
+% PHÂN HỆ P3: ORDER & PROCESSING LIFECYCLE
+% ====================================================================
+
+\subsection{Từ điển dữ liệu phân hệ P3: Order \& Processing Lifecycle}
+
+% Bảng orders
+\begin{table}[!htbp]
+\centering
+\small
+\begin{tabular}{|p{3.2cm}|p{2.5cm}|p{3.2cm}|p{5.5cm}|}
+\hline
+\textbf{Tên thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ràng buộc} & \textbf{Mô tả} \\ \hline
+order\_id & UUID & PK, Not Null & Mã định danh đơn hàng dịch vụ \\ \hline
+user\_id & UUID & Not Null, FK & Mã khách hàng tạo đơn, tham chiếu users \\ \hline
+lab\_id & UUID & Not Null, FK & Mã Film Lab nhận đơn, tham chiếu film\_labs \\ \hline
+order\_code & VARCHAR(20) & Not Null, Unique & Mã hiển thị tra cứu đơn hàng (VD: ORD-2026-XXXX) \\ \hline
+total\_amount & NUMERIC(12,2) & Not Null, Default 0 & Tổng chi phí dịch vụ của toàn bộ đơn hàng \\ \hline
+status & VARCHAR(30) & Not Null, Default 'pending' & Trạng thái: pending, received, processing, completed, cancelled \\ \hline
+shipping\_address & TEXT & Nullable & Địa chỉ gửi trả film gốc sau khi scan \\ \hline
+note & TEXT & Nullable & Ghi chú yêu cầu đặc biệt của khách hàng \\ \hline
+created\_at & TIMESTAMPTZ & Not Null, Default Now & Thời điểm tạo đơn hàng \\ \hline
+updated\_at & TIMESTAMPTZ & Not Null, Default Now & Thời điểm cập nhật trạng thái đơn gần nhất \\ \hline
+\end{tabular}
+\normalsize
+\caption{Từ điển dữ liệu bảng orders}
+\end{table}
+
+% Bảng film_rolls
+\begin{table}[!htbp]
+\centering
+\small
+\begin{tabular}{|p{3.2cm}|p{2.5cm}|p{3.2cm}|p{5.5cm}|}
+\hline
+\textbf{Tên thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ràng buộc} & \textbf{Mô tả} \\ \hline
+film\_roll\_id & UUID & PK, Not Null & Mã định danh duy nhất của từng cuộn film \\ \hline
+order\_id & UUID & Not Null, FK & Mã đơn hàng liên kết, tham chiếu orders \\ \hline
+service\_id & UUID & Not Null, FK & Gói dịch vụ xử lý, tham chiếu lab\_services \\ \hline
+film\_format & VARCHAR(20) & Not Null & Định dạng film: 135 (35mm), 120 (Medium format), Large format \\ \hline
+film\_stock\_name & VARCHAR(100) & Nullable & Tên loại film (VD: Kodak Portra 400, Fuji C200) \\ \hline
+push\_pull\_stops & INT & Not Null, Default 0 & Số stop tăng/giảm sáng khi tráng (Push/Pull: -2 đến +3) \\ \hline
+current\_status & VARCHAR(30) & Not Null, Default 'waiting' & Trạng thái xử lý cuộn: waiting, developing, scanning, finished \\ \hline
+created\_at & TIMESTAMPTZ & Not Null, Default Now & Thời điểm tiếp nhận cuộn film \\ \hline
+\end{tabular}
+\normalsize
+\caption{Từ điển dữ liệu bảng film\_rolls}
+\end{table}
+
+% Bảng processing_steps
+\begin{table}[!htbp]
+\centering
+\small
+\begin{tabular}{|p{3.2cm}|p{2.5cm}|p{3.2cm}|p{5.5cm}|}
+\hline
+\textbf{Tên thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ràng buộc} & \textbf{Mô tả} \\ \hline
+step\_id & UUID & PK, Not Null & Mã định danh công đoạn trong quy trình lab \\ \hline
+step\_name & VARCHAR(100) & Not Null & Tên công đoạn: Tiếp nhận, Tráng C-41/B\&W, Phơi khô, Scan số hóa, KCS \\ \hline
+description & TEXT & Nullable & Hướng dẫn kỹ thuật và lưu ý thực hiện của công đoạn \\ \hline
+step\_order & INT & Not Null & Thứ tự tuần tự thực hiện của công đoạn trong quy trình \\ \hline
+\end{tabular}
+\normalsize
+\caption{Từ điển dữ liệu bảng processing\_steps}
+\end{table}
+
+% Bảng roll_processing_logs
+\begin{table}[!htbp]
+\centering
+\small
+\begin{tabular}{|p{3.2cm}|p{2.5cm}|p{3.2cm}|p{5.5cm}|}
+\hline
+\textbf{Tên thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ràng buộc} & \textbf{Mô tả} \\ \hline
+log\_id & UUID & PK, Not Null & Mã bản ghi nhật ký tiến trình \\ \hline
+film\_roll\_id & UUID & Not Null, FK & Mã cuộn film được xử lý, tham chiếu film\_rolls \\ \hline
+step\_id & UUID & Not Null, FK & Công đoạn đang thực hiện, tham chiếu processing\_steps \\ \hline
+technician\_id & UUID & Nullable, FK & Kỹ thuật viên phụ trách, tham chiếu users \\ \hline
+started\_at & TIMESTAMPTZ & Not Null, Default Now & Thời điểm bắt đầu thực hiện công đoạn \\ \hline
+finished\_at & TIMESTAMPTZ & Nullable & Thời điểm hoàn tất công đoạn \\ \hline
+note & TEXT & Nullable & Ghi chú sự cố kỹ thuật nếu có (lọt sáng, trầy xước) \\ \hline
+\end{tabular}
+\normalsize
+\caption{Từ điển dữ liệu bảng roll\_processing\_logs}
+\end{table}
+
+% Bảng payments
+\begin{table}[!htbp]
+\centering
+\small
+\begin{tabular}{|p{3.2cm}|p{2.5cm}|p{3.2cm}|p{5.5cm}|}
+\hline
+\textbf{Tên thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ràng buộc} & \textbf{Mô tả} \\ \hline
+payment\_id & UUID & PK, Not Null & Mã định danh giao dịch thanh toán \\ \hline
+order\_id & UUID & Not Null, FK & Đơn hàng thanh toán, tham chiếu orders \\ \hline
+payment\_method & VARCHAR(30) & Not Null & Phương thức: banking, e\_wallet, cash \\ \hline
+amount & NUMERIC(12,2) & Not Null & Số tiền thanh toán thực tế \\ \hline
+transaction\_ref & VARCHAR(100) & Nullable & Mã tham chiếu giao dịch cổng thanh toán ngân hàng \\ \hline
+payment\_status & VARCHAR(20) & Not Null, Default 'pending' & Trạng thái giao dịch: pending, success, failed, refunded \\ \hline
+paid\_at & TIMESTAMPTZ & Nullable & Thời điểm ghi nhận thanh toán thành công \\ \hline
+\end{tabular}
+\normalsize
+\caption{Từ điển dữ liệu bảng payments}
+\end{table}
