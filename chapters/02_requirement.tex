@@ -162,6 +162,76 @@ The main relationships are:
 These requirements provide the basis for designing the conceptual ERD and
 logical database schema for the User and Film Lab Management module.
 
+% =========================================================
+% P3 - Quản lý cuộn phim và quá trình xử lý
+% =========================================================
+
+\subsection{Quản lý cuộn phim và quá trình xử lý}
+
+\subsubsection{Dữ liệu cần quản lý}
+
+Phân hệ P3 quản lý các cuộn phim được gửi đến Film Lab và theo dõi
+quá trình xử lý của từng cuộn phim. Phân hệ này đóng vai trò liên kết
+giữa dữ liệu đơn hàng và kho lưu trữ ảnh phim số sau khi quá trình
+tráng và scan hoàn tất.
+
+\begin{itemize}
+    \item Quản lý thông tin từng cuộn phim, bao gồm mã cuộn phim,
+    hạng mục đơn hàng liên quan, mã nhận diện, trạng thái và thời điểm tạo.
+
+    \item Mỗi cuộn phim phải xác định được hạng mục đơn hàng
+    \texttt{order\_item} mà nó thuộc về.
+
+    \item Theo dõi các giai đoạn xử lý của cuộn phim tại Film Lab,
+    ví dụ: tiếp nhận, tráng phim, scan và hoàn thành.
+
+    \item Lưu thời điểm bắt đầu, thời điểm kết thúc và ghi chú
+    của từng giai đoạn xử lý.
+
+    \item Cho phép truy ngược từ file ảnh scan về cuộn phim gốc
+    đã tạo ra file ảnh đó.
+\end{itemize}
+
+\subsubsection{Quy tắc nghiệp vụ}
+
+\begin{itemize}
+    \item Mỗi cuộn phim thuộc đúng một \texttt{order\_item}.
+
+    \item Một \texttt{order\_item} có thể liên quan đến nhiều cuộn phim.
+
+    \item Chủ sở hữu cuộn phim được xác định thông qua
+    \texttt{order\_item} và đơn hàng tương ứng, không cần lưu lặp lại
+    \texttt{user\_id} trong dữ liệu cuộn phim.
+
+    \item Một cuộn phim có thể trải qua nhiều giai đoạn xử lý
+    trong quá trình thực hiện dịch vụ.
+
+    \item Lịch sử xử lý cần được lưu lại để theo dõi tiến độ
+    và hỗ trợ kiểm tra khi có sự cố.
+
+    \item Không nên xóa cứng cuộn phim nếu đã phát sinh
+    dữ liệu xử lý hoặc file scan.
+
+    \item Một cuộn phim có thể tạo ra nhiều file scan,
+    nhưng mỗi file scan chỉ thuộc về một cuộn phim.
+\end{itemize}
+
+\subsubsection{Liên kết với các phân hệ khác}
+
+\begin{itemize}
+    \item P3 sử dụng \texttt{order\_items} của phần quản lý đơn hàng
+    để xác định cuộn phim thuộc đơn hàng nào.
+
+    \item P3 cung cấp dữ liệu \texttt{film\_rolls} cho P4 để
+    \texttt{scan\_files.film\_roll\_id} tham chiếu đến cuộn phim gốc.
+
+    \item Thông qua chuỗi liên kết
+    \texttt{scan\_files} $\rightarrow$ \texttt{film\_rolls}
+    $\rightarrow$ \texttt{order\_items} $\rightarrow$ \texttt{orders},
+    hệ thống có thể truy ngược ảnh scan về đơn hàng của khách.
+\end{itemize}
+
+
 % ============================================================
 % P4 - Kho lưu trữ ảnh phim số và Chợ giao dịch
 % ============================================================
