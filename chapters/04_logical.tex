@@ -1,344 +1,1012 @@
-
 \chapter{THIẾT KẾ MỨC LOGIC VÀ CHUẨN HÓA}
 
+% ============================================================
+% 1. MIỀN DỮ LIỆU DÙNG CHUNG
+% ============================================================
 
 \section{Miền dữ liệu dùng chung}
 
 \begin{itemize}
-    \item Định danh chính dùng \texttt{UUID}; thời gian dùng \texttt{TIMESTAMPTZ} theo UTC.
-    \item Tiền tệ dùng \texttt{NUMERIC(12,2)} và phải lớn hơn hoặc bằng 0; mã tiền tệ dùng \texttt{CHAR(3)}.
-    \item Email được chuẩn hóa chữ thường trước khi kiểm tra duy nhất; trạng thái dùng \texttt{VARCHAR} kèm \texttt{CHECK}, có thể chuyển thành PostgreSQL enum ở thiết kế vật lý.
-    \item \texttt{created\_at} và \texttt{updated\_at} mặc định \texttt{CURRENT\_TIMESTAMP}; \texttt{deleted\_at} rỗng khi bản ghi còn hiệu lực.
+
+    \item Định danh chính dùng \texttt{UUID}; thời gian dùng
+    \texttt{TIMESTAMPTZ} theo UTC.
+
+    \item Tiền tệ dùng \texttt{NUMERIC(12,2)} và phải lớn hơn hoặc
+    bằng 0; mã tiền tệ dùng \texttt{CHAR(3)}.
+
+    \item Email được chuẩn hóa chữ thường trước khi kiểm tra duy nhất;
+    trạng thái dùng \texttt{VARCHAR} kèm \texttt{CHECK}, có thể chuyển
+    thành PostgreSQL enum ở thiết kế vật lý.
+
+    \item \texttt{created\_at} và \texttt{updated\_at} mặc định
+    \texttt{CURRENT\_TIMESTAMP}; \texttt{deleted\_at} rỗng khi bản ghi
+    còn hiệu lực.
+
 \end{itemize}
+
+
+% ============================================================
+% 2. CORE DOMAIN
+% ============================================================
 
 \section{Lược đồ quan hệ Core Domain}
 
 \scriptsize
-\begin{longtable}{>{\raggedright\arraybackslash}p{2.4cm}>{\raggedright\arraybackslash}p{6.4cm}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{3cm}}
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{2.4cm}
+>{\raggedright\arraybackslash}p{6.4cm}
+>{\raggedright\arraybackslash}p{2.5cm}
+>{\raggedright\arraybackslash}p{3cm}}
+
 \toprule
-\textbf{Quan hệ} & \textbf{Thuộc tính và domain} & \textbf{Khóa} & \textbf{Ràng buộc chính} \\
+
+\textbf{Quan hệ} &
+\textbf{Thuộc tính và domain} &
+\textbf{Khóa} &
+\textbf{Ràng buộc chính} \\
+
 \midrule
+
 \endhead
 
 \entity{users} &
-\entity{user_id} UUID; \entity{email} VARCHAR(255); \entity{password_hash} VARCHAR(255); \entity{full_name} VARCHAR(150); \entity{phone} VARCHAR(20) NULL; \entity{status} VARCHAR(20); \entity{created_at}, \entity{updated_at}, \entity{deleted_at} TIMESTAMPTZ &
-PK: \entity{user_id}; AK: \entity{email} &
-Email duy nhất; status thuộc active, inactive, suspended; email, mật khẩu băm và họ tên NOT NULL. \\
+\entity{user\_id} UUID;
+\entity{email} VARCHAR(255);
+\entity{password\_hash} VARCHAR(255);
+\entity{full\_name} VARCHAR(150);
+\entity{phone} VARCHAR(20) NULL;
+\entity{status} VARCHAR(20);
+\entity{created\_at}, \entity{updated\_at},
+\entity{deleted\_at} TIMESTAMPTZ &
+PK: \entity{user\_id}; AK: \entity{email} &
+Email duy nhất; status thuộc active, inactive, suspended;
+email, mật khẩu băm và họ tên NOT NULL. \\
 
 \entity{roles} &
-\entity{role_id} UUID; \entity{role_code} VARCHAR(50); \entity{role_name} VARCHAR(100); \entity{description} TEXT NULL; \entity{created_at} TIMESTAMPTZ &
-PK: \entity{role_id}; AK: \entity{role_code} &
+\entity{role\_id} UUID;
+\entity{role\_code} VARCHAR(50);
+\entity{role\_name} VARCHAR(100);
+\entity{description} TEXT NULL;
+\entity{created\_at} TIMESTAMPTZ &
+PK: \entity{role\_id}; AK: \entity{role\_code} &
 Mã vai trò duy nhất và NOT NULL. \\
 
 \entity{permissions} &
-\entity{permission_id} UUID; \entity{permission_code} VARCHAR(100); \entity{permission_name} VARCHAR(150); \entity{description} TEXT NULL; \entity{created_at} TIMESTAMPTZ &
-PK: \entity{permission_id}; AK: \entity{permission_code} &
+\entity{permission\_id} UUID;
+\entity{permission\_code} VARCHAR(100);
+\entity{permission\_name} VARCHAR(150);
+\entity{description} TEXT NULL;
+\entity{created\_at} TIMESTAMPTZ &
+PK: \entity{permission\_id};
+AK: \entity{permission\_code} &
 Mã quyền duy nhất và NOT NULL. \\
 
-\entity{user_roles} &
-\entity{user_id} UUID; \entity{role_id} UUID; \entity{assigned_at} TIMESTAMPTZ; \entity{assigned_by} UUID NULL &
-PK: (\entity{user_id}, \entity{role_id}); FK tới users, roles và users &
-Không gán trùng vai trò cho cùng user; \entity{assigned_at} mặc định thời điểm hiện tại. \\
+\entity{user\_roles} &
+\entity{user\_id} UUID;
+\entity{role\_id} UUID;
+\entity{assigned\_at} TIMESTAMPTZ;
+\entity{assigned\_by} UUID NULL &
+PK: (\entity{user\_id}, \entity{role\_id});
+FK tới users, roles và users &
+Không gán trùng vai trò cho cùng user;
+\entity{assigned\_at} mặc định thời điểm hiện tại. \\
 
-\entity{role_permissions} &
-\entity{role_id} UUID; \entity{permission_id} UUID &
+\entity{role\_permissions} &
+\entity{role\_id} UUID;
+\entity{permission\_id} UUID &
 PK ghép; FK tới roles và permissions &
 Mỗi cặp role--permission chỉ xuất hiện một lần. \\
 
-\entity{film_labs} &
-\entity{lab_id} UUID; \entity{owner_id} UUID; \entity{lab_name} VARCHAR(150); \entity{email} VARCHAR(255); \entity{phone} VARCHAR(20); \entity{address} TEXT; \entity{status} VARCHAR(20); \entity{approved_at} TIMESTAMPTZ NULL; \entity{created_at}, \entity{updated_at}, \entity{deleted_at} TIMESTAMPTZ &
-PK: \entity{lab_id}; FK \entity{owner_id} tới users; AK: \entity{email} &
-Owner, tên, email, phone, address NOT NULL; status thuộc pending, approved, suspended, closed. \\
+\entity{film\_labs} &
+\entity{lab\_id} UUID;
+\entity{owner\_id} UUID;
+\entity{lab\_name} VARCHAR(150);
+\entity{email} VARCHAR(255);
+\entity{phone} VARCHAR(20);
+\entity{address} TEXT;
+\entity{status} VARCHAR(20);
+\entity{approved\_at} TIMESTAMPTZ NULL;
+\entity{created\_at}, \entity{updated\_at},
+\entity{deleted\_at} TIMESTAMPTZ &
+PK: \entity{lab\_id};
+FK \entity{owner\_id} tới users;
+AK: \entity{email} &
+Owner, tên, email, phone, address NOT NULL;
+status thuộc pending, approved, suspended, closed. \\
 
-\entity{lab_services} &
-\entity{service_id} UUID; \entity{lab_id} UUID; \entity{service_code} VARCHAR(50); \entity{service_name} VARCHAR(150); \entity{description} TEXT NULL; \entity{base_price} NUMERIC(12,2); \entity{turnaround_hours} INTEGER; \entity{is_active} BOOLEAN; \entity{created_at}, \entity{updated_at} TIMESTAMPTZ &
-PK: \entity{service_id}; FK tới \entity{film_labs}; AK: (\entity{lab_id}, \entity{service_code}) &
-Giá không âm; thời gian xử lý lớn hơn 0; mã dịch vụ duy nhất trong từng Lab. \\
+\entity{lab\_services} &
+\entity{service\_id} UUID;
+\entity{lab\_id} UUID;
+\entity{service\_code} VARCHAR(50);
+\entity{service\_name} VARCHAR(150);
+\entity{description} TEXT NULL;
+\entity{base\_price} NUMERIC(12,2);
+\entity{turnaround\_hours} INTEGER;
+\entity{is\_active} BOOLEAN;
+\entity{created\_at}, \entity{updated\_at} TIMESTAMPTZ &
+PK: \entity{service\_id};
+FK tới \entity{film\_labs};
+AK: (\entity{lab\_id}, \entity{service\_code}) &
+Giá không âm; thời gian xử lý lớn hơn 0;
+mã dịch vụ duy nhất trong từng Lab. \\
 
-\entity{service_packages} &
-\entity{package_id} UUID; \entity{lab_id} UUID; \entity{package_code} VARCHAR(50); \entity{package_name} VARCHAR(150); \entity{description} TEXT NULL; \entity{package_price} NUMERIC(12,2); \entity{is_active} BOOLEAN; \entity{created_at}, \entity{updated_at} TIMESTAMPTZ &
-PK: \entity{package_id}; FK tới \entity{film_labs}; AK: (\entity{lab_id}, \entity{package_code}) &
+\entity{service\_packages} &
+\entity{package\_id} UUID;
+\entity{lab\_id} UUID;
+\entity{package\_code} VARCHAR(50);
+\entity{package\_name} VARCHAR(150);
+\entity{description} TEXT NULL;
+\entity{package\_price} NUMERIC(12,2);
+\entity{is\_active} BOOLEAN;
+\entity{created\_at}, \entity{updated\_at} TIMESTAMPTZ &
+PK: \entity{package\_id};
+FK tới \entity{film\_labs};
+AK: (\entity{lab\_id}, \entity{package\_code}) &
 Giá gói không âm; mã gói duy nhất trong từng Lab. \\
 
-\entity{package_services} &
-\entity{package_id} UUID; \entity{service_id} UUID; \entity{quantity} INTEGER &
-PK ghép; FK tới \entity{service_packages} và \entity{lab_services} &
+\entity{package\_services} &
+\entity{package\_id} UUID;
+\entity{service\_id} UUID;
+\entity{quantity} INTEGER &
+PK ghép; FK tới \entity{service\_packages} và
+\entity{lab\_services} &
 Số lượng lớn hơn 0; package và service phải thuộc cùng Film Lab. \\
 
 \entity{orders} &
-\entity{order_id} UUID; \entity{customer_id} UUID; \entity{lab_id} UUID; \entity{order_code} VARCHAR(30); \entity{status} VARCHAR(30); \entity{fulfillment_method} VARCHAR(20); \entity{subtotal}, \entity{delivery_fee}, \entity{discount_amount}, \entity{total_amount} NUMERIC(12,2); \entity{currency_code} CHAR(3); \entity{special_instructions} TEXT NULL; \entity{placed_at} TIMESTAMPTZ; \entity{created_at}, \entity{updated_at} TIMESTAMPTZ &
-PK: \entity{order_id}; FK tới \entity{users} và \entity{film_labs}; AK: \entity{order_code} &
-Các khoản tiền không âm; total = subtotal + delivery fee - discount; fulfillment thuộc dropoff, pickup; status theo state machine. \\
+\entity{order\_id} UUID;
+\entity{customer\_id} UUID;
+\entity{lab\_id} UUID;
+\entity{order\_code} VARCHAR(30);
+\entity{status} VARCHAR(30);
+\entity{fulfillment\_method} VARCHAR(20);
+\entity{subtotal}, \entity{delivery\_fee},
+\entity{discount\_amount}, \entity{total\_amount}
+NUMERIC(12,2);
+\entity{currency\_code} CHAR(3);
+\entity{special\_instructions} TEXT NULL;
+\entity{placed\_at} TIMESTAMPTZ;
+\entity{created\_at}, \entity{updated\_at} TIMESTAMPTZ &
+PK: \entity{order\_id};
+FK tới \entity{users} và \entity{film\_labs};
+AK: \entity{order\_code} &
+Các khoản tiền không âm; total = subtotal + delivery fee -
+discount; fulfillment thuộc dropoff, pickup; status theo state machine. \\
 
-\entity{order_items} &
-\entity{order_item_id} UUID; \entity{order_id} UUID; \entity{service_id} UUID; \entity{package_id} UUID NULL; \entity{quantity} INTEGER; \entity{unit_price} NUMERIC(12,2); \entity{service_options} JSONB NULL; \entity{item_note} TEXT NULL; \entity{created_at} TIMESTAMPTZ &
-PK: \entity{order_item_id}; FK tới \entity{orders}, \entity{lab_services} và \entity{service_packages} &
-Số lượng lớn hơn 0; unit price không âm; service/package phải thuộc Lab của order; lưu giá chốt tại lúc đặt. \\
+\entity{order\_items} &
+\entity{order\_item\_id} UUID;
+\entity{order\_id} UUID;
+\entity{service\_id} UUID;
+\entity{package\_id} UUID NULL;
+\entity{quantity} INTEGER;
+\entity{unit\_price} NUMERIC(12,2);
+\entity{service\_options} JSONB NULL;
+\entity{item\_note} TEXT NULL;
+\entity{created\_at} TIMESTAMPTZ &
+PK: \entity{order\_item\_id};
+FK tới \entity{orders}, \entity{lab\_services} và
+\entity{service\_packages} &
+Số lượng lớn hơn 0; unit price không âm;
+service/package phải thuộc Lab của order;
+lưu giá chốt tại lúc đặt. \\
 
 \bottomrule
+
 \end{longtable}
+
 \normalsize
+
 
 \section{Quan hệ và quy tắc tham chiếu}
 
 \begin{enumerate}
-    \item Một user có nhiều role và một role có nhiều user thông qua \entity{user_roles}; tương tự, role và permission liên kết qua \entity{role_permissions}.
-    \item Một owner có thể sở hữu nhiều Film Lab; khi user bị soft-delete, Film Lab không bị xóa theo mà phải chuyển quyền sở hữu hoặc khóa hoạt động.
-    \item Một Film Lab có nhiều service và package. \entity{package_services} chỉ cho phép ghép service cùng tenant với package.
-    \item Một customer tạo nhiều order; mỗi order thuộc đúng một Film Lab và có ít nhất một order item trước khi chuyển sang trạng thái \texttt{confirmed}.
-    \item Không cascade delete từ user, Film Lab hoặc service sang order. Dữ liệu danh mục đã ngừng hoạt động được giữ để các đơn cũ vẫn truy vết được.
-    \item \entity{order_items.unit_price} là snapshot giá, không tự cập nhật khi \entity{lab_services.base_price} thay đổi.
+
+    \item Một user có nhiều role và một role có nhiều user thông qua
+    \entity{user\_roles}; tương tự, role và permission liên kết qua
+    \entity{role\_permissions}.
+
+    \item Một owner có thể sở hữu nhiều Film Lab; khi user bị
+    soft-delete, Film Lab không bị xóa theo mà phải chuyển quyền sở
+    hữu hoặc khóa hoạt động.
+
+    \item Một Film Lab có nhiều service và package.
+    \entity{package\_services} chỉ cho phép ghép service cùng tenant
+    với package.
+
+    \item Một customer tạo nhiều order; mỗi order thuộc đúng một
+    Film Lab và có ít nhất một order item trước khi chuyển sang trạng
+    thái \texttt{confirmed}.
+
+    \item Không cascade delete từ user, Film Lab hoặc service sang
+    order. Dữ liệu danh mục đã ngừng hoạt động được giữ để các đơn
+    cũ vẫn truy vết được.
+
+    \item \entity{order\_items.unit\_price} là snapshot giá, không tự
+    cập nhật khi \entity{lab\_services.base\_price} thay đổi.
+
 \end{enumerate}
+
 
 \section{Kiểm tra chuẩn hóa đến 3NF}
 
-Mỗi quan hệ có thuộc tính nguyên tố và không chứa nhóm lặp nên đạt 1NF. Các quan hệ có khóa ghép chỉ chứa thuộc tính phụ thuộc vào toàn bộ khóa: thời điểm gán phụ thuộc vào cặp user--role, số lượng dịch vụ phụ thuộc vào cặp package--service; vì vậy đạt 2NF. Thông tin user, Film Lab, service và package được tách riêng; order item chỉ giữ khóa tham chiếu cùng snapshot giá cần bảo toàn lịch sử, không lặp tên hoặc địa chỉ của thực thể khác. Không có thuộc tính không khóa phụ thuộc bắc cầu vào khóa chính, nên các quan hệ đạt 3NF.
+Mỗi quan hệ có thuộc tính nguyên tố và không chứa nhóm lặp nên đạt 1NF.
+Các quan hệ có khóa ghép chỉ chứa thuộc tính phụ thuộc vào toàn bộ khóa:
+thời điểm gán phụ thuộc vào cặp user--role, số lượng dịch vụ phụ thuộc
+vào cặp package--service; vì vậy đạt 2NF.
 
-Giá trị \entity{orders.total_amount} là dữ liệu dẫn xuất nhưng được giữ như snapshot tài chính để kiểm toán. Tính nhất quán của tổng tiền phải được kiểm tra trong transaction hoặc trigger ở thiết kế vật lý. \entity{service_options} dùng JSONB cho tùy chọn thay đổi theo loại dịch vụ; các thuộc tính cần tìm kiếm hoặc ràng buộc thường xuyên phải được tách thành quan hệ riêng khi chốt schema.
+Thông tin user, Film Lab, service và package được tách riêng;
+order item chỉ giữ khóa tham chiếu cùng snapshot giá cần bảo toàn lịch sử,
+không lặp tên hoặc địa chỉ của thực thể khác. Không có thuộc tính không
+khóa phụ thuộc bắc cầu vào khóa chính, nên các quan hệ đạt 3NF.
 
-\section{Điểm tích hợp cần cross-review}
+Giá trị \entity{orders.total\_amount} là dữ liệu dẫn xuất nhưng được giữ
+như snapshot tài chính để kiểm toán. Tính nhất quán của tổng tiền phải
+được kiểm tra trong transaction hoặc trigger ở thiết kế vật lý.
+\entity{service\_options} dùng JSONB cho tùy chọn thay đổi theo loại
+dịch vụ; các thuộc tính cần tìm kiếm hoặc ràng buộc thường xuyên phải
+được tách thành quan hệ riêng khi chốt schema.
 
-P3 cần xác nhận liên kết giữa \entity{order_items} và \entity{film_rolls}, state machine của order cùng lịch sử xử lý. P4 cần xác nhận đường truy vết từ film roll tới scan file và chủ sở hữu. Module Logistics/Payment cần dùng \entity{order_id} làm khóa tham chiếu, không lưu lặp thông tin customer hoặc Film Lab.
+
+% ============================================================
+% 3. P3 -- ORDER & PROCESSING LIFECYCLE
+% ============================================================
+
+\section{Lược đồ quan hệ P3 -- Order \& Processing Lifecycle}
+
+Phân hệ P3 quản lý vòng đời đơn hàng và quá trình xử lý phim tại
+Film Lab. P3 sử dụng lại các quan hệ \entity{orders} và
+\entity{order\_items} đã được định nghĩa trong Core Domain, đồng thời
+bổ sung các quan hệ phục vụ quản lý cuộn phim, công đoạn xử lý,
+lịch sử trạng thái đơn hàng và yêu cầu nhận/giao.
+
+\scriptsize
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{3.2cm}
+>{\raggedright\arraybackslash}p{6.2cm}
+>{\raggedright\arraybackslash}p{2.7cm}
+>{\raggedright\arraybackslash}p{2.2cm}}
+
+\toprule
+
+\textbf{Quan hệ} &
+\textbf{Thuộc tính và domain} &
+\textbf{Khóa} &
+\textbf{Ràng buộc chính} \\
+
+\midrule
+
+\endhead
+
+\entity{film\_rolls} &
+\entity{film\_roll\_id} UUID;
+\entity{order\_id} UUID;
+\entity{roll\_code} VARCHAR(50);
+\entity{film\_type} VARCHAR(50);
+\entity{frame\_count} INTEGER NULL;
+\entity{received\_at} TIMESTAMPTZ NULL;
+\entity{scan\_completed\_at} TIMESTAMPTZ NULL;
+\entity{status} VARCHAR(30);
+\entity{note} TEXT NULL;
+\entity{created\_at}, \entity{updated\_at} TIMESTAMPTZ &
+PK: \entity{film\_roll\_id};
+FK tới \entity{orders} &
+Mỗi cuộn phim thuộc đúng một order;
+\entity{roll\_code} dùng để nhận diện cuộn phim;
+frame count không âm; status phải thuộc miền trạng thái
+đã thống nhất. \\
+
+\entity{processing\_stages} &
+\entity{processing\_stage\_id} UUID;
+\entity{stage\_code} VARCHAR(50);
+\entity{stage\_name} VARCHAR(100);
+\entity{stage\_order} INTEGER;
+\entity{description} TEXT NULL;
+\entity{is\_active} BOOLEAN;
+\entity{created\_at}, \entity{updated\_at} TIMESTAMPTZ &
+PK: \entity{processing\_stage\_id};
+AK: \entity{stage\_code} &
+Mã công đoạn duy nhất;
+\entity{stage\_order} lớn hơn 0;
+công đoạn có thể được bật/tắt mà không xóa lịch sử xử lý. \\
+
+\entity{stage\_logs} &
+\entity{stage\_log\_id} UUID;
+\entity{film\_roll\_id} UUID;
+\entity{processing\_stage\_id} UUID;
+\entity{status} VARCHAR(30);
+\entity{started\_at} TIMESTAMPTZ NULL;
+\entity{completed\_at} TIMESTAMPTZ NULL;
+\entity{operator\_id} UUID NULL;
+\entity{note} TEXT NULL;
+\entity{created\_at} TIMESTAMPTZ &
+PK: \entity{stage\_log\_id};
+FK tới \entity{film\_rolls},
+\entity{processing\_stages} và \entity{users} &
+Mỗi log thuộc một cuộn phim và một công đoạn;
+completed at không nhỏ hơn started at;
+không xóa lịch sử xử lý. \\
+
+\entity{order\_status\_history} &
+\entity{order\_status\_history\_id} UUID;
+\entity{order\_id} UUID;
+\entity{old\_status} VARCHAR(30) NULL;
+\entity{new\_status} VARCHAR(30);
+\entity{changed\_by} UUID NULL;
+\entity{changed\_at} TIMESTAMPTZ;
+\entity{note} TEXT NULL &
+PK: \entity{order\_status\_history\_id};
+FK tới \entity{orders} và \entity{users} &
+Mỗi thay đổi trạng thái tạo một bản ghi lịch sử;
+\entity{new\_status} phải thuộc state machine của order;
+lịch sử không được xóa. \\
+
+\entity{pickup\_delivery\_requests} &
+\entity{request\_id} UUID;
+\entity{order\_id} UUID;
+\entity{request\_type} VARCHAR(20);
+\entity{status} VARCHAR(30);
+\entity{pickup\_address} TEXT NULL;
+\entity{delivery\_address} TEXT NULL;
+\entity{requested\_at} TIMESTAMPTZ;
+\entity{completed\_at} TIMESTAMPTZ NULL;
+\entity{note} TEXT NULL;
+\entity{created\_at}, \entity{updated\_at} TIMESTAMPTZ &
+PK: \entity{request\_id};
+FK tới \entity{orders} &
+request type thuộc pickup, delivery;
+địa chỉ tương ứng phải tồn tại;
+completed at không nhỏ hơn requested at. \\
+
+\bottomrule
+
+\end{longtable}
+
+\normalsize
+
+
+\section{Quan hệ và quy tắc tham chiếu P3}
+
+\begin{enumerate}
+
+    \item Một \entity{order} có thể có nhiều
+    \entity{film\_rolls}; mỗi \entity{film\_roll} thuộc đúng một
+    \entity{order} thông qua \entity{film\_rolls.order\_id}.
+
+    \item Một \entity{film\_roll} có thể trải qua nhiều công đoạn.
+    Quan hệ giữa \entity{film\_rolls} và
+    \entity{processing\_stages} được biểu diễn thông qua
+    \entity{stage\_logs}.
+
+    \item Một \entity{processing\_stage} có thể xuất hiện trong nhiều
+    \entity{stage\_logs}. Thứ tự của công đoạn được xác định bởi
+    \entity{processing\_stages.stage\_order}.
+
+    \item Mỗi thay đổi trạng thái của \entity{orders} được ghi nhận
+    trong \entity{order\_status\_history}. Giá trị hiện tại vẫn được
+    lưu trong \entity{orders.status} để phục vụ truy vấn trạng thái
+    nhanh.
+
+    \item Một \entity{order} có thể phát sinh các yêu cầu
+    \entity{pickup\_delivery\_requests} phục vụ quá trình nhận hoặc
+    giao phim.
+
+    \item Không cascade delete từ \entity{orders} sang các bảng lịch
+    sử xử lý. Dữ liệu lịch sử phải được giữ lại để phục vụ truy vết.
+
+    \item \entity{stage\_logs.operator\_id} và
+    \entity{order\_status\_history.changed\_by} tham chiếu
+    \entity{users.user\_id} khi hệ thống cần lưu người thực hiện thay
+    đổi.
+
+    \item Khi công đoạn scan hoàn thành, \entity{film\_rolls} được
+    dùng làm điểm liên kết với module Digital Archive của P4. Dữ liệu
+    file scan không được lưu lặp trong P3.
+
+\end{enumerate}
+
+
+\section{State machine của đơn hàng}
+
+Trạng thái hiện tại của đơn hàng được lưu tại
+\entity{orders.status}. Mỗi lần chuyển trạng thái được ghi nhận vào
+\entity{order\_status\_history} để bảo đảm khả năng truy vết.
+
+State machine đề xuất cho vòng đời đơn hàng:
+
+\[
+\texttt{pending}
+\rightarrow
+\texttt{confirmed}
+\rightarrow
+\texttt{received}
+\rightarrow
+\texttt{processing}
+\rightarrow
+\texttt{scanning}
+\rightarrow
+\texttt{completed}
+\rightarrow
+\texttt{delivered}
+\]
+
+Ngoài luồng xử lý bình thường, đơn hàng có thể chuyển sang
+\texttt{cancelled} khi thỏa mãn điều kiện hủy theo nghiệp vụ.
+
+Các trạng thái phải được kiểm soát theo state machine, không cho phép
+chuyển tùy ý giữa mọi trạng thái.
+
+
+\section{Kiểm tra chuẩn hóa đến 3NF -- P3}
+
+Các quan hệ của P3 đều có thuộc tính nguyên tố và không chứa nhóm
+lặp nên đáp ứng 1NF.
+
+Các quan hệ P3 sử dụng khóa chính đơn. Vì vậy không phát sinh phụ
+thuộc bộ phận vào một phần khóa ghép. Các thuộc tính mô tả cuộn phim,
+công đoạn, lịch sử trạng thái và yêu cầu nhận/giao đều phụ thuộc vào
+khóa chính tương ứng, do đó đáp ứng 2NF.
+
+Thông tin của order được lưu tại \entity{orders}, thông tin công đoạn
+được lưu tại \entity{processing\_stages}, còn lịch sử xử lý được tách
+ra \entity{stage\_logs}. Tương tự, lịch sử trạng thái đơn hàng được
+tách ra \entity{order\_status\_history}. Vì vậy không lưu lặp các
+thuộc tính mô tả user, Film Lab hoặc service trong các quan hệ P3.
+
+Theo các phụ thuộc hàm đã xác định, các thuộc tính không khóa phụ
+thuộc trực tiếp vào khóa của quan hệ tương ứng và không có phụ thuộc
+bắc cầu trong cùng quan hệ. Thiết kế P3 đáp ứng mục tiêu 3NF.
+
+
+\subsection{Các phụ thuộc hàm chính}
+
+\[
+\entity{film\_roll\_id}
+\rightarrow
+\entity{order\_id,\ roll\_code,\ film\_type,\ frame\_count,\ received\_at,\ scan\_completed\_at,\ status,\ note,\ created\_at,\ updated\_at}
+\]
+
+\[
+\entity{processing\_stage\_id}
+\rightarrow
+\entity{stage\_code,\ stage\_name,\ stage\_order,\ description,\ is\_active,\ created\_at,\ updated\_at}
+\]
+
+\[
+\entity{stage\_log\_id}
+\rightarrow
+\entity{film\_roll\_id,\ processing\_stage\_id,\ status,\ started\_at,\ completed\_at,\ operator\_id,\ note,\ created\_at}
+\]
+
+\[
+\entity{order\_status\_history\_id}
+\rightarrow
+\entity{order\_id,\ old\_status,\ new\_status,\ changed\_by,\ changed\_at,\ note}
+\]
+
+\[
+\entity{request\_id}
+\rightarrow
+\entity{order\_id,\ request\_type,\ status,\ pickup\_address,\ delivery\_address,\ requested\_at,\ completed\_at,\ note,\ created\_at,\ updated\_at}
+\]
+
+
+\section{Điểm tích hợp P3 với các module khác}
+
+P3 sử dụng \entity{orders} và \entity{order\_items} từ Core Domain,
+không tạo lại các quan hệ này.
+
+P3 cần liên kết với P4 thông qua
+\entity{film\_rolls.film\_roll\_id}. Khi công đoạn scan hoàn thành,
+P4 có thể sử dụng định danh cuộn phim để quản lý các scan file tương
+ứng.
+
+P3 cũng liên kết với module Logistics thông qua
+\entity{pickup\_delivery\_requests} và với Core Domain thông qua
+\entity{users.user\_id} và \entity{orders.order\_id}.
+
+Các module khác không được lưu lặp thông tin customer, Film Lab hoặc
+thông tin dịch vụ đã có trong Core Domain.
+
+
+\subsection{Các điểm cần cross-review}
+
+P3 cần cross-review với P1 về \entity{orders.customer\_id},
+\entity{orders.lab\_id} và state machine của đơn hàng.
+
+P3 cần cross-review với P4 về đường truy vết từ
+\entity{film\_rolls} tới \entity{scan\_files}, đặc biệt tại thời điểm
+scan hoàn thành.
+
+P3 cần cross-review với module Logistics về
+\entity{pickup\_delivery\_requests} và trạng thái nhận/giao.
+
+Các quy tắc chi tiết về trạng thái và cardinality cần được nhóm xác
+nhận trước khi chuyển sang thiết kế vật lý.
+
+
+% ============================================================
+% 4. P4 -- DIGITAL ARCHIVE & MARKETPLACE
+% ============================================================
 
 \section{Lược đồ quan hệ P4 -- Kho ảnh số và Chợ giao dịch}
 
-Module P4 sử dụng lại \entity{users} của Core Domain. Các quan hệ dưới đây
-được chuyển từ ERD P4; các kiểu dữ liệu cụ thể là đề xuất để thống nhất
-với miền dữ liệu của chương này, chưa phải câu lệnh SQL.
-Liên kết tới \entity{film_rolls} và các quy tắc giao dịch còn cần cross-review.
+Module P4 sử dụng lại \entity{users} của Core Domain. Các quan hệ
+dưới đây được chuyển từ ERD P4; các kiểu dữ liệu cụ thể là đề xuất để
+thống nhất với miền dữ liệu của chương này, chưa phải câu lệnh SQL.
+
+Liên kết tới \entity{film\_rolls} và các quy tắc giao dịch còn cần
+cross-review.
 
 \scriptsize
-\begin{longtable}{>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}p{6.2cm}>{\raggedright\arraybackslash}p{2.7cm}>{\raggedright\arraybackslash}p{2.2cm}}
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{3.2cm}
+>{\raggedright\arraybackslash}p{6.2cm}
+>{\raggedright\arraybackslash}p{2.7cm}
+>{\raggedright\arraybackslash}p{2.2cm}}
+
 \toprule
-\textbf{Quan hệ} & \textbf{Thuộc tính và domain} & \textbf{Khóa} & \textbf{Ràng buộc chính} \\
+
+\textbf{Quan hệ} &
+\textbf{Thuộc tính và domain} &
+\textbf{Khóa} &
+\textbf{Ràng buộc chính} \\
+
 \midrule
+
 \endhead
 
-\texttt{scan\_\allowbreak files} &
-\entity{scan_file_id} UUID; \entity{film_roll_id} UUID; \entity{storage_url} TEXT; \entity{file_name} VARCHAR(255); \entity{file_format} VARCHAR(20); \entity{file_size} BIGINT; \entity{status} VARCHAR(20); \entity{created_at} TIMESTAMPTZ; \entity{updated_at} TIMESTAMPTZ &
-PK: \entity{scan_file_id}; FK: \entity{film_roll_id} &
-Đường dẫn lưu trữ không chứa dữ liệu ảnh; kích thước không âm. FK film\_roll\_id tham chiếu film\_rolls.film\_roll\_id; P3 cần xác nhận đường nối tới order\_items. \\
+\texttt{scan\_files} &
+\entity{scan\_file\_id} UUID;
+\entity{film\_roll\_id} UUID;
+\entity{storage\_url} TEXT;
+\entity{file\_name} VARCHAR(255);
+\entity{file\_format} VARCHAR(20);
+\entity{file\_size} BIGINT;
+\entity{status} VARCHAR(20);
+\entity{created\_at} TIMESTAMPTZ;
+\entity{updated\_at} TIMESTAMPTZ &
+PK: \entity{scan\_file\_id};
+FK: \entity{film\_roll\_id} &
+Đường dẫn lưu trữ không chứa dữ liệu ảnh;
+kích thước không âm. FK film\_roll\_id tham chiếu
+film\_rolls.film\_roll\_id; P3 cần xác nhận đường nối tới
+order\_items. \\
 
-\texttt{photo\_\allowbreak metadata} &
-\entity{photo_metadata_id} UUID; \entity{scan_file_id} UUID; \entity{film_stock_id} UUID NULL; \entity{camera_model_id} UUID NULL; \entity{lens_id} UUID NULL; \entity{shooting_date} DATE NULL; \entity{scan_resolution} VARCHAR(100) NULL; \entity{location} TEXT NULL; \entity{notes} TEXT NULL &
-PK: \entity{photo_metadata_id}; FK: \entity{scan_file_id}, \entity{film_stock_id}, \entity{camera_model_id}, \entity{lens_id} &
+\texttt{photo\_metadata} &
+\entity{photo\_metadata\_id} UUID;
+\entity{scan\_file\_id} UUID;
+\entity{film\_stock\_id} UUID NULL;
+\entity{camera\_model\_id} UUID NULL;
+\entity{lens\_id} UUID NULL;
+\entity{shooting\_date} DATE NULL;
+\entity{scan\_resolution} VARCHAR(100) NULL;
+\entity{location} TEXT NULL;
+\entity{notes} TEXT NULL &
+PK: \entity{photo\_metadata\_id};
+FK: \entity{scan\_file\_id},
+\entity{film\_stock\_id},
+\entity{camera\_model\_id},
+\entity{lens\_id} &
 UNIQUE scan\_file\_id để bảo đảm mỗi file scan có tối đa một bộ metadata. \\
 
 \texttt{albums} &
-\entity{album_id} UUID; \entity{user_id} UUID; \entity{album_name} VARCHAR(150); \entity{description} TEXT NULL; \entity{visibility} VARCHAR(20); \entity{created_at} TIMESTAMPTZ; \entity{updated_at} TIMESTAMPTZ &
-PK: \entity{album_id}; FK: \entity{user_id} &
+\entity{album\_id} UUID;
+\entity{user\_id} UUID;
+\entity{album\_name} VARCHAR(150);
+\entity{description} TEXT NULL;
+\entity{visibility} VARCHAR(20);
+\entity{created\_at} TIMESTAMPTZ;
+\entity{updated\_at} TIMESTAMPTZ &
+PK: \entity{album\_id};
+FK: \entity{user\_id} &
 Mỗi album thuộc một user; miền visibility cần thống nhất. \\
 
-\texttt{album\_\allowbreak photos} &
-\entity{album_id} UUID; \entity{scan_file_id} UUID; \entity{display_order} INTEGER; \entity{added_at} TIMESTAMPTZ &
-PK: \entity{album_id}, \entity{scan_file_id}; FK: \entity{album_id}, \entity{scan_file_id} &
-PK ghép ngăn thêm trùng một ảnh vào cùng album; display\_order không âm. \\
+\texttt{album\_photos} &
+\entity{album\_id} UUID;
+\entity{scan\_file\_id} UUID;
+\entity{display\_order} INTEGER;
+\entity{added\_at} TIMESTAMPTZ &
+PK: \entity{album\_id}, \entity{scan\_file\_id};
+FK: \entity{album\_id}, \entity{scan\_file\_id} &
+PK ghép ngăn thêm trùng một ảnh vào cùng album;
+display\_order không âm. \\
 
 \texttt{tags} &
-\entity{tag_id} UUID; \entity{tag_name} VARCHAR(100); \entity{created_at} TIMESTAMPTZ &
-PK: \entity{tag_id} &
-AK: tag\_name; tên thẻ được chuẩn hóa chữ thường và duy nhất trong phạm vi toàn hệ thống. \\
+\entity{tag\_id} UUID;
+\entity{tag\_name} VARCHAR(100);
+\entity{created\_at} TIMESTAMPTZ &
+PK: \entity{tag\_id} &
+AK: tag\_name; tên thẻ được chuẩn hóa chữ thường và duy nhất
+trong phạm vi toàn hệ thống. \\
 
-\texttt{photo\_\allowbreak tags} &
-\entity{scan_file_id} UUID; \entity{tag_id} UUID; \entity{created_at} TIMESTAMPTZ &
-PK: \entity{scan_file_id}, \entity{tag_id}; FK: \entity{scan_file_id}, \entity{tag_id} &
+\texttt{photo\_tags} &
+\entity{scan\_file\_id} UUID;
+\entity{tag\_id} UUID;
+\entity{created\_at} TIMESTAMPTZ &
+PK: \entity{scan\_file\_id}, \entity{tag\_id};
+FK: \entity{scan\_file\_id}, \entity{tag\_id} &
 PK ghép ngăn gắn trùng một tag cho cùng ảnh. \\
 
-\texttt{film\_\allowbreak stocks} &
-\entity{film_stock_id} UUID; \entity{brand} VARCHAR(100); \entity{stock_name} VARCHAR(150); \entity{iso} INTEGER; \entity{film_format} VARCHAR(50); \entity{film_type} VARCHAR(50) &
-PK: \entity{film_stock_id} &
+\texttt{film\_stocks} &
+\entity{film\_stock\_id} UUID;
+\entity{brand} VARCHAR(100);
+\entity{stock\_name} VARCHAR(150);
+\entity{iso} INTEGER;
+\entity{film\_format} VARCHAR(50);
+\entity{film\_type} VARCHAR(50) &
+PK: \entity{film\_stock\_id} &
 ISO lớn hơn 0; các thuộc tính mô tả phụ thuộc vào mã loại film. \\
 
-\texttt{camera\_\allowbreak models} &
-\entity{camera_model_id} UUID; \entity{brand} VARCHAR(100); \entity{model_name} VARCHAR(150); \entity{camera_type} VARCHAR(50); \entity{film_format} VARCHAR(50) &
-PK: \entity{camera_model_id} &
+\texttt{camera\_models} &
+\entity{camera\_model\_id} UUID;
+\entity{brand} VARCHAR(100);
+\entity{model\_name} VARCHAR(150);
+\entity{camera\_type} VARCHAR(50);
+\entity{film\_format} VARCHAR(50) &
+PK: \entity{camera\_model\_id} &
 Thông tin mẫu máy được lưu một lần để tránh lặp ở từng ảnh. \\
 
 \texttt{lenses} &
-\entity{lens_id} UUID; \entity{brand} VARCHAR(100); \entity{model_name} VARCHAR(150); \entity{focal_length} VARCHAR(100); \entity{max_aperture} VARCHAR(50); \entity{mount_type} VARCHAR(50) &
-PK: \entity{lens_id} &
+\entity{lens\_id} UUID;
+\entity{brand} VARCHAR(100);
+\entity{model\_name} VARCHAR(150);
+\entity{focal\_length} VARCHAR(100);
+\entity{max\_aperture} VARCHAR(50);
+\entity{mount\_type} VARCHAR(50) &
+PK: \entity{lens\_id} &
 Miền tiêu cự và khẩu độ cần chốt nếu muốn hỗ trợ ống kính zoom. \\
 
-\texttt{product\_\allowbreak categories} &
-\entity{product_category_id} UUID; \entity{category_name} VARCHAR(150); \entity{description} TEXT NULL &
-PK: \entity{product_category_id} &
+\texttt{product\_categories} &
+\entity{product\_category\_id} UUID;
+\entity{category\_name} VARCHAR(150);
+\entity{description} TEXT NULL &
+PK: \entity{product\_category\_id} &
 Danh mục được quản lý riêng, không lặp tên danh mục trong products. \\
 
 \texttt{products} &
-\entity{product_id} UUID; \entity{product_category_id} UUID; \entity{product_name} VARCHAR(150); \entity{brand} VARCHAR(100) NULL; \entity{model_name} VARCHAR(150) NULL; \entity{condition} VARCHAR(50); \entity{description} TEXT NULL &
-PK: \entity{product_id}; FK: \entity{product_category_id} &
-Mỗi product thuộc một category; cần chốt condition thuộc sản phẩm hay tin đăng. \\
+\entity{product\_id} UUID;
+\entity{product\_category\_id} UUID;
+\entity{product\_name} VARCHAR(150);
+\entity{brand} VARCHAR(100) NULL;
+\entity{model\_name} VARCHAR(150) NULL;
+\entity{condition} VARCHAR(50);
+\entity{description} TEXT NULL &
+PK: \entity{product\_id};
+FK: \entity{product\_category\_id} &
+Mỗi product thuộc một category; cần chốt condition thuộc sản phẩm
+hay tin đăng. \\
 
 \texttt{listings} &
-\entity{listing_id} UUID; \entity{product_id} UUID; \entity{seller_id} UUID; \entity{title} VARCHAR(200); \entity{price} NUMERIC(12,2); \entity{status} VARCHAR(20); \entity{created_at} TIMESTAMPTZ; \entity{updated_at} TIMESTAMPTZ &
-PK: \entity{listing_id}; FK: \entity{product_id}, \entity{seller_id} &
-Giá không âm; seller\_id tham chiếu users.user\_id; miền status cần thống nhất. \\
+\entity{listing\_id} UUID;
+\entity{product\_id} UUID;
+\entity{seller\_id} UUID;
+\entity{title} VARCHAR(200);
+\entity{price} NUMERIC(12,2);
+\entity{status} VARCHAR(20);
+\entity{created\_at} TIMESTAMPTZ;
+\entity{updated\_at} TIMESTAMPTZ &
+PK: \entity{listing\_id};
+FK: \entity{product\_id}, \entity{seller\_id} &
+Giá không âm; seller\_id tham chiếu users.user\_id;
+miền status cần thống nhất. \\
 
-\texttt{marketplace\_\allowbreak transactions} &
-\entity{marketplace_transaction_id} UUID; \entity{listing_id} UUID; \entity{buyer_id} UUID; \entity{agreed_price} NUMERIC(12,2); \entity{status} VARCHAR(20); \entity{created_at} TIMESTAMPTZ; \entity{updated_at} TIMESTAMPTZ &
-PK: \entity{marketplace_transaction_id}; FK: \entity{listing_id}, \entity{buyer_id} &
-Giá chốt không âm; UNIQUE listing\_id; mỗi tin đăng có tối đa một bản ghi giao dịch, kể cả khi giao dịch bị hủy. \\
+\texttt{marketplace\_transactions} &
+\entity{marketplace\_transaction\_id} UUID;
+\entity{listing\_id} UUID;
+\entity{buyer\_id} UUID;
+\entity{agreed\_price} NUMERIC(12,2);
+\entity{status} VARCHAR(20);
+\entity{created\_at} TIMESTAMPTZ;
+\entity{updated\_at} TIMESTAMPTZ &
+PK: \entity{marketplace\_transaction\_id};
+FK: \entity{listing\_id}, \entity{buyer\_id} &
+Giá chốt không âm; UNIQUE listing\_id; mỗi tin đăng có tối đa một
+bản ghi giao dịch, kể cả khi giao dịch bị hủy. \\
 
-\texttt{seller\_\allowbreak reviews} &
-\entity{seller_review_id} UUID; \entity{marketplace_transaction_id} UUID; \entity{reviewer_id} UUID; \entity{seller_id} UUID; \entity{rating} INTEGER; \entity{comment} TEXT NULL; \entity{created_at} TIMESTAMPTZ &
-PK: \entity{seller_review_id}; FK: \entity{marketplace_transaction_id}, \entity{reviewer_id}, \entity{seller_id} &
-UNIQUE marketplace\_transaction\_id; rating từ 1 đến 5; reviewer là buyer, seller là người đăng bán. \\
+\texttt{seller\_reviews} &
+\entity{seller\_review\_id} UUID;
+\entity{marketplace\_transaction\_id} UUID;
+\entity{reviewer\_id} UUID;
+\entity{seller\_id} UUID;
+\entity{rating} INTEGER;
+\entity{comment} TEXT NULL;
+\entity{created\_at} TIMESTAMPTZ &
+PK: \entity{seller\_review\_id};
+FK: \entity{marketplace\_transaction\_id},
+\entity{reviewer\_id}, \entity{seller\_id} &
+UNIQUE marketplace\_transaction\_id; rating từ 1 đến 5;
+reviewer là buyer, seller là người đăng bán. \\
 
 \bottomrule
+
 \end{longtable}
+
 \normalsize
+
 
 \subsection{Chuyển quan hệ và quy tắc tham chiếu P4}
 
 \begin{enumerate}
-    \item \entity{albums.user_id} tham chiếu \entity{users.user_id}.
-    Hai quan hệ N--N được tách qua \entity{album_photos} và \entity{photo_tags};
-    các cặp khóa ghép ngăn bản ghi liên kết trùng nhau.
-    \item \entity{photo_metadata.scan_file_id} tham chiếu
-    \entity{scan_files.scan_file_id} và có UNIQUE.
-    Các khóa \entity{film_stock_id}, \entity{camera_model_id}, \entity{lens_id}
-    tham chiếu các bảng danh mục tương ứng.
-    \item \entity{products.product_category_id} tham chiếu
-    \entity{product_categories.product_category_id};
-    \entity{listings.product_id} tham chiếu \entity{products.product_id}.
-    \entity{listings.seller_id} và \entity{marketplace_transactions.buyer_id}
-    đều tham chiếu \entity{users.user_id}.
-    \item \entity{seller_reviews.marketplace_transaction_id} tham chiếu
-    \entity{marketplace_transactions.marketplace_transaction_id} và có UNIQUE.
-    \entity{reviewer_id} và \entity{seller_id} đều tham chiếu
-    \entity{users.user_id}, nhưng mang hai vai trò khác nhau.
-    \item Không xóa dây chuyền dữ liệu giao dịch khi user hoặc listing ngừng
-    hoạt động. Giá đã chốt ở \entity{agreed_price} được giữ để truy vết lịch sử.
+
+    \item \entity{albums.user\_id} tham chiếu \entity{users.user\_id}.
+
+    Hai quan hệ N--N được tách qua \entity{album\_photos} và
+    \entity{photo\_tags}; các cặp khóa ghép ngăn bản ghi liên kết
+    trùng nhau.
+
+    \item \entity{photo\_metadata.scan\_file\_id} tham chiếu
+    \entity{scan\_files.scan\_file\_id} và có UNIQUE.
+
+    Các khóa \entity{film\_stock\_id},
+    \entity{camera\_model\_id} và \entity{lens\_id} tham chiếu các
+    bảng danh mục tương ứng.
+
+    \item \entity{products.product\_category\_id} tham chiếu
+    \entity{product\_categories.product\_category\_id};
+    \entity{listings.product\_id} tham chiếu
+    \entity{products.product\_id}.
+
+    \entity{listings.seller\_id} và
+    \entity{marketplace\_transactions.buyer\_id} đều tham chiếu
+    \entity{users.user\_id}.
+
+    \item \entity{seller\_reviews.marketplace\_transaction\_id}
+    tham chiếu
+    \entity{marketplace\_transactions.marketplace\_transaction\_id}
+    và có UNIQUE.
+
+    \entity{reviewer\_id} và \entity{seller\_id} đều tham chiếu
+    \entity{users.user\_id}, nhưng mang hai vai trò khác nhau.
+
+    \item Không xóa dây chuyền dữ liệu giao dịch khi user hoặc listing
+    ngừng hoạt động. Giá đã chốt ở \entity{agreed\_price} được giữ để
+    truy vết lịch sử.
+
 \end{enumerate}
+
 
 \subsection{Kiểm tra chuẩn hóa đến 3NF}
 
 Các phụ thuộc hàm chính được xác định theo giả định nghiệp vụ của P4:
+
 \begin{enumerate}
-    \item \entity{scan_file_id} xác định các thuộc tính còn lại của
-    \entity{scan_files}; \entity{photo_metadata_id} xác định các thuộc tính
-    của \entity{photo_metadata}. Do \entity{scan_file_id} duy nhất trong
-    \entity{photo_metadata}, khóa này cũng xác định bộ metadata tương ứng.
-    \item \entity{album_id} xác định thông tin album;
-    \entity{tag_id} xác định thông tin thẻ.
-    Trong \entity{album_photos}, cặp
-    (\entity{album_id}, \entity{scan_file_id}) xác định
-    \entity{display_order} và \entity{added_at}.
-    Trong \entity{photo_tags}, cặp
-    (\entity{scan_file_id}, \entity{tag_id}) xác định
-    \entity{created_at}.
-    \item \entity{film_stock_id}, \entity{camera_model_id} và \entity{lens_id}
-    lần lượt xác định thông tin của loại film, mẫu máy ảnh và ống kính.
-    \item \entity{product_category_id} xác định thông tin danh mục;
-    \entity{product_id} xác định thông tin sản phẩm;
-    \entity{listing_id} xác định thông tin tin đăng.
-    \item \entity{marketplace_transaction_id} xác định thông tin giao dịch.
+
+    \item \entity{scan\_file\_id} xác định các thuộc tính còn lại của
+    \entity{scan\_files}; \entity{photo\_metadata\_id} xác định các
+    thuộc tính của \entity{photo\_metadata}. Do
+    \entity{scan\_file\_id} duy nhất trong \entity{photo\_metadata},
+    khóa này cũng xác định bộ metadata tương ứng.
+
+    \item \entity{album\_id} xác định thông tin album;
+    \entity{tag\_id} xác định thông tin thẻ.
+
+    Trong \entity{album\_photos}, cặp
+    (\entity{album\_id}, \entity{scan\_file\_id}) xác định
+    \entity{display\_order} và \entity{added\_at}.
+
+    Trong \entity{photo\_tags}, cặp
+    (\entity{scan\_file\_id}, \entity{tag\_id}) xác định
+    \entity{created\_at}.
+
+    \item \entity{film\_stock\_id}, \entity{camera\_model\_id} và
+    \entity{lens\_id} lần lượt xác định thông tin của loại film,
+    mẫu máy ảnh và ống kính.
+
+    \item \entity{product\_category\_id} xác định thông tin danh mục;
+    \entity{product\_id} xác định thông tin sản phẩm;
+    \entity{listing\_id} xác định thông tin tin đăng.
+
+    \item \entity{marketplace\_transaction\_id} xác định thông tin
+    giao dịch.
+
     Với giả định mỗi listing có tối đa một giao dịch,
-    \entity{listing_id} cũng là khóa ứng viên của
-    \entity{marketplace_transactions}.
-    \entity{seller_review_id} xác định thông tin đánh giá;
-    \entity{marketplace_transaction_id} là khóa ứng viên của
-    \entity{seller_reviews}.
+    \entity{listing\_id} cũng là khóa ứng viên của
+    \entity{marketplace\_transactions}.
+
+    \entity{seller\_review\_id} xác định thông tin đánh giá;
+    \entity{marketplace\_transaction\_id} là khóa ứng viên của
+    \entity{seller\_reviews}.
+
 \end{enumerate}
 
-Các quan hệ có thuộc tính nguyên tố, không chứa nhóm lặp nên đáp ứng 1NF.
-Phần lớn quan hệ dùng khóa đơn nên không có phụ thuộc bộ phận vào khóa ghép.
-Hai quan hệ kết hợp chỉ chứa thuộc tính phụ thuộc vào toàn bộ cặp khóa,
-vì vậy đáp ứng 2NF. Thông tin người dùng, danh mục, film, máy ảnh và ống kính
-được tách riêng; các quan hệ giao dịch chỉ giữ khóa tham chiếu và dữ liệu
-nghiệp vụ của chính giao dịch. Theo các phụ thuộc hàm đã nêu và giả định
-mỗi thuộc tính mô tả phụ thuộc vào khóa của quan hệ tương ứng, mô hình
-đáp ứng mục tiêu 3NF.
+Các quan hệ có thuộc tính nguyên tố, không chứa nhóm lặp nên đáp ứng
+1NF.
 
-\entity{marketplace_transactions.agreed_price} là giá chốt tại thời điểm
-giao dịch, được giữ để bảo toàn lịch sử và không tự cập nhật khi
-\entity{listings.price} thay đổi. Đây là snapshot có chủ đích, không phải
-sao chép tùy ý dữ liệu sản phẩm.
+Phần lớn quan hệ dùng khóa đơn nên không có phụ thuộc bộ phận vào khóa
+ghép.
+
+Hai quan hệ kết hợp chỉ chứa thuộc tính phụ thuộc vào toàn bộ cặp khóa,
+vì vậy đáp ứng 2NF. Thông tin người dùng, danh mục, film, máy ảnh và
+ống kính được tách riêng; các quan hệ giao dịch chỉ giữ khóa tham
+chiếu và dữ liệu nghiệp vụ của chính giao dịch. Theo các phụ thuộc hàm
+đã nêu và giả định mỗi thuộc tính mô tả phụ thuộc vào khóa của quan hệ
+tương ứng, mô hình đáp ứng mục tiêu 3NF.
+
+\entity{marketplace\_transactions.agreed\_price} là giá chốt tại thời
+điểm giao dịch, được giữ để bảo toàn lịch sử và không tự cập nhật khi
+\entity{listings.price} thay đổi. Đây là snapshot có chủ đích, không
+phải sao chép tùy ý dữ liệu sản phẩm.
+
 
 \subsection{Giả định nghiệp vụ và điểm tích hợp P4}
 
 Để hoàn thành bản thiết kế tạm thời, P4 sử dụng các quy tắc sau:
+
 \begin{enumerate}
-    \item Mỗi \entity{scan_files} thuộc đúng một cuộn phim.
-    \entity{film_roll_id} tham chiếu \entity{film_rolls.film_roll_id}.
+
+    \item Mỗi \entity{scan\_files} thuộc đúng một cuộn phim.
+    \entity{film\_roll\_id} tham chiếu
+    \entity{film\_rolls.film\_roll\_id}.
+
     Chủ sở hữu ảnh được xác định qua đơn hàng của cuộn phim; không tạo
     thêm bảng users hoặc lưu lặp owner\_id trong scan\_files.
+
     Đường nối cụ thể tới order\_items cần đối chiếu với mô hình P3.
+
     \item Mỗi scan file có tối đa một metadata.
-    UNIQUE \entity{photo_metadata.scan_file_id} bảo đảm ràng buộc này
-    mà vẫn giữ PK \entity{photo_metadata_id} như ERD.
+
+    UNIQUE \entity{photo\_metadata.scan\_file\_id} bảo đảm ràng buộc
+    này mà vẫn giữ PK \entity{photo\_metadata\_id} như ERD.
+
     \item Mỗi listing có tối đa một bản ghi giao dịch.
+
     Giao dịch có thể ở trạng thái chờ, hoàn thành hoặc hủy;
     không tạo nhiều bản ghi giao dịch cho cùng listing.
-    UNIQUE \entity{marketplace_transactions.listing_id} bảo đảm
+
+    UNIQUE \entity{marketplace\_transactions.listing\_id} bảo đảm
     cardinality 1--0..1. Nếu sau này cần lịch sử nhiều lần thử,
     nhóm phải điều chỉnh quy tắc này trước khi triển khai.
+
     \item Mỗi giao dịch có tối đa một đánh giá.
-    \entity{seller_reviews.reviewer_id} phải là buyer của giao dịch,
-    còn \entity{seller_reviews.seller_id} phải là seller của listing.
+
+    \entity{seller\_reviews.reviewer\_id} phải là buyer của giao dịch,
+    còn \entity{seller\_reviews.seller\_id} phải là seller của listing.
+
     Chỉ cho phép đánh giá giao dịch hoàn thành; người dùng không tự
     đánh giá chính mình. Rating nhận giá trị từ 1 đến 5.
-    \item \entity{tags.tag_name} được chuẩn hóa chữ thường và duy nhất
+
+    \item \entity{tags.tag\_name} được chuẩn hóa chữ thường và duy nhất
     trong toàn hệ thống. \entity{products.condition} mô tả tình trạng
     của sản phẩm cụ thể, không phải tình trạng chung của một dòng máy.
+
     \item Không xóa dây chuyền dữ liệu giao dịch khi user hoặc listing
     ngừng hoạt động. Các kiểm tra xuyên nhiều bảng và quy tắc trạng thái
     sẽ được triển khai ở tầng nghiệp vụ hoặc cơ chế ràng buộc phù hợp
     trong giai đoạn thiết kế vật lý.
+
 \end{enumerate}
 
 Các quy tắc trên là phương án P4 chọn để thống nhất bản logic hiện tại,
 không phải yêu cầu đã được nhóm trưởng xác nhận. Khi tích hợp với P3,
 cần kiểm tra lại tên khóa cuộn phim và đường truy vết tới đơn hàng.
+
+
+% ============================================================
+% 5. P5 -- KNOWLEDGE AND AI INTEGRATION
+% ============================================================
+
 \section{Thiet ke muc logic phan he P5: Knowledge and AI Integration}
 
 \subsection{Chuyen doi mo hinh ERD sang luoc do quan he}
-Dua tren mo hinh quan niem ERD da xay dung o Chuong 3, phan he P5 duoc chuyen doi thanh cac luoc do quan he theo cac quy tac anh xa chuan:
+
+Dua tren mo hinh quan niem ERD da xay dung o Chuong 3, phan he P5 duoc
+chuyen doi thanh cac luoc do quan he theo cac quy tac anh xa chuan:
 
 \begin{enumerate}
-    \item \textbf{ARTICLE\_CATEGORY}(\underline{category\_id}, category\_name, description, created\_at)
-    \item \textbf{ARTICLE}(\underline{article\_id}, \textit{author\_id}, \textit{category\_id}, title, content, tags, view\_count, status, created\_at, updated\_at)
+
+    \item \textbf{ARTICLE\_CATEGORY}(\underline{category\_id},
+    category\_name, description, created\_at)
+
+    \item \textbf{ARTICLE}(\underline{article\_id},
+    \textit{author\_id}, \textit{category\_id}, title, content, tags,
+    view\_count, status, created\_at, updated\_at)
+
     \begin{itemize}
+
         \item Khoa ngoai: author\_id tham chieu den USER(user\_id)
-        \item Khoa ngoai: category\_id tham chieu den ARTICLE\_CATEGORY(category\_id)
+
+        \item Khoa ngoai: category\_id tham chieu den
+        ARTICLE\_CATEGORY(category\_id)
+
     \end{itemize}
-    \item \textbf{LAB\_REVIEW}(\underline{review\_id}, \textit{user\_id}, \textit{lab\_id}, rating, comment, created\_at)
+
+    \item \textbf{LAB\_REVIEW}(\underline{review\_id},
+    \textit{user\_id}, \textit{lab\_id}, rating, comment, created\_at)
+
     \begin{itemize}
+
         \item Khoa ngoai: user\_id tham chieu den USER(user\_id)
+
         \item Khoa ngoai: lab\_id tham chieu den FILM\_LAB(lab\_id)
+
     \end{itemize}
-    \item \textbf{COMMUNITY\_EVENT}(\underline{event\_id}, \textit{host\_id}, title, description, location, event\_date, max\_participants, created\_at)
+
+    \item \textbf{COMMUNITY\_EVENT}(\underline{event\_id},
+    \textit{host\_id}, title, description, location, event\_date,
+    max\_participants, created\_at)
+
     \begin{itemize}
+
         \item Khoa ngoai: host\_id tham chieu den USER(user\_id)
+
     \end{itemize}
-    \item \textbf{USER\_INTERACTION}(\underline{interaction\_id}, \textit{user\_id}, target\_type, target\_id, interaction\_type, created\_at)
+
+    \item \textbf{USER\_INTERACTION}(\underline{interaction\_id},
+    \textit{user\_id}, target\_type, target\_id, interaction\_type,
+    created\_at)
+
     \begin{itemize}
+
         \item Khoa ngoai: user\_id tham chieu den USER(user\_id)
+
     \end{itemize}
-    \item \textbf{AI\_CHAT\_LOG}(\underline{chat\_id}, \textit{user\_id}, user\_query, bot\_response, context\_retrieved, created\_at)
+
+    \item \textbf{AI\_CHAT\_LOG}(\underline{chat\_id},
+    \textit{user\_id}, user\_query, bot\_response, context\_retrieved,
+    created\_at)
+
     \begin{itemize}
+
         \item Khoa ngoai: user\_id tham chieu den USER(user\_id)
+
     \end{itemize}
+
 \end{enumerate}
+
 
 \subsection{Xac dinh phu thuoc ham va danh gia dang chuan}
 
 \subsubsection{Tap phu thuoc ham (Functional Dependencies)}
+
 \begin{itemize}
-    \item ARTICLE\_CATEGORY: category\_id $\rightarrow$ category\_name, description, created\_at
-    \item ARTICLE: article\_id $\rightarrow$ author\_id, category\_id, title, content, tags, view\_count, status, created\_at, updated\_at
-    \item LAB\_REVIEW: review\_id $\rightarrow$ user\_id, lab\_id, rating, comment, created\_at
-    \item COMMUNITY\_EVENT: event\_id $\rightarrow$ host\_id, title, description, location, event\_date, max\_participants, created\_at
-    \item USER\_INTERACTION: interaction\_id $\rightarrow$ user\_id, target\_type, target\_id, interaction\_type, created\_at
-    \item AI\_CHAT\_LOG: chat\_id $\rightarrow$ user\_id, user\_query, bot\_response, context\_retrieved, created\_at
+
+    \item ARTICLE\_CATEGORY:
+    category\_id $\rightarrow$ category\_name, description, created\_at
+
+    \item ARTICLE:
+    article\_id $\rightarrow$ author\_id, category\_id, title, content,
+    tags, view\_count, status, created\_at, updated\_at
+
+    \item LAB\_REVIEW:
+    review\_id $\rightarrow$ user\_id, lab\_id, rating, comment,
+    created\_at
+
+    \item COMMUNITY\_EVENT:
+    event\_id $\rightarrow$ host\_id, title, description, location,
+    event\_date, max\_participants, created\_at
+
+    \item USER\_INTERACTION:
+    interaction\_id $\rightarrow$ user\_id, target\_type, target\_id,
+    interaction\_type, created\_at
+
+    \item AI\_CHAT\_LOG:
+    chat\_id $\rightarrow$ user\_id, user\_query, bot\_response,
+    context\_retrieved, created\_at
+
 \end{itemize}
+
 
 \subsubsection{Xac dinh khoa va danh gia dang chuan 3NF / BCNF}
+
 \begin{itemize}
-    \item \textbf{Xac dinh khoa bang bao dong:} Tinh toan bao dong cho cac thuoc tinh khoa chinh cho thay moi thuoc tinh dinh danh deu xac dinh duoc toan bo cac thuoc tinh con lai trong bang. Do do, moi quan he deu co duy nhat mot khoa chinh don: category\_id, article\_id, review\_id, event\_id, interaction\_id, chat\_id.
-    \item \textbf{Dang chuan 1 (1NF):} Tat ca cac cot du lieu deu mang gia tri nguyen to, khong co cot da tri hay lap lai.
-    \item \textbf{Dang chuan 2 (2NF):} Do toan bo khoa chinh deu la khoa don nen khong ton tai bat ky phu thuoc ham bo phan nao vao mot phan cua khoa.
-    \item \textbf{Dang chuan 3 (3NF) va BCNF:} Voi moi phu thuoc ham, ve trai deu la sieu khoa (khoa chinh). Khong co phu thuoc ham bac cau giua cac thuoc tinh khong khoa.
+
+    \item \textbf{Xac dinh khoa bang bao dong:} Tinh toan bao dong cho
+    cac thuoc tinh khoa chinh cho thay moi thuoc tinh dinh danh deu
+    xac dinh duoc toan bo cac thuoc tinh con lai trong bang. Do do,
+    moi quan he deu co duy nhat mot khoa chinh don: category\_id,
+    article\_id, review\_id, event\_id, interaction\_id, chat\_id.
+
+    \item \textbf{Dang chuan 1 (1NF):} Tat ca cac cot du lieu deu mang
+    gia tri nguyen to, khong co cot da tri hay lap lai.
+
+    \item \textbf{Dang chuan 2 (2NF):} Do toan bo khoa chinh deu la khoa
+    don nen khong ton tai bat ky phu thuoc ham bo phan nao vao mot phan
+    cua khoa.
+
+    \item \textbf{Dang chuan 3 (3NF) va BCNF:} Voi moi phu thuoc ham,
+    ve trai deu la sieu khoa (khoa chinh). Khong co phu thuoc ham bac
+    cau giua cac thuoc tinh khong khoa.
+
 \end{itemize}
 
-\textbf{Ket luan:} Toan bo cac bang trong phan he P5 dat dang chuan BCNF va 3NF, khong bi du thua du lieu va khong can thuc hien phan ra.
+\textbf{Ket luan:} Toan bo cac bang trong phan he P5 dat dang chuan
+BCNF va 3NF, khong bi du thua du lieu va khong can thuc hien phan ra.
