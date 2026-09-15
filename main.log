@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.8.15)  12 SEP 2026 23:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.8.15)  15 SEP 2026 21:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1033,7 +1033,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [25]
-<figures/ERD_P4.png, id=664, 2427.0675pt x 2519.4125pt>
+<figures/ERD_P4.png, id=714, 2427.0675pt x 2519.4125pt>
 File: figures/ERD_P4.png Graphic file (type png)
 <use figures/ERD_P4.png>
 Package pdftex.def Info: figures/ERD_P4.png  used on input line 557.
@@ -1065,7 +1065,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [28
 
 ]
-<figures/ERD_P5.png, id=681, 1206.5075pt x 581.17125pt>
+<figures/ERD_P5.png, id=731, 1206.5075pt x 581.17125pt>
 File: figures/ERD_P5.png Graphic file (type png)
 <use figures/ERD_P5.png>
 Package pdftex.def Info: figures/ERD_P5.png  used on input line 584.
@@ -1359,7 +1359,6 @@ Overfull \hbox (0.9625pt too wide) in paragraph at lines 325--329
 []\T5/cmr/m/n/12 ^^^èi vîi Kho £nh sè, ch¿ möc tr¶n \T5/cmtt/m/n/12 scan_files.film_roll_id\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 albums.user_id
  []
 
-)
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1367,7 +1366,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[48] (chapters/06_datadictionary.tex
+[48]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1376,6 +1375,68 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [49]
+Overfull \hbox (29.6053pt too wide) in paragraph at lines 365--366
+[]\T5/cmtt/m/n/12 created_at\T5/cmr/m/n/12 : Sû döng \T5/cmtt/m/n/12 TIMESTAMPTZ \T5/cmr/m/n/12 vîi gi¡ trà m°c ^^_ành l  \T5/cmtt/m/n/12 CURRENT_TIMESTAMP\T5/cmr/m/n/12 . 
+ []
+
+
+Overfull \hbox (71.76787pt too wide) in paragraph at lines 379--380
+[]\T5/cmtt/m/n/12 category_id \T5/cmr/m/n/12 (\T5/cmtt/m/n/12 UUID\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 NOT NULL\T5/cmr/m/n/12 ): Tham chi¸u ^^_¸n \T5/cmtt/m/n/12 article_categories(category_id)\T5/cmr/m/n/12 .
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[50]
+Overfull \hbox (18.7572pt too wide) in paragraph at lines 387--388
+[]\T5/cmtt/m/n/12 status\T5/cmr/m/n/12 : Dòng \T5/cmtt/m/n/12 VARCHAR(20) \T5/cmr/m/n/12 m°c ^^_ành \T5/cmtt/m/n/12 'published'\T5/cmr/m/n/12 , ¡p döng \T5/cmtt/m/n/12 CHECK (status
+ []
+
+
+Overfull \hbox (32.11221pt too wide) in paragraph at lines 388--389
+[]\T5/cmtt/m/n/12 created_at \T5/cmr/m/n/12 v  \T5/cmtt/m/n/12 updated_at\T5/cmr/m/n/12 : Kiºu \T5/cmtt/m/n/12 TIMESTAMPTZ\T5/cmr/m/n/12 , m°c ^^_ành \T5/cmtt/m/n/12 CURRENT_TIMESTAMP\T5/cmr/m/n/12 .
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[51]
+Overfull \hbox (30.82791pt too wide) in paragraph at lines 407--408
+[]\T5/cmtt/m/n/12 lab_id \T5/cmr/m/n/12 (\T5/cmtt/m/n/12 UUID\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 NOT NULL\T5/cmr/m/n/12 ): Tham chi¸u ^^_¸n b£ng pháng lab \T5/cmtt/m/n/12 film_labs(lab_id)
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[52]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[53]) (chapters/06_datadictionary.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[54]
 Ch\uhorn \ohorn ng 6.
 
 Overfull \hbox (8.16628pt too wide) in alignment at lines 11--16
@@ -1541,7 +1602,7 @@ Overfull \hbox (8.16628pt too wide) in alignment at lines 23--139
  [] [] [] [] 
  []
 
-[50
+[55
 
 ]
 
@@ -1551,7 +1612,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[51]
+[56]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1559,7 +1620,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[52]
+[57]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1567,7 +1628,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[53]
+[58]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1575,7 +1636,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[54]
+[59]
 Overfull \hbox (8.16628pt too wide) in alignment at lines 160--168
  [] [] [] [] 
  []
@@ -1717,7 +1778,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[55]
+[60]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1725,7 +1786,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[56]
+[61]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1733,7 +1794,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[57]
+[62]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1741,7 +1802,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[58]
+[63]
 Overfull \hbox (2.18355pt too wide) in paragraph at lines 381--381
 []|\T5/cmr/m/n/10 VARCHAR(255)| 
  []
@@ -1783,7 +1844,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[59]
+[64]
 Overfull \hbox (9.14835pt too wide) in paragraph at lines 418--418
 []|\T5/cmr/m/n/10.95 VARCHAR(100)| 
  []
@@ -1838,6 +1899,126 @@ Overfull \hbox (32.92809pt too wide) in paragraph at lines 470--483
  [][] 
  []
 
+
+Overfull \hbox (3.6747pt too wide) in paragraph at lines 501--501
+[]|\T5/cmr/m/n/10.95 VARCHAR(20)| 
+ []
+
+
+Overfull \hbox (10.6688pt too wide) in paragraph at lines 502--502
+[]|\T5/cmr/m/n/10.95 NUMERIC(12,2)| 
+ []
+
+
+Overfull \hbox (3.6747pt too wide) in paragraph at lines 503--503
+[]|\T5/cmr/m/n/10.95 VARCHAR(30)| 
+ []
+
+
+Underfull \hbox (badness 1303) in paragraph at lines 503--503
+[]|\T5/cmr/m/n/10.95 Tr¤ng th¡i: pend-ing, re-ceived,
+ []
+
+
+Overfull \hbox (11.5811pt too wide) in paragraph at lines 506--506
+[]|\T5/cmr/m/n/10.95 TIMESTAMPTZ| 
+ []
+
+
+Overfull \hbox (11.5811pt too wide) in paragraph at lines 507--507
+[]|\T5/cmr/m/n/10.95 TIMESTAMPTZ| 
+ []
+
+
+Overfull \hbox (32.92809pt too wide) in paragraph at lines 495--510
+ [][] 
+ []
+
+
+Overfull \hbox (3.6747pt too wide) in paragraph at lines 523--523
+[]|\T5/cmr/m/n/10.95 VARCHAR(20)| 
+ []
+
+
+Overfull \hbox (9.14835pt too wide) in paragraph at lines 524--524
+[]|\T5/cmr/m/n/10.95 VARCHAR(100)| 
+ []
+
+
+Overfull \hbox (3.6747pt too wide) in paragraph at lines 526--526
+[]|\T5/cmr/m/n/10.95 VARCHAR(30)| 
+ []
+
+
+Overfull \hbox (11.5811pt too wide) in paragraph at lines 527--527
+[]|\T5/cmr/m/n/10.95 TIMESTAMPTZ| 
+ []
+
+
+Overfull \hbox (32.92809pt too wide) in paragraph at lines 517--530
+ [][] 
+ []
+
+
+Overfull \hbox (9.14835pt too wide) in paragraph at lines 541--541
+[]|\T5/cmr/m/n/10.95 VARCHAR(100)| 
+ []
+
+
+Overfull \hbox (32.92809pt too wide) in paragraph at lines 537--546
+ [][] 
+ []
+
+
+Overfull \hbox (11.5811pt too wide) in paragraph at lines 560--560
+[]|\T5/cmr/m/n/10.95 TIMESTAMPTZ| 
+ []
+
+
+Overfull \hbox (11.5811pt too wide) in paragraph at lines 561--561
+[]|\T5/cmr/m/n/10.95 TIMESTAMPTZ| 
+ []
+
+
+Overfull \hbox (32.92809pt too wide) in paragraph at lines 553--565
+ [][] 
+ []
+
+
+Underfull \hbox (badness 2600) in paragraph at lines 576--576
+[]|\T5/cmr/m/n/10.95 ^^^ìn h ng thanh to¡n, tham
+ []
+
+
+Overfull \hbox (3.6747pt too wide) in paragraph at lines 577--577
+[]|\T5/cmr/m/n/10.95 VARCHAR(30)| 
+ []
+
+
+Overfull \hbox (10.6688pt too wide) in paragraph at lines 578--578
+[]|\T5/cmr/m/n/10.95 NUMERIC(12,2)| 
+ []
+
+
+Overfull \hbox (9.14835pt too wide) in paragraph at lines 579--579
+[]|\T5/cmr/m/n/10.95 VARCHAR(100)| 
+ []
+
+
+Overfull \hbox (3.6747pt too wide) in paragraph at lines 580--580
+[]|\T5/cmr/m/n/10.95 VARCHAR(20)| 
+ []
+
+
+Overfull \hbox (11.5811pt too wide) in paragraph at lines 581--581
+[]|\T5/cmr/m/n/10.95 TIMESTAMPTZ| 
+ []
+
+
+Overfull \hbox (32.92809pt too wide) in paragraph at lines 572--584
+ [][] 
+ []
+
 ) (chapters/07_conclusion.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1846,7 +2027,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[60]
+[65]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1854,9 +2035,25 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[61]
+[66]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[67]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[68]
 Ch\uhorn \ohorn ng 7.
-[62
+[69
 
 ]
 
@@ -1866,7 +2063,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[63])
+[70])
 No file main.bbl.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1875,26 +2072,26 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[64] (main.aux)
+[71] (main.aux)
  ***********
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-07-20>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: EAF9AD6E02969C205A3EAFCCB1271D71;27572.
+(rerunfilecheck)             Checksum: 05C88E7A11B8FD9E7F8BCD9ABEFD3068;31226.
  ) 
 Here is how much of TeX's memory you used:
- 26434 strings out of 467500
- 514772 string characters out of 5408529
+ 26466 strings out of 467500
+ 515260 string characters out of 5408529
  1175227 words of memory out of 5000000
- 54995 multiletter control sequences out of 15000+600000
+ 55005 multiletter control sequences out of 15000+600000
  650537 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  112i,12n,113p,770b,826s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Admin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnbx10.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnbx12.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnbx8.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr10.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr12.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr8.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnti10.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnti12.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt10.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt12.pfb><C:/Users/Admin/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt8.pfb>
-Output written on main.pdf (65 pages, 662149 bytes).
+Output written on main.pdf (72 pages, 694231 bytes).
 PDF statistics:
- 993 PDF objects out of 1000 (max. 8388607)
- 229 named destinations out of 1000 (max. 500000)
- 855 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1080 PDF objects out of 1200 (max. 8388607)
+ 251 named destinations out of 1000 (max. 500000)
+ 935 words of extra memory for PDF output out of 10000 (max. 10000000)
 
