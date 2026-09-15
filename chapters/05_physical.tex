@@ -65,6 +65,534 @@ CREATE TABLE orders (
 \iffalse
 
 \fi
+% ============================================================
+% P3 -- ORDER & PROCESSING LIFECYCLE
+% ============================================================
+
+\section{Thiết kế vật lý cho module P3 -- Order \& Processing Lifecycle}
+
+Module P3 chịu trách nhiệm quản lý vòng đời đơn hàng, tiếp nhận cuộn
+phim, theo dõi các công đoạn xử lý, lịch sử thay đổi trạng thái và các
+yêu cầu nhận/giao. P3 sử dụng lại hai bảng lõi
+\texttt{orders} và \texttt{order\_items} đã được định nghĩa ở P1, đồng
+thời bổ sung các bảng phục vụ riêng cho quá trình xử lý phim.
+
+Thiết kế vật lý của P3 tuân thủ các quy ước chung của hệ thống:
+khóa chính sử dụng \texttt{UUID}, thời gian sử dụng
+\texttt{TIMESTAMPTZ}, trạng thái sử dụng \texttt{VARCHAR} kết hợp
+\texttt{CHECK}, và các khóa ngoại quan trọng ưu tiên
+\texttt{ON DELETE RESTRICT} nhằm bảo toàn lịch sử xử lý.
+
+\subsection{Thiết kế vật lý bảng \texttt{orders}}
+
+Bảng \texttt{orders} là bảng trung tâm của vòng đời đơn hàng và đã
+được định nghĩa trong nhóm bảng lõi của P1. P3 sử dụng lại bảng này,
+không tạo thêm một bảng orders riêng.
+
+\begin{itemize}
+
+    \item \textbf{Khóa chính:} \texttt{order\_id} sử dụng kiểu
+    \texttt{UUID}.
+
+    \item \textbf{Khóa ngoại:}
+    \texttt{customer\_id} tham chiếu đến
+    \texttt{users(user\_id)} và \texttt{lab\_id} tham chiếu đến
+    \texttt{film\_labs(lab\_id)}.
+
+    \item \textbf{Mã đơn hàng:}
+    \texttt{order\_code} sử dụng \texttt{VARCHAR(30)}, bắt buộc
+    \texttt{NOT NULL} và có ràng buộc \texttt{UNIQUE}.
+
+    \item \textbf{Trạng thái:}
+    \texttt{status} sử dụng \texttt{VARCHAR(30)}. Giá trị phải tuân
+    thủ state machine của hệ thống, gồm các trạng thái chính:
+    \texttt{pending}, \texttt{confirmed}, \texttt{received},
+    \texttt{processing}, \texttt{scanning}, \texttt{completed},
+    \texttt{delivered} và trạng thái \texttt{cancelled} khi đơn bị
+    hủy theo quy tắc nghiệp vụ.
+
+    \item \textbf{Phương thức nhận/giao:}
+    \texttt{fulfillment\_method} sử dụng \texttt{VARCHAR(20)} và chỉ
+    nhận các giá trị \texttt{dropoff} hoặc \texttt{pickup}.
+
+    \item \textbf{Dữ liệu tiền tệ:}
+    \texttt{subtotal}, \texttt{delivery\_fee},
+    \texttt{discount\_amount} và \texttt{total\_amount} sử dụng
+    \texttt{NUMERIC(12,2)} và không được âm.
+
+    \item \textbf{Thời gian:}
+    \texttt{placed\_at}, \texttt{created\_at} và
+    \texttt{updated\_at} sử dụng \texttt{TIMESTAMPTZ}.
+
+    \item \textbf{Chỉ mục:} Tạo chỉ mục trên
+    \texttt{customer\_id}, \texttt{lab\_id} và kết hợp
+    \texttt{(status, created\_at)} để hỗ trợ truy vấn đơn hàng theo
+    khách hàng, Film Lab và trạng thái hiện tại.
+
+\end{itemize}
+
+
+\subsection{Thiết kế vật lý bảng \texttt{order\_items}}
+
+Bảng \texttt{order\_items} lưu các dịch vụ hoặc gói dịch vụ thuộc
+một đơn hàng. Bảng này cũng đã được định nghĩa ở P1 và được P3 sử
+dụng để liên kết đơn hàng với quá trình xử lý.
+
+\begin{itemize}
+
+    \item \textbf{Khóa chính:} \texttt{order\_item\_id} sử dụng
+    kiểu \texttt{UUID}.
+
+    \item \textbf{Khóa ngoại:}
+    \texttt{order\_id} tham chiếu \texttt{orders(order\_id)};
+    \texttt{service\_id} tham chiếu
+    \texttt{lab\_services(service\_id)}; và
+    \texttt{package\_id} tham chiếu
+    \texttt{service\_packages(package\_id)} khi order item sử dụng
+    package.
+
+    \item \textbf{Số lượng:}
+    \texttt{quantity} sử dụng \texttt{INTEGER} và phải lớn hơn 0.
+
+    \item \textbf{Giá tại thời điểm đặt:}
+    \texttt{unit\_price} sử dụng \texttt{NUMERIC(12,2)}, không âm và
+    được giữ như snapshot giá để bảo toàn lịch sử giao dịch.
+
+    \item \textbf{Tùy chọn dịch vụ:}
+    \texttt{service\_options} sử dụng \texttt{JSONB} khi cần lưu các
+    tùy chọn linh hoạt của dịch vụ.
+
+    \item \textbf{Chỉ mục:} Tạo chỉ mục B-tree trên
+    \texttt{order\_id} để tăng tốc truy vấn toàn bộ item của một đơn
+    hàng. Các khóa ngoại \texttt{service\_id} và
+    \texttt{package\_id} được lập chỉ mục khi có nhu cầu join thường
+    xuyên.
+
+\end{itemize}
+
+
+\subsection{Thiết kế vật lý bảng \texttt{film\_rolls}}
+
+Bảng \texttt{film\_rolls} quản lý từng cuộn phim thực tế được tiếp
+nhận từ một đơn hàng. Đây là điểm liên kết quan trọng giữa vòng đời
+đơn hàng của P3 và kho ảnh số của P4.
+
+\begin{itemize}
+
+    \item \textbf{Khóa chính:} \texttt{film\_roll\_id} sử dụng
+    kiểu \texttt{UUID}.
+
+    \item \textbf{Khóa ngoại:} \texttt{order\_id} sử dụng
+    \texttt{UUID}, \texttt{NOT NULL}, tham chiếu đến
+    \texttt{orders(order\_id)}.
+
+    \item \textbf{Mã cuộn phim:}
+    \texttt{roll\_code} sử dụng \texttt{VARCHAR(50)} để nhận diện
+    từng cuộn phim. Có thể đặt \texttt{UNIQUE} nếu quy tắc nghiệp vụ
+    yêu cầu mã cuộn duy nhất trong toàn hệ thống.
+
+    \item \textbf{Loại phim:}
+    \texttt{film\_type} sử dụng \texttt{VARCHAR(50)}.
+
+    \item \textbf{Số frame:}
+    \texttt{frame\_count} sử dụng \texttt{INTEGER}, cho phép
+    \texttt{NULL} khi chưa xác định và nếu có giá trị thì phải lớn
+    hơn hoặc bằng 0.
+
+    \item \textbf{Thời gian xử lý:}
+    \texttt{received\_at} và \texttt{scan\_completed\_at} sử dụng
+    \texttt{TIMESTAMPTZ} và cho phép \texttt{NULL} trước khi các mốc
+    xử lý tương ứng xảy ra.
+
+    \item \textbf{Trạng thái:}
+    \texttt{status} sử dụng \texttt{VARCHAR(30)} và được kiểm soát
+    bằng \texttt{CHECK} theo miền trạng thái đã thống nhất.
+
+    \item \textbf{Chỉ mục:} Tạo chỉ mục B-tree trên
+    \texttt{order\_id} để truy vấn nhanh các cuộn phim thuộc một đơn
+    hàng. Tạo thêm chỉ mục trên
+    \texttt{(status, updated\_at)} để hỗ trợ màn hình tracking quá
+    trình xử lý.
+
+\end{itemize}
+
+
+\subsection{Thiết kế vật lý bảng \texttt{processing\_stages}}
+
+Bảng \texttt{processing\_stages} là bảng danh mục mô tả các công đoạn
+xử lý phim.
+
+\begin{itemize}
+
+    \item \textbf{Khóa chính:}
+    \texttt{processing\_stage\_id} sử dụng \texttt{UUID}.
+
+    \item \textbf{Mã công đoạn:}
+    \texttt{stage\_code} sử dụng \texttt{VARCHAR(50)}, bắt buộc
+    \texttt{NOT NULL} và có ràng buộc \texttt{UNIQUE}.
+
+    \item \textbf{Tên công đoạn:}
+    \texttt{stage\_name} sử dụng \texttt{VARCHAR(100)} và không được
+    rỗng.
+
+    \item \textbf{Thứ tự công đoạn:}
+    \texttt{stage\_order} sử dụng \texttt{INTEGER} và phải lớn hơn 0.
+
+    \item \textbf{Trạng thái hoạt động:}
+    \texttt{is\_active} sử dụng \texttt{BOOLEAN} để cho phép tạm
+    ngừng một công đoạn mà không xóa dữ liệu lịch sử.
+
+    \item \textbf{Chỉ mục:} Ngoài chỉ mục tự động của khóa chính và
+    \texttt{stage\_code}, có thể tạo chỉ mục trên
+    \texttt{stage\_order} để lấy danh sách công đoạn theo đúng thứ tự.
+
+\end{itemize}
+
+
+\subsection{Thiết kế vật lý bảng \texttt{stage\_logs}}
+
+Bảng \texttt{stage\_logs} ghi nhận lịch sử xử lý của từng cuộn phim
+tại từng công đoạn.
+
+\begin{itemize}
+
+    \item \textbf{Khóa chính:}
+    \texttt{stage\_log\_id} sử dụng \texttt{UUID}.
+
+    \item \textbf{Khóa ngoại:}
+    \texttt{film\_roll\_id} tham chiếu
+    \texttt{film\_rolls(film\_roll\_id)};
+    \texttt{processing\_stage\_id} tham chiếu
+    \texttt{processing\_stages(processing\_stage\_id)};
+    \texttt{operator\_id} tham chiếu
+    \texttt{users(user\_id)} và có thể nhận \texttt{NULL}.
+
+    \item \textbf{Trạng thái:}
+    \texttt{status} sử dụng \texttt{VARCHAR(30)} và được kiểm soát
+    bằng \texttt{CHECK}.
+
+    \item \textbf{Mốc thời gian:}
+    \texttt{started\_at} và \texttt{completed\_at} sử dụng
+    \texttt{TIMESTAMPTZ}. Nếu cả hai cùng có giá trị thì
+    \texttt{completed\_at} phải lớn hơn hoặc bằng
+    \texttt{started\_at}.
+
+    \item \textbf{Toàn vẹn lịch sử:} Không sử dụng
+    \texttt{ON DELETE CASCADE} từ \texttt{film\_rolls} hoặc
+    \texttt{processing\_stages} sang lịch sử xử lý nếu điều đó làm
+    mất khả năng truy vết.
+
+    \item \textbf{Chỉ mục:} Tạo chỉ mục trên
+    \texttt{film\_roll\_id} và kết hợp
+    \texttt{(film\_roll\_id, created\_at)} để hiển thị timeline xử lý
+    của một cuộn phim.
+
+    \item Có thể tạo thêm chỉ mục trên
+    \texttt{processing\_stage\_id} khi hệ thống thường xuyên truy vấn
+    lịch sử theo từng công đoạn.
+
+\end{itemize}
+
+
+\subsection{Thiết kế vật lý bảng \texttt{order\_status\_history}}
+
+Bảng \texttt{order\_status\_history} lưu toàn bộ lịch sử thay đổi
+trạng thái của đơn hàng. Bảng này giúp hệ thống theo dõi chính xác
+đơn hàng đã đi qua những trạng thái nào và thời điểm thay đổi.
+
+\begin{itemize}
+
+    \item \textbf{Khóa chính:}
+    \texttt{order\_status\_history\_id} sử dụng \texttt{UUID}.
+
+    \item \textbf{Khóa ngoại:}
+    \texttt{order\_id} tham chiếu
+    \texttt{orders(order\_id)} và
+    \texttt{changed\_by} tham chiếu
+    \texttt{users(user\_id)}.
+
+    \item \textbf{Trạng thái cũ và mới:}
+    \texttt{old\_status} sử dụng \texttt{VARCHAR(30)} và có thể
+    \texttt{NULL} đối với bản ghi đầu tiên;
+    \texttt{new\_status} sử dụng \texttt{VARCHAR(30)} và không được
+    rỗng.
+
+    \item \textbf{Thời điểm thay đổi:}
+    \texttt{changed\_at} sử dụng \texttt{TIMESTAMPTZ} và không được
+    rỗng.
+
+    \item \textbf{Toàn vẹn lịch sử:} Ưu tiên
+    \texttt{ON DELETE RESTRICT} đối với \texttt{order\_id} nhằm
+    tránh xóa lịch sử khi order vẫn còn dữ liệu liên quan.
+
+    \item \textbf{Chỉ mục quan trọng nhất:}
+    tạo chỉ mục kết hợp
+    \texttt{(order\_id, changed\_at DESC)}. Đây là chỉ mục phục vụ
+    trực tiếp chức năng tracking lịch sử trạng thái của một order.
+
+    \item Có thể tạo thêm chỉ mục trên
+    \texttt{changed\_by} nếu thường xuyên cần truy vấn lịch sử theo
+    người thực hiện.
+
+\end{itemize}
+
+
+\subsection{Thiết kế vật lý bảng \texttt{pickup\_delivery\_requests}}
+
+Bảng \texttt{pickup\_delivery\_requests} quản lý các yêu cầu nhận
+hoặc giao phim liên quan đến một đơn hàng.
+
+\begin{itemize}
+
+    \item \textbf{Khóa chính:}
+    \texttt{request\_id} sử dụng \texttt{UUID}.
+
+    \item \textbf{Khóa ngoại:}
+    \texttt{order\_id} sử dụng \texttt{UUID}, bắt buộc
+    \texttt{NOT NULL}, tham chiếu đến
+    \texttt{orders(order\_id)}.
+
+    \item \textbf{Loại yêu cầu:}
+    \texttt{request\_type} sử dụng \texttt{VARCHAR(20)} và chỉ
+    nhận các giá trị \texttt{pickup} hoặc \texttt{delivery}.
+
+    \item \textbf{Trạng thái:}
+    \texttt{status} sử dụng \texttt{VARCHAR(30)} và được kiểm soát
+    bằng \texttt{CHECK}.
+
+    \item \textbf{Địa chỉ:}
+    \texttt{pickup\_address} và \texttt{delivery\_address} sử dụng
+    \texttt{TEXT} và có thể rỗng tùy theo loại yêu cầu.
+
+    \item \textbf{Thời gian:}
+    \texttt{requested\_at}, \texttt{completed\_at},
+    \texttt{created\_at} và \texttt{updated\_at} sử dụng
+    \texttt{TIMESTAMPTZ}.
+
+    \item \textbf{Ràng buộc nghiệp vụ:} Nếu
+    \texttt{request\_type = 'pickup'} thì
+    \texttt{pickup\_address} phải tồn tại; nếu
+    \texttt{request\_type = 'delivery'} thì
+    \texttt{delivery\_address} phải tồn tại. Khi
+    \texttt{completed\_at} có giá trị thì phải lớn hơn hoặc bằng
+    \texttt{requested\_at}.
+
+    \item \textbf{Chỉ mục:} Tạo chỉ mục kết hợp
+    \texttt{(order\_id, status)} để hỗ trợ truy vấn trạng thái
+    yêu cầu nhận/giao của một đơn hàng.
+
+    \item Có thể tạo thêm chỉ mục
+    \texttt{(status, requested\_at)} để hỗ trợ màn hình quản lý các
+    yêu cầu đang chờ xử lý theo thời gian.
+
+\end{itemize}
+
+
+\subsection{Chiến lược chỉ mục và tối ưu truy vấn cho P3}
+
+P3 có workload chủ yếu phục vụ chức năng tracking theo thời gian
+thực. Vì vậy chỉ mục được ưu tiên cho các trường thường xuyên xuất
+hiện trong điều kiện \texttt{WHERE}, \texttt{JOIN} và sắp xếp theo
+thời gian.
+
+Các chỉ mục quan trọng gồm:
+
+\begin{itemize}
+
+    \item \texttt{orders(customer\_id)}: truy vấn danh sách đơn hàng
+    của một khách hàng.
+
+    \item \texttt{orders(lab\_id)}: truy vấn các đơn hàng thuộc một
+    Film Lab.
+
+    \item \texttt{orders(status, created\_at)}: lọc đơn hàng theo
+    trạng thái và thời gian tạo.
+
+    \item \texttt{film\_rolls(order\_id)}: tìm toàn bộ cuộn phim
+    thuộc một đơn hàng.
+
+    \item \texttt{film\_rolls(status, updated\_at)}: hỗ trợ màn hình
+    tracking các cuộn phim đang được xử lý.
+
+    \item \texttt{stage\_logs(film\_roll\_id, created\_at)}:
+    lấy timeline xử lý của một cuộn phim.
+
+    \item \texttt{order\_status\_history(order\_id, changed\_at DESC)}:
+    lấy nhanh lịch sử trạng thái theo thứ tự mới nhất.
+
+    \item \texttt{pickup\_delivery\_requests(order\_id, status)}:
+    theo dõi yêu cầu nhận/giao của một đơn hàng.
+
+\end{itemize}
+
+Không tạo quá nhiều chỉ mục trên các bảng có tần suất ghi cao như
+\texttt{stage\_logs} và \texttt{order\_status\_history}, vì mỗi lần
+INSERT phải cập nhật thêm các cấu trúc chỉ mục. Do đó chỉ giữ các chỉ
+mục phục vụ trực tiếp các truy vấn tracking quan trọng.
+
+
+\subsection{Toàn vẹn tham chiếu và chính sách xóa P3}
+
+Các bảng lịch sử của P3 phải ưu tiên bảo toàn dữ liệu. Vì vậy các khóa
+ngoại quan trọng tham chiếu đến \texttt{orders},
+\texttt{film\_rolls}, \texttt{processing\_stages} và
+\texttt{users} không nên sử dụng cascade delete nếu việc đó có thể làm
+mất dữ liệu lịch sử.
+
+Đối với \texttt{orders}, khi đơn hàng đã phát sinh dữ liệu xử lý,
+không nên cho phép xóa vật lý trực tiếp. Thay vào đó, hệ thống có thể
+sử dụng trạng thái hoặc cơ chế soft delete phù hợp với thiết kế chung.
+
+Đối với \texttt{order\_status\_history} và \texttt{stage\_logs}, dữ
+liệu phải được giữ lại để phục vụ kiểm toán và truy vết quá trình xử lý.
+
+
+\subsection{Minh họa DDL cho P3}
+
+Các câu lệnh dưới đây minh họa một số ràng buộc và chỉ mục quan trọng
+của P3 trên PostgreSQL:
+
+\begin{lstlisting}[caption={Minh họa DDL cho các bảng và chỉ mục quan trọng của P3}]
+
+CREATE TABLE film_rolls (
+    film_roll_id UUID PRIMARY KEY,
+    order_id UUID NOT NULL
+        REFERENCES orders(order_id)
+        ON DELETE RESTRICT,
+    roll_code VARCHAR(50) NOT NULL,
+    film_type VARCHAR(50) NOT NULL,
+    frame_count INTEGER
+        CHECK (frame_count >= 0),
+    received_at TIMESTAMPTZ,
+    scan_completed_at TIMESTAMPTZ,
+    status VARCHAR(30) NOT NULL,
+    note TEXT,
+    created_at TIMESTAMPTZ NOT NULL
+        DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL
+        DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE processing_stages (
+    processing_stage_id UUID PRIMARY KEY,
+    stage_code VARCHAR(50) NOT NULL UNIQUE,
+    stage_name VARCHAR(100) NOT NULL,
+    stage_order INTEGER NOT NULL
+        CHECK (stage_order > 0),
+    description TEXT,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL
+        DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL
+        DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE stage_logs (
+    stage_log_id UUID PRIMARY KEY,
+    film_roll_id UUID NOT NULL
+        REFERENCES film_rolls(film_roll_id)
+        ON DELETE RESTRICT,
+    processing_stage_id UUID NOT NULL
+        REFERENCES processing_stages(processing_stage_id)
+        ON DELETE RESTRICT,
+    status VARCHAR(30) NOT NULL,
+    started_at TIMESTAMPTZ,
+    completed_at TIMESTAMPTZ,
+    operator_id UUID
+        REFERENCES users(user_id)
+        ON DELETE RESTRICT,
+    note TEXT,
+    created_at TIMESTAMPTZ NOT NULL
+        DEFAULT CURRENT_TIMESTAMP,
+    CHECK (
+        completed_at IS NULL
+        OR started_at IS NULL
+        OR completed_at >= started_at
+    )
+);
+
+CREATE TABLE order_status_history (
+    order_status_history_id UUID PRIMARY KEY,
+    order_id UUID NOT NULL
+        REFERENCES orders(order_id)
+        ON DELETE RESTRICT,
+    old_status VARCHAR(30),
+    new_status VARCHAR(30) NOT NULL,
+    changed_by UUID
+        REFERENCES users(user_id)
+        ON DELETE RESTRICT,
+    changed_at TIMESTAMPTZ NOT NULL
+        DEFAULT CURRENT_TIMESTAMP,
+    note TEXT
+);
+
+CREATE TABLE pickup_delivery_requests (
+    request_id UUID PRIMARY KEY,
+    order_id UUID NOT NULL
+        REFERENCES orders(order_id)
+        ON DELETE RESTRICT,
+    request_type VARCHAR(20) NOT NULL
+        CHECK (request_type IN ('pickup', 'delivery')),
+    status VARCHAR(30) NOT NULL,
+    pickup_address TEXT,
+    delivery_address TEXT,
+    requested_at TIMESTAMPTZ NOT NULL
+        DEFAULT CURRENT_TIMESTAMP,
+    completed_at TIMESTAMPTZ,
+    note TEXT,
+    created_at TIMESTAMPTZ NOT NULL
+        DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL
+        DEFAULT CURRENT_TIMESTAMP,
+    CHECK (
+        completed_at IS NULL
+        OR completed_at >= requested_at
+    ),
+    CHECK (
+        (request_type = 'pickup'
+            AND pickup_address IS NOT NULL)
+        OR
+        (request_type = 'delivery'
+            AND delivery_address IS NOT NULL)
+    )
+);
+
+CREATE INDEX idx_orders_customer_id
+    ON orders(customer_id);
+
+CREATE INDEX idx_orders_lab_status_created
+    ON orders(lab_id, status, created_at DESC);
+
+CREATE INDEX idx_film_rolls_order_id
+    ON film_rolls(order_id);
+
+CREATE INDEX idx_film_rolls_status_updated
+    ON film_rolls(status, updated_at DESC);
+
+CREATE INDEX idx_stage_logs_roll_created
+    ON stage_logs(film_roll_id, created_at DESC);
+
+CREATE INDEX idx_order_status_history_order_changed
+    ON order_status_history(order_id, changed_at DESC);
+
+CREATE INDEX idx_pickup_delivery_order_status
+    ON pickup_delivery_requests(order_id, status);
+
+\end{lstlisting}
+
+
+\subsection{Điểm tích hợp P3 với P4}
+
+P3 và P4 liên kết thông qua \texttt{film\_rolls.film\_roll\_id}.
+
+Khi cuộn phim hoàn thành công đoạn scan, P4 có thể sử dụng
+\texttt{film\_roll\_id} để liên kết với bảng
+\texttt{scan\_files}. P3 không lưu lại đường dẫn file ảnh hoặc dữ liệu
+ảnh nhằm tránh trùng lặp dữ liệu giữa hai module.
+
+Việc xác nhận tên khóa và cardinality chính xác giữa
+\texttt{film\_rolls} và \texttt{scan\_files} cần được cross-review
+với P4 trước khi triển khai SQL chính thức.
 \section{Thiết kế vật lý cho module P4}
 
 Module P4 gồm hai nhóm dữ liệu chính là Kho ảnh phim số và Chợ giao dịch.
