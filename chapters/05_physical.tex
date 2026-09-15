@@ -835,3 +835,151 @@ Bảng \texttt{ai\_chat\_log} quản lý lịch sử tương tác giữa ngườ
     \end{itemize}
     \item \textbf{Chiến lược chỉ mục:} Thiết lập chỉ mục B-tree trên \texttt{user\_id} và \texttt{created\_at} nhằm tải lại giao diện lịch sử hội thoại của người dùng theo thứ tự thời gian một cách nhanh chóng.
 \end{itemize}
+
+\section{SQL triển khai module P4}
+
+Phần này trình bày các câu lệnh SQL cơ bản để triển khai
+Kho lưu trữ ảnh phim số và Chợ giao dịch của module P4.
+
+\subsection{Kho lưu trữ ảnh phim số}
+
+\begin{verbatim}
+CREATE TABLE film_stocks (
+    film_stock_id UUID PRIMARY KEY,
+    brand VARCHAR(100) NOT NULL,
+    stock_name VARCHAR(150) NOT NULL,
+    iso INTEGER NOT NULL CHECK (iso > 0),
+    film_format VARCHAR(50) NOT NULL,
+    film_type VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE camera_models (
+    camera_model_id UUID PRIMARY KEY,
+    brand VARCHAR(100) NOT NULL,
+    model_name VARCHAR(150) NOT NULL,
+    camera_type VARCHAR(50),
+    film_format VARCHAR(50)
+);
+
+CREATE TABLE lenses (
+    lens_id UUID PRIMARY KEY,
+    brand VARCHAR(100) NOT NULL,
+    model_name VARCHAR(150) NOT NULL,
+    focal_length VARCHAR(100),
+    max_aperture VARCHAR(50),
+    mount_type VARCHAR(50)
+);
+\end{verbatim}
+
+\begin{verbatim}
+CREATE TABLE scan_files (
+    scan_file_id UUID PRIMARY KEY,
+    film_roll_id UUID NOT NULL REFERENCES film_rolls(film_roll_id),
+    storage_url TEXT NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
+    file_format VARCHAR(20) NOT NULL,
+    file_size BIGINT NOT NULL CHECK (file_size >= 0),
+    status VARCHAR(20) NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE albums (
+    album_id UUID PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES users(user_id),
+    album_name VARCHAR(150) NOT NULL,
+    description TEXT,
+    visibility VARCHAR(20) NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE tags (
+    tag_id UUID PRIMARY KEY,
+    tag_name VARCHAR(100) UNIQUE NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+\end{verbatim}
+
+\begin{verbatim}
+CREATE TABLE photo_metadata (
+    photo_metadata_id UUID PRIMARY KEY,
+    scan_file_id UUID UNIQUE NOT NULL
+        REFERENCES scan_files(scan_file_id),
+    film_stock_id UUID REFERENCES film_stocks(film_stock_id),
+    camera_model_id UUID REFERENCES camera_models(camera_model_id),
+    lens_id UUID REFERENCES lenses(lens_id),
+    shooting_date DATE,
+    scan_resolution VARCHAR(100),
+    location TEXT,
+    notes TEXT
+);
+
+CREATE TABLE album_photos (
+    album_id UUID NOT NULL REFERENCES albums(album_id),
+    scan_file_id UUID NOT NULL REFERENCES scan_files(scan_file_id),
+    display_order INTEGER NOT NULL CHECK (display_order >= 0),
+    added_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (album_id, scan_file_id)
+);
+
+CREATE TABLE photo_tags (
+    scan_file_id UUID NOT NULL REFERENCES scan_files(scan_file_id),
+    tag_id UUID NOT NULL REFERENCES tags(tag_id),
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (scan_file_id, tag_id)
+);
+\end{verbatim}
+
+\subsection{Chợ giao dịch}
+
+\begin{verbatim}
+CREATE TABLE product_categories (
+    product_category_id UUID PRIMARY KEY,
+    category_name VARCHAR(150) NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE products (
+    product_id UUID PRIMARY KEY,
+    product_category_id UUID NOT NULL
+        REFERENCES product_categories(product_category_id),
+    product_name VARCHAR(150) NOT NULL,
+    brand VARCHAR(100),
+    model_name VARCHAR(150),
+    condition VARCHAR(50) NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE listings (
+    listing_id UUID PRIMARY KEY,
+    product_id UUID NOT NULL REFERENCES products(product_id),
+    seller_id UUID NOT NULL REFERENCES users(user_id),
+    title VARCHAR(200) NOT NULL,
+    price NUMERIC(12,2) NOT NULL CHECK (price >= 0),
+    status VARCHAR(20) NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE marketplace_transactions (
+    marketplace_transaction_id UUID PRIMARY KEY,
+    listing_id UUID UNIQUE NOT NULL REFERENCES listings(listing_id),
+    buyer_id UUID NOT NULL REFERENCES users(user_id),
+    agreed_price NUMERIC(12,2) NOT NULL CHECK (agreed_price >= 0),
+    status VARCHAR(20) NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE seller_reviews (
+    seller_review_id UUID PRIMARY KEY,
+    marketplace_transaction_id UUID UNIQUE NOT NULL
+        REFERENCES marketplace_transactions(marketplace_transaction_id),
+    reviewer_id UUID NOT NULL REFERENCES users(user_id),
+    seller_id UUID NOT NULL REFERENCES users(user_id),
+    rating INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    comment TEXT,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+\end{verbatim}
