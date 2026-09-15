@@ -410,6 +410,91 @@ giữa các module.
 % ============================================================
 % KẾT THÚC P2
 % ============================================================
+
+% =========================================================
+% P3 - Quản lý cuộn phim và quá trình xử lý
+% =========================================================
+
+\section{P3 -- Quản lý cuộn phim và quá trình xử lý}
+
+P3 quản lý các cuộn phim được gửi đến Film Lab và quá trình xử lý
+của từng cuộn phim. Module này liên kết phần đơn hàng với kho ảnh số,
+giúp hệ thống theo dõi cuộn phim từ khi tiếp nhận cho đến khi tạo ra
+các file ảnh scan.
+
+\subsection{Các thực thể của P3}
+
+\subsubsection{FILM\_ROLL -- Cuộn phim}
+
+Thực thể \texttt{FILM\_ROLL} đại diện cho một cuộn phim được khách hàng
+gửi đến Film Lab để xử lý.
+
+\begin{itemize}
+    \item \texttt{film\_roll\_id}: Khóa chính, định danh duy nhất cho cuộn phim.
+    \item \texttt{order\_item\_id}: Tham chiếu hạng mục đơn hàng chứa cuộn phim.
+    \item \texttt{roll\_code}: Mã nhận diện cuộn phim.
+    \item \texttt{status}: Trạng thái hiện tại của cuộn phim.
+    \item \texttt{received\_at}: Thời điểm Film Lab tiếp nhận cuộn phim.
+    \item \texttt{created\_at}: Thời điểm bản ghi cuộn phim được tạo.
+\end{itemize}
+
+\subsubsection{PROCESSING\_STAGE -- Giai đoạn xử lý}
+
+Thực thể \texttt{PROCESSING\_STAGE} dùng để lưu các bước xử lý
+mà một cuộn phim trải qua tại Film Lab.
+
+\begin{itemize}
+    \item \texttt{processing\_stage\_id}: Khóa chính của giai đoạn xử lý.
+    \item \texttt{film\_roll\_id}: Tham chiếu cuộn phim được xử lý.
+    \item \texttt{stage\_name}: Tên giai đoạn, ví dụ tiếp nhận, tráng phim,
+    scan hoặc hoàn thành.
+    \item \texttt{status}: Trạng thái của giai đoạn xử lý.
+    \item \texttt{started\_at}: Thời điểm bắt đầu giai đoạn.
+    \item \texttt{completed\_at}: Thời điểm hoàn thành giai đoạn.
+    \item \texttt{notes}: Ghi chú trong quá trình xử lý.
+\end{itemize}
+
+\subsection{Các mối quan hệ của P3}
+
+\begin{itemize}
+    \item \textbf{\texttt{ORDER\_ITEM} -- \texttt{FILM\_ROLL}:}
+    Một hạng mục đơn hàng có thể liên quan đến nhiều cuộn phim,
+    nhưng mỗi cuộn phim chỉ thuộc một hạng mục đơn hàng.
+    Quan hệ có lực lượng là một--nhiều (1--N).
+
+    \item \textbf{\texttt{FILM\_ROLL} -- \texttt{PROCESSING\_STAGE}:}
+    Một cuộn phim có thể trải qua nhiều giai đoạn xử lý,
+    trong khi mỗi giai đoạn xử lý chỉ thuộc về một cuộn phim.
+    Quan hệ có lực lượng là một--nhiều (1--N).
+
+    \item \textbf{\texttt{FILM\_ROLL} -- \texttt{SCAN\_FILE}:}
+    Một cuộn phim có thể tạo ra nhiều file scan,
+    nhưng mỗi file scan chỉ thuộc về một cuộn phim.
+    Đây là quan hệ một--nhiều (1--N) giữa P3 và P4.
+\end{itemize}
+
+\subsection{Vai trò của P3 trong mô hình tổng thể}
+
+P3 đóng vai trò trung gian giữa quản lý đơn hàng và kho lưu trữ ảnh số.
+
+Thông qua \texttt{order\_item\_id}, hệ thống có thể xác định cuộn phim
+thuộc đơn hàng nào. Sau khi cuộn phim được xử lý và scan,
+P4 sử dụng \texttt{film\_roll\_id} để liên kết các file ảnh số
+với cuộn phim gốc.
+
+Chuỗi liên kết chính của hệ thống là:
+
+\[
+\texttt{ORDER\_ITEM}
+\rightarrow
+\texttt{FILM\_ROLL}
+\rightarrow
+\texttt{SCAN\_FILE}
+\]
+
+Nhờ đó, hệ thống có thể truy ngược từ ảnh scan về cuộn phim
+và đơn hàng ban đầu của khách hàng.
+
 % ============================================================
 % P4 - Digital Film Archive & Marketplace
 % ============================================================
