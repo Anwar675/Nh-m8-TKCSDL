@@ -11,21 +11,29 @@ Trên cơ sở đó, các thực thể được chia thành những nhóm: ngư�
 
 \begin{itemize}
     \item Xác định tác nhân, yêu cầu dữ liệu, quy tắc nghiệp vụ và các mối quan hệ quan trọng của hệ thống.
-    \item Xây dựng sơ đồ tổng quan cùng ERD chi tiết cho các module đã hoàn thiện, qua đó thể hiện thực thể, khóa và cardinality.
-    \item Chuyển các thực thể cốt lõi và module P4 thành lược đồ quan hệ; giải quyết quan hệ nhiều--nhiều bằng bảng trung gian và kiểm tra chuẩn hóa đến 3NF.
+    \item Đồng bộ phạm vi P1--P5 ở Chương 2--3, lập danh mục thực thể, bảng cardinality và sơ đồ truy vết Order--Processing--Archive theo mô hình hiện tại. ERD tổng thể cuối cùng vẫn cần hoàn thiện sau khi bổ sung các quan hệ còn thiếu.
+    \item Đồng bộ 36 bảng hiện có giữa mô hình logic, DDL và từ điển dữ liệu: 11 bảng Core, 5 bảng P3, 14 bảng P4 và 6 bảng P5. Bảng dùng chung chỉ định nghĩa một lần trong từng chương; phân tích khóa ứng viên và các giới hạn chuẩn hóa còn tồn tại.
     \item Đề xuất định hướng thiết kế vật lý trên PostgreSQL về kiểu dữ liệu, ràng buộc, chỉ mục, audit, soft-delete, multi-tenant và lưu trữ file scan.
-    \item Xây dựng Data Dictionary cho Core Domain P1 và phần Knowledge/AI, làm cơ sở thống nhất tên thuộc tính, miền dữ liệu và ràng buộc.
+    \item Xây dựng Data Dictionary cho toàn bộ 36 bảng đã mô hình hóa, gồm cả P3 và nhật ký hội thoại AI; thống nhất UUID, TIMESTAMPTZ, NULL, audit và FK. Các yêu cầu chưa có mô hình bảng vẫn cần bổ sung riêng.
 \end{itemize}
 
 \section{Đánh giá thiết kế}
 
+Phần Core Domain P1 đã bổ sung phụ thuộc hàm và khóa ứng viên cho các
+quan hệ lõi, ràng buộc chọn đúng một dịch vụ hoặc một gói trên mỗi hạng
+mục và audit chung cho cả bảng nối. Subtotal và total amount được tính
+từ giá, số lượng, phí và giảm giá đã chốt thay vì lưu lặp trong orders.
+Nội dung gói đã được đặt được bảo toàn để giữ khả năng truy vết.
+Các quy tắc giao dịch và kiểm tra liên bảng đã được đặc tả; việc triển
+khai, kiểm thử trigger và tích hợp đầy đủ các module vẫn cần hoàn thiện.
+
 Thiết kế bảo đảm khả năng truy vết dữ liệu từ người dùng, Film Lab và đơn hàng đến quá trình xử lý và kho ảnh số. RBAC hỗ trợ một người dùng có nhiều vai trò; phạm vi tenant được nhận diện thông qua Film Lab; lịch sử nghiệp vụ quan trọng được giữ lại thay vì xóa cứng. Giá dịch vụ tại thời điểm đặt được lưu như một snapshot, giúp đơn hàng không bị thay đổi khi danh mục giá được cập nhật.
 
-Việc tách file ảnh khỏi cơ sở dữ liệu và chỉ lưu URI, checksum cùng metadata phù hợp với đặc điểm dữ liệu scan có dung lượng lớn. Các nhóm dữ liệu hành vi, tri thức và hội thoại cũng tạo nền tảng để mở rộng recommendation, semantic search và trợ lý RAG trong tương lai.
+Việc tách file ảnh khỏi cơ sở dữ liệu và lưu URI cùng metadata phù hợp với đặc điểm dữ liệu scan có dung lượng lớn; checksum và versioning chưa có trong mô hình hiện tại. Các nhóm dữ liệu hành vi, tri thức và hội thoại tạo nền tảng để mở rộng recommendation, semantic search và trợ lý RAG trong tương lai.
 
 \section{Hạn chế}
 
-Báo cáo hiện tập trung vào thiết kế lý thuyết và chưa triển khai schema trên PostgreSQL, dữ liệu mẫu hoặc đánh giá hiệu năng thực tế. Một số module vẫn cần được hoàn thiện đồng đều ở cả ERD, lược đồ quan hệ và Data Dictionary, đặc biệt là vòng đời Order/Processing cùng các quan hệ tích hợp Logistics, Payment và Notification. Các giả định về trạng thái nghiệp vụ, chính sách lưu trữ và quyền truy cập cũng cần được kiểm chứng với người dùng thực tế.
+Báo cáo hiện tập trung vào thiết kế và DDL, chưa kiểm thử schema trên PostgreSQL, dữ liệu mẫu hoặc hiệu năng thực tế. Cần bổ sung phạm vi P2, ánh xạ hạng mục vào cuộn phim, versioning scan và các quan hệ Logistics, Payment, Notification, nguồn tri thức/AI. Chuỗi tags và bộ đếm view\_count của articles còn cần xử lý trước khi kết luận chuẩn hóa toàn phần. Trigger liên bảng, quyền truy cập và các miền trạng thái chưa chốt vẫn cần triển khai, kiểm chứng; việc 36 bảng có định nghĩa nhất quán chưa có nghĩa toàn bộ yêu cầu đã hoàn thành.
 
 \section{Hướng phát triển}
 

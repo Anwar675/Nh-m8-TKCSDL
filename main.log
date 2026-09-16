@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.8.15)  13 SEP 2026 12:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.8.15)  16 SEP 2026 16:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1079,8 +1079,8 @@ l.24
       [1
 
 ]) (main.toc [2]
-LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 3
-5.
+LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 4
+2.
 
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmtt.fd
 File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
@@ -1100,7 +1100,23 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[4])
+[4]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[5]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[6])
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
@@ -1112,9 +1128,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[5] (chapters/01_introduction.tex
+[7] (chapters/01_introduction.tex
 Ch\uhorn \ohorn ng 1.
-[6
+[8
 
 
 ]
@@ -1125,25 +1141,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[7]) (chapters/02_requirement.tex
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[8]
-Ch\uhorn \ohorn ng 2.
-[9
-
-]
-Overfull \hbox (5.68202pt too wide) in paragraph at lines 21--22
-[]\T5/cmr/bx/n/12 Order/Processing: \T5/cmtt/m/n/12 orders\T5/cmr/m/n/12 , \T5/
-cmtt/m/n/12 order_items\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 film_rolls\T5/cmr/m/n/1
-2 , \T5/cmtt/m/n/12 processing_stages\T5/cmr/m/n/12 ,
- []
-
+[9]) (chapters/02_requirement.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1152,14 +1150,34 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [10]
+Ch\uhorn \ohorn ng 2.
+[11
 
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+]
+Overfull \hbox (2.32445pt too wide) in paragraph at lines 21--21
+[]|\T5/cmr/bx/n/12 Ph¦n| 
+ []
 
-[11]
+
+Underfull \hbox (badness 2435) in paragraph at lines 24--25
+\T5/cmr/m/n/12 Lab/Service/Package v  Or-der/Order Item;
+ []
+
+
+Underfull \hbox (badness 2376) in paragraph at lines 25--25
+[]|\T5/cmr/m/n/12 Ng÷íi dòng v  vªn
+ []
+
+
+Underfull \hbox (badness 1286) in paragraph at lines 26--26
+[]|\T5/cmr/m/n/12 ^^^ìn h ng v  xû lþ
+ []
+
+
+Underfull \hbox (badness 1308) in paragraph at lines 27--27
+[]|\T5/cmr/m/n/12 Kho £nh sè v  chñ
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1184,28 +1202,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [14]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[15]) (chapters/03_conceptual.tex
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[16]
-Ch\uhorn \ohorn ng 3.
-ignored error: Infinite glue shrinkage found in box being split [17
-
-]
-Overfull \hbox (10.14838pt too wide) in paragraph at lines 58--59
- [][] 
+Overfull \hbox (9.49068pt too wide) in paragraph at lines 81--82
+[]\T5/cmr/m/n/12 Thi¸t k¸ pay-ment_transactions, de-liv-ery_partners, no-ti-fi-
+ca-tions v  ad-min_logs;
  []
 
 
@@ -1215,9 +1214,47 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[18]
-LaTeX Font Info:    Font shape `T5/cmtt/bx/n' in size <12> not available
-(Font)              Font shape `T5/cmtt/m/n' tried instead on input line 88.
+[15]
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[16]) (chapters/03_conceptual.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[17]
+Ch\uhorn \ohorn ng 3.
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--16
+[]|\T5/cmr/m/n/12 P1 --
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 18--19
+[]|\T5/cmr/m/n/12 film_rolls, pro-cess-ing_stages, stage_logs, or-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 20--21
+[]|\T5/cmr/m/n/12 products, prod-uct_categories, list-ings, mar-ket-
+ []
+
+ignored error: Infinite glue shrinkage found in box being split [18
+
+]
+Overfull \hbox (10.81844pt too wide) in paragraph at lines 25--26
+[]\T5/cmr/m/n/12 P2 cán ph£i thi¸t k¸ c¡c ph¦n mð rëng user_profiles, ad-dresse
+s, user_preferences,
+ []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1227,6 +1264,23 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [19]
+Overfull \hbox (33.24603pt too wide) in paragraph at lines 54--55
+[]\T5/cmr/m/n/12 orders dòng or-der_id, cus-tomer_id, lab_id, or-der_code, sta-
+tus, ful-fill-ment_method,
+ []
+
+
+Overfull \hbox (12.6232pt too wide) in paragraph at lines 54--55
+\T5/cmr/m/n/12 ser-vice_id ho°c pack-age_id, quan-tity, unit_price, ser-vice_op
+tions v  item_note. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 67--67
+[]|\T5/cmr/m/n/12 service_packages --
+ []
+
+ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1243,9 +1297,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [21]
-Overfull \hbox (10.06578pt too wide) in paragraph at lines 204--206
-[]\T5/cmtt/m/n/12 lab_id\T5/cmr/m/n/12 : M¢ Film Lab cung c§p dàch vö, l  khâa 
-ngo¤i tham chi¸u ^^_¸n \T5/cmtt/m/n/12 film_labs\T5/cmr/m/n/12 . 
+Overfull \hbox (5.11818pt too wide) in paragraph at lines 85--86
+[]\T5/cmr/m/n/12 processing_stages: danh möc cæng ^^_o¤n gçm pro-cess-ing_stage
+_id, stage_code,
  []
 
 
@@ -1256,8 +1310,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [22]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 288.
+Overfull \hbox (24.69682pt too wide) in paragraph at lines 121--122
+[]\T5/cmr/m/n/12 scan_files câ 0--1 photo_metadata; méi meta-data thuëc ^^_óng 
+mët file, scan_file_id
+ []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1275,6 +1331,31 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [24]
+Underfull \hbox (badness 10000) in paragraph at lines 151--151
+[]|\T5/cmr/m/n/12 ARTICLE / AR-TI-
+ []
+
+
+Overfull \hbox (1.46982pt too wide) in paragraph at lines 152--152
+[]|\T5/cmr/m/n/12 COMMUNITY_EVENT
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--153
+[]|\T5/cmr/m/n/12 USER_INTERACTION
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 154--154
+[]|\T5/cmr/m/n/12 AI_CHAT_LOG /
+ []
+
+
+Overfull \hbox (31.5423pt too wide) in paragraph at lines 159--160
+\T5/cmr/m/n/12 scores, com-ments, ^^_«ng kþ sü ki»n, de-liv-ery_partners, no-ti
+-fi-ca-tions, pay-ment_transactions
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1282,13 +1363,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[25]
-<figures/ERD_P4.png, id=639, 2427.0675pt x 2519.4125pt>
-File: figures/ERD_P4.png Graphic file (type png)
-<use figures/ERD_P4.png>
-Package pdftex.def Info: figures/ERD_P4.png  used on input line 557.
-(pdftex.def)             Requested size: 426.79135pt x 443.01817pt.
-
+[25]) (chapters/04_logical.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1297,52 +1372,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [26]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[27 <./figures/ERD_P4.png>]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[28
-
-]
-<figures/ERD_P5.png, id=656, 1206.5075pt x 581.17125pt>
-File: figures/ERD_P5.png Graphic file (type png)
-<use figures/ERD_P5.png>
-Package pdftex.def Info: figures/ERD_P5.png  used on input line 584.
-(pdftex.def)             Requested size: 405.45047pt x 195.29881pt.
-) (chapters/04_logical.tex
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[29 <./figures/ERD_P5.png>]
 Ch\uhorn \ohorn ng 4.
-
-Overfull \hbox (28.08269pt too wide) in alignment at lines 17--21
- [] [] [] [] 
- []
-
-
-Overfull \hbox (28.08269pt too wide) in alignment at lines 21--79
- [] [] [] [] 
- []
-
-ignored error: Infinite glue shrinkage found in box being split [30
+[27
 
 ]
+LaTeX Font Info:    Font shape `T5/cmtt/bx/n' in size <14.4> not available
+(Font)              Font shape `T5/cmtt/m/n' tried instead on input line 29.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[28]
 ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1351,10 +1395,32 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
+[29]
+Overfull \hbox (0.3348pt too wide) in paragraph at lines 169--170
+[]\T5/cmr/m/n/12 CHECK: \T5/cmtt/m/n/12 status IN ('pending', 'approved', 'susp
+ended', 'closed')\T5/cmr/m/n/12 . 
+ []
+
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[30]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
 [31]
-Overfull \hbox (75.65393pt too wide) in paragraph at lines 90--91
-[]\T5/cmtt/m/n/12 order_items.unit_price \T5/cmr/m/n/12 l  snap-shot gi¡, khæng
- tü cªp nhªt khi \T5/cmtt/m/n/12 lab_services.base_price
+Overfull \hbox (21.76569pt too wide) in paragraph at lines 279--280
+[]\T5/cmr/m/n/12 CHECK: \T5/cmtt/m/n/12 status IN ('pending', 'confirmed', 'rec
+eived', 'processing',
  []
 
 
@@ -1365,46 +1431,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [32]
-Overfull \hbox (28.08267pt too wide) in alignment at lines 111--115
- [] [] [] [] 
- []
-
-
-Overfull \hbox (25.74913pt too wide) in paragraph at lines 120--121
-\T5/cmr/m/n/8 film_rolls.film_roll_id; 
- []
-
-
-Overfull \hbox (3.90794pt too wide) in paragraph at lines 164--164
-\T5/cmtt/m/n/8 product_category_id|  
- []
-
-
-Overfull \hbox (3.90794pt too wide) in paragraph at lines 169--169
-\T5/cmtt/m/n/8 product_category_id|  
- []
-
-
-Overfull \hbox (36.01122pt too wide) in paragraph at lines 179--179
-\T5/cmtt/m/n/8 marketplace_transaction_id\T5/cmr/m/n/8 ; 
- []
-
-
-Overfull \hbox (36.01122pt too wide) in paragraph at lines 184--184
-\T5/cmtt/m/n/8 marketplace_transaction_id\T5/cmr/m/n/8 , 
- []
-
-
-Overfull \hbox (20.54901pt too wide) in paragraph at lines 185--186
-\T5/cmr/m/n/8 place_transaction_id; 
- []
-
-
-Overfull \hbox (28.08267pt too wide) in alignment at lines 115--188
- [] [] [] [] 
- []
-
-ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1422,23 +1448,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [34]
-Overfull \hbox (74.31677pt too wide) in paragraph at lines 201--206
-[]\T5/cmtt/m/n/12 products.product_category_id \T5/cmr/m/n/12 tham chi¸u \T5/cm
-tt/m/n/12 product_categories.product_category_id\T5/cmr/m/n/12 ;
- []
-
-
-Overfull \hbox (15.19234pt too wide) in paragraph at lines 201--206
-\T5/cmtt/m/n/12 listings.product_id \T5/cmr/m/n/12 tham chi¸u \T5/cmtt/m/n/12 p
-roducts.product_id\T5/cmr/m/n/12 . \T5/cmtt/m/n/12 listings.seller_id
- []
-
-
-Overfull \hbox (231.5645pt too wide) in paragraph at lines 206--210
-[]\T5/cmtt/m/n/12 seller_reviews.marketplace_transaction_id \T5/cmr/m/n/12 tham
- chi¸u \T5/cmtt/m/n/12 marketplace_transactions.marketplace_transaction_id
- []
-
+ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1447,17 +1457,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [35]
-Overfull \hbox (26.40897pt too wide) in paragraph at lines 218--222
-[]\T5/cmtt/m/n/12 scan_file_id \T5/cmr/m/n/12 x¡c ^^_ành c¡c thuëc t½nh cán l¤i
- cõa \T5/cmtt/m/n/12 scan_files\T5/cmr/m/n/12 ; \T5/cmtt/m/n/12 photo_metadata_
-id
+Overfull \hbox (9.4187pt too wide) in paragraph at lines 439--440
+[]\T5/cmr/m/n/12 CHECK: \T5/cmtt/m/n/12 completed_at IS NULL OR started_at IS N
+ULL OR completed_at
  []
 
 
-Overfull \hbox (17.90344pt too wide) in paragraph at lines 222--230
-\T5/cmtt/m/n/12 added_at\T5/cmr/m/n/12 . Trong \T5/cmtt/m/n/12 photo_tags\T5/cm
-r/m/n/12 , c°p (\T5/cmtt/m/n/12 scan_file_id\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 ta
-g_id\T5/cmr/m/n/12 ) x¡c ^^_ành \T5/cmtt/m/n/12 created_at\T5/cmr/m/n/12 . 
+Overfull \hbox (46.45966pt too wide) in paragraph at lines 465--466
+[]\T5/cmr/m/n/12 CHECK: \T5/cmtt/m/n/12 old_status IN ('pending', 'confirmed', 
+'received', 'processing',
+ []
+
+
+Overfull \hbox (46.45966pt too wide) in paragraph at lines 466--467
+[]\T5/cmr/m/n/12 CHECK: \T5/cmtt/m/n/12 new_status IN ('pending', 'confirmed', 
+'received', 'processing',
  []
 
 
@@ -1468,16 +1482,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [36]
-Overfull \hbox (110.76067pt too wide) in paragraph at lines 262--267
-[]\T5/cmr/m/n/12 Méi \T5/cmtt/m/n/12 scan_files \T5/cmr/m/n/12 thuëc ^^_óng mët
- cuën phim. \T5/cmtt/m/n/12 film_roll_id \T5/cmr/m/n/12 tham chi¸u \T5/cmtt/m/n
-/12 film_rolls.film_roll_id\T5/cmr/m/n/12 .
- []
-
-
-Overfull \hbox (7.02496pt too wide) in paragraph at lines 267--270
-[]\T5/cmr/m/n/12 Méi scan file câ tèi ^^_a mët meta-data. UNIQUE \T5/cmtt/m/n/1
-2 photo_metadata.scan_file_id
+Overfull \hbox (55.61777pt too wide) detected at line 520
+[] \OMS/cmsy/m/n/12 ! [] ! [] ! [] ! [] ! [] ! []
  []
 
 
@@ -1488,24 +1494,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [37]
-Overfull \hbox (9.07419pt too wide) in paragraph at lines 300--302
-[]\T5/cmr/bx/n/12 ARTICLE\T5/cmr/m/n/12 ($[]$, \T5/cmr/m/it/12 au-thor_id\T5/cm
-r/m/n/12 , \T5/cmr/m/it/12 cat-e-gory_id\T5/cmr/m/n/12 , ti-tle, con-tent, tags
-, view_count,
- []
-
-
-Overfull \hbox (37.18448pt too wide) in paragraph at lines 303--304
-[]\T5/cmr/m/n/12 Khoa ngoai: cat-e-gory_id tham chieu den AR-TI-CLE_CATEGORY(ca
-tegory_id) 
- []
-
-
-Overfull \hbox (38.36145pt too wide) in paragraph at lines 318--320
-[]\T5/cmr/bx/n/12 AI_CHAT_LOG\T5/cmr/m/n/12 ($[]$, \T5/cmr/m/it/12 user_id\T5/c
-mr/m/n/12 , user_query, bot_response, con-text_retrieved,
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1514,18 +1502,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [38]
-Overfull \hbox (17.78885pt too wide) in paragraph at lines 329--330
-[]\T5/cmr/m/n/12 ARTICLE: ar-ti-cle_id $\OMS/cmsy/m/n/12 !$ \T5/cmr/m/n/12 au-t
-hor_id, cat-e-gory_id, ti-tle, con-tent, tags, view_count,
- []
-
-
-Overfull \hbox (37.63957pt too wide) in paragraph at lines 333--334
-[]\T5/cmr/m/n/12 AI_CHAT_LOG: chat_id $\OMS/cmsy/m/n/12 !$ \T5/cmr/m/n/12 user_
-id, user_query, bot_response, con-text_retrieved,
- []
-
-) (chapters/05_physical.tex
+ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1542,19 +1519,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [40]
-Ch\uhorn \ohorn ng 5.
+ignored error: Infinite glue shrinkage found in box being split
 
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 12.
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[41
-
-]
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 35.
-LaTeX Font Info:    Font shape `T5/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T5/cmtt/m/n' tried instead on input line 36.
-
+[41]
+ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1563,12 +1537,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [42]
-Overfull \hbox (43.0301pt too wide) in paragraph at lines 86--92
-[]\T5/cmr/m/n/12 B£ng \T5/cmtt/m/n/12 photo_metadata \T5/cmr/m/n/12 dòng \T5/cm
-tt/m/n/12 photo_metadata_id UUID \T5/cmr/m/n/12 l m khâa ch½nh. \T5/cmtt/m/n/12
- scan_file_id
- []
-
+ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1577,38 +1546,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [43]
-Overfull \hbox (16.75735pt too wide) in paragraph at lines 116--120
-[]\T5/cmr/m/n/12 B£ng \T5/cmtt/m/n/12 products \T5/cmr/m/n/12 dòng \T5/cmtt/m/n
-/12 product_id UUID \T5/cmr/m/n/12 l m khâa ch½nh v  \T5/cmtt/m/n/12 product_ca
-tegory_id
- []
-
-
-Overfull \hbox (20.94312pt too wide) in paragraph at lines 121--126
-\T5/cmr/m/n/12 chi¸u s£n ph©m v  \T5/cmtt/m/n/12 seller_id \T5/cmr/m/n/12 tham 
-chi¸u \T5/cmtt/m/n/12 users.user_id\T5/cmr/m/n/12 . Gi¡ b¡n dòng \T5/cmtt/m/n/1
-2 NUMERIC(12,2)
- []
-
-
-Overfull \hbox (15.17572pt too wide) in paragraph at lines 127--133
-[]\T5/cmr/m/n/12 B£ng \T5/cmtt/m/n/12 marketplace_transactions \T5/cmr/m/n/12 s
-û döng \T5/cmtt/m/n/12 marketplace_transaction_id UUID
- []
-
-
-Overfull \hbox (19.3817pt too wide) in paragraph at lines 134--141
-\T5/cmr/m/n/12 dàch câ tèi ^^_a mët ^^_¡nh gi¡. \T5/cmtt/m/n/12 reviewer_id \T5
-/cmr/m/n/12 v  \T5/cmtt/m/n/12 seller_id \T5/cmr/m/n/12 ^^_·u tham chi¸u \T5/cm
-tt/m/n/12 users.user_id\T5/cmr/m/n/12 .
- []
-
-
-Overfull \hbox (0.9625pt too wide) in paragraph at lines 155--159
-[]\T5/cmr/m/n/12 ^^^èi vîi Kho £nh sè, ch¿ möc tr¶n \T5/cmtt/m/n/12 scan_files.
-film_roll_id\T5/cmr/m/n/12 , \T5/cmtt/m/n/12 albums.user_id
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1625,12 +1562,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [45]
-Overfull \hbox (29.6053pt too wide) in paragraph at lines 195--196
-[]\T5/cmtt/m/n/12 created_at\T5/cmr/m/n/12 : Sû döng \T5/cmtt/m/n/12 TIMESTAMPT
-Z \T5/cmr/m/n/12 vîi gi¡ trà m°c ^^_ành l  \T5/cmtt/m/n/12 CURRENT_TIMESTAMP\T5
-/cmr/m/n/12 . 
- []
-
+ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1639,26 +1571,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [46]
-Overfull \hbox (71.76787pt too wide) in paragraph at lines 209--210
-[]\T5/cmtt/m/n/12 category_id \T5/cmr/m/n/12 (\T5/cmtt/m/n/12 UUID\T5/cmr/m/n/1
-2 , \T5/cmtt/m/n/12 NOT NULL\T5/cmr/m/n/12 ): Tham chi¸u ^^_¸n \T5/cmtt/m/n/12 
-article_categories(category_id)\T5/cmr/m/n/12 .
+Overfull \hbox (9.4187pt too wide) in paragraph at lines 1002--1003
+[]\T5/cmr/m/n/12 CHECK: \T5/cmtt/m/n/12 interaction_type IN ('view', 'like', 's
+earch', 'bookmark',
  []
 
-
-Overfull \hbox (18.7572pt too wide) in paragraph at lines 217--218
-[]\T5/cmtt/m/n/12 status\T5/cmr/m/n/12 : Dòng \T5/cmtt/m/n/12 VARCHAR(20) \T5/c
-mr/m/n/12 m°c ^^_ành \T5/cmtt/m/n/12 'published'\T5/cmr/m/n/12 , ¡p döng \T5/cm
-tt/m/n/12 CHECK (status
- []
-
-
-Overfull \hbox (32.11221pt too wide) in paragraph at lines 218--219
-[]\T5/cmtt/m/n/12 created_at \T5/cmr/m/n/12 v  \T5/cmtt/m/n/12 updated_at\T5/cm
-r/m/n/12 : Kiºu \T5/cmtt/m/n/12 TIMESTAMPTZ\T5/cmr/m/n/12 , m°c ^^_ành \T5/cmtt
-/m/n/12 CURRENT_TIMESTAMP\T5/cmr/m/n/12 .
- []
-
+ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1667,12 +1585,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [47]
-Overfull \hbox (30.82791pt too wide) in paragraph at lines 237--238
-[]\T5/cmtt/m/n/12 lab_id \T5/cmr/m/n/12 (\T5/cmtt/m/n/12 UUID\T5/cmr/m/n/12 , \
-T5/cmtt/m/n/12 NOT NULL\T5/cmr/m/n/12 ): Tham chi¸u ^^_¸n b£ng pháng lab \T5/cm
-tt/m/n/12 film_labs(lab_id)
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1688,7 +1600,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[49]
+[49]) (chapters/05_physical.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1696,184 +1608,22 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[50]) (chapters/06_datadictionary.tex
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[51]
-Ch\uhorn \ohorn ng 6.
-
-Overfull \hbox (8.16628pt too wide) in alignment at lines 11--16
- [] [] [] [] 
- []
-
-
-Overfull \hbox (8.16628pt too wide) in alignment at lines 16--21
- [] [] [] [] 
- []
-
-
-Overfull \hbox (8.16628pt too wide) in alignment at lines 21--23
- [] [] [] [] 
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 32--32
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 33--33
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 34--34
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 42--42
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 50--50
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 56--56
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 73--73
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 74--74
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 75--75
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 76--76
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (0.72665pt too wide) in paragraph at lines 85--85
-[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
- []
-
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 85.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 85.
-
-Overfull \hbox (4.31169pt too wide) in paragraph at lines 86--86
-[]|\T5/cmtt/m/n/10 turnaround_hours|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 88--88
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 89--89
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (0.72665pt too wide) in paragraph at lines 98--98
-[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 100--100
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 101--101
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (14.80913pt too wide) in paragraph at lines 116--116
-[]|\T5/cmtt/m/n/10 fulfillment_method|  
- []
-
-
-Overfull \hbox (0.72665pt too wide) in paragraph at lines 117--117
-[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
- []
-
-
-Overfull \hbox (0.72665pt too wide) in paragraph at lines 118--118
-[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
- []
-
-
-Overfull \hbox (0.72665pt too wide) in paragraph at lines 119--119
-[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
- []
-
-
-Overfull \hbox (0.72665pt too wide) in paragraph at lines 120--120
-[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
- []
-
-
-Overfull \hbox (25.30656pt too wide) in paragraph at lines 122--122
-[]|\T5/cmtt/m/n/10 special_instructions|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 123--123
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 124--124
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 125--125
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (0.72665pt too wide) in paragraph at lines 134--134
-[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 137--137
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (8.16628pt too wide) in alignment at lines 23--139
- [] [] [] [] 
- []
-
-ignored error: Infinite glue shrinkage found in box being split [52
+[50]
+Ch\uhorn \ohorn ng 5.
+[51
 
 ]
-ignored error: Infinite glue shrinkage found in box being split
+LaTeX Font Info:    Font shape `T5/cmtt/bx/n' in size <8> not available
+(Font)              Font shape `T5/cmtt/m/n' tried instead on input line 30.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[52]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1882,7 +1632,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [53]
-ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1891,7 +1640,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [54]
-ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1908,141 +1656,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [56]
-Overfull \hbox (8.16628pt too wide) in alignment at lines 160--168
- [] [] [] [] 
- []
-
-
-Overfull \hbox (8.16628pt too wide) in alignment at lines 168--175
- [] [] [] [] 
- []
-
-
-Overfull \hbox (8.16628pt too wide) in alignment at lines 175--178
- [] [] [] [] 
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 193--193
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 194--194
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (20.05785pt too wide) in paragraph at lines 200--200
-[]|\T5/cmtt/m/n/10 photo\_metadata\_id|  
- []
-
-
-Overfull \hbox (9.56041pt too wide) in paragraph at lines 203--203
-[]|\T5/cmtt/m/n/10 camera\_model\_id|  
- []
-
-
-Overfull \hbox (4.31169pt too wide) in paragraph at lines 206--206
-[]|\T5/cmtt/m/n/10 scan\_resolution|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 219--219
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 220--220
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 229--229
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 237--237
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 245--245
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (9.56041pt too wide) in paragraph at lines 262--262
-[]|\T5/cmtt/m/n/10 camera\_model\_id|  
- []
-
-
-Overfull \hbox (30.55528pt too wide) in paragraph at lines 287--287
-[]|\T5/cmtt/m/n/10 product\_category\_id|  
- []
-
-
-Overfull \hbox (30.55528pt too wide) in paragraph at lines 296--296
-[]|\T5/cmtt/m/n/10 product\_category\_id|  
- []
-
-
-Overfull \hbox (0.72665pt too wide) in paragraph at lines 311--311
-[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 313--313
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 314--314
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (67.29631pt too wide) in paragraph at lines 320--320
-[]|\T5/cmtt/m/n/10 marketplace\_transaction\_id|  
- []
-
-
-Overfull \hbox (0.72665pt too wide) in paragraph at lines 323--323
-[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 325--325
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 326--326
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (14.80913pt too wide) in paragraph at lines 332--332
-[]|\T5/cmtt/m/n/10 seller\_review\_id|  
- []
-
-
-Overfull \hbox (67.29631pt too wide) in paragraph at lines 333--333
-[]|\T5/cmtt/m/n/10 marketplace\_transaction\_id|  
- []
-
-
-Overfull \hbox (1.55978pt too wide) in paragraph at lines 338--338
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (8.16628pt too wide) in alignment at lines 178--340
- [] [] [] [] 
- []
-
-ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -2051,7 +1664,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [57]
-ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -2060,7 +1672,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [58]
-ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -2077,43 +1688,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [60]
-LaTeX Font Info:    Font shape `T5/cmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `T5/cmtt/m/n' tried instead on input line 371.
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 381--381
-[]|\T5/cmr/m/n/10 VARCHAR(255)| 
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 383--383
-[]|\T5/cmr/m/n/10 VARCHAR(255)| 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 385--385
-[]|\T5/cmr/m/n/10 Default 'pub-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 385--385
-[]|\T5/cmr/m/n/10 Tr¤ng th¡i (draft, pub-lished,
- []
-
-
-Overfull \hbox (1.62988pt too wide) in paragraph at lines 375--390
- [][] 
- []
-
-
-Underfull \hbox (badness 3417) in paragraph at lines 404--404
-[]|\T5/cmr/m/n/10 H nh ^^_ëng (view, like, search,
- []
-
-
-Overfull \hbox (1.62988pt too wide) in paragraph at lines 397--408
- [][] 
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -2122,61 +1696,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [61]
-Overfull \hbox (9.14835pt too wide) in paragraph at lines 418--418
-[]|\T5/cmr/m/n/10.95 VARCHAR(100)| 
- []
-
-
-Overfull \hbox (32.92809pt too wide) in paragraph at lines 414--423
- [][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 435--435
-[]|\T5/cmr/m/n/10.95 Tham chi¸u ^^_¸n ar-ti-
- []
-
-
-Overfull \hbox (9.14835pt too wide) in paragraph at lines 436--436
-[]|\T5/cmr/m/n/10.95 VARCHAR(255)| 
- []
-
-
-Overfull \hbox (9.14835pt too wide) in paragraph at lines 438--438
-[]|\T5/cmr/m/n/10.95 VARCHAR(255)| 
- []
-
-
-Overfull \hbox (3.6747pt too wide) in paragraph at lines 440--440
-[]|\T5/cmr/m/n/10.95 VARCHAR(20)| 
- []
-
-
-Overfull \hbox (32.92809pt too wide) in paragraph at lines 430--445
- [][] 
- []
-
-
-Overfull \hbox (32.92809pt too wide) in paragraph at lines 452--463
- [][] 
- []
-
-
-Overfull \hbox (9.14835pt too wide) in paragraph at lines 475--475
-[]|\T5/cmr/m/n/10.95 VARCHAR(255)| 
- []
-
-
-Overfull \hbox (9.14835pt too wide) in paragraph at lines 477--477
-[]|\T5/cmr/m/n/10.95 VARCHAR(255)| 
- []
-
-
-Overfull \hbox (32.92809pt too wide) in paragraph at lines 470--483
- [][] 
- []
-
-) (chapters/07_conclusion.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -2193,8 +1712,871 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [63]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[64]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[65]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[66]) (chapters/06_datadictionary.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[67]
+Ch\uhorn \ohorn ng 6.
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 35--35
+[]|\T5/cmr/m/n/10 VARCHAR(255)|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 36--36
+[]|\T5/cmr/m/n/10 VARCHAR(255)|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 37--37
+[]|\T5/cmr/m/n/10 VARCHAR(150)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 40--40
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 41--41
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 42--42
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+[68
+
+]
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 59--59
+[]|\T5/cmr/m/n/10 VARCHAR(100)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 61--61
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 62--62
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[69]
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 78--78
+[]|\T5/cmr/m/n/10 VARCHAR(100)|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 79--79
+[]|\T5/cmr/m/n/10 VARCHAR(150)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 81--81
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 82--82
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 99--99
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 101--101
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 102--102
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[70]
+Overfull \hbox (15.44542pt too wide) in paragraph at lines 118--118
+\T5/cmtt/m/n/10 permissions.permission_ 
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 119--119
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 120--120
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 137--137
+[]|\T5/cmr/m/n/10 VARCHAR(150)|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 138--138
+[]|\T5/cmr/m/n/10 VARCHAR(255)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 142--142
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 143--143
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 144--144
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 145--145
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[71]
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 163--163
+[]|\T5/cmr/m/n/10 VARCHAR(150)|  
+ []
+
+
+Overfull \hbox (3.5721pt too wide) in paragraph at lines 165--165
+[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 168--168
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 169--169
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[72]
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 187--187
+[]|\T5/cmr/m/n/10 VARCHAR(150)|  
+ []
+
+
+Overfull \hbox (3.5721pt too wide) in paragraph at lines 189--189
+[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 191--191
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 192--192
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[73]
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 210--210
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 211--211
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (3.5721pt too wide) in paragraph at lines 232--232
+[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
+ []
+
+
+Overfull \hbox (3.5721pt too wide) in paragraph at lines 233--233
+[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 236--236
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 237--237
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 238--238
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[74]
+Overfull \hbox (3.5721pt too wide) in paragraph at lines 258--258
+[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 261--261
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 262--262
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[75]
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 283--283
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 284--284
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 287--287
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 288--288
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[76]
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 305--305
+[]|\T5/cmr/m/n/10 VARCHAR(100)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 309--309
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 310--310
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 329--329
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 330--330
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 333--333
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 334--334
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[77]
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 354--354
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 356--356
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 357--357
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[78]
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 378--378
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 379--379
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 381--381
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 382--382
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[79]
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 401--401
+[]|\T5/cmr/m/n/10 VARCHAR(255)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 405--405
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 406--406
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[80]
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 423--423
+[]|\T5/cmr/m/n/10 VARCHAR(150)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 426--426
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 427--427
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 445--445
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 446--446
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 447--447
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[81]
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 463--463
+[]|\T5/cmr/m/n/10 VARCHAR(100)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 464--464
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 465--465
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 482--482
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 483--483
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[82]
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 499--499
+[]|\T5/cmr/m/n/10 VARCHAR(100)|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 500--500
+[]|\T5/cmr/m/n/10 VARCHAR(150)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 504--504
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 505--505
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 521--521
+[]|\T5/cmr/m/n/10 VARCHAR(100)|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 522--522
+[]|\T5/cmr/m/n/10 VARCHAR(150)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 525--525
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 526--526
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[83]
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 542--542
+[]|\T5/cmr/m/n/10 VARCHAR(100)|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 543--543
+[]|\T5/cmr/m/n/10 VARCHAR(150)|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 544--544
+[]|\T5/cmr/m/n/10 VARCHAR(100)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 547--547
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 548--548
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 569--569
+[]|\T5/cmr/m/n/10 VARCHAR(100)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 572--572
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 573--573
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[84]
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 589--589
+[]|\T5/cmr/m/n/10 VARCHAR(150)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 591--591
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 592--592
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[85]
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 609--609
+[]|\T5/cmr/m/n/10 VARCHAR(150)|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 610--610
+[]|\T5/cmr/m/n/10 VARCHAR(100)|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 611--611
+[]|\T5/cmr/m/n/10 VARCHAR(150)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 614--614
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 615--615
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 633--633
+[]|\T5/cmr/m/n/10 VARCHAR(200)|  
+ []
+
+
+Overfull \hbox (3.5721pt too wide) in paragraph at lines 634--634
+[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 636--636
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 637--637
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[86]
+Overfull \hbox (3.5721pt too wide) in paragraph at lines 655--655
+[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 657--657
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 658--658
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[87]
+Overfull \hbox (25.94286pt too wide) in paragraph at lines 674--674
+\T5/cmtt/m/n/10 transactions.marketplace_ 
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 679--679
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 680--680
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 697--697
+[]|\T5/cmr/m/n/10 VARCHAR(100)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 699--699
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 700--700
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[88]
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 718--718
+[]|\T5/cmr/m/n/10 VARCHAR(255)|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 720--720
+[]|\T5/cmr/m/n/10 VARCHAR(255)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 723--723
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 724--724
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[89]
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 744--744
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 745--745
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 762--762
+[]|\T5/cmr/m/n/10 VARCHAR(255)|  
+ []
+
+
+Overfull \hbox (2.18355pt too wide) in paragraph at lines 764--764
+[]|\T5/cmr/m/n/10 VARCHAR(255)|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 765--765
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 767--767
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 768--768
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[90]
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 788--788
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 789--789
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[91]
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 809--809
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+
+Overfull \hbox (4.40523pt too wide) in paragraph at lines 810--810
+[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
+ []
+
+) (chapters/07_conclusion.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[92]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 17.97171pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+
+[93]
 Ch\uhorn \ohorn ng 7.
-[64
+[94
 
 ]
 
@@ -2204,7 +2586,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[65])
+[95])
 No file main.bbl.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2213,52 +2595,41 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
-[66] (main.aux)
+[96] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 3B8CA1E8A9F904CE203CCB1DCF88C3B0;27101
-(rerunfilecheck)             After:  5787E59C42FB775ED5A75547BCC52FB1;27352.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 34A9C2A02C9E2CA86A92730CC5AB2E3F;53088.
  ) 
 Here is how much of TeX's memory you used:
- 26645 strings out of 467871
- 510018 string characters out of 5418376
- 1286882 words of memory out of 5000000
- 54813 multiletter control sequences out of 15000+600000
- 651510 words of font info for 77 fonts, out of 8000000 for 9000
+ 27716 strings out of 467871
+ 526046 string characters out of 5418376
+ 1483882 words of memory out of 5000000
+ 55219 multiletter control sequences out of 15000+600000
+ 645696 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 112i,12n,113p,738b,2214s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 112i,12n,113p,738b,2011s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\admin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
 1200.pk><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmmi10.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/type1/publ
-ic/amsfonts/cm/cmr10.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/ty
-pe1/public/amsfonts/cm/cmsy10.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX
-/fonts/type1/vntex/vnr/vnbx10.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX
-/fonts/type1/vntex/vnr/vnbx12.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX
-/fonts/type1/vntex/vnr/vnbx8.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/
-fonts/type1/vntex/vnr/vnr10.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/f
-onts/type1/vntex/vnr/vnr12.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fo
-nts/type1/vntex/vnr/vnr6.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/font
-s/type1/vntex/vnr/vnr8.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/
-type1/vntex/vnr/vnti10.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/
-type1/vntex/vnr/vnti12.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/
-type1/vntex/vnr/vntt10.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/
-type1/vntex/vnr/vntt12.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/
-type1/vntex/vnr/vntt8.pfb>
-Output written on main.pdf (67 pages, 682497 bytes).
+ts/cm/cmex10.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/amsfonts/cm/cmmi12.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/t
+ype1/public/amsfonts/cm/cmmi8.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX
+/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/admin/AppData/Local/Program
+s/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/admin/AppData/Local/
+Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/admin/AppDa
+ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/adm
+in/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnbx12.pfb><C:/Users/adm
+in/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr10.pfb><C:/Users/admi
+n/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr12.pfb><C:/Users/admin
+/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr6.pfb><C:/Users/admin/A
+ppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt10.pfb><C:/Users/admin/A
+ppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt12.pfb><C:/Users/admin/A
+ppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt8.pfb>
+Output written on main.pdf (97 pages, 663887 bytes).
 PDF statistics:
- 1016 PDF objects out of 1200 (max. 8388607)
- 255 named destinations out of 1000 (max. 500000)
- 815 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2266 PDF objects out of 2487 (max. 8388607)
+ 924 named destinations out of 1000 (max. 500000)
+ 1445 words of extra memory for PDF output out of 10000 (max. 10000000)
 
