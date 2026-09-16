@@ -1,333 +1,108 @@
-\chapter{PHÂN TÍCH YÊU CẦU}
+﻿\chapter{PHÂN TÍCH YÊU CẦU}
 
 \section{Tác nhân và các luồng nghiệp vụ cốt lõi}
-
-Hệ thống gồm Photographer/Customer, Film Lab Owner, Photography Expert, Delivery Partner và System Administrator. AI Assistant là thành phần hỗ trợ, truy cập dữ liệu theo quyền và ngữ cảnh của người dùng.
+Hệ thống phục vụ cộng đồng nhiếp ảnh phim và các Film Lab. Các tác nhân gồm khách hàng/người chụp ảnh, chủ Film Lab, chuyên gia nhiếp ảnh, đối tác giao nhận và quản trị viên. Một người dùng có thể có nhiều vai trò. Trợ lý AI sử dụng dữ liệu theo quyền của người dùng.
 
 \begin{enumerate}[label=\textbf{CF\arabic*:}]
-    \item \textbf{Khám phá Film Lab thông minh:} tìm và so sánh Lab theo vị trí, định dạng phim, dịch vụ, giá, thời gian xử lý và đánh giá.
-    \item \textbf{Đặt dịch vụ và nhận phim:} tạo đơn, chọn tùy chọn tráng/scan/in và hình thức tự giao hoặc yêu cầu lấy phim.
-    \item \textbf{Theo dõi vòng đời xử lý:} ghi nhận các bước tiếp nhận, tráng, rửa, sấy, scan, hậu kỳ và kiểm tra chất lượng.
-    \item \textbf{Giao file và kho phim số:} công bố file scan, thông báo cho khách và lưu metadata trong Digital Film Archive.
-    \item \textbf{Marketplace:} đăng tin, tìm kiếm, mua bán/trao đổi thiết bị, theo dõi giao dịch và đánh giá người bán.
-    \item \textbf{Tri thức và cộng đồng:} xuất bản bài viết, thảo luận, workshop/photowalk và tạo nguồn tri thức cho AI.
+\item \textbf{Khám phá Film Lab:} tìm và so sánh Lab theo vị trí, dịch vụ, giá, thời gian xử lý và đánh giá.
+\item \textbf{Đặt dịch vụ:} chọn dịch vụ lẻ hoặc gói, ghi tùy chọn, giá chốt và hình thức tự giao phim hoặc yêu cầu lấy phim.
+\item \textbf{Theo dõi xử lý:} tiếp nhận cuộn phim, theo dõi tráng, scan và các công đoạn liên quan, truy vết người thực hiện.
+\item \textbf{Giao file và kho ảnh số:} công bố file scan sau khi hoàn tất, thông báo khách hàng và tổ chức ảnh thành album, thẻ, metadata.
+\item \textbf{Giao dịch thiết bị:} đăng bán, tìm kiếm, mua thiết bị nhiếp ảnh phim, theo dõi giao dịch và đánh giá người bán.
+\item \textbf{Tri thức, cộng đồng và AI:} xuất bản hướng dẫn, tổ chức sự kiện, ghi nhận tương tác và hội thoại để hỗ trợ gợi ý, tra cứu.
 \end{enumerate}
 
-\section{Nhóm dữ liệu và thực thể trung tâm}
+Phạm vi đồ án là thiết kế dữ liệu, quan hệ và ràng buộc phục vụ các luồng trên, không triển khai giao diện hoặc mô hình AI. Thanh toán, vận chuyển, thông báo và nhu cầu trao đổi thiết bị vẫn thuộc yêu cầu tích hợp; các phần chưa được mô hình hóa được ghi nhận ở cuối chương.
 
+\section{Phân định phạm vi P1--P5}
+\label{sec:module-scope}
+\begin{longtable}{p{1cm}p{4cm}p{8.5cm}}
+\toprule
+\textbf{Phần} & \textbf{Trách nhiệm} & \textbf{Ranh giới và phối hợp} \\
+\midrule
+\endhead
+P1 & Core Domain và tích hợp & Sở hữu định nghĩa chung của User/RBAC, Lab/Service/Package và Order/Order Item; tổng hợp ERD, chuẩn hóa và Data Dictionary. \\
+P2 & Người dùng và vận hành Lab & Dùng lại Core; mở rộng hồ sơ, địa chỉ, sở thích, lịch làm việc, công suất, tùy chọn dịch vụ và quyền theo Lab; phối hợp P5 về đánh giá Lab. \\
+P3 & Đơn hàng và xử lý phim & Dùng lại orders/order\_items; quản lý cuộn phim, danh mục công đoạn, log xử lý, lịch sử trạng thái, yêu cầu nhận/giao; cung cấp cuộn phim cho P4. \\
+P4 & Kho ảnh số và chợ thiết bị & Quản lý scan, metadata, album, thẻ, thiết bị, tin đăng, giao dịch và đánh giá người bán; không tạo lại người dùng hoặc đơn dịch vụ Lab. \\
+P5 & Tri thức, AI và tích hợp & Quản lý bài viết, sự kiện, tương tác, hội thoại; thiết kế dữ liệu gợi ý/RAG, thanh toán, đối tác giao nhận, thông báo và kiểm toán theo phân công. \\
+\bottomrule
+\end{longtable}
+
+Một bảng xuất hiện ở nhiều phần chỉ thể hiện sử dụng chung, không phải các schema độc lập. P1 chốt thay đổi bảng Core, thành viên phụ trách nghiệp vụ cung cấp yêu cầu. Đánh giá Lab dùng lab\_reviews: P2 phụ trách yêu cầu nghiệp vụ, P5 hiện trình bày mô hình. Đánh giá người bán dùng seller\_reviews của P4. Không tạo thêm reviews/ratings trùng chức năng khi chưa có lý do nghiệp vụ.
+
+\section{Yêu cầu dữ liệu theo phân hệ}
+\subsection{P1 -- Core Domain}
 \begin{itemize}
-    \item \textbf{Identity/RBAC:} \entity{users}, \entity{roles}, \entity{permissions}, \entity{user_roles}.
-    \item \textbf{Lab/Catalog:} \entity{film_labs}, \entity{lab_services}, \entity{service_packages}, lịch làm việc và công suất.
-    \item \textbf{Order/Processing:} \entity{orders}, \entity{order_items}, \entity{film_rolls}, \entity{processing_stages}, lịch sử trạng thái và giao nhận.
-    \item \textbf{Archive:} file scan, metadata ảnh, album, tag, film stock, camera và lens.
-    \item \textbf{Marketplace:} product, category, listing, transaction và seller review.
-    \item \textbf{Knowledge/AI:} article, event, comment, behavior log, AI chat, recommendation và notification.
+\item Quản lý tài khoản, mật khẩu băm, trạng thái và quyền. Người dùng--vai trò và vai trò--quyền đều là N--N, thông qua user\_roles và role\_permissions.
+\item Mỗi Lab có một chủ sở hữu; một người có thể sở hữu nhiều Lab. Dịch vụ/gói thuộc đúng một Lab; các thành phần gói qua package\_services phải cùng Lab.
+\item Mỗi đơn thuộc một khách hàng và một Lab. Mỗi hạng mục chọn đúng một dịch vụ lẻ hoặc một gói. Đơn phải có hạng mục trước khi xác nhận.
+\item Tổng tạm tính bằng tổng quantity nhân unit\_price; tổng thanh toán cộng phí và trừ giảm giá, không âm. Giá gói được tính một lần, không cộng lại giá thành phần. Subtotal và total amount là dữ liệu dẫn xuất, không lưu trong orders.
+\item Cố định lựa chọn, giá, số lượng, tùy chọn, phí, giảm giá và đồng tiền sau xác nhận. Gói đã được đặt giữ nguyên thành phần; thay nội dung bằng gói mới. Giá danh mục thay đổi không làm đổi giá đã chốt.
 \end{itemize}
 
-\section{Quy tắc nghiệp vụ và toàn vẹn dữ liệu}
+\subsection{P2 -- Người dùng và vận hành Film Lab}
+\begin{itemize}
+\item Dùng users cho danh tính chung; quản lý hồ sơ, địa chỉ liên hệ và sở thích nhiếp ảnh bằng phần mở rộng P2. Không tự định nghĩa lại thuộc tính Core trong từng chương.
+\item Quản lý liên hệ, địa chỉ, phê duyệt Lab, danh mục dịch vụ, giá cơ sở, thời gian xử lý dự kiến và trạng thái mở bán.
+\item Quản lý lịch làm việc, công suất và tùy chọn dịch vụ phục vụ tìm kiếm và lựa chọn dịch vụ; các yêu cầu này còn cần mô hình chi tiết.
+\item Một người có nhiều vai trò. Quyền toàn hệ thống không tự cấp quyền trên mọi Lab; cần kiểm tra Lab sở hữu tài nguyên và thiết kế quyền nhân viên theo Lab.
+\item Đánh giá Lab gồm điểm và nhận xét sau trải nghiệm dịch vụ hợp lệ. P2/P5 cần thống nhất cách kiểm chứng đơn hoàn thành trước khi chốt FK từ lab\_reviews tới đơn.
+\end{itemize}
 
+\subsection{P3 -- Đơn hàng và quá trình xử lý phim}
+\begin{itemize}
+\item Quản lý mã cuộn phim, loại phim, số khung hình, thời điểm tiếp nhận, hoàn tất scan và trạng thái. Theo Chương 4--5 hiện tại, mỗi film\_rolls thuộc đúng một orders qua order\_id.
+\item Tách danh mục processing\_stages khỏi lần thực hiện stage\_logs. Mỗi log thuộc một cuộn phim và một công đoạn, ghi trạng thái, thời gian, người thực hiện, ghi chú; giữ được lịch sử xử lý lại.
+\item Mỗi lần đổi trạng thái đơn tạo order\_status\_history. Trạng thái hiện tại và lịch sử phải nhất quán.
+\item Một đơn có thể phát sinh nhiều pickup\_delivery\_requests; P3 quản lý yêu cầu nhận/giao, P5 quản lý đối tác vận chuyển.
+\item Truy vết scan\_files tới film\_rolls, orders rồi users qua customer\_id; không lưu lặp chủ ảnh trong cuộn phim.
+\end{itemize}
+Quan hệ xác định dịch vụ/hạng mục áp dụng cho từng cuộn phim vẫn cần P1/P3 hoàn thiện. Chưa chốt mỗi cuộn chỉ thuộc một order item, vì cùng cuộn có thể dùng nhiều dịch vụ. Không mô tả order\_item\_id như FK đã có trong film\_rolls.
+
+\subsection{P4 -- Kho ảnh số và chợ thiết bị}
+\begin{itemize}
+\item Mỗi file scan thuộc một cuộn phim. CSDL lưu URI, định dạng, kích thước, trạng thái và thời gian; ảnh thực tế nằm ngoài CSDL. Chỉ công bố khi scan hoàn tất và kiểm tra quyền truy cập.
+\item Mỗi file có tối đa một bộ metadata, có thể tham chiếu loại phim, mẫu máy, ống kính. Thông tin tiến độ xử lý lấy từ P3, không lưu lặp.
+\item Album--ảnh và ảnh--thẻ là N--N qua bảng trung gian. Kiểm tra quyền sử dụng ảnh trước khi thêm vào album.
+\item Bảo toàn file scan và thiết kế quản lý phiên bản khi scan lại; versioning chưa có mô hình chi tiết trong thiết kế hiện tại.
+\item Thiết bị được phân loại, đăng bán và giao dịch giữa người mua/người bán. Đơn dịch vụ Lab và giao dịch thiết bị không dùng chung orders.
+\item Theo giả định hiện tại của P4, một tin đăng có tối đa một giao dịch, kể cả giao dịch hủy; mỗi giao dịch có tối đa một đánh giá của người mua sau hoàn thành. Giả định này còn cần xác nhận khi review.
+\end{itemize}
+Ảnh sản phẩm, trao đổi thiết bị không dùng tiền và liên lạc giữa người mua/người bán là các nhu cầu đã nêu nhưng chưa có quan hệ tương ứng; không coi listings hiện tại đã bao phủ các nhu cầu này.
+
+\subsection{P5 -- Tri thức, AI và tích hợp}
+\begin{itemize}
+\item Quản lý bài viết/hướng dẫn theo tác giả và danh mục bằng articles và article\_categories. Hướng dẫn hiện được thể hiện bằng nội dung bài viết, chưa có tutorials riêng.
+\item Quản lý community\_events theo người tổ chức, thời gian, địa điểm và sức chứa. Bình luận, danh sách đăng ký cần quan hệ riêng, chưa nằm trong sáu quan hệ P5 hiện tại.
+\item Phối hợp P2 quản lý lab\_reviews; không nhầm với seller\_reviews hoặc bài viết đánh giá thiết bị.
+\item Ghi hành vi bằng user\_interactions và hội thoại bằng ai\_chat\_log theo tên hiện dùng ở Chương 5. Có log không đồng nghĩa đã triển khai mô hình gợi ý hay RAG.
+\item Thiết kế nguồn tri thức/chunk, metadata embedding, recommendation log và điểm chất lượng scan; bảo đảm truy vết nguồn, quyền sử dụng dữ liệu. Không trình bày huấn luyện AI như kết quả đã triển khai của đồ án CSDL.
+\item Thiết kế payment\_transactions, delivery\_partners, notifications và admin\_logs; phối hợp P1/P3/P4 về đối tượng tham chiếu, bảo toàn lịch sử và tránh ghi nhận trùng.
+\end{itemize}
+
+\section{Quy tắc chung và yêu cầu phi chức năng}
 \begin{enumerate}
-    \item Email người dùng là duy nhất; tài khoản bị khóa không được tạo đơn hoặc tin đăng mới.
-    \item Film Lab phải có chủ sở hữu hợp lệ; dịch vụ được đặt phải đang hoạt động và thuộc Lab nhận đơn.
-    \item Mỗi order item tham chiếu một dịch vụ; giá được chốt tại thời điểm đặt và không được âm.
-    \item Trạng thái đơn chỉ chuyển theo vòng đời cho phép; mọi lần chuyển phải lưu người thực hiện và thời điểm.
-    \item File scan chỉ được công bố sau khi scan hoàn tất và phải truy vết được cuộn phim, đơn hàng, chủ sở hữu.
-    \item Review chỉ được tạo sau đơn hoặc giao dịch hợp lệ; lịch sử, thanh toán và giao dịch không bị xóa cứng.
+\item Tên tiếng Anh, snake\_case, bảng số nhiều theo quy ước nhóm. Tên kế thừa chưa phù hợp phải đổi đồng bộ, không đổi riêng một chương.
+\item UUID cho thực thể nghiệp vụ chính; thời gian TIMESTAMPTZ theo UTC. Bảng nghiệp vụ có created\_at, updated\_at và deleted\_at khi cần soft-delete. Không xóa cứng đơn, thanh toán, lịch sử và file scan đã phát sinh nghiệp vụ.
+\item Kiểm soát PK, FK, UNIQUE, miền giá trị và ràng buộc liên bảng. JSON không thay thế quan hệ cần kiểm soát khóa.
+\item Kiểm tra tài khoản còn hoạt động, Lab được duyệt, dịch vụ/gói mở bán trước khi nhận đơn. Chuyển trạng thái phải theo nghiệp vụ, không chỉ kiểm tra tên trạng thái.
+\item Cô lập dữ liệu theo Lab, kiểm soát truy cập ảnh và dữ liệu cá nhân, hỗ trợ kiểm toán, sao lưu/khôi phục; thiết kế index cho tìm Lab, tracking và tìm kiếm tri thức.
 \end{enumerate}
 
-\section{Yêu cầu phi chức năng đối với cơ sở dữ liệu}
-
-Hệ thống cần bảo đảm toàn vẹn tham chiếu, RBAC, cô lập dữ liệu theo tenant, kết nối an toàn, audit, sao lưu/khôi phục và index cho tìm Lab, theo dõi đơn, tìm kiếm nội dung. Thời gian lưu theo UTC bằng \texttt{TIMESTAMPTZ}; file lớn nằm ngoài CSDL; dữ liệu AI phải truy vết được nguồn và người dùng liên quan.
-
-% P2 - User & Film Lab Management
-
-\subsection{User \& Film Lab Management}
-
-\subsubsection{User Management}
-
-The database must store and manage information about users participating
-in the FilmLab platform. The system supports multiple user roles, including
-Photographer/Customer, Film Lab Owner, Photography Expert, Delivery Partner,
-and System Administrator.
-
-The main user management requirements are:
-
-\begin{itemize}
-    \item Store basic user information such as full name, email address,
-    phone number, address, account status, and account creation time.
-    
-    \item Support user authentication and account management.
-    
-    \item Associate each user with an appropriate system role.
-    
-    \item Support role-based access control so that users can access
-    functions according to their assigned roles.
-    
-    \item Maintain the current status of each user account, such as active,
-    inactive, or suspended.
-    
-    \item Allow users to manage their personal profile information.
-\end{itemize}
-
-\subsubsection{Role and Permission Management}
-
-The database must support role-based management of system users. Each user
-is assigned a role that determines the functions and resources that the
-user is authorized to access.
-
-The main roles identified from the system requirements are:
-
-\begin{itemize}
-    \item Photographer / Customer.
-    \item Film Lab Owner.
-    \item Photography Expert.
-    \item Delivery Partner.
-    \item System Administrator.
-\end{itemize}
-
-The database should allow roles to be managed independently from user
-accounts so that role information can be maintained consistently.
-
-\subsubsection{Film Lab Management}
-
-The system must store information about Film Labs participating in the
-platform. A Film Lab represents a service provider that offers film
-processing-related services to photographers.
-
-The main Film Lab management requirements are:
-
-\begin{itemize}
-    \item Store the Film Lab name and description.
-    
-    \item Store contact information such as phone number and email address.
-    
-    \item Store the physical address of the Film Lab.
-    
-    \item Associate a Film Lab with its owner.
-    
-    \item Maintain the current status of the Film Lab.
-    
-    \item Store the time when the Film Lab is registered on the platform.
-    
-    \item Support Film Lab approval by the System Administrator.
-\end{itemize}
-
-\subsubsection{Film Lab Service Management}
-
-A Film Lab may provide multiple services to photographers. The database
-must therefore store information about the services offered by each Film
-Lab.
-
-The main service management requirements are:
-
-\begin{itemize}
-    \item Store the name of each service.
-    
-    \item Store a description of the service.
-    
-    \item Store the service price.
-    
-    \item Store the expected processing time.
-    
-    \item Maintain the current availability status of the service.
-    
-    \item Associate each service with the Film Lab that provides it.
-\end{itemize}
-
-Typical services may include film developing, film scanning, photo
-printing, and other film-processing services described in the system
-requirements.
-
-\subsubsection{Data Relationships for User and Film Lab Management}
-
-The database design must support the relationships between users, roles,
-Film Labs, and services.
-
-The main relationships are:
-
-\begin{itemize}
-    \item A role can be assigned to multiple users.
-    
-    \item Each user is associated with an appropriate system role.
-    
-    \item A user may own a Film Lab.
-    
-    \item A Film Lab has an owner.
-    
-    \item A Film Lab can provide multiple services.
-    
-    \item Each service belongs to a Film Lab.
-\end{itemize}
-
-These requirements provide the basis for designing the conceptual ERD and
-logical database schema for the User and Film Lab Management module.
-
-% =========================================================
-% P3 - Quản lý cuộn phim và quá trình xử lý
-% =========================================================
-
-\subsection{Quản lý cuộn phim và quá trình xử lý}
-
-\subsubsection{Dữ liệu cần quản lý}
-
-Phân hệ P3 quản lý các cuộn phim được gửi đến Film Lab và theo dõi
-quá trình xử lý của từng cuộn phim. Phân hệ này đóng vai trò liên kết
-giữa dữ liệu đơn hàng và kho lưu trữ ảnh phim số sau khi quá trình
-tráng và scan hoàn tất.
-
-\begin{itemize}
-    \item Quản lý thông tin từng cuộn phim, bao gồm mã cuộn phim,
-    hạng mục đơn hàng liên quan, mã nhận diện, trạng thái và thời điểm tạo.
-
-    \item Mỗi cuộn phim phải xác định được hạng mục đơn hàng
-    \texttt{order\_item} mà nó thuộc về.
-
-    \item Theo dõi các giai đoạn xử lý của cuộn phim tại Film Lab,
-    ví dụ: tiếp nhận, tráng phim, scan và hoàn thành.
-
-    \item Lưu thời điểm bắt đầu, thời điểm kết thúc và ghi chú
-    của từng giai đoạn xử lý.
-
-    \item Cho phép truy ngược từ file ảnh scan về cuộn phim gốc
-    đã tạo ra file ảnh đó.
-\end{itemize}
-
-\subsubsection{Quy tắc nghiệp vụ}
-
-\begin{itemize}
-    \item Mỗi cuộn phim thuộc đúng một \texttt{order\_item}.
-
-    \item Một \texttt{order\_item} có thể liên quan đến nhiều cuộn phim.
-
-    \item Chủ sở hữu cuộn phim được xác định thông qua
-    \texttt{order\_item} và đơn hàng tương ứng, không cần lưu lặp lại
-    \texttt{user\_id} trong dữ liệu cuộn phim.
-
-    \item Một cuộn phim có thể trải qua nhiều giai đoạn xử lý
-    trong quá trình thực hiện dịch vụ.
-
-    \item Lịch sử xử lý cần được lưu lại để theo dõi tiến độ
-    và hỗ trợ kiểm tra khi có sự cố.
-
-    \item Không nên xóa cứng cuộn phim nếu đã phát sinh
-    dữ liệu xử lý hoặc file scan.
-
-    \item Một cuộn phim có thể tạo ra nhiều file scan,
-    nhưng mỗi file scan chỉ thuộc về một cuộn phim.
-\end{itemize}
-
-\subsubsection{Liên kết với các phân hệ khác}
-
-\begin{itemize}
-    \item P3 sử dụng \texttt{order\_items} của phần quản lý đơn hàng
-    để xác định cuộn phim thuộc đơn hàng nào.
-
-    \item P3 cung cấp dữ liệu \texttt{film\_rolls} cho P4 để
-    \texttt{scan\_files.film\_roll\_id} tham chiếu đến cuộn phim gốc.
-
-    \item Thông qua chuỗi liên kết
-    \texttt{scan\_files} $\rightarrow$ \texttt{film\_rolls}
-    $\rightarrow$ \texttt{order\_items} $\rightarrow$ \texttt{orders},
-    hệ thống có thể truy ngược ảnh scan về đơn hàng của khách.
-\end{itemize}
-
-
-% ============================================================
-% P4 - Kho lưu trữ ảnh phim số và Chợ giao dịch
-% ============================================================
-
-\subsection{Kho lưu trữ ảnh phim số và Chợ giao dịch}
-
-\subsubsection{Quản lý kho lưu trữ ảnh phim số}
-
-Cơ sở dữ liệu cần lưu trữ và quản lý các ảnh phim đã được số hóa
-sau khi quá trình tráng và quét phim tại Film Lab hoàn tất.
-Kho lưu trữ ảnh phim số cho phép người dùng truy cập, sắp xếp
-và quản lý lâu dài các ảnh đã được quét trên hệ thống.
-
-Các yêu cầu dữ liệu chính của kho lưu trữ ảnh phim số bao gồm:
-
-\begin{itemize}
-    \item Liên kết các ảnh phim đã số hóa với người dùng sở hữu tương ứng.
-
-    \item Lưu thông tin về cuộn phim liên quan đến từng ảnh đã được quét.
-
-    \item Lưu đường dẫn của file ảnh số để người dùng có thể xem
-    và tải xuống khi cần.
-
-    \item Lưu metadata của ảnh như loại phim, máy ảnh, ống kính
-    và ngày chụp.
-
-    \item Lưu thông tin về phương pháp xử lý phim và các thông số quét ảnh.
-
-    \item Lưu thời gian tạo và thời gian cập nhật dữ liệu của ảnh.
-
-    \item Hỗ trợ người dùng xem, sắp xếp và quản lý bộ sưu tập
-    ảnh phim số cá nhân.
-\end{itemize}
-
-Các file ảnh số thực tế được lưu trữ trên dịch vụ lưu trữ đám mây.
-Cơ sở dữ liệu chỉ lưu đường dẫn đến file cùng các thông tin metadata
-cần thiết để quản lý ảnh.
-
-\subsubsection{Quản lý Chợ giao dịch}
-
-Chợ giao dịch cho phép các thành viên trong cộng đồng đăng bán,
-mua hoặc trao đổi máy ảnh phim, ống kính, cuộn phim và các phụ kiện
-nhiếp ảnh. Cơ sở dữ liệu cần lưu trữ đầy đủ thông tin của các tin đăng
-và các giao dịch phát sinh giữa người mua và người bán.
-
-Các yêu cầu dữ liệu chính của Chợ giao dịch bao gồm:
-
-\begin{itemize}
-    \item Liên kết mỗi tin đăng với người dùng đăng bán tương ứng.
-
-    \item Lưu thông tin của tin đăng như tiêu đề, mô tả sản phẩm,
-    giá bán, tình trạng sản phẩm và trạng thái tin đăng.
-
-    \item Phân loại sản phẩm theo các nhóm như máy ảnh phim,
-    ống kính, film và phụ kiện nhiếp ảnh.
-
-    \item Lưu hình ảnh minh họa cho các sản phẩm được đăng bán.
-
-    \item Hỗ trợ tìm kiếm và lọc các tin đăng theo thông tin sản phẩm,
-    danh mục, giá và trạng thái.
-
-    \item Lưu thông tin người mua và người bán trong các giao dịch
-    phát sinh trên hệ thống.
-
-    \item Theo dõi trạng thái của giao dịch từ khi được tạo
-    cho đến khi hoàn thành hoặc bị hủy.
-
-    \item Hỗ trợ lưu thông tin cần thiết để người mua và người bán
-    có thể trao đổi trong quá trình giao dịch.
-\end{itemize}
-
-Dữ liệu của Chợ giao dịch được quản lý nhằm hỗ trợ việc mua bán
-và trao đổi thiết bị nhiếp ảnh một cách minh bạch và thuận tiện
-trong cộng đồng.
-\subsection{Yêu cầu phân hệ Quản lý Tri thức \& Tích hợp AI (P5: Knowledge \& AI Integration)}
-
-Phân hệ Quản lý Tri thức và Tích hợp AI đảm nhiệm việc xây dựng kho dữ liệu kiến thức nhiếp ảnh film, kết nối chuyên gia với cộng đồng, đồng thời cung cấp hạ tầng dữ liệu phục vụ hệ thống gợi ý (Recommendation Engine) và Trợ lý ảo AI (RAG Assistant).
-
-Các yêu cầu chức năng chính bao gồm:
-
-\begin{itemize}
-    \item \textbf{Quản lý Cơ sở tri thức (Knowledge Base):} Cho phép Chuyên gia nhiếp ảnh (Photography Experts) biên soạn, đăng tải, gắn thẻ danh mục cho các bài viết chia sẻ kỹ thuật, review máy ảnh, ống kính và các dòng film.
-    \item \textbf{Tổ chức sự kiện cộng đồng:} Hỗ trợ chuyên gia tạo và quản lý các buổi Workshop, Photowalk offline cùng danh sách thành viên đăng ký tham gia.
-    \item \textbf{Đánh giá và phản hồi (Reviews):} Cho phép người dùng đánh giá điểm (rating) và để lại nhận xét chi tiết sau khi trải nghiệm dịch vụ tại các Film Lab.
-    \item \textbf{Thu thập dữ liệu hành vi (User Interactions):} Ghi nhận các hành động xem, tìm kiếm, lưu trữ dịch vụ của người dùng nhằm cung cấp tập dữ liệu đầu vào cho mô hình AI gợi ý Film Lab và loại film phù hợp.
-    \item \textbf{Lưu vết hội thoại AI Assistant:} Lưu lại lịch sử câu hỏi và câu trả lời giữa người dùng với Trợ lý ảo AI để kiểm tra ngữ cảnh và cải thiện chất lượng mô hình RAG.
-\end{itemize}
-
-\subsubsection{Mối quan hệ dữ liệu trong phân hệ P5}
-
-Thiết kế cơ sở dữ liệu phải đảm bảo các mối quan hệ logic giữa người dùng, bài viết, sự kiện, đánh giá và dữ liệu AI:
-
-\begin{itemize}
-    \item Một người dùng (chuyên gia) có thể xuất bản nhiều bài viết khác nhau.
-    \item Mỗi bài viết thuộc về một tác giả và có thể gắn với một danh mục cụ thể.
-    \item Một người dùng có thể viết nhiều lượt đánh giá cho các Film Lab khác nhau.
-    \item Một chuyên gia có thể tổ chức nhiều sự kiện; mỗi sự kiện có thể có nhiều người dùng đăng ký tham gia.
-    \item Một người dùng có thể tạo ra nhiều nhật ký tương tác và các phiên hỏi đáp với AI Assistant.
-\end{itemize}
+\section{Yêu cầu còn phải hoàn thiện khi tích hợp}
+\label{sec:scope-gaps}
+Các yêu cầu dưới đây vẫn thuộc phân công; việc ghi nhận chưa hoàn thiện không loại bỏ trách nhiệm của thành viên.
+\begin{longtable}{p{1.5cm}p{12cm}}
+\toprule
+\textbf{Phần} & \textbf{Khoảng trống giữa yêu cầu và mô hình} \\
+\midrule
+\endhead
+P1/P2 & Hồ sơ, địa chỉ, sở thích, lịch làm việc, công suất, tùy chọn dịch vụ và quyền nhân viên theo Lab. \\
+P1/P3 & Ánh xạ hạng mục/dịch vụ vào cuộn phim; điều kiện chuyển trạng thái, hủy đơn và phối hợp giao nhận. \\
+P4 & Versioning scan; ảnh sản phẩm, trao đổi, liên lạc; chốt cardinality giao dịch, quyền album và miền trạng thái. \\
+P2/P5 & Kiểm chứng đánh giá Lab bằng đơn hợp lệ; thống nhất một bảng lab\_reviews dùng chung. \\
+P5 & Bình luận, đăng ký sự kiện, recommendation/RAG, chất lượng scan, thanh toán, vận chuyển, thông báo và kiểm toán. \\
+\bottomrule
+\end{longtable}
+Chương 3 mô tả mô hình hiện có; Chương 4--6 phải bổ sung thiết kế chi tiết trước khi đánh dấu yêu cầu hoàn thành. Mọi thay đổi thực thể, cardinality hoặc constraint phải được đồng bộ đến Chương 7.

@@ -1,985 +1,732 @@
-% Chương 5: Thiết kế mức vật lý ở mức lý thuyết
 \chapter{THIẾT KẾ MỨC VẬT LÝ}
 
-Chương này trình bày khái quát thiết kế vật lý của cơ sở dữ liệu trên
-PostgreSQL, tập trung vào kiểu dữ liệu, khóa, ràng buộc và chỉ mục. Riêng P1
-phụ trách nhóm bảng lõi gồm \texttt{users}, \texttt{roles},
-\texttt{permissions}, \texttt{user\_roles}, \texttt{film\_labs},
-\texttt{lab\_services}, \texttt{service\_packages}, \texttt{orders} và
-\texttt{order\_items}, đồng thời dùng các quyết định này làm chuẩn để đối chiếu
-với các module còn lại.
+Mỗi bảng có một định nghĩa chính trong từng chương: Chương 4 mô tả quan hệ,
+khóa và quy tắc; Chương 5 trình bày DDL và cơ chế thực thi; Chương 6 giải
+thích từng thuộc tính. Việc bảng xuất hiện ở ba mức này không tạo ba bảng
+trong CSDL. P2 dùng lại Core của P1, P3 không định nghĩa lại orders hoặc
+order\_items; lab\_reviews chỉ đặt ở P5 và phối hợp nghiệp vụ với P2.
+Các phần mở rộng còn thiếu ở Chương 2--3 không được coi là đã triển khai.
+\section{Quy ước triển khai PostgreSQL}
 
-\subsection{Định hướng thiết kế vật lý}
+Mọi bảng bên dưới có created\_at và updated\_at kiểu TIMESTAMPTZ, NOT NULL,
+DEFAULT CURRENT\_TIMESTAMP; updated at không trước created at. Định danh
+nghiệp vụ và FK dùng UUID, do bên ghi dữ liệu cung cấp. Các FK mặc định
+ON DELETE RESTRICT; ai\_chat\_log.user\_id cho phép NULL cho khách vãng lai
+và dùng ON DELETE SET NULL. Không xóa cứng đơn, cuộn phim đã xử lý, file
+scan, giao dịch và lịch sử đã phát sinh. Audit không thay thế các thời
+điểm nghiệp vụ assigned\_at, changed\_at, requested\_at hoặc added\_at.
 
-\begin{itemize}
-    \item Các thực thể nghiệp vụ chính dùng khóa chính \texttt{UUID}; bảng trung gian dùng khóa ghép để loại bỏ bản ghi trùng.
-    \item Các cột thời gian dùng \texttt{TIMESTAMPTZ} theo UTC; bảng nghiệp vụ chính có \texttt{created\_at}, \texttt{updated\_at} và khi cần có thêm \texttt{deleted\_at}.
-    \item Dữ liệu tiền tệ dùng \texttt{NUMERIC(12,2)}, dữ liệu văn bản ngắn dùng \texttt{VARCHAR}, mô tả dài dùng \texttt{TEXT}; riêng \texttt{JSONB} chỉ áp dụng cho tùy chọn linh hoạt của \texttt{order\_items}.
-    \item Các khóa ngoại quan trọng ưu tiên \texttt{ON DELETE RESTRICT} nhằm bảo toàn lịch sử đơn hàng, dịch vụ và phân quyền.
-\end{itemize}
-
-\subsection{Ràng buộc và tối ưu chính}
-
-\begin{itemize}
-    \item Các thuộc tính định danh nghiệp vụ như email, mã vai trò, mã quyền, mã dịch vụ theo từng lab và mã đơn hàng được ràng buộc duy nhất.
-    \item Các trạng thái nghiệp vụ được kiểm soát bằng \texttt{CHECK}; các cột giá tiền và số lượng phải thỏa điều kiện không âm hoặc lớn hơn 0.
-    \item Chỉ mục tập trung vào các trường truy vấn thường xuyên như email đăng nhập, \texttt{lab\_id}, trạng thái Film Lab, trạng thái đơn hàng và lịch sử đơn theo khách hàng.
-    \item Những quy tắc liên bảng như dịch vụ, gói dịch vụ và đơn hàng phải thuộc cùng một Film Lab được P1 kiểm tra khi review để đảm bảo tính nhất quán trên toàn schema.
-\end{itemize}
-
-\subsection{Một số câu lệnh minh họa}
-
-Để minh họa cho cách triển khai vật lý của P1 trên PostgreSQL, có thể sử dụng
-một số câu lệnh \texttt{CREATE TABLE} tiêu biểu như sau:
-
-\begin{lstlisting}[caption={Minh họa DDL cho một số bảng lõi của P1}]
+Các DDL dưới đây bao phủ 36 bảng hiện đã có mô hình, mỗi bảng được tạo
+một lần và sắp theo thứ tự phụ thuộc. Chúng chưa triển khai toàn bộ yêu
+cầu còn thiếu hoặc các trigger nghiệp vụ liên bảng. Các giá trị UUID
+được cấp trước khi INSERT; đặt múi giờ phiên kết nối UTC. DEFAULT thời
+gian chỉ áp dụng khi thêm dòng; thủ tục ghi/trigger phải cập nhật updated\_at.
+PK và UNIQUE đã tạo chỉ mục duy nhất tương ứng, không tạo index trùng.
+\section{P1 -- Core Domain dùng chung}
+Tham chiếu mô hình tại Mục~\ref{sec:logical-P1}.
+\subsection{Bảng \texttt{users} -- Tài khoản người dùng}
+\label{physical-users}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
 CREATE TABLE users (
-    user_id UUID PRIMARY KEY,
+    user_id UUID NOT NULL PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
     full_name VARCHAR(150) NOT NULL,
-    status VARCHAR(20) NOT NULL CHECK (status IN ('active', 'inactive', 'suspended')),
+    phone VARCHAR(20),
+    status VARCHAR(20) NOT NULL DEFAULT 'active',
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE film_labs (
-    lab_id UUID PRIMARY KEY,
-    owner_id UUID NOT NULL REFERENCES users(user_id),
-    lab_name VARCHAR(150) NOT NULL,
-    status VARCHAR(20) NOT NULL CHECK (status IN ('pending', 'approved', 'suspended', 'closed')),
-    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE orders (
-    order_id UUID PRIMARY KEY,
-    customer_id UUID NOT NULL REFERENCES users(user_id),
-    lab_id UUID NOT NULL REFERENCES film_labs(lab_id),
-    order_code VARCHAR(30) NOT NULL UNIQUE,
-    total_amount NUMERIC(12,2) NOT NULL CHECK (total_amount >= 0),
-    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMPTZ,
+    CHECK (updated_at >= created_at),
+    CHECK (deleted_at IS NULL OR deleted_at >= created_at),
+    CHECK (status IN ('active', 'inactive', 'suspended'))
 );
 \end{lstlisting}
-
-\iffalse
-
-\fi
-% ============================================================
-% P3 -- ORDER & PROCESSING LIFECYCLE
-% ============================================================
-
-\section{Thiết kế vật lý cho module P3 -- Order \& Processing Lifecycle}
-
-Module P3 chịu trách nhiệm quản lý vòng đời đơn hàng, tiếp nhận cuộn
-phim, theo dõi các công đoạn xử lý, lịch sử thay đổi trạng thái và các
-yêu cầu nhận/giao. P3 sử dụng lại hai bảng lõi
-\texttt{orders} và \texttt{order\_items} đã được định nghĩa ở P1, đồng
-thời bổ sung các bảng phục vụ riêng cho quá trình xử lý phim.
-
-Thiết kế vật lý của P3 tuân thủ các quy ước chung của hệ thống:
-khóa chính sử dụng \texttt{UUID}, thời gian sử dụng
-\texttt{TIMESTAMPTZ}, trạng thái sử dụng \texttt{VARCHAR} kết hợp
-\texttt{CHECK}, và các khóa ngoại quan trọng ưu tiên
-\texttt{ON DELETE RESTRICT} nhằm bảo toàn lịch sử xử lý.
-
-\subsection{Thiết kế vật lý bảng \texttt{orders}}
-
-Bảng \texttt{orders} là bảng trung tâm của vòng đời đơn hàng và đã
-được định nghĩa trong nhóm bảng lõi của P1. P3 sử dụng lại bảng này,
-không tạo thêm một bảng orders riêng.
-
-\begin{itemize}
-
-    \item \textbf{Khóa chính:} \texttt{order\_id} sử dụng kiểu
-    \texttt{UUID}.
-
-    \item \textbf{Khóa ngoại:}
-    \texttt{customer\_id} tham chiếu đến
-    \texttt{users(user\_id)} và \texttt{lab\_id} tham chiếu đến
-    \texttt{film\_labs(lab\_id)}.
-
-    \item \textbf{Mã đơn hàng:}
-    \texttt{order\_code} sử dụng \texttt{VARCHAR(30)}, bắt buộc
-    \texttt{NOT NULL} và có ràng buộc \texttt{UNIQUE}.
-
-    \item \textbf{Trạng thái:}
-    \texttt{status} sử dụng \texttt{VARCHAR(30)}. Giá trị phải tuân
-    thủ state machine của hệ thống, gồm các trạng thái chính:
-    \texttt{pending}, \texttt{confirmed}, \texttt{received},
-    \texttt{processing}, \texttt{scanning}, \texttt{completed},
-    \texttt{delivered} và trạng thái \texttt{cancelled} khi đơn bị
-    hủy theo quy tắc nghiệp vụ.
-
-    \item \textbf{Phương thức nhận/giao:}
-    \texttt{fulfillment\_method} sử dụng \texttt{VARCHAR(20)} và chỉ
-    nhận các giá trị \texttt{dropoff} hoặc \texttt{pickup}.
-
-    \item \textbf{Dữ liệu tiền tệ:}
-    \texttt{subtotal}, \texttt{delivery\_fee},
-    \texttt{discount\_amount} và \texttt{total\_amount} sử dụng
-    \texttt{NUMERIC(12,2)} và không được âm.
-
-    \item \textbf{Thời gian:}
-    \texttt{placed\_at}, \texttt{created\_at} và
-    \texttt{updated\_at} sử dụng \texttt{TIMESTAMPTZ}.
-
-    \item \textbf{Chỉ mục:} Tạo chỉ mục trên
-    \texttt{customer\_id}, \texttt{lab\_id} và kết hợp
-    \texttt{(status, created\_at)} để hỗ trợ truy vấn đơn hàng theo
-    khách hàng, Film Lab và trạng thái hiện tại.
-
-\end{itemize}
-
-
-\subsection{Thiết kế vật lý bảng \texttt{order\_items}}
-
-Bảng \texttt{order\_items} lưu các dịch vụ hoặc gói dịch vụ thuộc
-một đơn hàng. Bảng này cũng đã được định nghĩa ở P1 và được P3 sử
-dụng để liên kết đơn hàng với quá trình xử lý.
-
-\begin{itemize}
-
-    \item \textbf{Khóa chính:} \texttt{order\_item\_id} sử dụng
-    kiểu \texttt{UUID}.
-
-    \item \textbf{Khóa ngoại:}
-    \texttt{order\_id} tham chiếu \texttt{orders(order\_id)};
-    \texttt{service\_id} tham chiếu
-    \texttt{lab\_services(service\_id)}; và
-    \texttt{package\_id} tham chiếu
-    \texttt{service\_packages(package\_id)} khi order item sử dụng
-    package.
-
-    \item \textbf{Số lượng:}
-    \texttt{quantity} sử dụng \texttt{INTEGER} và phải lớn hơn 0.
-
-    \item \textbf{Giá tại thời điểm đặt:}
-    \texttt{unit\_price} sử dụng \texttt{NUMERIC(12,2)}, không âm và
-    được giữ như snapshot giá để bảo toàn lịch sử giao dịch.
-
-    \item \textbf{Tùy chọn dịch vụ:}
-    \texttt{service\_options} sử dụng \texttt{JSONB} khi cần lưu các
-    tùy chọn linh hoạt của dịch vụ.
-
-    \item \textbf{Chỉ mục:} Tạo chỉ mục B-tree trên
-    \texttt{order\_id} để tăng tốc truy vấn toàn bộ item của một đơn
-    hàng. Các khóa ngoại \texttt{service\_id} và
-    \texttt{package\_id} được lập chỉ mục khi có nhu cầu join thường
-    xuyên.
-
-\end{itemize}
-
-
-\subsection{Thiết kế vật lý bảng \texttt{film\_rolls}}
-
-Bảng \texttt{film\_rolls} quản lý từng cuộn phim thực tế được tiếp
-nhận từ một đơn hàng. Đây là điểm liên kết quan trọng giữa vòng đời
-đơn hàng của P3 và kho ảnh số của P4.
-
-\begin{itemize}
-
-    \item \textbf{Khóa chính:} \texttt{film\_roll\_id} sử dụng
-    kiểu \texttt{UUID}.
-
-    \item \textbf{Khóa ngoại:} \texttt{order\_id} sử dụng
-    \texttt{UUID}, \texttt{NOT NULL}, tham chiếu đến
-    \texttt{orders(order\_id)}.
-
-    \item \textbf{Mã cuộn phim:}
-    \texttt{roll\_code} sử dụng \texttt{VARCHAR(50)} để nhận diện
-    từng cuộn phim. Có thể đặt \texttt{UNIQUE} nếu quy tắc nghiệp vụ
-    yêu cầu mã cuộn duy nhất trong toàn hệ thống.
-
-    \item \textbf{Loại phim:}
-    \texttt{film\_type} sử dụng \texttt{VARCHAR(50)}.
-
-    \item \textbf{Số frame:}
-    \texttt{frame\_count} sử dụng \texttt{INTEGER}, cho phép
-    \texttt{NULL} khi chưa xác định và nếu có giá trị thì phải lớn
-    hơn hoặc bằng 0.
-
-    \item \textbf{Thời gian xử lý:}
-    \texttt{received\_at} và \texttt{scan\_completed\_at} sử dụng
-    \texttt{TIMESTAMPTZ} và cho phép \texttt{NULL} trước khi các mốc
-    xử lý tương ứng xảy ra.
-
-    \item \textbf{Trạng thái:}
-    \texttt{status} sử dụng \texttt{VARCHAR(30)} và được kiểm soát
-    bằng \texttt{CHECK} theo miền trạng thái đã thống nhất.
-
-    \item \textbf{Chỉ mục:} Tạo chỉ mục B-tree trên
-    \texttt{order\_id} để truy vấn nhanh các cuộn phim thuộc một đơn
-    hàng. Tạo thêm chỉ mục trên
-    \texttt{(status, updated\_at)} để hỗ trợ màn hình tracking quá
-    trình xử lý.
-
-\end{itemize}
-
-
-\subsection{Thiết kế vật lý bảng \texttt{processing\_stages}}
-
-Bảng \texttt{processing\_stages} là bảng danh mục mô tả các công đoạn
-xử lý phim.
-
-\begin{itemize}
-
-    \item \textbf{Khóa chính:}
-    \texttt{processing\_stage\_id} sử dụng \texttt{UUID}.
-
-    \item \textbf{Mã công đoạn:}
-    \texttt{stage\_code} sử dụng \texttt{VARCHAR(50)}, bắt buộc
-    \texttt{NOT NULL} và có ràng buộc \texttt{UNIQUE}.
-
-    \item \textbf{Tên công đoạn:}
-    \texttt{stage\_name} sử dụng \texttt{VARCHAR(100)} và không được
-    rỗng.
-
-    \item \textbf{Thứ tự công đoạn:}
-    \texttt{stage\_order} sử dụng \texttt{INTEGER} và phải lớn hơn 0.
-
-    \item \textbf{Trạng thái hoạt động:}
-    \texttt{is\_active} sử dụng \texttt{BOOLEAN} để cho phép tạm
-    ngừng một công đoạn mà không xóa dữ liệu lịch sử.
-
-    \item \textbf{Chỉ mục:} Ngoài chỉ mục tự động của khóa chính và
-    \texttt{stage\_code}, có thể tạo chỉ mục trên
-    \texttt{stage\_order} để lấy danh sách công đoạn theo đúng thứ tự.
-
-\end{itemize}
-
-
-\subsection{Thiết kế vật lý bảng \texttt{stage\_logs}}
-
-Bảng \texttt{stage\_logs} ghi nhận lịch sử xử lý của từng cuộn phim
-tại từng công đoạn.
-
-\begin{itemize}
-
-    \item \textbf{Khóa chính:}
-    \texttt{stage\_log\_id} sử dụng \texttt{UUID}.
-
-    \item \textbf{Khóa ngoại:}
-    \texttt{film\_roll\_id} tham chiếu
-    \texttt{film\_rolls(film\_roll\_id)};
-    \texttt{processing\_stage\_id} tham chiếu
-    \texttt{processing\_stages(processing\_stage\_id)};
-    \texttt{operator\_id} tham chiếu
-    \texttt{users(user\_id)} và có thể nhận \texttt{NULL}.
-
-    \item \textbf{Trạng thái:}
-    \texttt{status} sử dụng \texttt{VARCHAR(30)} và được kiểm soát
-    bằng \texttt{CHECK}.
-
-    \item \textbf{Mốc thời gian:}
-    \texttt{started\_at} và \texttt{completed\_at} sử dụng
-    \texttt{TIMESTAMPTZ}. Nếu cả hai cùng có giá trị thì
-    \texttt{completed\_at} phải lớn hơn hoặc bằng
-    \texttt{started\_at}.
-
-    \item \textbf{Toàn vẹn lịch sử:} Không sử dụng
-    \texttt{ON DELETE CASCADE} từ \texttt{film\_rolls} hoặc
-    \texttt{processing\_stages} sang lịch sử xử lý nếu điều đó làm
-    mất khả năng truy vết.
-
-    \item \textbf{Chỉ mục:} Tạo chỉ mục trên
-    \texttt{film\_roll\_id} và kết hợp
-    \texttt{(film\_roll\_id, created\_at)} để hiển thị timeline xử lý
-    của một cuộn phim.
-
-    \item Có thể tạo thêm chỉ mục trên
-    \texttt{processing\_stage\_id} khi hệ thống thường xuyên truy vấn
-    lịch sử theo từng công đoạn.
-
-\end{itemize}
-
-
-\subsection{Thiết kế vật lý bảng \texttt{order\_status\_history}}
-
-Bảng \texttt{order\_status\_history} lưu toàn bộ lịch sử thay đổi
-trạng thái của đơn hàng. Bảng này giúp hệ thống theo dõi chính xác
-đơn hàng đã đi qua những trạng thái nào và thời điểm thay đổi.
-
-\begin{itemize}
-
-    \item \textbf{Khóa chính:}
-    \texttt{order\_status\_history\_id} sử dụng \texttt{UUID}.
-
-    \item \textbf{Khóa ngoại:}
-    \texttt{order\_id} tham chiếu
-    \texttt{orders(order\_id)} và
-    \texttt{changed\_by} tham chiếu
-    \texttt{users(user\_id)}.
-
-    \item \textbf{Trạng thái cũ và mới:}
-    \texttt{old\_status} sử dụng \texttt{VARCHAR(30)} và có thể
-    \texttt{NULL} đối với bản ghi đầu tiên;
-    \texttt{new\_status} sử dụng \texttt{VARCHAR(30)} và không được
-    rỗng.
-
-    \item \textbf{Thời điểm thay đổi:}
-    \texttt{changed\_at} sử dụng \texttt{TIMESTAMPTZ} và không được
-    rỗng.
-
-    \item \textbf{Toàn vẹn lịch sử:} Ưu tiên
-    \texttt{ON DELETE RESTRICT} đối với \texttt{order\_id} nhằm
-    tránh xóa lịch sử khi order vẫn còn dữ liệu liên quan.
-
-    \item \textbf{Chỉ mục quan trọng nhất:}
-    tạo chỉ mục kết hợp
-    \texttt{(order\_id, changed\_at DESC)}. Đây là chỉ mục phục vụ
-    trực tiếp chức năng tracking lịch sử trạng thái của một order.
-
-    \item Có thể tạo thêm chỉ mục trên
-    \texttt{changed\_by} nếu thường xuyên cần truy vấn lịch sử theo
-    người thực hiện.
-
-\end{itemize}
-
-
-\subsection{Thiết kế vật lý bảng \texttt{pickup\_delivery\_requests}}
-
-Bảng \texttt{pickup\_delivery\_requests} quản lý các yêu cầu nhận
-hoặc giao phim liên quan đến một đơn hàng.
-
-\begin{itemize}
-
-    \item \textbf{Khóa chính:}
-    \texttt{request\_id} sử dụng \texttt{UUID}.
-
-    \item \textbf{Khóa ngoại:}
-    \texttt{order\_id} sử dụng \texttt{UUID}, bắt buộc
-    \texttt{NOT NULL}, tham chiếu đến
-    \texttt{orders(order\_id)}.
-
-    \item \textbf{Loại yêu cầu:}
-    \texttt{request\_type} sử dụng \texttt{VARCHAR(20)} và chỉ
-    nhận các giá trị \texttt{pickup} hoặc \texttt{delivery}.
-
-    \item \textbf{Trạng thái:}
-    \texttt{status} sử dụng \texttt{VARCHAR(30)} và được kiểm soát
-    bằng \texttt{CHECK}.
-
-    \item \textbf{Địa chỉ:}
-    \texttt{pickup\_address} và \texttt{delivery\_address} sử dụng
-    \texttt{TEXT} và có thể rỗng tùy theo loại yêu cầu.
-
-    \item \textbf{Thời gian:}
-    \texttt{requested\_at}, \texttt{completed\_at},
-    \texttt{created\_at} và \texttt{updated\_at} sử dụng
-    \texttt{TIMESTAMPTZ}.
-
-    \item \textbf{Ràng buộc nghiệp vụ:} Nếu
-    \texttt{request\_type = 'pickup'} thì
-    \texttt{pickup\_address} phải tồn tại; nếu
-    \texttt{request\_type = 'delivery'} thì
-    \texttt{delivery\_address} phải tồn tại. Khi
-    \texttt{completed\_at} có giá trị thì phải lớn hơn hoặc bằng
-    \texttt{requested\_at}.
-
-    \item \textbf{Chỉ mục:} Tạo chỉ mục kết hợp
-    \texttt{(order\_id, status)} để hỗ trợ truy vấn trạng thái
-    yêu cầu nhận/giao của một đơn hàng.
-
-    \item Có thể tạo thêm chỉ mục
-    \texttt{(status, requested\_at)} để hỗ trợ màn hình quản lý các
-    yêu cầu đang chờ xử lý theo thời gian.
-
-\end{itemize}
-
-
-\subsection{Chiến lược chỉ mục và tối ưu truy vấn cho P3}
-
-P3 có workload chủ yếu phục vụ chức năng tracking theo thời gian
-thực. Vì vậy chỉ mục được ưu tiên cho các trường thường xuyên xuất
-hiện trong điều kiện \texttt{WHERE}, \texttt{JOIN} và sắp xếp theo
-thời gian.
-
-Các chỉ mục quan trọng gồm:
-
-\begin{itemize}
-
-    \item \texttt{orders(customer\_id)}: truy vấn danh sách đơn hàng
-    của một khách hàng.
-
-    \item \texttt{orders(lab\_id)}: truy vấn các đơn hàng thuộc một
-    Film Lab.
-
-    \item \texttt{orders(status, created\_at)}: lọc đơn hàng theo
-    trạng thái và thời gian tạo.
-
-    \item \texttt{film\_rolls(order\_id)}: tìm toàn bộ cuộn phim
-    thuộc một đơn hàng.
-
-    \item \texttt{film\_rolls(status, updated\_at)}: hỗ trợ màn hình
-    tracking các cuộn phim đang được xử lý.
-
-    \item \texttt{stage\_logs(film\_roll\_id, created\_at)}:
-    lấy timeline xử lý của một cuộn phim.
-
-    \item \texttt{order\_status\_history(order\_id, changed\_at DESC)}:
-    lấy nhanh lịch sử trạng thái theo thứ tự mới nhất.
-
-    \item \texttt{pickup\_delivery\_requests(order\_id, status)}:
-    theo dõi yêu cầu nhận/giao của một đơn hàng.
-
-\end{itemize}
-
-Không tạo quá nhiều chỉ mục trên các bảng có tần suất ghi cao như
-\texttt{stage\_logs} và \texttt{order\_status\_history}, vì mỗi lần
-INSERT phải cập nhật thêm các cấu trúc chỉ mục. Do đó chỉ giữ các chỉ
-mục phục vụ trực tiếp các truy vấn tracking quan trọng.
-
-
-\subsection{Toàn vẹn tham chiếu và chính sách xóa P3}
-
-Các bảng lịch sử của P3 phải ưu tiên bảo toàn dữ liệu. Vì vậy các khóa
-ngoại quan trọng tham chiếu đến \texttt{orders},
-\texttt{film\_rolls}, \texttt{processing\_stages} và
-\texttt{users} không nên sử dụng cascade delete nếu việc đó có thể làm
-mất dữ liệu lịch sử.
-
-Đối với \texttt{orders}, khi đơn hàng đã phát sinh dữ liệu xử lý,
-không nên cho phép xóa vật lý trực tiếp. Thay vào đó, hệ thống có thể
-sử dụng trạng thái hoặc cơ chế soft delete phù hợp với thiết kế chung.
-
-Đối với \texttt{order\_status\_history} và \texttt{stage\_logs}, dữ
-liệu phải được giữ lại để phục vụ kiểm toán và truy vết quá trình xử lý.
-
-
-\subsection{Minh họa DDL cho P3}
-
-Các câu lệnh dưới đây minh họa một số ràng buộc và chỉ mục quan trọng
-của P3 trên PostgreSQL:
-
-\begin{lstlisting}[caption={Minh họa DDL cho các bảng và chỉ mục quan trọng của P3}]
-
-CREATE TABLE film_rolls (
-    film_roll_id UUID PRIMARY KEY,
+\subsection{Bảng \texttt{roles} -- Vai trò hệ thống}
+\label{physical-roles}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE roles (
+    role_id UUID NOT NULL PRIMARY KEY,
+    role_code VARCHAR(50) NOT NULL UNIQUE,
+    role_name VARCHAR(100) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at)
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{permissions} -- Quyền thao tác}
+\label{physical-permissions}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE permissions (
+    permission_id UUID NOT NULL PRIMARY KEY,
+    permission_code VARCHAR(100) NOT NULL UNIQUE,
+    permission_name VARCHAR(150) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at)
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{user\_roles} -- Gán vai trò cho người dùng}
+\label{physical-user_roles}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE user_roles (
+    user_id UUID NOT NULL
+        REFERENCES users(user_id) ON DELETE RESTRICT,
+    role_id UUID NOT NULL
+        REFERENCES roles(role_id) ON DELETE RESTRICT,
+    assigned_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    assigned_by UUID
+        REFERENCES users(user_id) ON DELETE RESTRICT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, role_id),
+    CHECK (updated_at >= created_at)
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{role\_permissions} -- Gán quyền cho vai trò}
+\label{physical-role_permissions}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE role_permissions (
+    role_id UUID NOT NULL
+        REFERENCES roles(role_id) ON DELETE RESTRICT,
+    permission_id UUID NOT NULL
+        REFERENCES permissions(permission_id) ON DELETE RESTRICT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (role_id, permission_id),
+    CHECK (updated_at >= created_at)
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{film\_labs} -- Film Lab tham gia nền tảng}
+\label{physical-film_labs}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE film_labs (
+    lab_id UUID NOT NULL PRIMARY KEY,
+    owner_id UUID NOT NULL
+        REFERENCES users(user_id) ON DELETE RESTRICT,
+    lab_name VARCHAR(150) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    phone VARCHAR(20) NOT NULL,
+    address TEXT NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'pending',
+    approved_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMPTZ,
+    CHECK (updated_at >= created_at),
+    CHECK (deleted_at IS NULL OR deleted_at >= created_at),
+    CHECK (status IN ('pending', 'approved', 'suspended', 'closed'))
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{lab\_services} -- Dịch vụ do Film Lab cung cấp}
+\label{physical-lab_services}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE lab_services (
+    service_id UUID NOT NULL PRIMARY KEY,
+    lab_id UUID NOT NULL
+        REFERENCES film_labs(lab_id) ON DELETE RESTRICT,
+    service_code VARCHAR(50) NOT NULL,
+    service_name VARCHAR(150) NOT NULL,
+    description TEXT,
+    base_price NUMERIC(12,2) NOT NULL,
+    turnaround_hours INTEGER NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (lab_id, service_code),
+    CHECK (updated_at >= created_at),
+    CHECK (base_price >= 0),
+    CHECK (turnaround_hours > 0)
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{service\_packages} -- Gói dịch vụ}
+\label{physical-service_packages}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE service_packages (
+    package_id UUID NOT NULL PRIMARY KEY,
+    lab_id UUID NOT NULL
+        REFERENCES film_labs(lab_id) ON DELETE RESTRICT,
+    package_code VARCHAR(50) NOT NULL,
+    package_name VARCHAR(150) NOT NULL,
+    description TEXT,
+    package_price NUMERIC(12,2) NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (lab_id, package_code),
+    CHECK (updated_at >= created_at),
+    CHECK (package_price >= 0)
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{package\_services} -- Thành phần của gói dịch vụ}
+\label{physical-package_services}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE package_services (
+    package_id UUID NOT NULL
+        REFERENCES service_packages(package_id) ON DELETE RESTRICT,
+    service_id UUID NOT NULL
+        REFERENCES lab_services(service_id) ON DELETE RESTRICT,
+    quantity INTEGER NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (package_id, service_id),
+    CHECK (updated_at >= created_at),
+    CHECK (quantity > 0)
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{orders} -- Đơn sử dụng dịch vụ Film Lab}
+\label{physical-orders}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE orders (
+    order_id UUID NOT NULL PRIMARY KEY,
+    customer_id UUID NOT NULL
+        REFERENCES users(user_id) ON DELETE RESTRICT,
+    lab_id UUID NOT NULL
+        REFERENCES film_labs(lab_id) ON DELETE RESTRICT,
+    order_code VARCHAR(30) NOT NULL UNIQUE,
+    status VARCHAR(30) NOT NULL DEFAULT 'pending',
+    fulfillment_method VARCHAR(20) NOT NULL,
+    delivery_fee NUMERIC(12,2) NOT NULL DEFAULT 0,
+    discount_amount NUMERIC(12,2) NOT NULL DEFAULT 0,
+    currency_code CHAR(3) NOT NULL DEFAULT 'VND',
+    special_instructions TEXT,
+    placed_at TIMESTAMPTZ NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at),
+    CHECK (status IN ('pending', 'confirmed', 'received', 'processing', 'scanning', 'completed', 'delivered', 'cancelled')),
+    CHECK (fulfillment_method IN ('dropoff', 'pickup')),
+    CHECK (delivery_fee >= 0),
+    CHECK (discount_amount >= 0)
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{order\_items} -- Hạng mục dịch vụ trong đơn}
+\label{physical-order_items}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE order_items (
+    order_item_id UUID NOT NULL PRIMARY KEY,
     order_id UUID NOT NULL
-        REFERENCES orders(order_id)
-        ON DELETE RESTRICT,
+        REFERENCES orders(order_id) ON DELETE RESTRICT,
+    service_id UUID
+        REFERENCES lab_services(service_id) ON DELETE RESTRICT,
+    package_id UUID
+        REFERENCES service_packages(package_id) ON DELETE RESTRICT,
+    quantity INTEGER NOT NULL,
+    unit_price NUMERIC(12,2) NOT NULL,
+    service_options JSONB,
+    item_note TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at),
+    CHECK (unit_price >= 0),
+    CHECK (quantity > 0),
+    CHECK ((service_id IS NOT NULL) <> (package_id IS NOT NULL))
+);
+\end{lstlisting}
+\section{P3 -- Cuộn phim và xử lý}
+Tham chiếu mô hình tại Mục~\ref{sec:logical-P3}.
+\subsection{Bảng \texttt{film\_rolls} -- Cuộn phim}
+\label{physical-film_rolls}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE film_rolls (
+    film_roll_id UUID NOT NULL PRIMARY KEY,
+    order_id UUID NOT NULL
+        REFERENCES orders(order_id) ON DELETE RESTRICT,
     roll_code VARCHAR(50) NOT NULL,
     film_type VARCHAR(50) NOT NULL,
-    frame_count INTEGER
-        CHECK (frame_count >= 0),
+    frame_count INTEGER,
     received_at TIMESTAMPTZ,
     scan_completed_at TIMESTAMPTZ,
     status VARCHAR(30) NOT NULL,
     note TEXT,
-    created_at TIMESTAMPTZ NOT NULL
-        DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMPTZ NOT NULL
-        DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at),
+    CHECK (frame_count >= 0)
 );
-
+\end{lstlisting}
+\subsection{Bảng \texttt{processing\_stages} -- Danh mục công đoạn}
+\label{physical-processing_stages}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
 CREATE TABLE processing_stages (
-    processing_stage_id UUID PRIMARY KEY,
+    processing_stage_id UUID NOT NULL PRIMARY KEY,
     stage_code VARCHAR(50) NOT NULL UNIQUE,
     stage_name VARCHAR(100) NOT NULL,
-    stage_order INTEGER NOT NULL
-        CHECK (stage_order > 0),
+    stage_order INTEGER NOT NULL,
     description TEXT,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
-    created_at TIMESTAMPTZ NOT NULL
-        DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMPTZ NOT NULL
-        DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at),
+    CHECK (stage_order > 0)
 );
-
+\end{lstlisting}
+\subsection{Bảng \texttt{stage\_logs} -- Lần thực hiện công đoạn}
+\label{physical-stage_logs}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
 CREATE TABLE stage_logs (
-    stage_log_id UUID PRIMARY KEY,
+    stage_log_id UUID NOT NULL PRIMARY KEY,
     film_roll_id UUID NOT NULL
-        REFERENCES film_rolls(film_roll_id)
-        ON DELETE RESTRICT,
+        REFERENCES film_rolls(film_roll_id) ON DELETE RESTRICT,
     processing_stage_id UUID NOT NULL
-        REFERENCES processing_stages(processing_stage_id)
-        ON DELETE RESTRICT,
+        REFERENCES processing_stages(processing_stage_id) ON DELETE RESTRICT,
     status VARCHAR(30) NOT NULL,
     started_at TIMESTAMPTZ,
     completed_at TIMESTAMPTZ,
     operator_id UUID
-        REFERENCES users(user_id)
-        ON DELETE RESTRICT,
+        REFERENCES users(user_id) ON DELETE RESTRICT,
     note TEXT,
-    created_at TIMESTAMPTZ NOT NULL
-        DEFAULT CURRENT_TIMESTAMP,
-    CHECK (
-        completed_at IS NULL
-        OR started_at IS NULL
-        OR completed_at >= started_at
-    )
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at),
+    CHECK (completed_at IS NULL OR started_at IS NULL OR completed_at >= started_at)
 );
-
+\end{lstlisting}
+\subsection{Bảng \texttt{order\_status\_history} -- Lịch sử trạng thái đơn}
+\label{physical-order_status_history}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
 CREATE TABLE order_status_history (
-    order_status_history_id UUID PRIMARY KEY,
+    order_status_history_id UUID NOT NULL PRIMARY KEY,
     order_id UUID NOT NULL
-        REFERENCES orders(order_id)
-        ON DELETE RESTRICT,
+        REFERENCES orders(order_id) ON DELETE RESTRICT,
     old_status VARCHAR(30),
     new_status VARCHAR(30) NOT NULL,
     changed_by UUID
-        REFERENCES users(user_id)
-        ON DELETE RESTRICT,
-    changed_at TIMESTAMPTZ NOT NULL
-        DEFAULT CURRENT_TIMESTAMP,
-    note TEXT
+        REFERENCES users(user_id) ON DELETE RESTRICT,
+    changed_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    note TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at),
+    CHECK (old_status IN ('pending', 'confirmed', 'received', 'processing', 'scanning', 'completed', 'delivered', 'cancelled')),
+    CHECK (new_status IN ('pending', 'confirmed', 'received', 'processing', 'scanning', 'completed', 'delivered', 'cancelled'))
 );
-
+\end{lstlisting}
+\subsection{Bảng \texttt{pickup\_delivery\_requests} -- Yêu cầu nhận/giao phim}
+\label{physical-pickup_delivery_requests}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
 CREATE TABLE pickup_delivery_requests (
-    request_id UUID PRIMARY KEY,
+    request_id UUID NOT NULL PRIMARY KEY,
     order_id UUID NOT NULL
-        REFERENCES orders(order_id)
-        ON DELETE RESTRICT,
-    request_type VARCHAR(20) NOT NULL
-        CHECK (request_type IN ('pickup', 'delivery')),
+        REFERENCES orders(order_id) ON DELETE RESTRICT,
+    request_type VARCHAR(20) NOT NULL,
     status VARCHAR(30) NOT NULL,
     pickup_address TEXT,
     delivery_address TEXT,
-    requested_at TIMESTAMPTZ NOT NULL
-        DEFAULT CURRENT_TIMESTAMP,
+    requested_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     completed_at TIMESTAMPTZ,
     note TEXT,
-    created_at TIMESTAMPTZ NOT NULL
-        DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMPTZ NOT NULL
-        DEFAULT CURRENT_TIMESTAMP,
-    CHECK (
-        completed_at IS NULL
-        OR completed_at >= requested_at
-    ),
-    CHECK (
-        (request_type = 'pickup'
-            AND pickup_address IS NOT NULL)
-        OR
-        (request_type = 'delivery'
-            AND delivery_address IS NOT NULL)
-    )
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at),
+    CHECK (request_type IN ('pickup', 'delivery')),
+    CHECK (completed_at IS NULL OR completed_at >= requested_at),
+    CHECK ((request_type = 'pickup' AND pickup_address IS NOT NULL) OR (request_type = 'delivery' AND delivery_address IS NOT NULL))
 );
-
-CREATE INDEX idx_orders_customer_id
-    ON orders(customer_id);
-
-CREATE INDEX idx_orders_lab_status_created
-    ON orders(lab_id, status, created_at DESC);
-
-CREATE INDEX idx_film_rolls_order_id
-    ON film_rolls(order_id);
-
-CREATE INDEX idx_film_rolls_status_updated
-    ON film_rolls(status, updated_at DESC);
-
-CREATE INDEX idx_stage_logs_roll_created
-    ON stage_logs(film_roll_id, created_at DESC);
-
-CREATE INDEX idx_order_status_history_order_changed
-    ON order_status_history(order_id, changed_at DESC);
-
-CREATE INDEX idx_pickup_delivery_order_status
-    ON pickup_delivery_requests(order_id, status);
-
 \end{lstlisting}
-
-
-\subsection{Điểm tích hợp P3 với P4}
-
-P3 và P4 liên kết thông qua \texttt{film\_rolls.film\_roll\_id}.
-
-Khi cuộn phim hoàn thành công đoạn scan, P4 có thể sử dụng
-\texttt{film\_roll\_id} để liên kết với bảng
-\texttt{scan\_files}. P3 không lưu lại đường dẫn file ảnh hoặc dữ liệu
-ảnh nhằm tránh trùng lặp dữ liệu giữa hai module.
-
-Việc xác nhận tên khóa và cardinality chính xác giữa
-\texttt{film\_rolls} và \texttt{scan\_files} cần được cross-review
-với P4 trước khi triển khai SQL chính thức.
-\section{Thiết kế vật lý cho module P4}
-
-Module P4 gồm hai nhóm dữ liệu chính là Kho ảnh phim số và Chợ giao dịch.
-Thiết kế vật lý sử dụng lại các quy ước chung của hệ thống: khóa chính dùng
-\texttt{UUID}, thời gian dùng \texttt{TIMESTAMPTZ}, giá tiền dùng
-\texttt{NUMERIC(12,2)} và các khóa ngoại phải được lập chỉ mục khi thường
-xuyên tham gia truy vấn.
-
-\subsection{Kho ảnh phim số}
-
-Bảng \texttt{scan\_files} sử dụng \texttt{scan\_file\_id UUID} làm khóa chính.
-\texttt{film\_roll\_id UUID} là khóa ngoại tham chiếu đến cuộn phim của module
-P3 và không được rỗng. Đường dẫn ảnh được lưu trong
-\texttt{storage\_url TEXT}, không lưu trực tiếp dữ liệu nhị phân của ảnh
-trong cơ sở dữ liệu. Tên file dùng \texttt{VARCHAR(255)}, định dạng file dùng
-\texttt{VARCHAR(20)}, kích thước file dùng \texttt{BIGINT} và phải lớn hơn
-hoặc bằng 0.
-
-Bảng \texttt{photo\_metadata} dùng
-\texttt{photo\_metadata\_id UUID} làm khóa chính.
-\texttt{scan\_file\_id UUID} là khóa ngoại đồng thời có ràng buộc
-\texttt{UNIQUE} để bảo đảm mỗi file scan có tối đa một bộ metadata.
-Các khóa \texttt{film\_stock\_id}, \texttt{camera\_model\_id} và
-\texttt{lens\_id} là khóa ngoại và có thể rỗng nếu thông tin ảnh chưa đầy đủ.
-
-Bảng \texttt{albums} dùng \texttt{album\_id UUID} làm khóa chính và
-\texttt{user\_id UUID} tham chiếu người sở hữu album.
-Quan hệ nhiều--nhiều giữa album và file scan được triển khai bằng
-\texttt{album\_photos}, với khóa chính ghép
-(\texttt{album\_id}, \texttt{scan\_file\_id}).
-
-Bảng \texttt{tags} sử dụng \texttt{tag\_id UUID} làm khóa chính.
-\texttt{tag\_name VARCHAR(100)} được chuẩn hóa chữ thường và có ràng buộc
-duy nhất. Quan hệ nhiều--nhiều giữa file scan và tag được triển khai bằng
-\texttt{photo\_tags}, sử dụng khóa chính ghép
-(\texttt{scan\_file\_id}, \texttt{tag\_id}).
-
-Các bảng danh mục \texttt{film\_stocks}, \texttt{camera\_models} và
-\texttt{lenses} đều sử dụng khóa chính UUID. Các thuộc tính mô tả như brand,
-model, film format, focal length và mount type sử dụng \texttt{VARCHAR}
-với độ dài phù hợp nhằm hạn chế dữ liệu không cần thiết.
-
-\subsection{Chợ giao dịch}
-
-Bảng \texttt{product\_categories} dùng
-\texttt{product\_category\_id UUID} làm khóa chính.
-Tên danh mục dùng \texttt{VARCHAR(150)} và không được rỗng.
-
-Bảng \texttt{products} dùng \texttt{product\_id UUID} làm khóa chính và
-\texttt{product\_category\_id UUID} làm khóa ngoại.
-Tên sản phẩm dùng \texttt{VARCHAR(150)}, thương hiệu và model dùng
-\texttt{VARCHAR}, còn mô tả dài sử dụng \texttt{TEXT}.
-
-Bảng \texttt{listings} sử dụng \texttt{listing\_id UUID} làm khóa chính.
-\texttt{product\_id} tham chiếu sản phẩm và \texttt{seller\_id} tham chiếu
-\texttt{users.user\_id}. Giá bán dùng \texttt{NUMERIC(12,2)} và phải lớn hơn
-hoặc bằng 0. Trạng thái tin đăng sử dụng \texttt{VARCHAR(20)} kết hợp
-ràng buộc \texttt{CHECK}.
-
-Bảng \texttt{marketplace\_transactions} sử dụng
-\texttt{marketplace\_transaction\_id UUID} làm khóa chính.
-\texttt{listing\_id UUID} là khóa ngoại và có ràng buộc \texttt{UNIQUE},
-phù hợp với quy tắc mỗi tin đăng có tối đa một giao dịch.
-\texttt{buyer\_id UUID} tham chiếu \texttt{users.user\_id}.
-Giá chốt dùng \texttt{NUMERIC(12,2)} và được giữ như snapshot lịch sử.
-
-Bảng \texttt{seller\_reviews} sử dụng
-\texttt{seller\_review\_id UUID} làm khóa chính.
-\texttt{marketplace\_transaction\_id UUID} là khóa ngoại có
-\texttt{UNIQUE}, bảo đảm mỗi giao dịch có tối đa một đánh giá.
-\texttt{reviewer\_id} và \texttt{seller\_id} đều tham chiếu
-\texttt{users.user\_id}. Điểm đánh giá dùng \texttt{INTEGER} và được giới hạn
-từ 1 đến 5 bằng ràng buộc \texttt{CHECK}.
-
-\subsection{Chỉ mục và tối ưu truy vấn cho P4}
-
-Các khóa ngoại thường xuyên được sử dụng để join như
-\texttt{film\_roll\_id}, \texttt{user\_id}, \texttt{product\_category\_id},
-\texttt{product\_id}, \texttt{seller\_id} và \texttt{buyer\_id} cần được
-lập chỉ mục.
-
-Đối với Chợ giao dịch, nên có chỉ mục kết hợp trên
-(\texttt{status}, \texttt{created\_at}) của \texttt{listings} để hỗ trợ
-lọc các tin đang hoạt động và sắp xếp theo thời gian mới nhất.
-Có thể lập thêm chỉ mục cho giá nếu chức năng tìm kiếm thường xuyên lọc
-theo khoảng giá.
-
-Đối với Kho ảnh số, chỉ mục trên \texttt{scan\_files.film\_roll\_id},
-\texttt{albums.user\_id} và các khóa ngoại của
-\texttt{photo\_metadata} giúp tăng tốc truy vấn ảnh theo cuộn phim,
-người sở hữu và metadata.
-
-\subsection{Lưu trữ và toàn vẹn dữ liệu P4}
-
-File ảnh scan được lưu ở object storage, cơ sở dữ liệu chỉ lưu URI và
-metadata cần thiết. Việc xóa bản ghi không được tự động xóa file ảnh vật lý
-nếu chưa hoàn tất quy trình kiểm tra quyền sở hữu và tham chiếu.
-
-Dữ liệu giao dịch và đánh giá cần được giữ lại để truy vết lịch sử.
-Không cascade delete từ \texttt{users}, \texttt{listings} hoặc sản phẩm
-sang các giao dịch đã phát sinh. Các trạng thái nghiệp vụ phải được kiểm tra
-ở tầng ứng dụng kết hợp với ràng buộc cơ sở dữ liệu.
-\section{Thiết kế vật lý cho module P5 -- Knowledge \& AI Integration}
-
-Module P5 chịu trách nhiệm xây dựng kho tri thức nhiếp ảnh film, kết nối cộng đồng thông qua sự kiện, thu thập đánh giá dịch vụ Film Lab, theo dõi hành vi tương tác và lưu vết hội thoại với trợ lý AI. Thiết kế mức vật lý cho module P5 được chuyển đổi từ lược đồ quan hệ đã chuẩn hóa ở Chương 4, đồng thời tuân thủ toàn bộ các nguyên tắc thiết kế chung của hệ thống trên hệ quản trị cơ sở dữ liệu PostgreSQL.
-
-Các quyết định thiết kế cốt lõi bao gồm:
-\begin{itemize}
-    \item \textbf{Khóa chính:} Toàn bộ các thực thể nghiệp vụ độc lập sử dụng định danh duy nhất \texttt{UUID} (v4) nhằm đảm bảo tính phân tán, tránh đoán trước khóa và an toàn khi tích hợp với các hệ thống phân tán.
-    \item \textbf{Kiểu thời gian:} Mọi thuộc tính mốc thời gian đều sử dụng \texttt{TIMESTAMPTZ} (timestamp with time zone) để đồng bộ múi giờ quốc tế và đảm bảo độ chính xác cho việc sắp xếp dòng thời gian sự kiện.
-    \item \textbf{Dữ liệu phi cấu trúc và văn bản dài:} Các trường nội dung bài viết, mã ngữ cảnh RAG và phản hồi AI sử dụng kiểu \texttt{TEXT} có cơ chế lưu trữ ngoài dòng (TOAST) của PostgreSQL nhằm tránh làm phình trang đĩa chính (heap page).
-    \item \textbf{Chiến lược toàn vẹn tham chiếu:} Áp dụng nghiêm ngặt các tùy chọn \texttt{ON DELETE CASCADE}, \texttt{ON DELETE RESTRICT} và \texttt{ON DELETE SET NULL} tương ứng với từng mối quan hệ logic nghiệp vụ.
-    \item \textbf{Tối ưu hóa truy vấn (Indexing):} Đánh chỉ mục B-tree trên tất cả các khóa ngoại, chỉ mục phức hợp (composite index) cho dữ liệu gợi ý và chỉ mục GIN hỗ trợ tìm kiếm toàn văn (Full-text Search).
-\end{itemize}
-
-\subsection{Thiết kế vật lý nhóm Cơ sở tri thức và Đánh giá}
-
-\subsubsection{Thiết kế vật lý bảng \texttt{article\_categories}}
-
-Bảng \texttt{article\_categories} đóng vai trò là bảng danh mục phân loại bài viết kiến thức, có tần suất ghi thấp nhưng tần suất đọc rất cao.
-
-\begin{itemize}
-    \item \textbf{Khóa chính:} Thuộc tính \texttt{category\_id} dùng kiểu \texttt{UUID} với giá trị mặc định sinh tự động \texttt{gen\_random\_uuid()}.
-    \item \textbf{Thuộc tính nghiệp vụ:}
-    \begin{itemize}
-        \item \texttt{category\_name}: Sử dụng \texttt{VARCHAR(100)} đi kèm ràng buộc \texttt{NOT NULL} và \texttt{UNIQUE} để ngăn chặn trùng lặp danh mục.
-        \item \texttt{description}: Dùng kiểu \texttt{TEXT}, cho phép \texttt{NULL} để người quản trị bổ sung phần diễn giải phạm vi chủ đề khi cần thiết.
-        \item \texttt{created\_at}: Sử dụng \texttt{TIMESTAMPTZ} với giá trị mặc định là \texttt{CURRENT\_TIMESTAMP}.
-    \end{itemize}
-    \item \textbf{Chỉ mục:} Hệ thống tự động tạo chỉ mục B-tree duy nhất cho khóa chính và ràng buộc \texttt{UNIQUE} trên cột \texttt{category\_name}. Do số lượng danh mục bài viết không lớn, bảng này không yêu cầu phân vùng hay chỉ mục mở rộng.
-\end{itemize}
-
-\subsubsection{Thiết kế vật lý bảng \texttt{articles}}
-
-Bảng \texttt{articles} là bảng nghiệp vụ trung tâm của kho tri thức, lưu trữ các bài viết chia sẻ kinh nghiệm, đánh giá máy ảnh/film và kỹ thuật phòng tối.
-
-\begin{itemize}
-    \item \textbf{Khóa chính:} \texttt{article\_id} dùng kiểu \texttt{UUID}.
-    \item \textbf{Khóa ngoại và toàn vẹn dữ liệu:}
-    \begin{itemize}
-        \item \texttt{author\_id} (\texttt{UUID}, \texttt{NOT NULL}): Tham chiếu đến \texttt{users(user\_id)} thuộc module P1. Sử dụng chính sách \texttt{ON DELETE CASCADE} nhằm đảm bảo khi tài khoản tác giả bị xóa khỏi hệ thống, các bài viết liên quan sẽ được xử lý tương ứng theo quy định bảo mật.
-        \item \texttt{category\_id} (\texttt{UUID}, \texttt{NOT NULL}): Tham chiếu đến \texttt{article\_categories(category\_id)}. Áp dụng chính sách \texttt{ON DELETE RESTRICT} để ngăn chặn việc xóa danh mục khi vẫn còn các bài viết trực thuộc.
-    \end{itemize}
-    \item \textbf{Thuộc tính nghiệp vụ và lưu trữ:}
-    \begin{itemize}
-        \item \texttt{title}: Sử dụng \texttt{VARCHAR(255)} có ràng buộc \texttt{NOT NULL}.
-        \item \texttt{content}: Kiểu \texttt{TEXT} có kích thước biến thiên lớn. Thuộc tính này tự động kích hoạt cơ chế TOAST khi độ dài vượt quá ngưỡng kích thước trang chuẩn (thường là 2KB), giúp các truy vấn quét danh sách tiêu đề bài viết không bị suy giảm hiệu năng do phải đọc dữ liệu nội dung thô.
-        \item \texttt{tags}: Sử dụng \texttt{VARCHAR(255)} lưu chuỗi từ khóa phân tách.
-        \item \texttt{view\_count}: Dùng kiểu \texttt{INT}, mặc định \texttt{0}, đi kèm ràng buộc kiểm tra \texttt{CHECK (view\_count >= 0)}.
-        \item \texttt{status}: Dùng \texttt{VARCHAR(20)} mặc định \texttt{'published'}, áp dụng \texttt{CHECK (status IN ('draft', 'published', 'archived'))} nhằm kiểm soát chặt chẽ vòng đời của bài viết.
-        \item \texttt{created\_at} và \texttt{updated\_at}: Kiểu \texttt{TIMESTAMPTZ}, mặc định \texttt{CURRENT\_TIMESTAMP}. Cột \texttt{updated\_at} được cập nhật tự động thông qua cơ chế trigger khi có thay đổi nội dung.
-    \end{itemize}
-    \item \textbf{Chiến lược chỉ mục:}
-    \begin{itemize}
-        \item Chỉ mục B-tree trên \texttt{author\_id} nhằm tăng tốc độ tải trang danh sách bài viết cá nhân của tác giả.
-        \item Chỉ mục B-tree trên \texttt{category\_id} phục vụ lọc bài viết theo từng phân mục cụ thể.
-        \item Chỉ mục phức hợp \texttt{(status, created\_at DESC)} phục vụ cho câu truy vấn phổ biến nhất trên trang chủ cộng đồng: lấy danh sách các bài viết đã xuất bản mới nhất.
-    \end{itemize}
-\end{itemize}
-
-\subsubsection{Thiết kế vật lý bảng \texttt{lab\_reviews}}
-
-Bảng \texttt{lab\_reviews} lưu trữ các phản hồi, đánh giá thực tế của cộng đồng về chất lượng tráng scan của từng Film Lab.
-
-\begin{itemize}
-    \item \textbf{Khóa chính:} \texttt{review\_id} kiểu \texttt{UUID}.
-    \item \textbf{Khóa ngoại:}
-    \begin{itemize}
-        \item \texttt{user\_id} (\texttt{UUID}, \texttt{NOT NULL}): Tham chiếu đến \texttt{users(user\_id)} với chính sách \texttt{ON DELETE CASCADE}.
-        \item \texttt{lab\_id} (\texttt{UUID}, \texttt{NOT NULL}): Tham chiếu đến bảng phòng lab \texttt{film\_labs(lab\_id)} của module P1 với chính sách \texttt{ON DELETE CASCADE}.
-    \end{itemize}
-    \item \textbf{Thuộc tính kiểm tra và đánh giá:}
-    \begin{itemize}
-        \item \texttt{rating}: Kiểu \texttt{INT} có ràng buộc \texttt{CHECK (rating >= 1 AND rating <= 5)} đảm bảo thang điểm chuẩn 5 sao.
-        \item \texttt{comment}: Kiểu \texttt{TEXT}, cho phép \texttt{NULL} trong trường hợp người dùng chỉ để lại số sao mà không viết nhận xét dài.
-        \item \texttt{created\_at}: Kiểu \texttt{TIMESTAMPTZ}, mặc định \texttt{CURRENT\_TIMESTAMP}.
-    \end{itemize}
-    \item \textbf{Chiến lược chỉ mục:} Thiết lập chỉ mục B-tree trên \texttt{lab\_id} để tối ưu hóa truy vấn tính điểm trung bình (AVG rating) và hiển thị danh sách đánh giá của từng Lab.
-\end{itemize}
-
-\subsection{Thiết kế vật lý nhóm Sự kiện, Tương tác và Trí tuệ nhân tạo}
-
-\subsubsection{Thiết kế vật lý bảng \texttt{community\_events}}
-
-Bảng \texttt{community\_events} quản lý dữ liệu lịch trình của các buổi offline, photowalk săn ảnh film và workshop kỹ thuật cộng đồng.
-
-\begin{itemize}
-    \item \textbf{Khóa chính:} \texttt{event\_id} kiểu \texttt{UUID}.
-    \item \textbf{Khóa ngoại:} \texttt{host\_id} (\texttt{UUID}, \texttt{NOT NULL}) tham chiếu đến tài khoản người dùng đại diện tổ chức \texttt{users(user\_id)} với chính sách \texttt{ON DELETE CASCADE}.
-    \item \textbf{Thuộc tính sự kiện:}
-    \begin{itemize}
-        \item \texttt{title} (\texttt{VARCHAR(255)}, \texttt{NOT NULL}): Tên buổi sự kiện.
-        \item \texttt{description} (\texttt{TEXT}, \texttt{NULL}): Chi tiết lộ trình, yêu cầu cuộn film hay thiết bị mang theo.
-        \item \texttt{location} (\texttt{VARCHAR(255)}, \texttt{NOT NULL}): Địa điểm tập trung hoặc địa chỉ tổ chức.
-        \item \texttt{event\_date} (\texttt{TIMESTAMPTZ}, \texttt{NOT NULL}): Thời gian bắt đầu diễn ra sự kiện.
-        \item \texttt{max\_participants}: Kiểu \texttt{INT}, cho phép \texttt{NULL} (không giới hạn số lượng tham dự) hoặc có ràng buộc \texttt{CHECK (max\_participants > 0)}.
-        \item \texttt{created\_at}: Kiểu \texttt{TIMESTAMPTZ}, mặc định \texttt{CURRENT\_TIMESTAMP}.
-    \end{itemize}
-    \item \textbf{Chiến lược chỉ mục:} Tạo chỉ mục B-tree trên cột \texttt{event\_date} hỗ trợ lọc danh sách sự kiện sắp diễn ra (\texttt{event\_date >= NOW()}) theo thứ tự thời gian tăng dần.
-\end{itemize}
-
-\subsubsection{Thiết kế vật lý bảng \texttt{user\_interactions}}
-
-Bảng \texttt{user\_interactions} là bảng ghi nhận nhật ký hành vi người dùng, có tần suất ghi cực kỳ lớn và tăng trưởng kích thước liên tục theo thời gian thực.
-
-\begin{itemize}
-    \item \textbf{Khóa chính:} \texttt{interaction\_id} kiểu \texttt{UUID}.
-    \item \textbf{Khóa ngoại và quan hệ đa hình (Polymorphic Pattern):}
-    \begin{itemize}
-        \item \texttt{user\_id} (\texttt{UUID}, \texttt{NOT NULL}): Tham chiếu đến \texttt{users(user\_id)} với tùy chọn \texttt{ON DELETE CASCADE}.
-        \item \texttt{target\_type} (\texttt{VARCHAR(50)}, \texttt{NOT NULL}): Xác định phân loại đối tượng tương tác, nhận các giá trị định danh như \texttt{'article'}, \texttt{'film\_lab'}, \texttt{'film\_stock'}.
-        \item \texttt{target\_id} (\texttt{UUID}, \texttt{NOT NULL}): Lưu trữ mã định danh của đối tượng được tương tác tương ứng.
-    \end{itemize}
-    \item \textbf{Thuộc tính hành vi:}
-    \begin{itemize}
-        \item \texttt{interaction\_type} (\texttt{VARCHAR(20)}, \texttt{NOT NULL}): Loại tương tác của người dùng như \texttt{'view'}, \texttt{'like'}, \texttt{'bookmark'}, \texttt{'share'}.
-        \item \texttt{created\_at}: Kiểu \texttt{TIMESTAMPTZ} mặc định \texttt{CURRENT\_TIMESTAMP}.
-    \end{itemize}
-    \item \textbf{Chiến lược chỉ mục và tối ưu hóa:}
-    \begin{itemize}
-        \item Tạo chỉ mục phức hợp \texttt{(target\_type, target\_id)} nhằm phục vụ truy vấn tổng hợp lượt tương tác cho một bài viết hoặc lab cụ thể.
-        \item Tạo chỉ mục phức hợp \texttt{(user\_id, interaction\_type)} hỗ trợ thuật toán trích xuất danh sách bài viết đã lưu (bookmark) hoặc lịch sử xem của từng cá nhân.
-        \item Đối với bảng này ở môi trường sản xuất thực tế, kiến trúc đề xuất áp dụng giải pháp phân vùng theo thời gian (Table Partitioning by Range trên cột \texttt{created\_at}) theo từng tháng hoặc quý để duy trì tốc độ đọc ghi ổn định.
-    \end{itemize}
-\end{itemize}
-
-\subsubsection{Thiết kế vật lý bảng \texttt{ai\_chat\_log}}
-
-Bảng \texttt{ai\_chat\_log} quản lý lịch sử tương tác giữa người dùng và trợ lý tư vấn thông số nhiếp ảnh AI sử dụng kiến trúc RAG (Retrieval-Augmented Generation).
-
-\begin{itemize}
-    \item \textbf{Khóa chính:} \texttt{chat\_id} kiểu \texttt{UUID}.
-    \item \textbf{Khóa ngoại:} \texttt{user\_id} dùng kiểu \texttt{UUID} nhưng được phép rỗng (\texttt{NULL}) đi kèm chính sách \texttt{ON DELETE SET NULL}. Điều này cho phép hệ thống lưu vết cả các câu hỏi của khách vãng lai (guest) chưa đăng ký tài khoản, đồng thời vẫn bảo toàn dữ liệu thống kê huấn luyện AI khi một tài khoản người dùng bị xóa.
-    \item \textbf{Thuộc tính hội thoại và kiến thức AI:}
-    \begin{itemize}
-        \item \texttt{user\_query} (\texttt{TEXT}, \texttt{NOT NULL}): Câu hỏi tra cứu kỹ thuật của người dùng.
-        \item \texttt{bot\_response} (\texttt{TEXT}, \texttt{NOT NULL}): Phản hồi hướng dẫn hoặc gợi ý thông số film từ mô hình AI.
-        \item \texttt{context\_retrieved} (\texttt{TEXT}, \texttt{NULL}): Đoạn trích xuất kiến thức ngữ cảnh (retrieved context chunks) từ kho dữ liệu vector được nạp vào mô hình sinh câu trả lời, phục vụ mục đích kiểm toán (audit) chất lượng câu trả lời.
-        \item \texttt{created\_at}: Kiểu \texttt{TIMESTAMPTZ}, mặc định \texttt{CURRENT\_TIMESTAMP}.
-    \end{itemize}
-    \item \textbf{Chiến lược chỉ mục:} Thiết lập chỉ mục B-tree trên \texttt{user\_id} và \texttt{created\_at} nhằm tải lại giao diện lịch sử hội thoại của người dùng theo thứ tự thời gian một cách nhanh chóng.
-\end{itemize}
-
-\section{SQL triển khai module P4}
-
-Phần này trình bày các câu lệnh SQL cơ bản để triển khai
-Kho lưu trữ ảnh phim số và Chợ giao dịch của module P4.
-
-\subsection{Kho lưu trữ ảnh phim số}
-
-\begin{verbatim}
+\section{P4 -- Kho ảnh số và chợ thiết bị}
+Tham chiếu mô hình tại Mục~\ref{sec:logical-P4}.
+\subsection{Bảng \texttt{scan\_files} -- File ảnh được số hóa}
+\label{physical-scan_files}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE scan_files (
+    scan_file_id UUID NOT NULL PRIMARY KEY,
+    film_roll_id UUID NOT NULL
+        REFERENCES film_rolls(film_roll_id) ON DELETE RESTRICT,
+    storage_url TEXT NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
+    file_format VARCHAR(20) NOT NULL,
+    file_size BIGINT NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at),
+    CHECK (file_size >= 0)
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{albums} -- Album ảnh của người dùng}
+\label{physical-albums}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE albums (
+    album_id UUID NOT NULL PRIMARY KEY,
+    user_id UUID NOT NULL
+        REFERENCES users(user_id) ON DELETE RESTRICT,
+    album_name VARCHAR(150) NOT NULL,
+    description TEXT,
+    visibility VARCHAR(20) NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at)
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{album\_photos} -- Ảnh thuộc album}
+\label{physical-album_photos}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE album_photos (
+    album_id UUID NOT NULL
+        REFERENCES albums(album_id) ON DELETE RESTRICT,
+    scan_file_id UUID NOT NULL
+        REFERENCES scan_files(scan_file_id) ON DELETE RESTRICT,
+    display_order INTEGER NOT NULL,
+    added_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (album_id, scan_file_id),
+    CHECK (updated_at >= created_at),
+    CHECK (display_order >= 0)
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{tags} -- Thẻ phân loại ảnh}
+\label{physical-tags}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE tags (
+    tag_id UUID NOT NULL PRIMARY KEY,
+    tag_name VARCHAR(100) NOT NULL UNIQUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at)
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{photo\_tags} -- Gán thẻ cho ảnh}
+\label{physical-photo_tags}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE photo_tags (
+    scan_file_id UUID NOT NULL
+        REFERENCES scan_files(scan_file_id) ON DELETE RESTRICT,
+    tag_id UUID NOT NULL
+        REFERENCES tags(tag_id) ON DELETE RESTRICT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (scan_file_id, tag_id),
+    CHECK (updated_at >= created_at)
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{film\_stocks} -- Loại film}
+\label{physical-film_stocks}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
 CREATE TABLE film_stocks (
-    film_stock_id UUID PRIMARY KEY,
+    film_stock_id UUID NOT NULL PRIMARY KEY,
     brand VARCHAR(100) NOT NULL,
     stock_name VARCHAR(150) NOT NULL,
-    iso INTEGER NOT NULL CHECK (iso > 0),
+    iso INTEGER NOT NULL,
     film_format VARCHAR(50) NOT NULL,
-    film_type VARCHAR(50) NOT NULL
+    film_type VARCHAR(50) NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at),
+    CHECK (iso > 0)
 );
-
+\end{lstlisting}
+\subsection{Bảng \texttt{camera\_models} -- Mẫu máy ảnh}
+\label{physical-camera_models}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
 CREATE TABLE camera_models (
-    camera_model_id UUID PRIMARY KEY,
+    camera_model_id UUID NOT NULL PRIMARY KEY,
     brand VARCHAR(100) NOT NULL,
     model_name VARCHAR(150) NOT NULL,
     camera_type VARCHAR(50),
-    film_format VARCHAR(50)
+    film_format VARCHAR(50),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at)
 );
-
+\end{lstlisting}
+\subsection{Bảng \texttt{lenses} -- Ống kính}
+\label{physical-lenses}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
 CREATE TABLE lenses (
-    lens_id UUID PRIMARY KEY,
+    lens_id UUID NOT NULL PRIMARY KEY,
     brand VARCHAR(100) NOT NULL,
     model_name VARCHAR(150) NOT NULL,
     focal_length VARCHAR(100),
     max_aperture VARCHAR(50),
-    mount_type VARCHAR(50)
+    mount_type VARCHAR(50),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at)
 );
-\end{verbatim}
-
-\begin{verbatim}
-CREATE TABLE scan_files (
-    scan_file_id UUID PRIMARY KEY,
-    film_roll_id UUID NOT NULL REFERENCES film_rolls(film_roll_id),
-    storage_url TEXT NOT NULL,
-    file_name VARCHAR(255) NOT NULL,
-    file_format VARCHAR(20) NOT NULL,
-    file_size BIGINT NOT NULL CHECK (file_size >= 0),
-    status VARCHAR(20) NOT NULL,
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE albums (
-    album_id UUID PRIMARY KEY,
-    user_id UUID NOT NULL REFERENCES users(user_id),
-    album_name VARCHAR(150) NOT NULL,
-    description TEXT,
-    visibility VARCHAR(20) NOT NULL,
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE tags (
-    tag_id UUID PRIMARY KEY,
-    tag_name VARCHAR(100) UNIQUE NOT NULL,
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
-);
-\end{verbatim}
-
-\begin{verbatim}
+\end{lstlisting}
+\subsection{Bảng \texttt{photo\_metadata} -- Metadata của ảnh scan}
+\label{physical-photo_metadata}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
 CREATE TABLE photo_metadata (
-    photo_metadata_id UUID PRIMARY KEY,
-    scan_file_id UUID UNIQUE NOT NULL
-        REFERENCES scan_files(scan_file_id),
-    film_stock_id UUID REFERENCES film_stocks(film_stock_id),
-    camera_model_id UUID REFERENCES camera_models(camera_model_id),
-    lens_id UUID REFERENCES lenses(lens_id),
+    photo_metadata_id UUID NOT NULL PRIMARY KEY,
+    scan_file_id UUID NOT NULL UNIQUE
+        REFERENCES scan_files(scan_file_id) ON DELETE RESTRICT,
+    film_stock_id UUID
+        REFERENCES film_stocks(film_stock_id) ON DELETE RESTRICT,
+    camera_model_id UUID
+        REFERENCES camera_models(camera_model_id) ON DELETE RESTRICT,
+    lens_id UUID
+        REFERENCES lenses(lens_id) ON DELETE RESTRICT,
     shooting_date DATE,
     scan_resolution VARCHAR(100),
     location TEXT,
-    notes TEXT
+    notes TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at)
 );
-
-CREATE TABLE album_photos (
-    album_id UUID NOT NULL REFERENCES albums(album_id),
-    scan_file_id UUID NOT NULL REFERENCES scan_files(scan_file_id),
-    display_order INTEGER NOT NULL CHECK (display_order >= 0),
-    added_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (album_id, scan_file_id)
-);
-
-CREATE TABLE photo_tags (
-    scan_file_id UUID NOT NULL REFERENCES scan_files(scan_file_id),
-    tag_id UUID NOT NULL REFERENCES tags(tag_id),
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (scan_file_id, tag_id)
-);
-\end{verbatim}
-
-\subsection{Chợ giao dịch}
-
-\begin{verbatim}
+\end{lstlisting}
+\subsection{Bảng \texttt{product\_categories} -- Danh mục sản phẩm}
+\label{physical-product_categories}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
 CREATE TABLE product_categories (
-    product_category_id UUID PRIMARY KEY,
+    product_category_id UUID NOT NULL PRIMARY KEY,
     category_name VARCHAR(150) NOT NULL,
-    description TEXT
+    description TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at)
 );
-
+\end{lstlisting}
+\subsection{Bảng \texttt{products} -- Sản phẩm giao dịch}
+\label{physical-products}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
 CREATE TABLE products (
-    product_id UUID PRIMARY KEY,
+    product_id UUID NOT NULL PRIMARY KEY,
     product_category_id UUID NOT NULL
-        REFERENCES product_categories(product_category_id),
+        REFERENCES product_categories(product_category_id) ON DELETE RESTRICT,
     product_name VARCHAR(150) NOT NULL,
     brand VARCHAR(100),
     model_name VARCHAR(150),
     condition VARCHAR(50) NOT NULL,
-    description TEXT
+    description TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at)
 );
-
+\end{lstlisting}
+\subsection{Bảng \texttt{listings} -- Tin đăng Marketplace}
+\label{physical-listings}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
 CREATE TABLE listings (
-    listing_id UUID PRIMARY KEY,
-    product_id UUID NOT NULL REFERENCES products(product_id),
-    seller_id UUID NOT NULL REFERENCES users(user_id),
+    listing_id UUID NOT NULL PRIMARY KEY,
+    product_id UUID NOT NULL
+        REFERENCES products(product_id) ON DELETE RESTRICT,
+    seller_id UUID NOT NULL
+        REFERENCES users(user_id) ON DELETE RESTRICT,
     title VARCHAR(200) NOT NULL,
-    price NUMERIC(12,2) NOT NULL CHECK (price >= 0),
+    price NUMERIC(12,2) NOT NULL,
     status VARCHAR(20) NOT NULL,
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at),
+    CHECK (price >= 0)
 );
-
+\end{lstlisting}
+\subsection{Bảng \texttt{marketplace\_transactions} -- Giao dịch Marketplace}
+\label{physical-marketplace_transactions}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
 CREATE TABLE marketplace_transactions (
-    marketplace_transaction_id UUID PRIMARY KEY,
-    listing_id UUID UNIQUE NOT NULL REFERENCES listings(listing_id),
-    buyer_id UUID NOT NULL REFERENCES users(user_id),
-    agreed_price NUMERIC(12,2) NOT NULL CHECK (agreed_price >= 0),
+    marketplace_transaction_id UUID NOT NULL PRIMARY KEY,
+    listing_id UUID NOT NULL UNIQUE
+        REFERENCES listings(listing_id) ON DELETE RESTRICT,
+    buyer_id UUID NOT NULL
+        REFERENCES users(user_id) ON DELETE RESTRICT,
+    agreed_price NUMERIC(12,2) NOT NULL,
     status VARCHAR(20) NOT NULL,
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at),
+    CHECK (agreed_price >= 0)
 );
-
+\end{lstlisting}
+\subsection{Bảng \texttt{seller\_reviews} -- Đánh giá người bán}
+\label{physical-seller_reviews}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
 CREATE TABLE seller_reviews (
-    seller_review_id UUID PRIMARY KEY,
-    marketplace_transaction_id UUID UNIQUE NOT NULL
-        REFERENCES marketplace_transactions(marketplace_transaction_id),
-    reviewer_id UUID NOT NULL REFERENCES users(user_id),
-    seller_id UUID NOT NULL REFERENCES users(user_id),
-    rating INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    seller_review_id UUID NOT NULL PRIMARY KEY,
+    marketplace_transaction_id UUID NOT NULL UNIQUE
+        REFERENCES marketplace_transactions(marketplace_transaction_id) ON DELETE RESTRICT,
+    reviewer_id UUID NOT NULL
+        REFERENCES users(user_id) ON DELETE RESTRICT,
+    seller_id UUID NOT NULL
+        REFERENCES users(user_id) ON DELETE RESTRICT,
+    rating INTEGER NOT NULL,
     comment TEXT,
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at),
+    CHECK (rating BETWEEN 1 AND 5)
 );
-\end{verbatim}
+\end{lstlisting}
+\section{P5 -- Tri thức, AI và đánh giá Lab}
+Tham chiếu mô hình tại Mục~\ref{sec:logical-P5}.
+\subsection{Bảng \texttt{article\_categories} -- Danh mục bài viết}
+\label{physical-article_categories}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE article_categories (
+    category_id UUID NOT NULL PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL UNIQUE,
+    description TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at)
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{articles} -- Bài viết và hướng dẫn}
+\label{physical-articles}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE articles (
+    article_id UUID NOT NULL PRIMARY KEY,
+    author_id UUID NOT NULL
+        REFERENCES users(user_id) ON DELETE RESTRICT,
+    category_id UUID NOT NULL
+        REFERENCES article_categories(category_id) ON DELETE RESTRICT,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    tags VARCHAR(255),
+    view_count INTEGER NOT NULL DEFAULT 0,
+    status VARCHAR(20) NOT NULL DEFAULT 'published',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at),
+    CHECK (status IN ('draft', 'published', 'archived')),
+    CHECK (view_count >= 0)
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{lab\_reviews} -- Đánh giá Film Lab}
+\label{physical-lab_reviews}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE lab_reviews (
+    review_id UUID NOT NULL PRIMARY KEY,
+    user_id UUID NOT NULL
+        REFERENCES users(user_id) ON DELETE RESTRICT,
+    lab_id UUID NOT NULL
+        REFERENCES film_labs(lab_id) ON DELETE RESTRICT,
+    rating INTEGER NOT NULL,
+    comment TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at),
+    CHECK (rating BETWEEN 1 AND 5)
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{community\_events} -- Sự kiện cộng đồng}
+\label{physical-community_events}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE community_events (
+    event_id UUID NOT NULL PRIMARY KEY,
+    host_id UUID NOT NULL
+        REFERENCES users(user_id) ON DELETE RESTRICT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    location VARCHAR(255) NOT NULL,
+    event_date TIMESTAMPTZ NOT NULL,
+    max_participants INTEGER,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at),
+    CHECK (max_participants > 0)
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{user\_interactions} -- Nhật ký hành vi}
+\label{physical-user_interactions}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE user_interactions (
+    interaction_id UUID NOT NULL PRIMARY KEY,
+    user_id UUID NOT NULL
+        REFERENCES users(user_id) ON DELETE RESTRICT,
+    target_type VARCHAR(50) NOT NULL,
+    target_id UUID NOT NULL,
+    interaction_type VARCHAR(20) NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at),
+    CHECK (target_type IN ('article', 'film_lab', 'film_stock')),
+    CHECK (interaction_type IN ('view', 'like', 'search', 'bookmark', 'share'))
+);
+\end{lstlisting}
+\subsection{Bảng \texttt{ai\_chat\_log} -- Nhật ký hội thoại AI}
+\label{physical-ai_chat_log}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE TABLE ai_chat_log (
+    chat_id UUID NOT NULL PRIMARY KEY,
+    user_id UUID
+        REFERENCES users(user_id) ON DELETE SET NULL,
+    user_query TEXT NOT NULL,
+    bot_response TEXT NOT NULL,
+    context_retrieved TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (updated_at >= created_at)
+);
+\end{lstlisting}
+
+\section{Chỉ mục theo luồng truy vấn}
+Các chỉ mục bổ sung sau phục vụ đường truy vấn hiện có; không tạo lại
+index cho PK/UNIQUE hoặc cột đã là tiền tố phù hợp của một index khác.
+Hiệu quả phải được kiểm chứng trên dữ liệu đại diện, không coi có index
+là đã đo được hiệu năng.
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+CREATE INDEX idx_orders_customer ON orders(customer_id);
+CREATE INDEX idx_orders_lab_tracking ON orders(lab_id, status, created_at DESC);
+CREATE INDEX idx_order_items_order ON order_items(order_id);
+CREATE INDEX idx_film_rolls_order ON film_rolls(order_id);
+CREATE INDEX idx_film_rolls_tracking ON film_rolls(status, updated_at DESC);
+CREATE INDEX idx_stage_logs_roll ON stage_logs(film_roll_id, created_at DESC);
+CREATE INDEX idx_order_history ON order_status_history(order_id, changed_at DESC);
+CREATE INDEX idx_pickup_order ON pickup_delivery_requests(order_id, status);
+CREATE INDEX idx_scan_roll ON scan_files(film_roll_id);
+CREATE INDEX idx_albums_owner ON albums(user_id);
+CREATE INDEX idx_photo_tags_tag ON photo_tags(tag_id, scan_file_id);
+CREATE INDEX idx_products_category ON products(product_category_id);
+CREATE INDEX idx_listings_search ON listings(status, created_at DESC);
+CREATE INDEX idx_listings_seller ON listings(seller_id);
+CREATE INDEX idx_transactions_buyer ON marketplace_transactions(buyer_id);
+CREATE INDEX idx_articles_author ON articles(author_id);
+CREATE INDEX idx_articles_category ON articles(category_id);
+CREATE INDEX idx_articles_published ON articles(status, created_at DESC);
+CREATE INDEX idx_articles_text ON articles USING GIN
+    (to_tsvector('simple', title || ' ' || content));
+CREATE INDEX idx_lab_reviews_lab ON lab_reviews(lab_id, created_at DESC);
+CREATE INDEX idx_events_date ON community_events(event_date);
+CREATE INDEX idx_interactions_target ON user_interactions(target_type, target_id);
+CREATE INDEX idx_interactions_user ON user_interactions(user_id, interaction_type);
+CREATE INDEX idx_chat_user ON ai_chat_log(user_id, created_at DESC);
+\end{lstlisting}
+Tìm kiếm toàn văn cần dùng cùng biểu thức và cấu hình simple với index;
+cấu hình này chưa bao gồm xử lý ngôn ngữ tiếng Việt chuyên biệt. Chỉ mục
+không gian cho tìm Lab cần mô hình tọa độ của P2. Phân vùng log và vector
+search chỉ là hướng mở rộng, chưa có DDL trong bản hiện tại.
+
+\section{Truy vấn tổng tiền từ nguồn đã chốt}
+\begin{lstlisting}[language=SQL,breaklines=true,basicstyle=\ttfamily\scriptsize]
+SELECT o.order_id, COALESCE(i.subtotal, 0) AS subtotal,
+       COALESCE(i.subtotal, 0) + o.delivery_fee
+           - o.discount_amount AS total_amount
+FROM orders AS o
+LEFT JOIN (
+    SELECT order_id, SUM(quantity * unit_price) AS subtotal
+    FROM order_items GROUP BY order_id
+) AS i ON i.order_id = o.order_id;
+\end{lstlisting}
+Tổng hợp hạng mục trước khi nối với cuộn phim hoặc thành phần gói để
+không nhân bản giá. Kết quả tổng phải được kiểm tra không âm và nằm trong
+miền tiền tệ khi chốt đơn; CHECK trong orders không thể kiểm tra SUM từ
+bảng khác. Không INSERT subtotal/total amount vào bảng orders.
+
+\section{Giao dịch, audit và bảo toàn lịch sử}
+Các ràng buộc ở Mục~\ref{sec:integration-rules} cần thủ tục ghi dữ liệu
+hoặc trigger; DDL phía trên mới thực thi PK/FK, UNIQUE và CHECK nội bộ.
+Mọi thao tác sửa hạng mục/phí/giảm giá phải khóa cùng bản ghi orders;
+xác nhận đơn kiểm tra dữ liệu và chuyển trạng thái trong cùng transaction.
+Sửa thành phần gói và đặt gói phải phối hợp khóa service\_packages để
+không đổi nội dung sau khi đã được đặt. Chuyển trạng thái đơn phải ghi
+order status history cùng giao dịch; CHECK miền status không kiểm soát
+được thứ tự chuyển trạng thái.
+
+Trigger hoặc thủ tục ghi phải cập nhật updated\_at, bảo vệ dữ liệu giá
+đã chốt và cấm sửa/xóa lịch sử đã ghi. Log chỉ bổ sung: khi tạo, hai mốc
+audit bằng nhau; sửa lỗi bằng bản ghi nghiệp vụ mới thay vì ghi đè.
+RESTRICT ở FK không tự ngăn DELETE trực tiếp một đơn không có bảng con;
+cần giới hạn quyền ghi/xóa và chính sách giữ dữ liệu. User/Lab đã phát
+sinh nghiệp vụ dùng trạng thái hoặc soft-delete. SET NULL của AI Chat
+không cho phép bỏ qua các RESTRICT khác đang tham chiếu cùng người dùng.
+
+Chưa có triển khai đầy đủ trigger, RLS, dữ liệu mẫu hoặc kiểm thử hiệu
+năng PostgreSQL. Phần SQL này phục vụ đối chiếu nhất quán 36 bảng hiện
+có, không phải tuyên bố hoàn thành tất cả phạm vi P1--P5.

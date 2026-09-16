@@ -1,672 +1,164 @@
-% Chương 3: Thiết kế mức khái niệm
+﻿% Chương 3: Thiết kế mức khái niệm
 \chapter{THIẾT KẾ MỨC KHÁI NIỆM}
 
-\section{Nguyên tắc mô hình hóa}
+\section{Nguyên tắc và phạm vi mô hình hóa}
+Chương này chuyển các yêu cầu ở Chương 2 thành thực thể và quan hệ. Phạm vi P1--P5 theo Mục~\ref{sec:module-scope}; danh sách chưa hoàn thiện theo Mục~\ref{sec:scope-gaps}. Mô hình dùng chung users, film\_labs, lab\_services, orders và order\_items do P1 quản lý. P2/P3 sử dụng những thực thể này, không tạo lại các định nghĩa riêng.
 
-Mô hình được chia theo module nhưng dùng chung thực thể \entity{users}. Quan hệ nghiệp vụ được biểu diễn rõ cardinality; quan hệ nhiều--nhiều được giải quyết bằng thực thể kết hợp. Dữ liệu lịch sử được tách khỏi trạng thái hiện tại để vừa truy vấn nhanh vừa bảo đảm khả năng kiểm toán.
+Tên thực thể dưới đây được đối chiếu với Chương 4--6 hiện tại. Các tên kế thừa như order\_status\_history, photo\_metadata và ai\_chat\_log được giữ để không tạo thêm phiên bản tên; việc chuẩn hóa tên theo quy ước số nhiều phải thực hiện đồng bộ khi chốt schema. Danh sách thuộc tính ở chương này là thuộc tính nhận diện nghiệp vụ; domain, toàn bộ audit và constraint chi tiết nằm ở Chương 4--6.
 
-\section{Danh mục thực thể sơ bộ}
-
-\small
-\begin{longtable}{>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{10cm}}
+\section{Danh mục thực thể và phạm vi phụ trách}
+\begin{longtable}{p{2.5cm}p{11cm}}
 \toprule
-\textbf{Module} & \textbf{Thực thể chính và vai trò} \\
+\textbf{Phần} & \textbf{Thực thể hiện có trong thiết kế chi tiết} \\
 \midrule
 \endhead
-Identity/RBAC & \entity{users}, \entity{roles}, \entity{permissions}, \entity{user_roles}. Quản lý danh tính, hồ sơ và quyền truy cập. \\
-Lab/Catalog & \entity{film_labs}, \entity{lab_services}, \entity{service_packages}, \entity{working_hours}, \entity{lab_capacity}. Quản lý nhà cung cấp, danh mục dịch vụ và khả năng phục vụ. \\
-Order/Processing & \entity{orders}, \entity{order_items}, \entity{film_rolls}, \entity{processing_stages}, \entity{stage_logs}, \entity{order_status_history}. Quản lý đơn hàng và vòng đời từng cuộn phim. \\
-Archive & \entity{scan_files}, \entity{photo_metadata}, \entity{albums}, \entity{album_photos}, \entity{tags}, \entity{photo_tags}. Quản lý file quét, metadata và bộ sưu tập cá nhân. \\
-Marketplace & \entity{products}, \entity{product_categories}, \entity{listings}, \entity{marketplace_transactions}, \entity{seller_reviews}. Quản lý tin đăng và giao dịch thiết bị. \\
-Knowledge/\newline Community & \entity{articles}, \entity{knowledge_categories}, \entity{comments}, \entity{events}, \entity{event_registrations}. Quản lý nội dung và hoạt động cộng đồng. \\
-AI/Integration & \entity{user_behavior_logs}, \entity{recommendation_logs}, \entity{ai_chat_histories}, \entity{notifications}, \entity{payment_transactions}. Lưu dữ liệu tích hợp, kiểm toán và hỗ trợ AI. \\
+P1 -- Identity & users, roles, permissions, user\_roles, role\_permissions. \\
+P1 -- Lab/Catalog & film\_labs, lab\_services, service\_packages, package\_services; P2 sử dụng cho quản lý Lab. \\
+P1 -- Order & orders, order\_items; P3 sử dụng để theo dõi vòng đời xử lý. \\
+P3 & film\_rolls, processing\_stages, stage\_logs, order\_status\_history, pickup\_delivery\_requests. \\
+P4 -- Archive & scan\_files, photo\_metadata, albums, album\_photos, tags, photo\_tags, film\_stocks, camera\_models, lenses. \\
+P4 -- Marketplace & products, product\_categories, listings, marketplace\_transactions, seller\_reviews. \\
+P5 & articles, article\_categories, lab\_reviews, community\_events, user\_interactions, ai\_chat\_log. Đánh giá Lab phối hợp nghiệp vụ với P2. \\
 \bottomrule
 \end{longtable}
-\normalsize
 
-\section{Quan hệ và cardinality quan trọng}
+P2 còn phải thiết kế các phần mở rộng user\_profiles, addresses, user\_preferences, lab\_working\_hours, lab\_capacity, service\_options theo phân công. Service options trong order\_items hiện là dữ liệu tùy chọn lúc đặt, không thay thế toàn bộ danh mục tùy chọn của P2. Các thực thể AI/Integration, bình luận và đăng ký sự kiện còn thiếu của P5 không được coi là đã có chỉ vì được nêu trong danh mục yêu cầu.
 
-\begin{itemize}
-    \item \entity{users} và \entity{roles} là N--N qua \entity{user_roles}; \entity{roles} và \entity{permissions} là N--N.
-    \item Một user có thể sở hữu nhiều Film Lab; một Film Lab có nhiều service và service package.
-    \item Một user tạo nhiều order; mỗi order thuộc đúng một Film Lab và có nhiều order item/film roll.
-    \item Một film roll đi qua nhiều processing stage; mỗi lần cập nhật tạo stage log và có thể phát sinh lịch sử trạng thái order.
-    \item Một film roll có nhiều scan file; scan file có metadata ảnh và thuộc kho của người sở hữu đơn hàng.
-    \item User có nhiều album; album--ảnh và ảnh--tag là N--N qua các bảng trung gian.
-    \item Một user tạo nhiều listing; listing liên kết buyer và seller thông qua marketplace transaction.
-    \item User có thể viết article/comment, đăng ký event và sinh behavior log, recommendation log hoặc AI chat history.
-\end{itemize}
-
-\section{ERD tổng quan sơ bộ}
-
-\begin{figure}[ht]
+\section{Sơ đồ tổng quan theo module}
+\begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[module/.style={draw,rounded corners,align=center,minimum width=3.4cm,minimum height=1cm,fill=blue!6},link/.style={->,>=stealth,thick}]
-\node[module] (user) {User / RBAC};
-\node[module, right=2.4cm of user] (lab) {Film Lab / Service};
-\node[module, below=1.5cm of lab] (order) {Order / Processing};
-\node[module, left=2.4cm of order] (archive) {Digital Archive};
-\node[module, left=2.4cm of user] (market) {Marketplace};
-\node[module, left=2.4cm of archive] (knowledge) {Knowledge / AI};
-\draw[link] (user) -- node[above]{sở hữu} (lab);
-\draw[link] (user) -- node[sloped,above]{đặt dịch vụ} (order);
-\draw[link] (lab) -- node[right]{xử lý} (order);
-\draw[link] (order) -- node[above]{tạo file scan} (archive);
-\draw[link] (user) -- (market);
-\draw[link] (user) -- (knowledge);
-\draw[link] (archive) -- node[above]{cung cấp metadata} (knowledge);
+\begin{tikzpicture}[module/.style={draw,rounded corners,align=center,text width=3.5cm,minimum height=1.1cm,fill=blue!6},link/.style={->,>=stealth,thick}]
+\node[module] (core) at (0,0) {P1: User/RBAC\\Lab, Service, Order};
+\node[module] (p2) at (-4.8,2.6) {P2: Hồ sơ và\\vận hành Lab};
+\node[module] (p3) at (4.8,2.6) {P3: Cuộn phim\\và xử lý};
+\node[module] (p4) at (4.8,-2.6) {P4: Kho ảnh\\và chợ thiết bị};
+\node[module] (p5) at (-4.8,-2.6) {P5: Tri thức, AI\\và tích hợp};
+\draw[link] (p2) -- (core);
+\draw[link] (p3) -- (core);
+\draw[link] (p4) -- (core);
+\draw[link] (p5) -- (core);
+\draw[link] (p4) -- node[right,align=left]{tham chiếu\\cuộn phim} (p3);
 \end{tikzpicture}
-\caption{ERD tổng quan ở mức module}
+\caption{Phạm vi module và hướng tham chiếu dữ liệu dùng chung; mũi tên không biểu diễn cardinality}
 \label{fig:conceptual-overview}
 \end{figure}
+Cardinality ở các mục sau là căn cứ chuyển sang lược đồ quan hệ. Sơ đồ tổng quan không thay thế ERD cuối cùng bao phủ toàn bộ yêu cầu.
 
-\section{Quy ước dữ liệu chung}
-
-Tên bảng/cột dùng tiếng Anh, chữ thường và \texttt{snake\_case}; tên bảng ở dạng số nhiều. Khóa chính dùng \texttt{<entity>\_id}, khóa ngoại giữ cùng tên với khóa được tham chiếu. Thực thể nghiệp vụ chính ưu tiên UUID; thời gian dùng \texttt{TIMESTAMPTZ}. Bảng nghiệp vụ có \texttt{created\_at}, \texttt{updated\_at}; dùng \texttt{deleted\_at} khi soft-delete phù hợp. Dữ liệu lịch sử, đơn hàng, thanh toán và giao dịch không bị xóa cứng.
-
-% ============================================================
-% P2 - User & Film Lab Management
-% ============================================================
-
-\section{P2 -- User \& Film Lab Management}
-
-\subsection{Phạm vi của module}
-
-Module User \& Film Lab Management chịu trách nhiệm quản lý thông tin
-người dùng, vai trò và quyền truy cập, thông tin Film Lab cũng như
-các dịch vụ mà Film Lab cung cấp.
-
-Module này là cơ sở cho các module khác trong hệ thống như
-Order/Processing, Digital Archive, Marketplace và
-Knowledge/Community.
-
-Các thực thể trong module được thiết kế để có thể dùng chung với
-các module khác trong toàn bộ hệ thống.
-
-\subsection{Các thực thể chính}
-
-\subsubsection{Thực thể \texttt{users}}
-
-Thực thể \texttt{users} lưu trữ thông tin cơ bản của người dùng
-tham gia hệ thống.
-
-Các thuộc tính chính gồm:
-
+\section{P1 -- Core Domain và các quan hệ dùng chung}
+\subsection{Nhận diện thực thể}
 \begin{itemize}
-    \item \texttt{user\_id}: Mã định danh duy nhất của người dùng,
-    là khóa chính.
-
-    \item \texttt{full\_name}: Họ và tên của người dùng.
-
-    \item \texttt{email}: Địa chỉ email của người dùng.
-
-    \item \texttt{phone}: Số điện thoại liên hệ.
-
-    \item \texttt{address}: Địa chỉ của người dùng.
-
-    \item \texttt{status}: Trạng thái hoạt động của tài khoản.
-
-    \item \texttt{created\_at}: Thời điểm tạo tài khoản.
-
-    \item \texttt{updated\_at}: Thời điểm cập nhật thông tin
-    người dùng.
+\item users định danh bằng user\_id, có email, password\_hash, full\_name, phone và status. Địa chỉ cá nhân thuộc phần mở rộng P2, không phải cột address của users trong Core hiện tại.
+\item roles và permissions định danh bằng role\_id, permission\_id, có mã nghiệp vụ role\_code, permission\_code. user\_roles và role\_permissions biểu diễn gán vai trò và gán quyền.
+\item film\_labs dùng lab\_id, owner\_id, lab\_name, thông tin liên hệ, address, status, approved\_at. lab\_services dùng service\_id, lab\_id, service\_code, service\_name, base\_price, turnaround\_hours, is\_active.
+\item service\_packages dùng package\_id, lab\_id, package\_code, package\_name, package\_price, is\_active. package\_services lưu thành phần và quantity trong gói.
+\item orders dùng order\_id, customer\_id, lab\_id, order\_code, status, fulfillment\_method, phí, giảm giá và currency\_code. order\_items dùng order\_item\_id, order\_id, service\_id hoặc package\_id, quantity, unit\_price, service\_options và item\_note.
 \end{itemize}
 
-Thực thể \texttt{users} là thực thể dùng chung cho nhiều module
-trong hệ thống. Một người dùng có thể tham gia hệ thống với một hoặc
-nhiều vai trò khác nhau như Photographer/Customer, Film Lab Owner,
-Photography Expert, Delivery Partner và System Administrator.
+\subsection{Cardinality và quy tắc Core}
+\begin{longtable}{p{5cm}p{8.5cm}}
+\toprule
+\textbf{Quan hệ} & \textbf{Cardinality và ý nghĩa} \\
+\midrule
+\endhead
+users -- roles & N--N qua user\_roles; mỗi cặp chỉ xuất hiện một lần. \\
+roles -- permissions & N--N qua role\_permissions; mỗi cặp chỉ xuất hiện một lần. \\
+users -- film\_labs & User sở hữu 0--N Lab; Lab có đúng một owner. \\
+film\_labs -- lab\_services / service\_packages & Lab có 0--N dịch vụ và 0--N gói; mỗi dịch vụ/gói thuộc một Lab. \\
+service\_packages -- lab\_services & N--N qua package\_services, có quantity; gói mở bán phải có thành phần cùng Lab. \\
+users / film\_labs -- orders & User có 0--N đơn, Lab nhận 0--N đơn; đơn có một customer và một Lab. \\
+orders -- order\_items & Đơn có 0--N item khi tạo, ít nhất một item trước confirmed; item thuộc một đơn. \\
+order\_items -- dịch vụ/gói & Item có 0--1 service và 0--1 package, đúng một nhánh tồn tại; mỗi service/package có thể được chọn ở 0--N item. \\
+\bottomrule
+\end{longtable}
 
-\subsubsection{Thực thể \texttt{roles}}
+Quantity là số lượt dịch vụ hoặc số gói mua. Unit price là giá chốt cho một lượt/một gói; không cộng lại giá thành phần. Subtotal và total amount được tính từ hạng mục, phí và giảm giá, không lưu trong orders. Giá và số lượng được cố định sau xác nhận; thành phần gói đã được đặt không sửa/xóa, thay nội dung bằng gói mới. Mọi bảng Core, kể cả bảng nối, có created\_at và updated\_at. Users và film\_labs có deleted\_at nullable.
 
-Thực thể \texttt{roles} dùng để quản lý các vai trò của người dùng
-trong hệ thống.
+\section{P2 -- Người dùng và vận hành Lab}
+P2 dùng mô hình Core ở trên cho tài khoản, RBAC, Film Lab và danh mục dịch vụ. Các tên thuộc tính thống nhất là base\_price, turnaround\_hours, is\_active; không dùng price, processing\_time, status như một định nghĩa khác của lab\_services. Role thuộc hệ thống, không mặc nhiên cấp quyền thao tác trên mọi Lab.
 
-Các thuộc tính chính gồm:
+Phần mở rộng hồ sơ, địa chỉ, sở thích, lịch làm việc, công suất và phân quyền nhân viên chưa có lược đồ chi tiết đầy đủ. P2 cần xác định định danh, cardinality, tính bắt buộc và quan hệ với users/film\_labs trước khi tích hợp. Đánh giá Lab dùng lab\_reviews của phần P5 hiện tại; ràng buộc chứng minh người đánh giá có đơn hợp lệ vẫn cần P2/P5 bổ sung.
 
+\section{P3 -- Cuộn phim và quá trình xử lý}
+\subsection{Các thực thể và trách nhiệm dữ liệu}
 \begin{itemize}
-    \item \texttt{role\_id}: Mã định danh của vai trò,
-    là khóa chính.
-
-    \item \texttt{role\_name}: Tên của vai trò.
-
-    \item \texttt{description}: Mô tả chức năng và phạm vi
-    của vai trò.
+\item film\_rolls: film\_roll\_id, order\_id, roll\_code, film\_type, frame\_count, received\_at, scan\_completed\_at, status và note.
+\item processing\_stages: danh mục công đoạn gồm processing\_stage\_id, stage\_code, stage\_name, stage\_order, description và is\_active. Danh mục không chứa film\_roll\_id hoặc thời gian thực hiện của từng cuộn.
+\item stage\_logs: lần xử lý gồm stage\_log\_id, film\_roll\_id, processing\_stage\_id, status, started\_at, completed\_at, operator\_id và note.
+\item order\_status\_history: lưu order\_id, old\_status, new\_status, changed\_by, changed\_at và note, định danh bằng order\_status\_history\_id.
+\item pickup\_delivery\_requests: request\_id, order\_id, request\_type, status, địa chỉ nhận/giao, requested\_at, completed\_at và note.
 \end{itemize}
 
-Một số vai trò chính gồm Photographer/Customer, Film Lab Owner,
-Photography Expert, Delivery Partner và System Administrator.
-
-\subsubsection{Thực thể \texttt{user\_roles}}
-
-Thực thể \texttt{user\_roles} là thực thể kết hợp dùng để biểu diễn
-mối quan hệ nhiều--nhiều giữa \texttt{users} và \texttt{roles}.
-
-Các thuộc tính chính gồm:
-
+\subsection{Cardinality và đường truy vết}
 \begin{itemize}
-    \item \texttt{user\_id}: Khóa ngoại tham chiếu đến
-    \texttt{users}.
-
-    \item \texttt{role\_id}: Khóa ngoại tham chiếu đến
-    \texttt{roles}.
+\item Order có 0--N cuộn phim; mỗi cuộn thuộc đúng một order qua order\_id. Không có FK order\_item\_id trong film\_rolls hiện tại.
+\item Cuộn phim có 0--N stage log; mỗi log thuộc một cuộn và một công đoạn. Công đoạn có 0--N log trên nhiều cuộn; lần xử lý lại tạo bản ghi mới. Quan hệ cuộn--công đoạn là N--N qua stage\_logs, không phải công đoạn thuộc riêng một cuộn.
+\item Order có 0--N bản ghi lịch sử và 0--N yêu cầu nhận/giao; mỗi bản ghi con thuộc một order. Người thực hiện log/lịch sử tham chiếu users khi được ghi nhận.
+\item Cuộn phim có 0--N scan file; mỗi file thuộc đúng một cuộn. Chủ ảnh được xác định qua orders.customer\_id.
 \end{itemize}
-
-Cặp thuộc tính \texttt{user\_id} và \texttt{role\_id} tạo thành
-khóa chính kết hợp của thực thể \texttt{user\_roles}.
-
-\subsubsection{Thực thể \texttt{film\_labs}}
-
-Thực thể \texttt{film\_labs} lưu trữ thông tin của các Film Lab
-tham gia vào hệ thống.
-
-Các thuộc tính chính gồm:
-
-\begin{itemize}
-    \item \texttt{lab\_id}: Mã định danh duy nhất của Film Lab,
-    là khóa chính.
-
-    \item \texttt{owner\_id}: Mã người dùng sở hữu Film Lab,
-    là khóa ngoại tham chiếu đến \texttt{users}.
-
-    \item \texttt{lab\_name}: Tên của Film Lab.
-
-    \item \texttt{description}: Mô tả Film Lab.
-
-    \item \texttt{phone}: Số điện thoại liên hệ của Film Lab.
-
-    \item \texttt{email}: Địa chỉ email liên hệ của Film Lab.
-
-    \item \texttt{address}: Địa chỉ của Film Lab.
-
-    \item \texttt{status}: Trạng thái hoạt động của Film Lab.
-
-    \item \texttt{created\_at}: Thời điểm Film Lab được tạo.
-
-    \item \texttt{updated\_at}: Thời điểm thông tin Film Lab
-    được cập nhật.
-\end{itemize}
-
-Thuộc tính \texttt{owner\_id} cho phép xác định người dùng chịu
-trách nhiệm sở hữu và quản lý Film Lab.
-
-\subsubsection{Thực thể \texttt{lab\_services}}
-
-Thực thể \texttt{lab\_services} lưu trữ danh mục các dịch vụ
-do Film Lab cung cấp.
-
-Các thuộc tính chính gồm:
-
-\begin{itemize}
-    \item \texttt{service\_id}: Mã định danh duy nhất của dịch vụ,
-    là khóa chính.
-
-    \item \texttt{lab\_id}: Mã Film Lab cung cấp dịch vụ,
-    là khóa ngoại tham chiếu đến \texttt{film\_labs}.
-
-    \item \texttt{service\_name}: Tên của dịch vụ.
-
-    \item \texttt{description}: Mô tả chi tiết về dịch vụ.
-
-    \item \texttt{price}: Giá của dịch vụ.
-
-    \item \texttt{processing\_time}: Thời gian xử lý dự kiến
-    của dịch vụ.
-
-    \item \texttt{status}: Trạng thái cung cấp của dịch vụ.
-
-    \item \texttt{created\_at}: Thời điểm tạo dịch vụ.
-
-    \item \texttt{updated\_at}: Thời điểm cập nhật dịch vụ.
-\end{itemize}
-
-Một Film Lab có thể cung cấp nhiều dịch vụ khác nhau. Mỗi dịch vụ
-thuộc về đúng một Film Lab.
-
-\subsection{Các mối quan hệ và cardinality}
-
-Các mối quan hệ chính trong module P2 được xác định như sau:
-
-\begin{itemize}
-
-    \item \textbf{\texttt{users} -- \texttt{roles}:}
-    Đây là mối quan hệ nhiều--nhiều (N--N). Một người dùng có thể
-    được gán nhiều vai trò và một vai trò có thể được gán cho nhiều
-    người dùng. Mối quan hệ này được giải quyết thông qua thực thể
-    kết hợp \texttt{user\_roles}.
-
-    \item \textbf{\texttt{users} -- \texttt{film\_labs}:}
-    Đây là mối quan hệ một--nhiều (1--N). Một người dùng có thể
-    sở hữu nhiều Film Lab, trong khi mỗi Film Lab có một người dùng
-    làm chủ sở hữu. Mối quan hệ được biểu diễn thông qua thuộc tính
-    \texttt{owner\_id} trong \texttt{film\_labs}.
-
-    \item \textbf{\texttt{film\_labs} -- \texttt{lab\_services}:}
-    Đây là mối quan hệ một--nhiều (1--N). Một Film Lab có thể cung
-    cấp nhiều dịch vụ, trong khi mỗi dịch vụ thuộc về một Film Lab.
-
-\end{itemize}
-
-\subsection{Sơ đồ ERD của module P2}
-
-Sơ đồ dưới đây mô tả các thực thể chính của module User \& Film Lab
-Management, bao gồm các thuộc tính, khóa chính (PK), khóa ngoại (FK)
-và cardinality giữa các thực thể.
-
 \begin{figure}[htbp]
-    \centering
-
-    \begin{tikzpicture}[
-        scale=0.72,
-        transform shape,
-        entity/.style={
-            rectangle,
-            draw,
-            rounded corners,
-            minimum width=4.5cm,
-            align=left,
-            font=\small,
-            inner sep=6pt
-        },
-        relation/.style={
-            thick
-        },
-        card/.style={
-            font=\scriptsize,
-            fill=white,
-            inner sep=2pt
-        }
-    ]
-
-    % ========================================================
-    % ROLES
-    % ========================================================
-
-    \node[entity] (roles) at (0,7) {
-        \textbf{\large roles}\\
-        \rule{4cm}{0.4pt}\\
-        \underline{\texttt{role\_id}} \quad PK\\
-        \texttt{role\_name}\\
-        \texttt{description}
-    };
-
-    % ========================================================
-    % USER ROLES
-    % ========================================================
-
-    \node[entity] (userroles) at (0,0) {
-        \textbf{\large user\_roles}\\
-        \rule{4cm}{0.4pt}\\
-        \underline{\texttt{user\_id}} \quad PK, FK\\
-        \underline{\texttt{role\_id}} \quad PK, FK
-    };
-
-    % ========================================================
-    % USERS
-    % ========================================================
-
-    \node[entity] (users) at (6,0) {
-        \textbf{\large users}\\
-        \rule{4cm}{0.4pt}\\
-        \underline{\texttt{user\_id}} \quad PK\\
-        \texttt{full\_name}\\
-        \texttt{email}\\
-        \texttt{phone}\\
-        \texttt{address}\\
-        \texttt{status}\\
-        \texttt{created\_at}\\
-        \texttt{updated\_at}
-    };
-
-    % ========================================================
-    % FILM LABS
-    % ========================================================
-
-    \node[entity] (filmlabs) at (12,0) {
-        \textbf{\large film\_labs}\\
-        \rule{4cm}{0.4pt}\\
-        \underline{\texttt{lab\_id}} \quad PK\\
-        \texttt{owner\_id} \quad FK\\
-        \texttt{lab\_name}\\
-        \texttt{description}\\
-        \texttt{phone}\\
-        \texttt{email}\\
-        \texttt{address}\\
-        \texttt{status}\\
-        \texttt{created\_at}\\
-        \texttt{updated\_at}
-    };
-
-    % ========================================================
-    % LAB SERVICES
-    % ========================================================
-
-    \node[entity] (labservices) at (12,-7) {
-        \textbf{\large lab\_services}\\
-        \rule{4cm}{0.4pt}\\
-        \underline{\texttt{service\_id}} \quad PK\\
-        \texttt{lab\_id} \quad FK\\
-        \texttt{service\_name}\\
-        \texttt{description}\\
-        \texttt{price}\\
-        \texttt{processing\_time}\\
-        \texttt{status}\\
-        \texttt{created\_at}\\
-        \texttt{updated\_at}
-    };
-
-    % ========================================================
-    % RELATIONSHIPS
-    % ========================================================
-
-    % roles - user_roles
-    \draw[relation]
-        (roles.south)
-        -- node[card, right] {1:N}
-        (userroles.north);
-
-    % users - user_roles
-    \draw[relation]
-        (users.west)
-        -- node[card, above] {1:N}
-        (userroles.east);
-
-    % users - film_labs
-    \draw[relation]
-        (users.east)
-        -- node[card, above] {1:N}
-        (filmlabs.west);
-
-    % film_labs - lab_services
-    \draw[relation]
-        (filmlabs.south)
-        -- node[card, right] {1:N}
-        (labservices.north);
-
-    \end{tikzpicture}
-
-    \caption{ERD của module User \& Film Lab Management}
-    \label{fig:erd-p2}
-
+\centering
+\begin{tikzpicture}[box/.style={draw,rounded corners,align=center,minimum width=2.7cm,minimum height=0.8cm},arr/.style={->,>=stealth}]
+\node[box] (scan) at (0,0) {scan\_files};
+\node[box] (roll) at (3.6,0) {film\_rolls};
+\node[box] (ord) at (7.2,0) {orders};
+\node[box] (usr) at (10.8,0) {users};
+\draw[arr] (scan) -- node[above]{N:1} (roll);
+\draw[arr] (roll) -- node[above]{N:1} (ord);
+\draw[arr] (ord) -- node[above]{N:1} (usr);
+\end{tikzpicture}
+\caption{Đường truy vết file scan đến khách hàng theo FK hiện tại}
+\label{fig:order-processing-archive}
 \end{figure}
 
-\subsection{Vai trò của module P2 trong mô hình tổng thể}
+Đường nối này xác định được đơn và chủ ảnh, chưa xác định dịch vụ/hạng mục áp dụng cho từng cuộn. P1/P3 phải hoàn thiện ánh xạ đó theo Chương 2; không tự giả định mỗi cuộn chỉ dùng một hạng mục. Điều kiện chuyển trạng thái, hủy đơn và tích hợp đối tác giao nhận vẫn cần chốt, không coi sơ đồ trên đã giải quyết các quy tắc đó.
 
-Module User \& Film Lab Management cung cấp các thực thể nền tảng
-cho những module còn lại của hệ thống.
-
-Thực thể \texttt{users} được sử dụng chung để liên kết người dùng
-với đơn hàng, kho lưu trữ số, marketplace, nội dung cộng đồng và
-các chức năng hỗ trợ AI.
-
-Thực thể \texttt{film\_labs} và \texttt{lab\_services} là cơ sở
-để module Order/Processing xác định Film Lab thực hiện đơn hàng
-và dịch vụ được lựa chọn.
-
-Mô hình này giúp các module có thể dùng chung định danh người dùng
-và Film Lab, đồng thời hạn chế việc tạo các thực thể trùng lặp
-giữa các module.
-
-% ============================================================
-% KẾT THÚC P2
-% ============================================================
-
-% =========================================================
-% P3 - Quản lý cuộn phim và quá trình xử lý
-% =========================================================
-
-\section{P3 -- Quản lý cuộn phim và quá trình xử lý}
-
-P3 quản lý các cuộn phim được gửi đến Film Lab và quá trình xử lý
-của từng cuộn phim. Module này liên kết phần đơn hàng với kho ảnh số,
-giúp hệ thống theo dõi cuộn phim từ khi tiếp nhận cho đến khi tạo ra
-các file ảnh scan.
-
-\subsection{Các thực thể của P3}
-
-\subsubsection{FILM\_ROLL -- Cuộn phim}
-
-Thực thể \texttt{FILM\_ROLL} đại diện cho một cuộn phim được khách hàng
-gửi đến Film Lab để xử lý.
-
+\section{P4 -- Kho ảnh số và chợ thiết bị}
+\subsection{Kho ảnh số}
+Scan\_files lưu thông tin file, URI và tham chiếu cuộn phim. Photo\_metadata lưu thông tin ảnh; film\_stocks, camera\_models, lenses là danh mục được tham chiếu, không chứa lịch sử xử lý P3. Albums thuộc người dùng; tags dùng phân loại ảnh.
 \begin{itemize}
-    \item \texttt{film\_roll\_id}: Khóa chính, định danh duy nhất cho cuộn phim.
-    \item \texttt{order\_item\_id}: Tham chiếu hạng mục đơn hàng chứa cuộn phim.
-    \item \texttt{roll\_code}: Mã nhận diện cuộn phim.
-    \item \texttt{status}: Trạng thái hiện tại của cuộn phim.
-    \item \texttt{received\_at}: Thời điểm Film Lab tiếp nhận cuộn phim.
-    \item \texttt{created\_at}: Thời điểm bản ghi cuộn phim được tạo.
+\item users có 0--N albums; mỗi album có đúng một chủ.
+\item albums và scan\_files là N--N qua album\_photos; scan\_files và tags là N--N qua photo\_tags. Khóa ghép ngăn liên kết trùng.
+\item scan\_files có 0--1 photo\_metadata; mỗi metadata thuộc đúng một file, scan\_file\_id duy nhất trong metadata.
+\item Mỗi metadata tham chiếu 0--1 loại phim, 0--1 mẫu máy, 0--1 ống kính; mỗi mục danh mục có thể được 0--N metadata tham chiếu.
+\end{itemize}
+File ảnh nằm ngoài CSDL; công bố và thêm vào album cần kiểm tra quyền. Versioning scan vẫn là yêu cầu chưa có mô hình chi tiết, không được suy ra chỉ từ quan hệ cuộn--file 1--N.
+
+\subsection{Chợ thiết bị}
+Products mô tả thiết bị cụ thể và tình trạng; product\_categories phân loại. Listings là tin đăng của người bán, marketplace\_transactions ghi người mua và giá chốt, seller\_reviews ghi đánh giá sau giao dịch.
+\begin{itemize}
+\item Category có 0--N products; product thuộc một category. Product có 0--N listings; listing thuộc một product và một seller trong users.
+\item Theo giả định P4 hiện tại, listing có 0--1 transaction kể cả khi giao dịch bị hủy; transaction thuộc một listing và một buyer. Không suy ra cơ chế bán lại sau hủy từ mô hình này.
+\item Transaction có 0--1 seller review. Người đánh giá phải là buyer, người được đánh giá là seller của listing, giao dịch phải hoàn thành và không tự đánh giá.
+\end{itemize}
+Giá chốt giữ nguyên khi giá tin đăng đổi; không xóa dây chuyền giao dịch khi tài khoản hoặc tin ngừng hoạt động. Cardinality giao dịch còn chờ cross-review như Chương 4. Trao đổi không dùng tiền, ảnh sản phẩm và nhắn tin chưa có quan hệ chi tiết.
+
+\section{P5 -- Tri thức, AI và tích hợp}
+\subsection{Thực thể và quan hệ hiện có}
+\begin{itemize}
+\item article\_categories phân loại articles. User là tác giả của 0--N bài viết; bài viết có một tác giả và đúng một danh mục. Category\_id đã thống nhất NOT NULL ở Chương 4--6; danh mục có 0--N bài viết.
+\item lab\_reviews liên kết một user với một Film Lab, có rating và comment. User/Lab có thể có nhiều review; quan hệ kiểm chứng bằng đơn chưa có trong schema. Comment ở đây là nhận xét đánh giá, không thay thế comments cộng đồng.
+\item community\_events thuộc một người tổ chức; user có 0--N sự kiện. Các thuộc tính gồm thời gian, địa điểm và sức chứa; chưa có event\_registrations để thể hiện người tham gia.
+\item user\_interactions lưu user, loại hành vi, target\_type và target\_id. Cặp target type/ID chưa phải FK thông thường tới một bảng; P5 phải xác định cách bảo đảm tham chiếu khi hoàn thiện.
+\item ai\_chat\_log lưu câu hỏi, câu trả lời và ngữ cảnh truy xuất. User\_id cho phép NULL để ghi khách vãng lai: user có 0--N log, một log tham chiếu 0--1 user. Chương 4--6 thống nhất UUID nullable và ON DELETE SET NULL cho FK này; các FK người dùng khác dùng RESTRICT để tránh xóa dây chuyền.
 \end{itemize}
 
-\subsubsection{PROCESSING\_STAGE -- Giai đoạn xử lý}
-
-Thực thể \texttt{PROCESSING\_STAGE} dùng để lưu các bước xử lý
-mà một cuộn phim trải qua tại Film Lab.
-
-\begin{itemize}
-    \item \texttt{processing\_stage\_id}: Khóa chính của giai đoạn xử lý.
-    \item \texttt{film\_roll\_id}: Tham chiếu cuộn phim được xử lý.
-    \item \texttt{stage\_name}: Tên giai đoạn, ví dụ tiếp nhận, tráng phim,
-    scan hoặc hoàn thành.
-    \item \texttt{status}: Trạng thái của giai đoạn xử lý.
-    \item \texttt{started\_at}: Thời điểm bắt đầu giai đoạn.
-    \item \texttt{completed\_at}: Thời điểm hoàn thành giai đoạn.
-    \item \texttt{notes}: Ghi chú trong quá trình xử lý.
-\end{itemize}
-
-\subsection{Các mối quan hệ của P3}
-
-\begin{itemize}
-    \item \textbf{\texttt{ORDER\_ITEM} -- \texttt{FILM\_ROLL}:}
-    Một hạng mục đơn hàng có thể liên quan đến nhiều cuộn phim,
-    nhưng mỗi cuộn phim chỉ thuộc một hạng mục đơn hàng.
-    Quan hệ có lực lượng là một--nhiều (1--N).
-
-    \item \textbf{\texttt{FILM\_ROLL} -- \texttt{PROCESSING\_STAGE}:}
-    Một cuộn phim có thể trải qua nhiều giai đoạn xử lý,
-    trong khi mỗi giai đoạn xử lý chỉ thuộc về một cuộn phim.
-    Quan hệ có lực lượng là một--nhiều (1--N).
-
-    \item \textbf{\texttt{FILM\_ROLL} -- \texttt{SCAN\_FILE}:}
-    Một cuộn phim có thể tạo ra nhiều file scan,
-    nhưng mỗi file scan chỉ thuộc về một cuộn phim.
-    Đây là quan hệ một--nhiều (1--N) giữa P3 và P4.
-\end{itemize}
-
-\subsection{Vai trò của P3 trong mô hình tổng thể}
-
-P3 đóng vai trò trung gian giữa quản lý đơn hàng và kho lưu trữ ảnh số.
-
-Thông qua \texttt{order\_item\_id}, hệ thống có thể xác định cuộn phim
-thuộc đơn hàng nào. Sau khi cuộn phim được xử lý và scan,
-P4 sử dụng \texttt{film\_roll\_id} để liên kết các file ảnh số
-với cuộn phim gốc.
-
-Chuỗi liên kết chính của hệ thống là:
-
-\[
-\texttt{ORDER\_ITEM}
-\rightarrow
-\texttt{FILM\_ROLL}
-\rightarrow
-\texttt{SCAN\_FILE}
-\]
-
-Nhờ đó, hệ thống có thể truy ngược từ ảnh scan về cuộn phim
-và đơn hàng ban đầu của khách hàng.
-
-% ============================================================
-% P4 - Digital Film Archive & Marketplace
-% ============================================================
-
-\section{P4 -- Kho lưu trữ ảnh phim số và Chợ giao dịch}
-
-\subsection{Các thực thể của Kho lưu trữ ảnh phim số}
-
-Kho lưu trữ ảnh phim số quản lý các ảnh được số hóa sau quá trình
-quét phim, thông tin mô tả của ảnh và cách người dùng tổ chức
-bộ sưu tập cá nhân.
-
-Các thực thể chính gồm:
-
-\begin{itemize}
-
-    \item \texttt{scan\_files}: Lưu thông tin các file ảnh số
-    được tạo ra sau quá trình quét phim.
-
-    \item \texttt{photo\_metadata}: Lưu thông tin mô tả của ảnh
-    như loại film, máy ảnh, ống kính, ngày chụp và thông số quét.
-
-    \item \texttt{albums}: Lưu các album ảnh do người dùng tạo
-    trong kho lưu trữ cá nhân.
-
-    \item \texttt{album\_photos}: Thực thể kết hợp giữa album
-    và các file ảnh số.
-
-    \item \texttt{tags}: Lưu các thẻ dùng để phân loại
-    và hỗ trợ tìm kiếm ảnh.
-
-    \item \texttt{photo\_tags}: Thực thể kết hợp giữa ảnh số
-    và các thẻ.
-
-    \item \texttt{film\_stocks}: Lưu thông tin về các loại film.
-
-    \item \texttt{camera\_models}: Lưu thông tin về các mẫu máy ảnh.
-
-    \item \texttt{lenses}: Lưu thông tin về các loại ống kính.
-
-\end{itemize}
-
-\subsection{Các mối quan hệ của Kho lưu trữ ảnh phim số}
-
-Các mối quan hệ chính gồm:
-
-\begin{itemize}
-
-    \item Một \texttt{users} có thể tạo nhiều \texttt{albums}.
-    Đây là quan hệ một--nhiều (1--N).
-
-    \item Một \texttt{albums} có thể chứa nhiều \texttt{scan\_files}
-    và một file ảnh có thể xuất hiện trong nhiều album.
-    Quan hệ nhiều--nhiều (N--N) được giải quyết thông qua
-    \texttt{album\_photos}.
-
-    \item Một \texttt{scan\_files} có một bộ
-    \texttt{photo\_metadata} tương ứng.
-
-    \item Một \texttt{scan\_files} có thể có nhiều \texttt{tags}
-    và một thẻ có thể được sử dụng cho nhiều ảnh.
-    Quan hệ N--N được giải quyết thông qua \texttt{photo\_tags}.
-
-    \item Một \texttt{film\_stocks} có thể được tham chiếu
-    bởi metadata của nhiều ảnh.
-
-    \item Một \texttt{camera\_models} có thể được tham chiếu
-    bởi metadata của nhiều ảnh.
-
-    \item Một \texttt{lenses} có thể được tham chiếu
-    bởi metadata của nhiều ảnh.
-
-\end{itemize}
-
-Kho lưu trữ ảnh số cũng liên kết với dữ liệu cuộn phim từ module
-xử lý phim. Tên thực thể dùng chung sẽ được giữ theo quy ước
-thống nhất của nhóm khi các module được tổng hợp.
-
-\subsection{Các thực thể của Chợ giao dịch}
-
-Chợ giao dịch hỗ trợ người dùng mua, bán và trao đổi máy ảnh phim,
-ống kính, film và các phụ kiện nhiếp ảnh.
-
-Các thực thể chính gồm:
-
-\begin{itemize}
-
-    \item \texttt{product\_categories}: Lưu các danh mục sản phẩm.
-
-    \item \texttt{products}: Lưu thông tin mô tả sản phẩm.
-
-    \item \texttt{listings}: Lưu các tin đăng bán hoặc trao đổi
-    sản phẩm của người dùng.
-
-    \item \texttt{marketplace\_transactions}: Lưu thông tin
-    các giao dịch phát sinh từ tin đăng.
-
-    \item \texttt{seller\_reviews}: Lưu đánh giá của người mua
-    dành cho người bán sau giao dịch.
-
-\end{itemize}
-
-\subsection{Các mối quan hệ của Chợ giao dịch}
-
-Các mối quan hệ chính gồm:
-
-\begin{itemize}
-
-    \item Một \texttt{product\_categories} có thể chứa nhiều
-    \texttt{products}. Đây là quan hệ một--nhiều (1--N).
-
-    \item Một \texttt{products} có thể xuất hiện trong nhiều
-    \texttt{listings}. Đây là quan hệ một--nhiều (1--N).
-
-    \item Một \texttt{users} có thể tạo nhiều \texttt{listings}.
-    Đây là quan hệ một--nhiều (1--N).
-
-    \item Mỗi \texttt{marketplace\_transactions} được tạo
-    từ một \texttt{listings}.
-
-    \item Một \texttt{users} có thể tham gia nhiều
-    \texttt{marketplace\_transactions} với vai trò người mua.
-
-    \item Mỗi \texttt{seller\_reviews} được liên kết với
-    một giao dịch và một người bán.
- 
-\end{itemize}
-
-\subsection{Vai trò của module P4 trong mô hình tổng thể}
-
-Module P4 sử dụng thực thể \texttt{users} đã được định nghĩa ở
-module User Management để liên kết người dùng với kho ảnh số,
-tin đăng, giao dịch và đánh giá.
-
-Thiết kế của P4 tập trung vào hai nhóm dữ liệu chính là
-Digital Film Archive và Marketplace, đồng thời giữ cách đặt tên
-thống nhất để thuận tiện cho việc tích hợp với các module khác.
-\subsection{ERD chi tiết của module P4}
-
-Sơ đồ ERD sau mô tả các thực thể và mối quan hệ chính của
-Digital Film Archive và Marketplace trong module P4.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{figures/ERD_P4.png}
-    \caption{ERD chi tiết của module P4 -- Digital Film Archive và Marketplace}
-    \label{fig:erd-p4}
-\end{figure}
-
-% Buộc hình ERD P4 xuất hiện trước khi bắt đầu nội dung P5.
-\clearpage
-
-\section{Mô hình quan niệm phân hệ P5: Knowledge \& AI Integration}
-
-Phân hệ Quản lý Tri thức và Tích hợp AI (P5) đóng vai trò hỗ trợ cộng đồng chia sẻ kinh nghiệm kỹ thuật nhiếp ảnh phim, tổ chức các sự kiện Photowalk/Workshop offline, ghi nhận trải nghiệm dịch vụ tại các Film Lab và thu thập nhật ký tương tác để phục vụ cho các mô hình AI gợi ý cũng như trợ lý ảo RAG.
-
-\subsection{Danh sách các thực thể chính trong phân hệ P5}
-\begin{itemize}
-    \item \textbf{ARTICLE\_CATEGORY:} Phân loại các nhóm bài viết chia sẻ tri thức (kỹ thuật chụp ảnh film, kỹ thuật buồng tối tráng quét, đánh giá máy ảnh và cuộn phim).
-    \item \textbf{ARTICLE:} Lưu trữ thông tin bài viết hướng dẫn chuyên sâu do các chuyên gia (Photography Experts) biên soạn, bao gồm tiêu đề, nội dung chi tiết, thẻ tag và lượt xem.
-    \item \textbf{LAB\_REVIEW:} Quản lý các đánh giá chất lượng dịch vụ của người dùng dành cho các đối tác Film Lab (điểm đánh giá từ 1 đến 5 sao và bình luận).
-    \item \textbf{COMMUNITY\_EVENT:} Quản lý lịch trình sự kiện cộng đồng (Photowalk, Workshop) do chuyên gia tổ chức, thời gian diễn ra và số lượng người tham gia tối đa.
-    \item \textbf{USER\_INTERACTION:} Thu thập nhật ký hành vi của người dùng (xem, thích, tìm kiếm, lưu trữ) nhằm cung cấp dữ liệu huấn luyện cho hệ thống AI Recommendation.
-    \item \textbf{AI\_CHAT\_LOG:} Ghi nhận toàn bộ lịch sử hỏi đáp giữa người dùng và Trợ lý ảo AI Assistant phục vụ truy xuất ngữ cảnh (RAG) và cải thiện chất lượng phản hồi.
-\end{itemize}
-
-\subsection{Sơ đồ ERD phân hệ P5}
-Hình~\ref{fig:erd_p5} biểu diễn mô hình thực thể mối kết hợp (ERD) của phân hệ Knowledge \& AI Integration cùng các mối quan hệ liên kết với thực thể bên ngoài bao gồm \textbf{USER} (thuộc Phân hệ 1) và \textbf{FILM\_LAB} (thuộc Phân hệ 2).
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.95\textwidth]{figures/ERD_P5.png}
-    \caption{Sơ đồ quan niệm ERD phân hệ Knowledge \& AI Integration}
-    \label{fig:erd_p5}
-\end{figure}
+\subsection{Ánh xạ tên và phần tích hợp chưa hoàn thiện}
+\begin{longtable}{p{4.5cm}p{9cm}}
+\toprule
+\textbf{Tên trong bản mô tả trước} & \textbf{Cách hiểu thống nhất trong bản hiện tại} \\
+\midrule
+\endhead
+ARTICLE / ARTICLE\_CATEGORY & articles / article\_categories; không tạo bảng thứ hai mang tên knowledge\_categories. \\
+COMMUNITY\_EVENT / events & community\_events; đăng ký tham gia còn thiếu quan hệ riêng. \\
+USER\_INTERACTION / user\_behavior\_logs & user\_interactions đang bao phủ nhật ký hành vi; không coi đã có recommendation\_logs. \\
+AI\_CHAT\_LOG / ai\_chat\_histories & ai\_chat\_log là tên hiện dùng trong phần vật lý; cần chốt tên số nhiều đồng bộ sau review. \\
+USER / FILM\_LAB & users / film\_labs dùng chung của P1; P2 sử dụng cho nghiệp vụ quản lý Lab. \\
+\bottomrule
+\end{longtable}
+
+Knowledge chunks, metadata embeddings, recommendation logs, scan quality scores, comments, đăng ký sự kiện, delivery\_partners, notifications, payment\_transactions và admin\_logs vẫn cần P5 thiết kế theo phân công. Chưa vẽ FK/cardinality cho các quan hệ chưa được định nghĩa. Log hội thoại không thay thế mô hình nguồn tri thức cho RAG; yêu cầu thanh toán không được coi là đã hoàn thành chỉ vì orders có giá tiền.
+
+\section{Quy ước chung và kiểm tra trước khi chốt ERD}
+Tên bảng/cột dùng tiếng Anh, snake\_case; tên bảng số nhiều, khóa chính theo entity\_id. Những bí danh FK theo vai trò như owner\_id, customer\_id, seller\_id phải chỉ rõ tham chiếu users.user\_id, không tạo các thực thể người dùng mới. Thực thể nghiệp vụ dùng UUID; thời gian TIMESTAMPTZ theo UTC, có created\_at và updated\_at, dùng deleted\_at khi cần. Chương 4--6 đã bổ sung tường minh hai mốc audit cho toàn bộ 36 bảng hiện có, kể cả bảng nối; lịch sử giữ nguyên khi đã ghi, hai mốc audit bằng nhau lúc tạo.
+
+P1 tổng hợp bản ERD cuối sau khi P2--P5 bổ sung các quan hệ còn thiếu, chốt tên và cardinality. Mỗi quan hệ phải truy ngược được yêu cầu Chương 2, có PK/FK và domain ở Chương 4--5, có Data Dictionary ở Chương 6. Sơ đồ phân hệ không được định nghĩa khác bảng dùng chung; các file ảnh ERD bản cũ trong thư mục figures cần cập nhật theo bản mô tả này trước khi dùng làm ERD cuối. Chương 7 phải phân biệt kết quả đã thiết kế với phần đang chờ tích hợp.
