@@ -74,10 +74,19 @@ order\_items -- dịch vụ/gói & Item có 0--1 service và 0--1 package, đún
 Quantity là số lượt dịch vụ hoặc số gói mua. Unit price là giá chốt cho một lượt/một gói; không cộng lại giá thành phần. Subtotal và total amount được tính từ hạng mục, phí và giảm giá, không lưu trong orders. Giá và số lượng được cố định sau xác nhận; thành phần gói đã được đặt không sửa/xóa, thay nội dung bằng gói mới. Mọi bảng Core, kể cả bảng nối, có created\_at và updated\_at. Users và film\_labs có deleted\_at nullable.
 
 \section{P2 -- Người dùng và vận hành Lab}
+\begin{figure}[p]
+\centering
+\includegraphics[width=\linewidth,height=0.82\textheight,keepaspectratio]{figures/ERD_P2.png}
+\caption{ERD do P2 cung cấp: người dùng và Film Lab (bản thiết kế ban đầu)}
+\label{fig:erd-p2}
+\end{figure}
+Hình~\ref{fig:erd-p2} trình bày bản ERD của P2. Tên bảng viết hoa trong ảnh được ánh xạ sang tên snake\_case số nhiều trong thiết kế chung. Thuộc tính address của USER thuộc phần mở rộng địa chỉ; price, processing\_time và status của LAB\_SERVICE được đối chiếu với base\_price, turnaround\_hours và is\_active. Các thuộc tính và ràng buộc áp dụng theo phần mô tả dưới đây và Chương 4--6.
+
 P2 dùng mô hình Core ở trên cho tài khoản, RBAC, Film Lab và danh mục dịch vụ. Quan hệ giữa users và roles là N--N và được triển khai qua thực thể liên kết user\_roles; một user có thể được gán nhiều role và một role có thể được gán cho nhiều user. Các tên thuộc tính thống nhất là base\_price, turnaround\_hours, is\_active; không dùng price, processing\_time, status như một định nghĩa khác của lab\_services. Role thuộc hệ thống, không mặc nhiên cấp quyền thao tác trên mọi Lab.
 
 Phần mở rộng hồ sơ, địa chỉ, sở thích, lịch làm việc, công suất và phân quyền nhân viên chưa có lược đồ chi tiết đầy đủ. P2 cần xác định định danh, cardinality, tính bắt buộc và quan hệ với users/film\_labs trước khi tích hợp. Đánh giá Lab dùng lab\_reviews của phần P5 hiện tại; ràng buộc chứng minh người đánh giá có đơn hợp lệ vẫn cần P2/P5 bổ sung.
 
+\clearpage
 \section{P3 -- Cuộn phim và quá trình xử lý}
 \subsection{Các thực thể và trách nhiệm dữ liệu}
 \begin{itemize}
@@ -113,6 +122,14 @@ Phần mở rộng hồ sơ, địa chỉ, sở thích, lịch làm việc, côn
 Đường nối này xác định được đơn và chủ ảnh, chưa xác định dịch vụ/hạng mục áp dụng cho từng cuộn. P1/P3 phải hoàn thiện ánh xạ đó theo Chương 2; không tự giả định mỗi cuộn chỉ dùng một hạng mục. Điều kiện chuyển trạng thái, hủy đơn và tích hợp đối tác giao nhận vẫn cần chốt, không coi sơ đồ trên đã giải quyết các quy tắc đó.
 
 \section{P4 -- Kho ảnh số và chợ thiết bị}
+\begin{figure}[p]
+\centering
+\includegraphics[width=\linewidth,height=0.82\textheight,keepaspectratio]{figures/ERD_P4.png}
+\caption{ERD do P4 cung cấp: kho ảnh số và chợ thiết bị (bản thiết kế ban đầu)}
+\label{fig:erd-p4}
+\end{figure}
+Hình~\ref{fig:erd-p4} trình bày hai nhóm nghiệp vụ của P4. Tên bảng trong ảnh được ánh xạ sang tên trong Chương 4--6; các audit field còn thiếu trong ảnh áp dụng theo thiết kế chung. Quan hệ scan\_files--photo\_metadata được hiểu là 1--0..1 như phần mô tả dưới đây, thay cho ký hiệu 1--1 của ảnh ban đầu.
+
 \subsection{Kho ảnh số}
 Scan\_files lưu thông tin file, URI và tham chiếu cuộn phim. Photo\_metadata lưu thông tin ảnh; film\_stocks, camera\_models, lenses là danh mục được tham chiếu, không chứa lịch sử xử lý P3. Albums thuộc người dùng; tags dùng phân loại ảnh.
 \begin{itemize}
@@ -132,7 +149,16 @@ Products mô tả thiết bị cụ thể và tình trạng; product\_categories
 \end{itemize}
 Giá chốt giữ nguyên khi giá tin đăng đổi; không xóa dây chuyền giao dịch khi tài khoản hoặc tin ngừng hoạt động. Cardinality giao dịch còn chờ cross-review như Chương 4. Trao đổi không dùng tiền, ảnh sản phẩm và nhắn tin chưa có quan hệ chi tiết.
 
+\clearpage
 \section{P5 -- Tri thức, AI và tích hợp}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth,height=0.82\textheight,keepaspectratio]{figures/ERD_P5.png}
+\caption{ERD do P5 cung cấp: tri thức, cộng đồng và nhật ký AI (bản thiết kế ban đầu)}
+\label{fig:erd-p5}
+\end{figure}
+Hình~\ref{fig:erd-p5} trình bày các thực thể trong bản ERD của P5; việc ánh xạ tên được trình bày ở cuối mục. Thuộc tính role trong USER của ảnh không thay thế quan hệ N--N qua user\_roles của Core. FK user\_id trong ai\_chat\_log cho phép NULL; audit field và các thuộc tính chi tiết áp dụng theo Chương 4--6.
+
 \subsection{Thực thể và quan hệ hiện có}
 \begin{itemize}
 \item article\_categories phân loại articles. User là tác giả của 0--N bài viết; bài viết có một tác giả và đúng một danh mục. Category\_id đã thống nhất NOT NULL ở Chương 4--6; danh mục có 0--N bài viết.
@@ -158,6 +184,7 @@ USER / FILM\_LAB & users / film\_labs dùng chung của P1; P2 sử dụng cho n
 
 Knowledge chunks, metadata embeddings, recommendation logs, scan quality scores, comments, đăng ký sự kiện, delivery\_partners, notifications, payment\_transactions và admin\_logs vẫn cần P5 thiết kế theo phân công. Chưa vẽ FK/cardinality cho các quan hệ chưa được định nghĩa. Log hội thoại không thay thế mô hình nguồn tri thức cho RAG; yêu cầu thanh toán không được coi là đã hoàn thành chỉ vì orders có giá tiền.
 
+\clearpage
 \section{Quy ước chung và kiểm tra trước khi chốt ERD}
 Tên bảng/cột dùng tiếng Anh, snake\_case; tên bảng số nhiều, khóa chính theo entity\_id. Những bí danh FK theo vai trò như owner\_id, customer\_id, seller\_id phải chỉ rõ tham chiếu users.user\_id, không tạo các thực thể người dùng mới. Thực thể nghiệp vụ dùng UUID; thời gian TIMESTAMPTZ theo UTC, có created\_at và updated\_at, dùng deleted\_at khi cần. Chương 4--6 đã bổ sung tường minh hai mốc audit cho toàn bộ 36 bảng hiện có, kể cả bảng nối; lịch sử giữ nguyên khi đã ghi, hai mốc audit bằng nhau lúc tạo.
 

@@ -26,154 +26,154 @@
 \contentsline {subsection}{\numberline {3.4.1}Nhận diện thực thể}{20}{subsection.3.4.1}%
 \contentsline {subsection}{\numberline {3.4.2}Cardinality và quy tắc Core}{20}{subsection.3.4.2}%
 \contentsline {section}{\numberline {3.5}P2 -- Người dùng và vận hành Lab}{21}{section.3.5}%
-\contentsline {section}{\numberline {3.6}P3 -- Cuộn phim và quá trình xử lý}{22}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Các thực thể và trách nhiệm dữ liệu}{22}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}Cardinality và đường truy vết}{22}{subsection.3.6.2}%
-\contentsline {section}{\numberline {3.7}P4 -- Kho ảnh số và chợ thiết bị}{23}{section.3.7}%
-\contentsline {subsection}{\numberline {3.7.1}Kho ảnh số}{23}{subsection.3.7.1}%
-\contentsline {subsection}{\numberline {3.7.2}Chợ thiết bị}{24}{subsection.3.7.2}%
-\contentsline {section}{\numberline {3.8}P5 -- Tri thức, AI và tích hợp}{24}{section.3.8}%
-\contentsline {subsection}{\numberline {3.8.1}Thực thể và quan hệ hiện có}{24}{subsection.3.8.1}%
-\contentsline {subsection}{\numberline {3.8.2}Ánh xạ tên và phần tích hợp chưa hoàn thiện}{25}{subsection.3.8.2}%
-\contentsline {section}{\numberline {3.9}Quy ước chung và kiểm tra trước khi chốt ERD}{26}{section.3.9}%
-\contentsline {chapter}{\numberline {4}THIẾT KẾ MỨC LOGIC VÀ CHUẨN HÓA}{27}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Miền dữ liệu và quy ước chung}{27}{section.4.1}%
-\contentsline {section}{\numberline {4.2}P1 -- Core Domain dùng chung}{28}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Bảng \texttt {users} -- Tài khoản người dùng}{28}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Bảng \texttt {roles} -- Vai trò hệ thống}{28}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Bảng \texttt {permissions} -- Quyền thao tác}{29}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Bảng \texttt {user\_\allowbreak {}roles} -- Gán vai trò cho người dùng}{29}{subsection.4.2.4}%
-\contentsline {subsection}{\numberline {4.2.5}Bảng \texttt {role\_\allowbreak {}permissions} -- Gán quyền cho vai trò}{29}{subsection.4.2.5}%
-\contentsline {subsection}{\numberline {4.2.6}Bảng \texttt {film\_\allowbreak {}labs} -- Film Lab tham gia nền tảng}{30}{subsection.4.2.6}%
-\contentsline {subsection}{\numberline {4.2.7}Bảng \texttt {lab\_\allowbreak {}services} -- Dịch vụ do Film Lab cung cấp}{30}{subsection.4.2.7}%
-\contentsline {subsection}{\numberline {4.2.8}Bảng \texttt {service\_\allowbreak {}packages} -- Gói dịch vụ}{31}{subsection.4.2.8}%
-\contentsline {subsection}{\numberline {4.2.9}Bảng \texttt {package\_\allowbreak {}services} -- Thành phần của gói dịch vụ}{31}{subsection.4.2.9}%
-\contentsline {subsection}{\numberline {4.2.10}Bảng \texttt {orders} -- Đơn sử dụng dịch vụ Film Lab}{32}{subsection.4.2.10}%
-\contentsline {subsection}{\numberline {4.2.11}Bảng \texttt {order\_\allowbreak {}items} -- Hạng mục dịch vụ trong đơn}{33}{subsection.4.2.11}%
-\contentsline {subsection}{\numberline {4.2.12}Quy tắc đặt dịch vụ, gói dịch vụ và tính tiền}{33}{subsection.4.2.12}%
-\contentsline {section}{\numberline {4.3}P3 -- Cuộn phim và xử lý}{34}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Bảng \texttt {film\_\allowbreak {}rolls} -- Cuộn phim}{34}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Bảng \texttt {processing\_\allowbreak {}stages} -- Danh mục công đoạn}{35}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Bảng \texttt {stage\_\allowbreak {}logs} -- Lần thực hiện công đoạn}{35}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Bảng \texttt {order\_\allowbreak {}status\_\allowbreak {}history} -- Lịch sử trạng thái đơn}{36}{subsection.4.3.4}%
-\contentsline {subsection}{\numberline {4.3.5}Bảng \texttt {pickup\_\allowbreak {}delivery\_\allowbreak {}requests} -- Yêu cầu nhận/giao phim}{37}{subsection.4.3.5}%
-\contentsline {subsection}{\numberline {4.3.6}State machine của đơn hàng}{37}{subsection.4.3.6}%
-\contentsline {section}{\numberline {4.4}P4 -- Kho ảnh số và chợ thiết bị}{38}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Bảng \texttt {scan\_\allowbreak {}files} -- File ảnh được số hóa}{38}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Bảng \texttt {albums} -- Album ảnh của người dùng}{39}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}Bảng \texttt {album\_\allowbreak {}photos} -- Ảnh thuộc album}{39}{subsection.4.4.3}%
-\contentsline {subsection}{\numberline {4.4.4}Bảng \texttt {tags} -- Thẻ phân loại ảnh}{39}{subsection.4.4.4}%
-\contentsline {subsection}{\numberline {4.4.5}Bảng \texttt {photo\_\allowbreak {}tags} -- Gán thẻ cho ảnh}{40}{subsection.4.4.5}%
-\contentsline {subsection}{\numberline {4.4.6}Bảng \texttt {film\_\allowbreak {}stocks} -- Loại film}{40}{subsection.4.4.6}%
-\contentsline {subsection}{\numberline {4.4.7}Bảng \texttt {camera\_\allowbreak {}models} -- Mẫu máy ảnh}{41}{subsection.4.4.7}%
-\contentsline {subsection}{\numberline {4.4.8}Bảng \texttt {lenses} -- Ống kính}{41}{subsection.4.4.8}%
-\contentsline {subsection}{\numberline {4.4.9}Bảng \texttt {photo\_\allowbreak {}metadata} -- Metadata của ảnh scan}{41}{subsection.4.4.9}%
-\contentsline {subsection}{\numberline {4.4.10}Bảng \texttt {product\_\allowbreak {}categories} -- Danh mục sản phẩm}{42}{subsection.4.4.10}%
-\contentsline {subsection}{\numberline {4.4.11}Bảng \texttt {products} -- Sản phẩm giao dịch}{42}{subsection.4.4.11}%
-\contentsline {subsection}{\numberline {4.4.12}Bảng \texttt {listings} -- Tin đăng Marketplace}{43}{subsection.4.4.12}%
-\contentsline {subsection}{\numberline {4.4.13}Bảng \texttt {marketplace\_\allowbreak {}transactions} -- Giao dịch Marketplace}{43}{subsection.4.4.13}%
-\contentsline {subsection}{\numberline {4.4.14}Bảng \texttt {seller\_\allowbreak {}reviews} -- Đánh giá người bán}{44}{subsection.4.4.14}%
-\contentsline {section}{\numberline {4.5}P5 -- Tri thức, AI và đánh giá Lab}{44}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Bảng \texttt {article\_\allowbreak {}categories} -- Danh mục bài viết}{45}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}Bảng \texttt {articles} -- Bài viết và hướng dẫn}{45}{subsection.4.5.2}%
-\contentsline {subsection}{\numberline {4.5.3}Bảng \texttt {lab\_\allowbreak {}reviews} -- Đánh giá Film Lab}{45}{subsection.4.5.3}%
-\contentsline {subsection}{\numberline {4.5.4}Bảng \texttt {community\_\allowbreak {}events} -- Sự kiện cộng đồng}{46}{subsection.4.5.4}%
-\contentsline {subsection}{\numberline {4.5.5}Bảng \texttt {user\_\allowbreak {}interactions} -- Nhật ký hành vi}{46}{subsection.4.5.5}%
-\contentsline {subsection}{\numberline {4.5.6}Bảng \texttt {ai\_\allowbreak {}chat\_\allowbreak {}log} -- Nhật ký hội thoại AI}{47}{subsection.4.5.6}%
-\contentsline {section}{\numberline {4.6}Phụ thuộc hàm, khóa ứng viên và chuẩn hóa}{47}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Ràng buộc tích hợp còn phải triển khai}{49}{section.4.7}%
-\contentsline {chapter}{\numberline {5}THIẾT KẾ MỨC VẬT LÝ}{51}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Quy ước triển khai PostgreSQL}{51}{section.5.1}%
-\contentsline {section}{\numberline {5.2}P1 -- Core Domain dùng chung}{52}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Bảng \texttt {users} -- Tài khoản người dùng}{52}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Bảng \texttt {roles} -- Vai trò hệ thống}{52}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Bảng \texttt {permissions} -- Quyền thao tác}{52}{subsection.5.2.3}%
-\contentsline {subsection}{\numberline {5.2.4}Bảng \texttt {user\_roles} -- Gán vai trò cho người dùng}{53}{subsection.5.2.4}%
-\contentsline {subsection}{\numberline {5.2.5}Bảng \texttt {role\_permissions} -- Gán quyền cho vai trò}{53}{subsection.5.2.5}%
-\contentsline {subsection}{\numberline {5.2.6}Bảng \texttt {film\_labs} -- Film Lab tham gia nền tảng}{53}{subsection.5.2.6}%
-\contentsline {subsection}{\numberline {5.2.7}Bảng \texttt {lab\_services} -- Dịch vụ do Film Lab cung cấp}{54}{subsection.5.2.7}%
-\contentsline {subsection}{\numberline {5.2.8}Bảng \texttt {service\_packages} -- Gói dịch vụ}{54}{subsection.5.2.8}%
-\contentsline {subsection}{\numberline {5.2.9}Bảng \texttt {package\_services} -- Thành phần của gói dịch vụ}{54}{subsection.5.2.9}%
-\contentsline {subsection}{\numberline {5.2.10}Bảng \texttt {orders} -- Đơn sử dụng dịch vụ Film Lab}{55}{subsection.5.2.10}%
-\contentsline {subsection}{\numberline {5.2.11}Bảng \texttt {order\_items} -- Hạng mục dịch vụ trong đơn}{55}{subsection.5.2.11}%
-\contentsline {section}{\numberline {5.3}P3 -- Cuộn phim và xử lý}{56}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Bảng \texttt {film\_rolls} -- Cuộn phim}{56}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Bảng \texttt {processing\_stages} -- Danh mục công đoạn}{56}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}Bảng \texttt {stage\_logs} -- Lần thực hiện công đoạn}{57}{subsection.5.3.3}%
-\contentsline {subsection}{\numberline {5.3.4}Bảng \texttt {order\_status\_history} -- Lịch sử trạng thái đơn}{57}{subsection.5.3.4}%
-\contentsline {subsection}{\numberline {5.3.5}Bảng \texttt {pickup\_delivery\_requests} -- Yêu cầu nhận/giao phim}{58}{subsection.5.3.5}%
-\contentsline {section}{\numberline {5.4}P4 -- Kho ảnh số và chợ thiết bị}{58}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Bảng \texttt {scan\_files} -- File ảnh được số hóa}{58}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Bảng \texttt {albums} -- Album ảnh của người dùng}{59}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Bảng \texttt {album\_photos} -- Ảnh thuộc album}{59}{subsection.5.4.3}%
-\contentsline {subsection}{\numberline {5.4.4}Bảng \texttt {tags} -- Thẻ phân loại ảnh}{59}{subsection.5.4.4}%
-\contentsline {subsection}{\numberline {5.4.5}Bảng \texttt {photo\_tags} -- Gán thẻ cho ảnh}{60}{subsection.5.4.5}%
-\contentsline {subsection}{\numberline {5.4.6}Bảng \texttt {film\_stocks} -- Loại film}{60}{subsection.5.4.6}%
-\contentsline {subsection}{\numberline {5.4.7}Bảng \texttt {camera\_models} -- Mẫu máy ảnh}{60}{subsection.5.4.7}%
-\contentsline {subsection}{\numberline {5.4.8}Bảng \texttt {lenses} -- Ống kính}{61}{subsection.5.4.8}%
-\contentsline {subsection}{\numberline {5.4.9}Bảng \texttt {photo\_metadata} -- Metadata của ảnh scan}{61}{subsection.5.4.9}%
-\contentsline {subsection}{\numberline {5.4.10}Bảng \texttt {product\_categories} -- Danh mục sản phẩm}{61}{subsection.5.4.10}%
-\contentsline {subsection}{\numberline {5.4.11}Bảng \texttt {products} -- Sản phẩm giao dịch}{62}{subsection.5.4.11}%
-\contentsline {subsection}{\numberline {5.4.12}Bảng \texttt {listings} -- Tin đăng Marketplace}{62}{subsection.5.4.12}%
-\contentsline {subsection}{\numberline {5.4.13}Bảng \texttt {marketplace\_transactions} -- Giao dịch Marketplace}{62}{subsection.5.4.13}%
-\contentsline {subsection}{\numberline {5.4.14}Bảng \texttt {seller\_reviews} -- Đánh giá người bán}{63}{subsection.5.4.14}%
-\contentsline {section}{\numberline {5.5}P5 -- Tri thức, AI và đánh giá Lab}{63}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Bảng \texttt {article\_categories} -- Danh mục bài viết}{63}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}Bảng \texttt {articles} -- Bài viết và hướng dẫn}{63}{subsection.5.5.2}%
-\contentsline {subsection}{\numberline {5.5.3}Bảng \texttt {lab\_reviews} -- Đánh giá Film Lab}{64}{subsection.5.5.3}%
-\contentsline {subsection}{\numberline {5.5.4}Bảng \texttt {community\_events} -- Sự kiện cộng đồng}{64}{subsection.5.5.4}%
-\contentsline {subsection}{\numberline {5.5.5}Bảng \texttt {user\_interactions} -- Nhật ký hành vi}{65}{subsection.5.5.5}%
-\contentsline {subsection}{\numberline {5.5.6}Bảng \texttt {ai\_chat\_log} -- Nhật ký hội thoại AI}{65}{subsection.5.5.6}%
-\contentsline {section}{\numberline {5.6}Chỉ mục theo luồng truy vấn}{65}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Truy vấn tổng tiền từ nguồn đã chốt}{66}{section.5.7}%
-\contentsline {section}{\numberline {5.8}Giao dịch, audit và bảo toàn lịch sử}{67}{section.5.8}%
-\contentsline {chapter}{\numberline {6}TỪ ĐIỂN DỮ LIỆU}{68}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Cách đọc từ điển dữ liệu}{68}{section.6.1}%
-\contentsline {section}{\numberline {6.2}P1 -- Core Domain dùng chung}{69}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Bảng \texttt {users} -- Tài khoản người dùng}{69}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Bảng \texttt {roles} -- Vai trò hệ thống}{69}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Bảng \texttt {permissions} -- Quyền thao tác}{70}{subsection.6.2.3}%
-\contentsline {subsection}{\numberline {6.2.4}Bảng \texttt {user\_\allowbreak {}roles} -- Gán vai trò cho người dùng}{70}{subsection.6.2.4}%
-\contentsline {subsection}{\numberline {6.2.5}Bảng \texttt {role\_\allowbreak {}permissions} -- Gán quyền cho vai trò}{71}{subsection.6.2.5}%
-\contentsline {subsection}{\numberline {6.2.6}Bảng \texttt {film\_\allowbreak {}labs} -- Film Lab tham gia nền tảng}{71}{subsection.6.2.6}%
-\contentsline {subsection}{\numberline {6.2.7}Bảng \texttt {lab\_\allowbreak {}services} -- Dịch vụ do Film Lab cung cấp}{72}{subsection.6.2.7}%
-\contentsline {subsection}{\numberline {6.2.8}Bảng \texttt {service\_\allowbreak {}packages} -- Gói dịch vụ}{73}{subsection.6.2.8}%
-\contentsline {subsection}{\numberline {6.2.9}Bảng \texttt {package\_\allowbreak {}services} -- Thành phần của gói dịch vụ}{74}{subsection.6.2.9}%
-\contentsline {subsection}{\numberline {6.2.10}Bảng \texttt {orders} -- Đơn sử dụng dịch vụ Film Lab}{74}{subsection.6.2.10}%
-\contentsline {subsection}{\numberline {6.2.11}Bảng \texttt {order\_\allowbreak {}items} -- Hạng mục dịch vụ trong đơn}{75}{subsection.6.2.11}%
-\contentsline {section}{\numberline {6.3}P3 -- Cuộn phim và xử lý}{76}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Bảng \texttt {film\_\allowbreak {}rolls} -- Cuộn phim}{76}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Bảng \texttt {processing\_\allowbreak {}stages} -- Danh mục công đoạn}{77}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}Bảng \texttt {stage\_\allowbreak {}logs} -- Lần thực hiện công đoạn}{77}{subsection.6.3.3}%
-\contentsline {subsection}{\numberline {6.3.4}Bảng \texttt {order\_\allowbreak {}status\_\allowbreak {}history} -- Lịch sử trạng thái đơn}{78}{subsection.6.3.4}%
-\contentsline {subsection}{\numberline {6.3.5}Bảng \texttt {pickup\_\allowbreak {}delivery\_\allowbreak {}requests} -- Yêu cầu nhận/giao phim}{79}{subsection.6.3.5}%
-\contentsline {section}{\numberline {6.4}P4 -- Kho ảnh số và chợ thiết bị}{80}{section.6.4}%
-\contentsline {subsection}{\numberline {6.4.1}Bảng \texttt {scan\_\allowbreak {}files} -- File ảnh được số hóa}{80}{subsection.6.4.1}%
-\contentsline {subsection}{\numberline {6.4.2}Bảng \texttt {albums} -- Album ảnh của người dùng}{81}{subsection.6.4.2}%
-\contentsline {subsection}{\numberline {6.4.3}Bảng \texttt {album\_\allowbreak {}photos} -- Ảnh thuộc album}{81}{subsection.6.4.3}%
-\contentsline {subsection}{\numberline {6.4.4}Bảng \texttt {tags} -- Thẻ phân loại ảnh}{82}{subsection.6.4.4}%
-\contentsline {subsection}{\numberline {6.4.5}Bảng \texttt {photo\_\allowbreak {}tags} -- Gán thẻ cho ảnh}{82}{subsection.6.4.5}%
-\contentsline {subsection}{\numberline {6.4.6}Bảng \texttt {film\_\allowbreak {}stocks} -- Loại film}{83}{subsection.6.4.6}%
-\contentsline {subsection}{\numberline {6.4.7}Bảng \texttt {camera\_\allowbreak {}models} -- Mẫu máy ảnh}{83}{subsection.6.4.7}%
-\contentsline {subsection}{\numberline {6.4.8}Bảng \texttt {lenses} -- Ống kính}{84}{subsection.6.4.8}%
-\contentsline {subsection}{\numberline {6.4.9}Bảng \texttt {photo\_\allowbreak {}metadata} -- Metadata của ảnh scan}{84}{subsection.6.4.9}%
-\contentsline {subsection}{\numberline {6.4.10}Bảng \texttt {product\_\allowbreak {}categories} -- Danh mục sản phẩm}{85}{subsection.6.4.10}%
-\contentsline {subsection}{\numberline {6.4.11}Bảng \texttt {products} -- Sản phẩm giao dịch}{86}{subsection.6.4.11}%
-\contentsline {subsection}{\numberline {6.4.12}Bảng \texttt {listings} -- Tin đăng Marketplace}{86}{subsection.6.4.12}%
-\contentsline {subsection}{\numberline {6.4.13}Bảng \texttt {marketplace\_\allowbreak {}transactions} -- Giao dịch Marketplace}{87}{subsection.6.4.13}%
-\contentsline {subsection}{\numberline {6.4.14}Bảng \texttt {seller\_\allowbreak {}reviews} -- Đánh giá người bán}{88}{subsection.6.4.14}%
-\contentsline {section}{\numberline {6.5}P5 -- Tri thức, AI và đánh giá Lab}{88}{section.6.5}%
-\contentsline {subsection}{\numberline {6.5.1}Bảng \texttt {article\_\allowbreak {}categories} -- Danh mục bài viết}{88}{subsection.6.5.1}%
-\contentsline {subsection}{\numberline {6.5.2}Bảng \texttt {articles} -- Bài viết và hướng dẫn}{89}{subsection.6.5.2}%
-\contentsline {subsection}{\numberline {6.5.3}Bảng \texttt {lab\_\allowbreak {}reviews} -- Đánh giá Film Lab}{90}{subsection.6.5.3}%
-\contentsline {subsection}{\numberline {6.5.4}Bảng \texttt {community\_\allowbreak {}events} -- Sự kiện cộng đồng}{90}{subsection.6.5.4}%
-\contentsline {subsection}{\numberline {6.5.5}Bảng \texttt {user\_\allowbreak {}interactions} -- Nhật ký hành vi}{91}{subsection.6.5.5}%
-\contentsline {subsection}{\numberline {6.5.6}Bảng \texttt {ai\_\allowbreak {}chat\_\allowbreak {}log} -- Nhật ký hội thoại AI}{92}{subsection.6.5.6}%
-\contentsline {section}{\numberline {6.6}Phạm vi từ điển và điểm chưa chốt}{92}{section.6.6}%
-\contentsline {chapter}{\numberline {7}KẾT LUẬN}{94}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Tổng kết quá trình thiết kế}{94}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Kết quả đạt được}{94}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Đánh giá thiết kế}{95}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Hạn chế}{95}{section.7.4}%
-\contentsline {section}{\numberline {7.5}Hướng phát triển}{96}{section.7.5}%
-\contentsline {chapter}{Tài liệu tham khảo}{96}{section.7.5}%
+\contentsline {section}{\numberline {3.6}P3 -- Cuộn phim và quá trình xử lý}{24}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Các thực thể và trách nhiệm dữ liệu}{24}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Cardinality và đường truy vết}{24}{subsection.3.6.2}%
+\contentsline {section}{\numberline {3.7}P4 -- Kho ảnh số và chợ thiết bị}{25}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Kho ảnh số}{25}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7.2}Chợ thiết bị}{27}{subsection.3.7.2}%
+\contentsline {section}{\numberline {3.8}P5 -- Tri thức, AI và tích hợp}{28}{section.3.8}%
+\contentsline {subsection}{\numberline {3.8.1}Thực thể và quan hệ hiện có}{28}{subsection.3.8.1}%
+\contentsline {subsection}{\numberline {3.8.2}Ánh xạ tên và phần tích hợp chưa hoàn thiện}{29}{subsection.3.8.2}%
+\contentsline {section}{\numberline {3.9}Quy ước chung và kiểm tra trước khi chốt ERD}{30}{section.3.9}%
+\contentsline {chapter}{\numberline {4}THIẾT KẾ MỨC LOGIC VÀ CHUẨN HÓA}{31}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Miền dữ liệu và quy ước chung}{31}{section.4.1}%
+\contentsline {section}{\numberline {4.2}P1 -- Core Domain dùng chung}{32}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Bảng \texttt {users} -- Tài khoản người dùng}{32}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Bảng \texttt {roles} -- Vai trò hệ thống}{32}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Bảng \texttt {permissions} -- Quyền thao tác}{33}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Bảng \texttt {user\_\allowbreak {}roles} -- Gán vai trò cho người dùng}{33}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}Bảng \texttt {role\_\allowbreak {}permissions} -- Gán quyền cho vai trò}{33}{subsection.4.2.5}%
+\contentsline {subsection}{\numberline {4.2.6}Bảng \texttt {film\_\allowbreak {}labs} -- Film Lab tham gia nền tảng}{34}{subsection.4.2.6}%
+\contentsline {subsection}{\numberline {4.2.7}Bảng \texttt {lab\_\allowbreak {}services} -- Dịch vụ do Film Lab cung cấp}{34}{subsection.4.2.7}%
+\contentsline {subsection}{\numberline {4.2.8}Bảng \texttt {service\_\allowbreak {}packages} -- Gói dịch vụ}{35}{subsection.4.2.8}%
+\contentsline {subsection}{\numberline {4.2.9}Bảng \texttt {package\_\allowbreak {}services} -- Thành phần của gói dịch vụ}{35}{subsection.4.2.9}%
+\contentsline {subsection}{\numberline {4.2.10}Bảng \texttt {orders} -- Đơn sử dụng dịch vụ Film Lab}{36}{subsection.4.2.10}%
+\contentsline {subsection}{\numberline {4.2.11}Bảng \texttt {order\_\allowbreak {}items} -- Hạng mục dịch vụ trong đơn}{37}{subsection.4.2.11}%
+\contentsline {subsection}{\numberline {4.2.12}Quy tắc đặt dịch vụ, gói dịch vụ và tính tiền}{37}{subsection.4.2.12}%
+\contentsline {section}{\numberline {4.3}P3 -- Cuộn phim và xử lý}{38}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Bảng \texttt {film\_\allowbreak {}rolls} -- Cuộn phim}{38}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Bảng \texttt {processing\_\allowbreak {}stages} -- Danh mục công đoạn}{39}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Bảng \texttt {stage\_\allowbreak {}logs} -- Lần thực hiện công đoạn}{39}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Bảng \texttt {order\_\allowbreak {}status\_\allowbreak {}history} -- Lịch sử trạng thái đơn}{40}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.5}Bảng \texttt {pickup\_\allowbreak {}delivery\_\allowbreak {}requests} -- Yêu cầu nhận/giao phim}{41}{subsection.4.3.5}%
+\contentsline {subsection}{\numberline {4.3.6}State machine của đơn hàng}{41}{subsection.4.3.6}%
+\contentsline {section}{\numberline {4.4}P4 -- Kho ảnh số và chợ thiết bị}{42}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Bảng \texttt {scan\_\allowbreak {}files} -- File ảnh được số hóa}{42}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Bảng \texttt {albums} -- Album ảnh của người dùng}{43}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Bảng \texttt {album\_\allowbreak {}photos} -- Ảnh thuộc album}{43}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Bảng \texttt {tags} -- Thẻ phân loại ảnh}{43}{subsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.4.5}Bảng \texttt {photo\_\allowbreak {}tags} -- Gán thẻ cho ảnh}{44}{subsection.4.4.5}%
+\contentsline {subsection}{\numberline {4.4.6}Bảng \texttt {film\_\allowbreak {}stocks} -- Loại film}{44}{subsection.4.4.6}%
+\contentsline {subsection}{\numberline {4.4.7}Bảng \texttt {camera\_\allowbreak {}models} -- Mẫu máy ảnh}{45}{subsection.4.4.7}%
+\contentsline {subsection}{\numberline {4.4.8}Bảng \texttt {lenses} -- Ống kính}{45}{subsection.4.4.8}%
+\contentsline {subsection}{\numberline {4.4.9}Bảng \texttt {photo\_\allowbreak {}metadata} -- Metadata của ảnh scan}{45}{subsection.4.4.9}%
+\contentsline {subsection}{\numberline {4.4.10}Bảng \texttt {product\_\allowbreak {}categories} -- Danh mục sản phẩm}{46}{subsection.4.4.10}%
+\contentsline {subsection}{\numberline {4.4.11}Bảng \texttt {products} -- Sản phẩm giao dịch}{46}{subsection.4.4.11}%
+\contentsline {subsection}{\numberline {4.4.12}Bảng \texttt {listings} -- Tin đăng Marketplace}{47}{subsection.4.4.12}%
+\contentsline {subsection}{\numberline {4.4.13}Bảng \texttt {marketplace\_\allowbreak {}transactions} -- Giao dịch Marketplace}{47}{subsection.4.4.13}%
+\contentsline {subsection}{\numberline {4.4.14}Bảng \texttt {seller\_\allowbreak {}reviews} -- Đánh giá người bán}{48}{subsection.4.4.14}%
+\contentsline {section}{\numberline {4.5}P5 -- Tri thức, AI và đánh giá Lab}{48}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Bảng \texttt {article\_\allowbreak {}categories} -- Danh mục bài viết}{49}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Bảng \texttt {articles} -- Bài viết và hướng dẫn}{49}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Bảng \texttt {lab\_\allowbreak {}reviews} -- Đánh giá Film Lab}{49}{subsection.4.5.3}%
+\contentsline {subsection}{\numberline {4.5.4}Bảng \texttt {community\_\allowbreak {}events} -- Sự kiện cộng đồng}{50}{subsection.4.5.4}%
+\contentsline {subsection}{\numberline {4.5.5}Bảng \texttt {user\_\allowbreak {}interactions} -- Nhật ký hành vi}{50}{subsection.4.5.5}%
+\contentsline {subsection}{\numberline {4.5.6}Bảng \texttt {ai\_\allowbreak {}chat\_\allowbreak {}log} -- Nhật ký hội thoại AI}{51}{subsection.4.5.6}%
+\contentsline {section}{\numberline {4.6}Phụ thuộc hàm, khóa ứng viên và chuẩn hóa}{51}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Ràng buộc tích hợp còn phải triển khai}{53}{section.4.7}%
+\contentsline {chapter}{\numberline {5}THIẾT KẾ MỨC VẬT LÝ}{55}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Quy ước triển khai PostgreSQL}{55}{section.5.1}%
+\contentsline {section}{\numberline {5.2}P1 -- Core Domain dùng chung}{56}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Bảng \texttt {users} -- Tài khoản người dùng}{56}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Bảng \texttt {roles} -- Vai trò hệ thống}{56}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Bảng \texttt {permissions} -- Quyền thao tác}{56}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Bảng \texttt {user\_roles} -- Gán vai trò cho người dùng}{57}{subsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.2.5}Bảng \texttt {role\_permissions} -- Gán quyền cho vai trò}{57}{subsection.5.2.5}%
+\contentsline {subsection}{\numberline {5.2.6}Bảng \texttt {film\_labs} -- Film Lab tham gia nền tảng}{57}{subsection.5.2.6}%
+\contentsline {subsection}{\numberline {5.2.7}Bảng \texttt {lab\_services} -- Dịch vụ do Film Lab cung cấp}{58}{subsection.5.2.7}%
+\contentsline {subsection}{\numberline {5.2.8}Bảng \texttt {service\_packages} -- Gói dịch vụ}{58}{subsection.5.2.8}%
+\contentsline {subsection}{\numberline {5.2.9}Bảng \texttt {package\_services} -- Thành phần của gói dịch vụ}{58}{subsection.5.2.9}%
+\contentsline {subsection}{\numberline {5.2.10}Bảng \texttt {orders} -- Đơn sử dụng dịch vụ Film Lab}{59}{subsection.5.2.10}%
+\contentsline {subsection}{\numberline {5.2.11}Bảng \texttt {order\_items} -- Hạng mục dịch vụ trong đơn}{59}{subsection.5.2.11}%
+\contentsline {section}{\numberline {5.3}P3 -- Cuộn phim và xử lý}{60}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Bảng \texttt {film\_rolls} -- Cuộn phim}{60}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Bảng \texttt {processing\_stages} -- Danh mục công đoạn}{60}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Bảng \texttt {stage\_logs} -- Lần thực hiện công đoạn}{61}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Bảng \texttt {order\_status\_history} -- Lịch sử trạng thái đơn}{61}{subsection.5.3.4}%
+\contentsline {subsection}{\numberline {5.3.5}Bảng \texttt {pickup\_delivery\_requests} -- Yêu cầu nhận/giao phim}{62}{subsection.5.3.5}%
+\contentsline {section}{\numberline {5.4}P4 -- Kho ảnh số và chợ thiết bị}{62}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Bảng \texttt {scan\_files} -- File ảnh được số hóa}{62}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Bảng \texttt {albums} -- Album ảnh của người dùng}{63}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Bảng \texttt {album\_photos} -- Ảnh thuộc album}{63}{subsection.5.4.3}%
+\contentsline {subsection}{\numberline {5.4.4}Bảng \texttt {tags} -- Thẻ phân loại ảnh}{63}{subsection.5.4.4}%
+\contentsline {subsection}{\numberline {5.4.5}Bảng \texttt {photo\_tags} -- Gán thẻ cho ảnh}{64}{subsection.5.4.5}%
+\contentsline {subsection}{\numberline {5.4.6}Bảng \texttt {film\_stocks} -- Loại film}{64}{subsection.5.4.6}%
+\contentsline {subsection}{\numberline {5.4.7}Bảng \texttt {camera\_models} -- Mẫu máy ảnh}{64}{subsection.5.4.7}%
+\contentsline {subsection}{\numberline {5.4.8}Bảng \texttt {lenses} -- Ống kính}{65}{subsection.5.4.8}%
+\contentsline {subsection}{\numberline {5.4.9}Bảng \texttt {photo\_metadata} -- Metadata của ảnh scan}{65}{subsection.5.4.9}%
+\contentsline {subsection}{\numberline {5.4.10}Bảng \texttt {product\_categories} -- Danh mục sản phẩm}{65}{subsection.5.4.10}%
+\contentsline {subsection}{\numberline {5.4.11}Bảng \texttt {products} -- Sản phẩm giao dịch}{66}{subsection.5.4.11}%
+\contentsline {subsection}{\numberline {5.4.12}Bảng \texttt {listings} -- Tin đăng Marketplace}{66}{subsection.5.4.12}%
+\contentsline {subsection}{\numberline {5.4.13}Bảng \texttt {marketplace\_transactions} -- Giao dịch Marketplace}{66}{subsection.5.4.13}%
+\contentsline {subsection}{\numberline {5.4.14}Bảng \texttt {seller\_reviews} -- Đánh giá người bán}{67}{subsection.5.4.14}%
+\contentsline {section}{\numberline {5.5}P5 -- Tri thức, AI và đánh giá Lab}{67}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Bảng \texttt {article\_categories} -- Danh mục bài viết}{67}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Bảng \texttt {articles} -- Bài viết và hướng dẫn}{67}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Bảng \texttt {lab\_reviews} -- Đánh giá Film Lab}{68}{subsection.5.5.3}%
+\contentsline {subsection}{\numberline {5.5.4}Bảng \texttt {community\_events} -- Sự kiện cộng đồng}{68}{subsection.5.5.4}%
+\contentsline {subsection}{\numberline {5.5.5}Bảng \texttt {user\_interactions} -- Nhật ký hành vi}{69}{subsection.5.5.5}%
+\contentsline {subsection}{\numberline {5.5.6}Bảng \texttt {ai\_chat\_log} -- Nhật ký hội thoại AI}{69}{subsection.5.5.6}%
+\contentsline {section}{\numberline {5.6}Chỉ mục theo luồng truy vấn}{69}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Truy vấn tổng tiền từ nguồn đã chốt}{70}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Giao dịch, audit và bảo toàn lịch sử}{71}{section.5.8}%
+\contentsline {chapter}{\numberline {6}TỪ ĐIỂN DỮ LIỆU}{72}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Cách đọc từ điển dữ liệu}{72}{section.6.1}%
+\contentsline {section}{\numberline {6.2}P1 -- Core Domain dùng chung}{73}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Bảng \texttt {users} -- Tài khoản người dùng}{73}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Bảng \texttt {roles} -- Vai trò hệ thống}{73}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Bảng \texttt {permissions} -- Quyền thao tác}{74}{subsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.2.4}Bảng \texttt {user\_\allowbreak {}roles} -- Gán vai trò cho người dùng}{74}{subsection.6.2.4}%
+\contentsline {subsection}{\numberline {6.2.5}Bảng \texttt {role\_\allowbreak {}permissions} -- Gán quyền cho vai trò}{75}{subsection.6.2.5}%
+\contentsline {subsection}{\numberline {6.2.6}Bảng \texttt {film\_\allowbreak {}labs} -- Film Lab tham gia nền tảng}{75}{subsection.6.2.6}%
+\contentsline {subsection}{\numberline {6.2.7}Bảng \texttt {lab\_\allowbreak {}services} -- Dịch vụ do Film Lab cung cấp}{76}{subsection.6.2.7}%
+\contentsline {subsection}{\numberline {6.2.8}Bảng \texttt {service\_\allowbreak {}packages} -- Gói dịch vụ}{77}{subsection.6.2.8}%
+\contentsline {subsection}{\numberline {6.2.9}Bảng \texttt {package\_\allowbreak {}services} -- Thành phần của gói dịch vụ}{78}{subsection.6.2.9}%
+\contentsline {subsection}{\numberline {6.2.10}Bảng \texttt {orders} -- Đơn sử dụng dịch vụ Film Lab}{78}{subsection.6.2.10}%
+\contentsline {subsection}{\numberline {6.2.11}Bảng \texttt {order\_\allowbreak {}items} -- Hạng mục dịch vụ trong đơn}{79}{subsection.6.2.11}%
+\contentsline {section}{\numberline {6.3}P3 -- Cuộn phim và xử lý}{80}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Bảng \texttt {film\_\allowbreak {}rolls} -- Cuộn phim}{80}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Bảng \texttt {processing\_\allowbreak {}stages} -- Danh mục công đoạn}{81}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Bảng \texttt {stage\_\allowbreak {}logs} -- Lần thực hiện công đoạn}{81}{subsection.6.3.3}%
+\contentsline {subsection}{\numberline {6.3.4}Bảng \texttt {order\_\allowbreak {}status\_\allowbreak {}history} -- Lịch sử trạng thái đơn}{82}{subsection.6.3.4}%
+\contentsline {subsection}{\numberline {6.3.5}Bảng \texttt {pickup\_\allowbreak {}delivery\_\allowbreak {}requests} -- Yêu cầu nhận/giao phim}{83}{subsection.6.3.5}%
+\contentsline {section}{\numberline {6.4}P4 -- Kho ảnh số và chợ thiết bị}{84}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Bảng \texttt {scan\_\allowbreak {}files} -- File ảnh được số hóa}{84}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Bảng \texttt {albums} -- Album ảnh của người dùng}{85}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}Bảng \texttt {album\_\allowbreak {}photos} -- Ảnh thuộc album}{85}{subsection.6.4.3}%
+\contentsline {subsection}{\numberline {6.4.4}Bảng \texttt {tags} -- Thẻ phân loại ảnh}{86}{subsection.6.4.4}%
+\contentsline {subsection}{\numberline {6.4.5}Bảng \texttt {photo\_\allowbreak {}tags} -- Gán thẻ cho ảnh}{86}{subsection.6.4.5}%
+\contentsline {subsection}{\numberline {6.4.6}Bảng \texttt {film\_\allowbreak {}stocks} -- Loại film}{87}{subsection.6.4.6}%
+\contentsline {subsection}{\numberline {6.4.7}Bảng \texttt {camera\_\allowbreak {}models} -- Mẫu máy ảnh}{87}{subsection.6.4.7}%
+\contentsline {subsection}{\numberline {6.4.8}Bảng \texttt {lenses} -- Ống kính}{88}{subsection.6.4.8}%
+\contentsline {subsection}{\numberline {6.4.9}Bảng \texttt {photo\_\allowbreak {}metadata} -- Metadata của ảnh scan}{88}{subsection.6.4.9}%
+\contentsline {subsection}{\numberline {6.4.10}Bảng \texttt {product\_\allowbreak {}categories} -- Danh mục sản phẩm}{89}{subsection.6.4.10}%
+\contentsline {subsection}{\numberline {6.4.11}Bảng \texttt {products} -- Sản phẩm giao dịch}{90}{subsection.6.4.11}%
+\contentsline {subsection}{\numberline {6.4.12}Bảng \texttt {listings} -- Tin đăng Marketplace}{90}{subsection.6.4.12}%
+\contentsline {subsection}{\numberline {6.4.13}Bảng \texttt {marketplace\_\allowbreak {}transactions} -- Giao dịch Marketplace}{91}{subsection.6.4.13}%
+\contentsline {subsection}{\numberline {6.4.14}Bảng \texttt {seller\_\allowbreak {}reviews} -- Đánh giá người bán}{92}{subsection.6.4.14}%
+\contentsline {section}{\numberline {6.5}P5 -- Tri thức, AI và đánh giá Lab}{92}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Bảng \texttt {article\_\allowbreak {}categories} -- Danh mục bài viết}{92}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Bảng \texttt {articles} -- Bài viết và hướng dẫn}{93}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}Bảng \texttt {lab\_\allowbreak {}reviews} -- Đánh giá Film Lab}{94}{subsection.6.5.3}%
+\contentsline {subsection}{\numberline {6.5.4}Bảng \texttt {community\_\allowbreak {}events} -- Sự kiện cộng đồng}{94}{subsection.6.5.4}%
+\contentsline {subsection}{\numberline {6.5.5}Bảng \texttt {user\_\allowbreak {}interactions} -- Nhật ký hành vi}{95}{subsection.6.5.5}%
+\contentsline {subsection}{\numberline {6.5.6}Bảng \texttt {ai\_\allowbreak {}chat\_\allowbreak {}log} -- Nhật ký hội thoại AI}{96}{subsection.6.5.6}%
+\contentsline {section}{\numberline {6.6}Phạm vi từ điển và điểm chưa chốt}{96}{section.6.6}%
+\contentsline {chapter}{\numberline {7}KẾT LUẬN}{98}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Tổng kết quá trình thiết kế}{98}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Kết quả đạt được}{98}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Đánh giá thiết kế}{99}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Hạn chế}{99}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Hướng phát triển}{100}{section.7.5}%
+\contentsline {chapter}{Tài liệu tham khảo}{100}{section.7.5}%

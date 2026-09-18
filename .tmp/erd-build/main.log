@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.8.15)  19 SEP 2026 01:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.8.15)  19 SEP 2026 01:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -23,17 +23,22 @@ File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
 \bibindent=\dimen148
-) (preamble.tex (packages.tex (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex
-/latex/vntex\vietnam.sty
+)
+(preamble.tex (packages.tex
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\vietnam.sty
 Package: vietnam 2009/07/12 v1.3 support for Vietnamese
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
 Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5enc.def
 File: t5enc.def 2006/11/21 v1.4 Vietnamese T5 encoding
 Now handling font encoding T5 ...
 ... processing UTF-8 mapping file for font encoding T5
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5enc.dfu
 File: t5enc.dfu 2006/08/19 v1.1 UTF8 support for Vietnamese
    defining Unicode char U+00AB (decimal 171)
@@ -190,23 +195,31 @@ File: t5enc.dfu 2006/08/19 v1.1 UTF8 support for Vietnamese
 ))
 LaTeX Font Info:    Trying to load font information for T5+cmr on input line 11
 6.
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmr.fd
 File: t5cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
+))
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
 Package: inputenc 2024/02/08 v1.3d Input encoding file
 \inpenc@prehook=\toks17
 \inpenc@posthook=\toks18
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\vncaps.tex
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\vncaps.tex
 File: vncaps.tex 2006/06/07 v1.1 Captions in Vietnamese
-)) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
+))
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
 Package: geometry 2026/03/07 v6.0 Page Geometry
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks19
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
 ))
@@ -222,6 +235,7 @@ Package: iftex 2024/12/12 v1.0g TeX engine tests
 \Gm@layouthoffset=\dimen155
 \Gm@layoutvoffset=\dimen156
 \Gm@dimlist=\toks20
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
 Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
@@ -241,9 +255,11 @@ Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@widthC=\skip63
 \f@nch@widthR=\skip64
 \@temptokenb=\toks21
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setspace.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
 \lst@mode=\count287
 \lst@gtempboxa=\box53
 \lst@token=\toks22
@@ -256,14 +272,17 @@ Package: setspace 2022/12/04 v6.7b set line spacing
 \lst@newlines=\count291
 \lst@lineno=\count292
 \lst@maxwidth=\dimen160
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpatch.sty
 File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
 \c@lstnumber=\count293
 \lst@skipnumbers=\count294
 \lst@framebox=\box54
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
 File: listings.cfg 2025/11/14 1.11b listings configuration
 ))
 Package: listings 2025/11/14 1.11b (Carsten Heinz)
@@ -275,6 +294,7 @@ Package: listings 2025/11/14 1.11b (Carsten Heinz)
     so I'm assuming it got fixed.
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
 Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
@@ -282,8 +302,8 @@ Package xcolor Info: Driver file: pdftex.def on input line 274.
 
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
 File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.lt
-x)
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
 Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
 Package xcolor Info: Model `RGB' extended on input line 1365.
@@ -295,8 +315,8 @@ Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/frontendlayer\tikz.
-sty (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgf.
 sty
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfrcs.st
 y
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
@@ -310,18 +330,20 @@ y
 \pgfutil@abb=\box55
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfrcs.
-code.tex (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf\pgf.revi
-sion.tex)
+code.tex
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf\pgf.revision.tex)
 Package: pgfrcs 2025-08-29 v3.1.11a (3.1.11a)
 ))
 Package: pgf 2025-08-29 v3.1.11a (3.1.11a)
 
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgfcore.
-sty (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.s
-ty
+sty
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
 Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
 Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
 )
@@ -560,8 +582,8 @@ y
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfkeys.s
 ty
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
-.code.tex)) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/math\pg
-fmath.sty
+.code.tex))
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/math\pgfmath.sty
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.code
 .tex))
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgffor.
@@ -611,8 +633,8 @@ File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-))) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.s
-ty
+)))
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen269
 \lightrulewidth=\dimen270
@@ -631,7 +653,8 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count318
 \@lastruleclass=\count319
 \@thisrulewidth=\dimen281
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty
 Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
 \LTleft=\skip65
 \LTright=\skip66
@@ -649,7 +672,8 @@ Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
 \c@LT@tables=\count323
 \c@LT@chunks=\count324
 \LT@p@ftn=\toks35
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
 Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \col@sep=\dimen283
 \ar@mcellbox=\box71
@@ -658,7 +682,8 @@ Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \extratabsurround=\skip69
 \backup@length=\skip70
 \ar@cellbox=\box72
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
 Package: enumitem 2025/02/06 v3.11 Customized lists
 \labelindent=\skip71
 \enit@outerparindent=\dimen285
@@ -666,7 +691,8 @@ Package: enumitem 2025/02/06 v3.11 Customized lists
 \enit@inbox=\box73
 \enit@count@id=\count325
 \enitdp@description=\count326
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
 Package: titlesec 2025/01/04 v2.17 Sectioning titles
 \ttl@box=\box74
 \beforetitleunit=\skip72
@@ -677,7 +703,8 @@ Package: titlesec 2025/01/04 v2.17 Sectioning titles
 \titlewidth=\dimen288
 \titlewidthlast=\dimen289
 \titlewidthfirst=\dimen290
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/tocloft\tocloft.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/tocloft\tocloft.sty
 Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
 Package tocloft Info: The document has chapter divisions on input line 51.
 \cftparskip=\skip74
@@ -716,7 +743,8 @@ Package tocloft Info: The document has chapter divisions on input line 51.
 \cftbeforetabskip=\skip105
 \cfttabindent=\skip106
 \cfttabnumwidth=\skip107
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2025-07-12 v7.01o Hypertext links for LaTeX
 
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
@@ -729,6 +757,7 @@ Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.s
 ty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
 Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
 )
@@ -744,10 +773,13 @@ Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-)) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
+))
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2025-06-21 v2.57 Cross-referencing by name of section
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 )
@@ -759,7 +791,8 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
 \c@section@level=\count329
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count330
 )
@@ -771,7 +804,7 @@ Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 \@linkdim=\dimen291
 \Hy@linkcounter=\count331
 \Hy@pagecounter=\count332
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2025-07-12 v7.01o Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
@@ -779,7 +812,7 @@ Now handling font encoding PD1 ...
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
 \Hy@SavedSpaceFactor=\count333
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2025-07-12 v7.01o Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
@@ -792,12 +825,14 @@ Package hyperref Info: Backreferencing OFF on input line 4215.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4462.
 \c@Hy@tempcnt=\count334
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4801.
 \XeTeXLinkMargin=\dimen292
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 
@@ -821,6 +856,7 @@ Package hyperref Info: PDF/A mode OFF on input line 6108.
 \c@Hfootnote=\count338
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
 File: hpdftex.def 2025-07-12 v7.01o Hyperref driver for pdfTeX
 \Fld@listcount=\count339
@@ -923,8 +959,8 @@ File: pgflibraryarrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarycalc.code.tex
 File: tikzlibrarycalc.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)) (config.tex (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings
-\lstlang1.sty
+)) (config.tex
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 78.
@@ -957,6 +993,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -1019,18 +1056,18 @@ fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 Package hyperref Info: Link coloring ON on input line 16.
-(main.out) (main.out)
+ (main.out) (main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
-(titlepage.tex
+ (titlepage.tex
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 27.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 27.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 27.
-[1
+ [1
 
 {C:/Users/admin/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]) (abstract.t
 ex
@@ -1044,6 +1081,7 @@ l.24
 ]) (main.toc [2]
 LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 4
 2.
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmtt.fd
 File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
@@ -1081,6 +1119,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [6])
 \tf@toc=\write5
 \openout5 = `main.toc'.
+
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1256,6 +1295,10 @@ File: figures/ERD_P2.png Graphic file (type png)
 Package pdftex.def Info: figures/ERD_P2.png  used on input line 79.
 (pdftex.def)             Requested size: 290.78134pt x 576.29175pt.
 
+
+LaTeX Warning: Reference `fig:erd-p2' on page 21 undefined on input line 83.
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
 (fancyhdr)                \setlength{\headheight}{17.97171pt}.
@@ -1294,11 +1337,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [24
 
 ]
-<figures/ERD_P4.png, id=1038, 2427.0675pt x 2519.4125pt>
+<figures/ERD_P4.png, id=1037, 2427.0675pt x 2519.4125pt>
 File: figures/ERD_P4.png Graphic file (type png)
 <use figures/ERD_P4.png>
 Package pdftex.def Info: figures/ERD_P4.png  used on input line 127.
 (pdftex.def)             Requested size: 426.78006pt x 443.01817pt.
+
+
+LaTeX Warning: Reference `fig:erd-p4' on page 25 undefined on input line 131.
+
 
 Overfull \hbox (24.69682pt too wide) in paragraph at lines 138--139
 []\T5/cmr/m/n/12 scan_files câ 0--1 photo_metadata; méi meta-data thuëc ^^_óng 
@@ -1329,11 +1376,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
 
 [27]
-<figures/ERD_P5.png, id=1055, 1206.5075pt x 581.17125pt>
+<figures/ERD_P5.png, id=1053, 1206.5075pt x 581.17125pt>
 File: figures/ERD_P5.png Graphic file (type png)
 <use figures/ERD_P5.png>
 Package pdftex.def Info: figures/ERD_P5.png  used on input line 156.
 (pdftex.def)             Requested size: 426.77594pt x 205.57677pt.
+
+
+LaTeX Warning: Reference `fig:erd-p5' on page 28 undefined on input line 160.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1393,6 +1444,7 @@ Ch\uhorn \ohorn ng 4.
 ]
 LaTeX Font Info:    Font shape `T5/cmtt/bx/n' in size <14.4> not available
 (Font)              Font shape `T5/cmtt/m/n' tried instead on input line 29.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -1629,6 +1681,7 @@ Ch\uhorn \ohorn ng 5.
 ]
 LaTeX Font Info:    Font shape `T5/cmtt/bx/n' in size <8> not available
 (Font)              Font shape `T5/cmtt/m/n' tried instead on input line 30.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 17.97171pt, for example:
@@ -2613,12 +2666,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 34A9C2A02C9E2CA86A92730CC5AB2E3F;53088.
  ) 
 Here is how much of TeX's memory you used:
- 27747 strings out of 467871
- 526663 string characters out of 5418376
+ 27748 strings out of 467871
+ 526843 string characters out of 5418376
  1483881 words of memory out of 5000000
  55243 multiletter control sequences out of 15000+600000
  645696 words of font info for 68 fonts, out of 8000000 for 9000
@@ -2640,9 +2697,10 @@ n/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr12.pfb><C:/Users/admin
 ppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt10.pfb><C:/Users/admin/A
 ppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt12.pfb><C:/Users/admin/A
 ppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt8.pfb>
-Output written on main.pdf (101 pages, 900731 bytes).
+Output written on C:\Users\admin\Documents\TKCSDL\Nh-m8-TKCSDL\.tmp\erd-build\m
+ain.pdf (101 pages, 900317 bytes).
 PDF statistics:
- 2297 PDF objects out of 2487 (max. 8388607)
+ 2294 PDF objects out of 2487 (max. 8388607)
  931 named destinations out of 1000 (max. 500000)
  1460 words of extra memory for PDF output out of 10000 (max. 10000000)
 
