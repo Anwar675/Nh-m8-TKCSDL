@@ -1,4 +1,4 @@
-﻿% Chương 3: Thiết kế mức khái niệm
+% Chương 3: Thiết kế mức khái niệm
 \chapter{THIẾT KẾ MỨC KHÁI NIỆM}
 
 \section{Nguyên tắc và phạm vi mô hình hóa}
@@ -74,11 +74,7 @@ order\_items -- dịch vụ/gói & Item có 0--1 service và 0--1 package, đún
 Quantity là số lượt dịch vụ hoặc số gói mua. Unit price là giá chốt cho một lượt/một gói; không cộng lại giá thành phần. Subtotal và total amount được tính từ hạng mục, phí và giảm giá, không lưu trong orders. Giá và số lượng được cố định sau xác nhận; thành phần gói đã được đặt không sửa/xóa, thay nội dung bằng gói mới. Mọi bảng Core, kể cả bảng nối, có created\_at và updated\_at. Users và film\_labs có deleted\_at nullable.
 
 \section{P2 -- Người dùng và vận hành Lab}
-<<<<<<< HEAD
-P2 dùng mô hình Core ở trên cho tài khoản, RBAC, Film Lab và danh mục dịch vụ. Các tên thuộc tính thống nhất là base\_price, turnaround\_hours, is\_active; không dùng price, processing\_time, status như một định nghĩa khác của lab\_services. Role thuộc hệ thống, không mặc nhiên cấp quyền thao tác trên mọi Lab.
-=======
 P2 dùng mô hình Core ở trên cho tài khoản, RBAC, Film Lab và danh mục dịch vụ. Quan hệ giữa users và roles là N--N và được triển khai qua thực thể liên kết user\_roles; một user có thể được gán nhiều role và một role có thể được gán cho nhiều user. Các tên thuộc tính thống nhất là base\_price, turnaround\_hours, is\_active; không dùng price, processing\_time, status như một định nghĩa khác của lab\_services. Role thuộc hệ thống, không mặc nhiên cấp quyền thao tác trên mọi Lab.
->>>>>>> 409a8a3d4974b44fd09200cd633702e1c73a4d03
 
 Phần mở rộng hồ sơ, địa chỉ, sở thích, lịch làm việc, công suất và phân quyền nhân viên chưa có lược đồ chi tiết đầy đủ. P2 cần xác định định danh, cardinality, tính bắt buộc và quan hệ với users/film\_labs trước khi tích hợp. Đánh giá Lab dùng lab\_reviews của phần P5 hiện tại; ràng buộc chứng minh người đánh giá có đơn hợp lệ vẫn cần P2/P5 bổ sung.
 
