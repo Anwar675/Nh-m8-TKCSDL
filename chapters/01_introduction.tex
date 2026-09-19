@@ -1,39 +1,22 @@
 % Chương 1: Giới thiệu
 \chapter{GIỚI THIỆU}
 
-\section{Bối cảnh và lý do chọn đề tài}
+\section{Giới thiệu đề tài}
 
-Trong những năm gần đây, nhiếp ảnh phim đang được quan tâm trở lại trên thế giới và tại Việt Nam. Nhu cầu tráng phim, scan, in ảnh và lưu trữ ảnh số vì thế ngày càng tăng. Tuy nhiên, việc trao đổi giữa người chụp và các Film Lab hiện vẫn chủ yếu diễn ra qua mạng xã hội, ứng dụng nhắn tin hoặc điện thoại. Thông tin về dịch vụ, giá, thời gian xử lý và trạng thái đơn hàng bị phân tán, gây khó khăn cho việc tìm kiếm, so sánh và theo dõi dịch vụ.
+Đề tài ``Nền tảng kết nối cộng đồng nhiếp ảnh phim và các Film Lab (MiniLab) tích hợp AI'' hướng đến kết nối người chụp ảnh phim, cơ sở xử lý phim, chuyên gia nhiếp ảnh và đối tác giao nhận trên cùng một hệ thống. Nền tảng hỗ trợ các dịch vụ tráng phim, quét phim (scan), in ảnh, đồng thời tạo không gian lưu trữ ảnh số, trao đổi thiết bị và chia sẻ kiến thức nhiếp ảnh.
 
-Về phía Film Lab, nhiều quy trình như tiếp nhận cuộn phim, cập nhật công đoạn xử lý, giao file scan và quản lý khách hàng vẫn được thực hiện thủ công. Cộng đồng nhiếp ảnh phim cũng chưa có một hệ sinh thái thống nhất để chia sẻ kiến thức, trao đổi thiết bị và quản lý bộ sưu tập ảnh phim số.
+\section{Mục đích của đề tài}
 
-Vì vậy, đề tài lựa chọn thiết kế cơ sở dữ liệu cho nền tảng kết nối Photographer, Film Lab, Photography Expert và Delivery Partner, đồng thời hỗ trợ Marketplace, Digital Film Archive và các chức năng AI. Cơ sở dữ liệu thống nhất là nền tảng để số hóa quy trình dịch vụ, bảo đảm dữ liệu xuyên suốt và hỗ trợ mở rộng hệ thống trong tương lai.
+Nền tảng giúp người dùng thuận tiện tìm kiếm Film Lab, đặt dịch vụ và theo dõi quá trình xử lý phim; giúp Film Lab quản lý đơn hàng, khách hàng và bàn giao ảnh số tập trung. Trong phạm vi đồ án, nhóm tập trung thiết kế cơ sở dữ liệu PostgreSQL để tổ chức, lưu trữ và quản lý dữ liệu phục vụ các nghiệp vụ này, đồng thời hỗ trợ các chức năng cộng đồng và tích hợp AI.
 
-\section{Mục tiêu của đồ án}
+\section{Các chức năng chính}
 
-\subsection{Mục tiêu tổng quát}
-Thiết kế cơ sở dữ liệu PostgreSQL nhất quán, bảo toàn dữ liệu và đáp ứng các luồng nghiệp vụ cốt lõi của nền tảng FilmLab.
-
-\subsection{Mục tiêu cụ thể}
-\begin{enumerate}
-    \item Phân tích tác nhân, yêu cầu chức năng, phi chức năng và các Core Flow.
-    \item Xây dựng ERD tổng thể và xác định cardinality giữa các thực thể.
-    \item Chuyển mô hình khái niệm sang mô hình quan hệ, chuẩn hóa tối thiểu đến 3NF.
-    \item Thiết kế vật lý trên PostgreSQL với constraint, index, audit và soft-delete.
-    \item Xây dựng Data Dictionary, script SQL và truy vấn mẫu kiểm chứng nghiệp vụ.
-    \item Chuẩn bị cấu trúc dữ liệu có thể mở rộng cho tìm kiếm, gợi ý và trợ lý AI.
-\end{enumerate}
-
-\section{Phạm vi và giới hạn}
-
-Phạm vi dữ liệu gồm người dùng và RBAC; Film Lab và dịch vụ; đơn hàng và vòng đời xử lý phim; giao nhận và thanh toán; kho ảnh phim số; marketplace; knowledge/community; notification và dữ liệu hỗ trợ AI.
-
-Đồ án chỉ tập trung thiết kế cơ sở dữ liệu, không triển khai đầy đủ giao diện, API hay mô hình AI. File ảnh dung lượng lớn được lưu tại cloud object storage; cơ sở dữ liệu quản lý URI và metadata. Tích hợp thanh toán, vận chuyển và AI được mô hình hóa ở mức dữ liệu.
-
-\section{Phương pháp thực hiện}
-
-Quy trình gồm phân tích yêu cầu, thiết kế khái niệm, thiết kế logic và chuẩn hóa, thiết kế vật lý PostgreSQL, xây dựng Data Dictionary và SQL, sau đó kiểm chứng bằng truy vấn theo Core Flow. Thiết kế được cross-review theo module để phát hiện quan hệ thiếu và ràng buộc không nhất quán.
-
-\section{Cấu trúc báo cáo}
-
-Báo cáo gồm bảy chương: giới thiệu; phân tích yêu cầu; thiết kế mức khái niệm; thiết kế mức logic và chuẩn hóa; thiết kế mức vật lý; từ điển dữ liệu; và kết luận.
+\begin{itemize}
+    \item Tìm kiếm, so sánh và đánh giá Film Lab theo vị trí, dịch vụ, giá và phản hồi của khách hàng.
+    \item Đặt dịch vụ tráng, scan, in ảnh; yêu cầu giao nhận, thanh toán trực tuyến và theo dõi tiến độ đơn hàng.
+    \item Quản lý thông tin Film Lab, gói dịch vụ, khách hàng, quy trình xử lý phim và doanh thu.
+    \item Bàn giao, tải xuống và tổ chức ảnh scan trong kho ảnh phim số cá nhân, kèm thông tin về phim và thiết bị chụp.
+    \item Mua bán, trao đổi máy ảnh, ống kính, phim và phụ kiện; chia sẻ bài viết, thảo luận và tham gia sự kiện nhiếp ảnh.
+    \item Tích hợp AI để gợi ý Film Lab và loại phim, hỗ trợ tìm kiếm, phân tích chất lượng ảnh scan và giải đáp kiến thức nhiếp ảnh.
+    \item Quản trị người dùng, phân quyền, phê duyệt Film Lab, kiểm duyệt nội dung và giải quyết khiếu nại.
+\end{itemize}

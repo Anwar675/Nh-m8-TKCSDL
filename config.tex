@@ -91,7 +91,8 @@
 
 % Tên entity/table có thể chứa dấu gạch dưới mà không cần escape thủ công.
 % \detokenize ngăn ký tự "_" làm LaTeX chuyển nhầm sang chế độ toán.
-\newcommand{\entity}[1]{\texttt{\detokenize{#1}}}
+% \nolinkurl cho phép ngắt dòng tại dấu gạch dưới khi tên bảng/cột dài.
+\newcommand{\entity}[1]{\nolinkurl{#1}}
 
 % Lệnh cho các ký hiệu quan trọng
 \newcommand{\highlight}[1]{\textbf{\textcolor{codeblue}{#1}}}

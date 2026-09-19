@@ -1,0 +1,21 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "sqlproj: Build TKCSDL",
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"build",
+				"c:/Users/admin/Documents/TKCSDL/Nh-m8-TKCSDL/TKCSDL/TKCSDL.sqlproj"
+			],
+			"problemMatcher": "$sqlproj-problem-matcher",
+			"isBackground": true,
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "Builds the TKCSDL SQL project"
+		}
+	]
+}

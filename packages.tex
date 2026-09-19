@@ -3,9 +3,17 @@
 % =====================================================================
 
 % ---------------------- NGÔN NGỮ & MÃ HÓA ----------------------------
-\usepackage[utf8]{vietnam}           % Hỗ trợ tiếng Việt
-\usepackage[T5]{fontenc}             % Mã hóa font cho tiếng Việt
-\usepackage{inputenc}                % Mã hóa đầu vào
+% Hỗ trợ đúng phông tiếng Việt với cả pdfLaTeX và XeLaTeX.
+\usepackage{iftex}
+\ifPDFTeX
+    \usepackage[utf8]{inputenc}
+    \usepackage[T5]{fontenc}
+    \usepackage[utf8]{vietnam}
+\else
+    \usepackage{fontspec}
+    \defaultfontfeatures{Ligatures=TeX}
+    \setmainfont{Times New Roman}
+\fi
 
 % ---------------------- BỐ CỤC TRANG ---------------------------------
 \usepackage[top=2.5cm, bottom=2.5cm, left=3.5cm, right=2.5cm]{geometry}

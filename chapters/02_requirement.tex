@@ -1,108 +1,66 @@
-﻿\chapter{PHÂN TÍCH YÊU CẦU}
+\chapter{PHÂN TÍCH YÊU CẦU}
 
-\section{Tác nhân và các luồng nghiệp vụ cốt lõi}
-Hệ thống phục vụ cộng đồng nhiếp ảnh phim và các Film Lab. Các tác nhân gồm khách hàng/người chụp ảnh, chủ Film Lab, chuyên gia nhiếp ảnh, đối tác giao nhận và quản trị viên. Một người dùng có thể có nhiều vai trò. Trợ lý AI sử dụng dữ liệu theo quyền của người dùng.
+\section{Yêu cầu chức năng}
 
-\begin{enumerate}[label=\textbf{CF\arabic*:}]
-\item \textbf{Khám phá Film Lab:} tìm và so sánh Lab theo vị trí, dịch vụ, giá, thời gian xử lý và đánh giá.
-\item \textbf{Đặt dịch vụ:} chọn dịch vụ lẻ hoặc gói, ghi tùy chọn, giá chốt và hình thức tự giao phim hoặc yêu cầu lấy phim.
-\item \textbf{Theo dõi xử lý:} tiếp nhận cuộn phim, theo dõi tráng, scan và các công đoạn liên quan, truy vết người thực hiện.
-\item \textbf{Giao file và kho ảnh số:} công bố file scan sau khi hoàn tất, thông báo khách hàng và tổ chức ảnh thành album, thẻ, metadata.
-\item \textbf{Giao dịch thiết bị:} đăng bán, tìm kiếm, mua thiết bị nhiếp ảnh phim, theo dõi giao dịch và đánh giá người bán.
-\item \textbf{Tri thức, cộng đồng và AI:} xuất bản hướng dẫn, tổ chức sự kiện, ghi nhận tương tác và hội thoại để hỗ trợ gợi ý, tra cứu.
-\end{enumerate}
-
-Phạm vi đồ án là thiết kế dữ liệu, quan hệ và ràng buộc phục vụ các luồng trên, không triển khai giao diện hoặc mô hình AI. Thanh toán, vận chuyển, thông báo và nhu cầu trao đổi thiết bị vẫn thuộc yêu cầu tích hợp; các phần chưa được mô hình hóa được ghi nhận ở cuối chương.
-
-\section{Phân định phạm vi P1--P5}
-\label{sec:module-scope}
-\begin{longtable}{p{1cm}p{4cm}p{8.5cm}}
-\toprule
-\textbf{Phần} & \textbf{Trách nhiệm} & \textbf{Ranh giới và phối hợp} \\
-\midrule
-\endhead
-P1 & Core Domain và tích hợp & Sở hữu định nghĩa chung của User/RBAC, Lab/Service/Package và Order/Order Item; tổng hợp ERD, chuẩn hóa và Data Dictionary. \\
-P2 & Người dùng và vận hành Lab & Dùng lại Core; mở rộng hồ sơ, địa chỉ, sở thích, lịch làm việc, công suất, tùy chọn dịch vụ và quyền theo Lab; phối hợp P5 về đánh giá Lab. \\
-P3 & Đơn hàng và xử lý phim & Dùng lại orders/order\_items; quản lý cuộn phim, danh mục công đoạn, log xử lý, lịch sử trạng thái, yêu cầu nhận/giao; cung cấp cuộn phim cho P4. \\
-P4 & Kho ảnh số và chợ thiết bị & Quản lý scan, metadata, album, thẻ, thiết bị, tin đăng, giao dịch và đánh giá người bán; không tạo lại người dùng hoặc đơn dịch vụ Lab. \\
-P5 & Tri thức, AI và tích hợp & Quản lý bài viết, sự kiện, tương tác, hội thoại; thiết kế dữ liệu gợi ý/RAG, thanh toán, đối tác giao nhận, thông báo và kiểm toán theo phân công. \\
-\bottomrule
-\end{longtable}
-
-Một bảng xuất hiện ở nhiều phần chỉ thể hiện sử dụng chung, không phải các schema độc lập. P1 chốt thay đổi bảng Core, thành viên phụ trách nghiệp vụ cung cấp yêu cầu. Đánh giá Lab dùng lab\_reviews: P2 phụ trách yêu cầu nghiệp vụ, P5 hiện trình bày mô hình. Đánh giá người bán dùng seller\_reviews của P4. Không tạo thêm reviews/ratings trùng chức năng khi chưa có lý do nghiệp vụ.
-
-\section{Yêu cầu dữ liệu theo phân hệ}
-\subsection{P1 -- Core Domain}
+\subsection{Quản lý tài khoản và phân quyền}
 \begin{itemize}
-\item Quản lý tài khoản, mật khẩu băm, trạng thái và quyền. Người dùng--vai trò và vai trò--quyền đều là N--N, thông qua user\_roles và role\_permissions.
-\item Mỗi Lab có một chủ sở hữu; một người có thể sở hữu nhiều Lab. Dịch vụ/gói thuộc đúng một Lab; các thành phần gói qua package\_services phải cùng Lab.
-\item Mỗi đơn thuộc một khách hàng và một Lab. Mỗi hạng mục chọn đúng một dịch vụ lẻ hoặc một gói. Đơn phải có hạng mục trước khi xác nhận.
-\item Tổng tạm tính bằng tổng quantity nhân unit\_price; tổng thanh toán cộng phí và trừ giảm giá, không âm. Giá gói được tính một lần, không cộng lại giá thành phần. Subtotal và total amount là dữ liệu dẫn xuất, không lưu trong orders.
-\item Cố định lựa chọn, giá, số lượng, tùy chọn, phí, giảm giá và đồng tiền sau xác nhận. Gói đã được đặt giữ nguyên thành phần; thay nội dung bằng gói mới. Giá danh mục thay đổi không làm đổi giá đã chốt.
+    \item Hệ thống cho phép người dùng đăng ký, đăng nhập, cập nhật thông tin cá nhân và quản lý địa chỉ liên hệ.
+    \item Hệ thống quản lý vai trò và quyền truy cập của người dùng; một người dùng có thể đảm nhận nhiều vai trò.
+    \item Quản trị viên có thể khóa, mở khóa tài khoản và quản lý quyền sử dụng các chức năng của hệ thống.
 \end{itemize}
 
-\subsection{P2 -- Người dùng và vận hành Film Lab}
+\subsection{Quản lý Film Lab và dịch vụ}
 \begin{itemize}
-\item Dùng users cho danh tính chung; quản lý hồ sơ, địa chỉ liên hệ và sở thích nhiếp ảnh bằng phần mở rộng P2. Không tự định nghĩa lại thuộc tính Core trong từng chương.
-\item Quản lý liên hệ, địa chỉ, phê duyệt Lab, danh mục dịch vụ, giá cơ sở, thời gian xử lý dự kiến và trạng thái mở bán.
-\item Quản lý lịch làm việc, công suất và tùy chọn dịch vụ phục vụ tìm kiếm và lựa chọn dịch vụ; các yêu cầu này còn cần mô hình chi tiết.
-\item Một người có nhiều vai trò. Quyền toàn hệ thống không tự cấp quyền trên mọi Lab; cần kiểm tra Lab sở hữu tài nguyên và thiết kế quyền nhân viên theo Lab.
-\item Đánh giá Lab gồm điểm và nhận xét sau trải nghiệm dịch vụ hợp lệ. P2/P5 cần thống nhất cách kiểm chứng đơn hoàn thành trước khi chốt FK từ lab\_reviews tới đơn.
+    \item Film Lab có thể quản lý hồ sơ, địa chỉ, thời gian làm việc và trạng thái hoạt động.
+    \item Film Lab có thể tạo và cập nhật dịch vụ tráng phim, scan, in ảnh, gói dịch vụ, giá và thời gian xử lý dự kiến.
+    \item Người dùng có thể tìm kiếm và so sánh Film Lab theo vị trí, loại dịch vụ, giá, thời gian xử lý và đánh giá.
+    \item Quản trị viên có thể xét duyệt Film Lab và quản lý danh mục dịch vụ dùng chung.
 \end{itemize}
 
-\subsection{P3 -- Đơn hàng và quá trình xử lý phim}
+\subsection{Quản lý đơn hàng và xử lý phim}
 \begin{itemize}
-\item Quản lý mã cuộn phim, loại phim, số khung hình, thời điểm tiếp nhận, hoàn tất scan và trạng thái. Theo Chương 4--5 hiện tại, mỗi film\_rolls thuộc đúng một orders qua order\_id.
-\item Tách danh mục processing\_stages khỏi lần thực hiện stage\_logs. Mỗi log thuộc một cuộn phim và một công đoạn, ghi trạng thái, thời gian, người thực hiện, ghi chú; giữ được lịch sử xử lý lại.
-\item Mỗi lần đổi trạng thái đơn tạo order\_status\_history. Trạng thái hiện tại và lịch sử phải nhất quán.
-\item Một đơn có thể phát sinh nhiều pickup\_delivery\_requests; P3 quản lý yêu cầu nhận/giao, P5 quản lý đối tác vận chuyển.
-\item Truy vết scan\_files tới film\_rolls, orders rồi users qua customer\_id; không lưu lặp chủ ảnh trong cuộn phim.
-\end{itemize}
-Quan hệ xác định dịch vụ/hạng mục áp dụng cho từng cuộn phim vẫn cần P1/P3 hoàn thiện. Chưa chốt mỗi cuộn chỉ thuộc một order item, vì cùng cuộn có thể dùng nhiều dịch vụ. Không mô tả order\_item\_id như FK đã có trong film\_rolls.
-
-\subsection{P4 -- Kho ảnh số và chợ thiết bị}
-\begin{itemize}
-\item Mỗi file scan thuộc một cuộn phim. CSDL lưu URI, định dạng, kích thước, trạng thái và thời gian; ảnh thực tế nằm ngoài CSDL. Chỉ công bố khi scan hoàn tất và kiểm tra quyền truy cập.
-\item Mỗi file có tối đa một bộ metadata, có thể tham chiếu loại phim, mẫu máy, ống kính. Thông tin tiến độ xử lý lấy từ P3, không lưu lặp.
-\item Album--ảnh và ảnh--thẻ là N--N qua bảng trung gian. Kiểm tra quyền sử dụng ảnh trước khi thêm vào album.
-\item Bảo toàn file scan và thiết kế quản lý phiên bản khi scan lại; versioning chưa có mô hình chi tiết trong thiết kế hiện tại.
-\item Thiết bị được phân loại, đăng bán và giao dịch giữa người mua/người bán. Đơn dịch vụ Lab và giao dịch thiết bị không dùng chung orders.
-\item Theo giả định hiện tại của P4, một tin đăng có tối đa một giao dịch, kể cả giao dịch hủy; mỗi giao dịch có tối đa một đánh giá của người mua sau hoàn thành. Giả định này còn cần xác nhận khi review.
-\end{itemize}
-Ảnh sản phẩm, trao đổi thiết bị không dùng tiền và liên lạc giữa người mua/người bán là các nhu cầu đã nêu nhưng chưa có quan hệ tương ứng; không coi listings hiện tại đã bao phủ các nhu cầu này.
-
-\subsection{P5 -- Tri thức, AI và tích hợp}
-\begin{itemize}
-\item Quản lý bài viết/hướng dẫn theo tác giả và danh mục bằng articles và article\_categories. Hướng dẫn hiện được thể hiện bằng nội dung bài viết, chưa có tutorials riêng.
-\item Quản lý community\_events theo người tổ chức, thời gian, địa điểm và sức chứa. Bình luận, danh sách đăng ký cần quan hệ riêng, chưa nằm trong sáu quan hệ P5 hiện tại.
-\item Phối hợp P2 quản lý lab\_reviews; không nhầm với seller\_reviews hoặc bài viết đánh giá thiết bị.
-\item Ghi hành vi bằng user\_interactions và hội thoại bằng ai\_chat\_log theo tên hiện dùng ở Chương 5. Có log không đồng nghĩa đã triển khai mô hình gợi ý hay RAG.
-\item Thiết kế nguồn tri thức/chunk, metadata embedding, recommendation log và điểm chất lượng scan; bảo đảm truy vết nguồn, quyền sử dụng dữ liệu. Không trình bày huấn luyện AI như kết quả đã triển khai của đồ án CSDL.
-\item Thiết kế payment\_transactions, delivery\_partners, notifications và admin\_logs; phối hợp P1/P3/P4 về đối tượng tham chiếu, bảo toàn lịch sử và tránh ghi nhận trùng.
+    \item Khách hàng có thể tạo đơn hàng, lựa chọn dịch vụ hoặc gói dịch vụ, khai báo thông tin cuộn phim và yêu cầu bổ sung.
+    \item Hệ thống ghi nhận giá, số lượng, phí, giảm giá và tổng tiền tại thời điểm xác nhận đơn hàng.
+    \item Film Lab có thể tiếp nhận đơn, quản lý từng cuộn phim và cập nhật các công đoạn như tiếp nhận, tráng, rửa, sấy, scan và kiểm tra chất lượng.
+    \item Khách hàng có thể theo dõi trạng thái đơn hàng và tiến độ xử lý phim.
+    \item Hệ thống lưu lịch sử thay đổi trạng thái, thời gian thực hiện và người phụ trách để phục vụ tra cứu.
 \end{itemize}
 
-\section{Quy tắc chung và yêu cầu phi chức năng}
-\begin{enumerate}
-\item Tên tiếng Anh, snake\_case, bảng số nhiều theo quy ước nhóm. Tên kế thừa chưa phù hợp phải đổi đồng bộ, không đổi riêng một chương.
-\item UUID cho thực thể nghiệp vụ chính; thời gian TIMESTAMPTZ theo UTC. Bảng nghiệp vụ có created\_at, updated\_at và deleted\_at khi cần soft-delete. Không xóa cứng đơn, thanh toán, lịch sử và file scan đã phát sinh nghiệp vụ.
-\item Kiểm soát PK, FK, UNIQUE, miền giá trị và ràng buộc liên bảng. JSON không thay thế quan hệ cần kiểm soát khóa.
-\item Kiểm tra tài khoản còn hoạt động, Lab được duyệt, dịch vụ/gói mở bán trước khi nhận đơn. Chuyển trạng thái phải theo nghiệp vụ, không chỉ kiểm tra tên trạng thái.
-\item Cô lập dữ liệu theo Lab, kiểm soát truy cập ảnh và dữ liệu cá nhân, hỗ trợ kiểm toán, sao lưu/khôi phục; thiết kế index cho tìm Lab, tracking và tìm kiếm tri thức.
-\end{enumerate}
+\subsection{Giao nhận và thanh toán}
+\begin{itemize}
+    \item Khách hàng có thể tự giao phim hoặc yêu cầu đối tác đến nhận và giao trả phim.
+    \item Hệ thống ghi nhận đối tác giao nhận, địa chỉ, thời gian và trạng thái của từng yêu cầu giao nhận.
+    \item Hệ thống hỗ trợ ghi nhận giao dịch thanh toán, phương thức thanh toán, số tiền và trạng thái giao dịch.
+    \item Người dùng được thông báo khi trạng thái đơn hàng, giao nhận hoặc thanh toán thay đổi.
+\end{itemize}
 
-\section{Yêu cầu còn phải hoàn thiện khi tích hợp}
-\label{sec:scope-gaps}
-Các yêu cầu dưới đây vẫn thuộc phân công; việc ghi nhận chưa hoàn thiện không loại bỏ trách nhiệm của thành viên.
-\begin{longtable}{p{1.5cm}p{12cm}}
-\toprule
-\textbf{Phần} & \textbf{Khoảng trống giữa yêu cầu và mô hình} \\
-\midrule
-\endhead
-P1/P2 & Hồ sơ, địa chỉ, sở thích, lịch làm việc, công suất, tùy chọn dịch vụ và quyền nhân viên theo Lab. \\
-P1/P3 & Ánh xạ hạng mục/dịch vụ vào cuộn phim; điều kiện chuyển trạng thái, hủy đơn và phối hợp giao nhận. \\
-P4 & Versioning scan; ảnh sản phẩm, trao đổi, liên lạc; chốt cardinality giao dịch, quyền album và miền trạng thái. \\
-P2/P5 & Kiểm chứng đánh giá Lab bằng đơn hợp lệ; thống nhất một bảng lab\_reviews dùng chung. \\
-P5 & Bình luận, đăng ký sự kiện, recommendation/RAG, chất lượng scan, thanh toán, vận chuyển, thông báo và kiểm toán. \\
-\bottomrule
-\end{longtable}
-Chương 3 mô tả mô hình hiện có; Chương 4--6 phải bổ sung thiết kế chi tiết trước khi đánh dấu yêu cầu hoàn thành. Mọi thay đổi thực thể, cardinality hoặc constraint phải được đồng bộ đến Chương 7.
+\subsection{Quản lý kho ảnh phim số}
+\begin{itemize}
+    \item Film Lab có thể tải lên và bàn giao file scan sau khi hoàn tất xử lý.
+    \item Khách hàng có thể xem, tải xuống và tổ chức ảnh theo album hoặc thẻ.
+    \item Hệ thống lưu địa chỉ file và metadata như loại phim, máy ảnh, ống kính, ngày chụp, định dạng và thông số scan.
+    \item Hệ thống hỗ trợ quản lý các phiên bản file khi ảnh được scan lại.
+\end{itemize}
+
+\subsection{Quản lý chợ thiết bị}
+\begin{itemize}
+    \item Người dùng có thể đăng, cập nhật, tìm kiếm và ngừng hiển thị tin mua bán hoặc trao đổi máy ảnh, ống kính, phim và phụ kiện.
+    \item Hệ thống quản lý thông tin sản phẩm, hình ảnh, giá, tình trạng và trạng thái tin đăng.
+    \item Hệ thống ghi nhận giao dịch giữa người mua và người bán, đồng thời hỗ trợ đánh giá sau khi giao dịch hoàn tất.
+\end{itemize}
+
+\subsection{Tri thức và hoạt động cộng đồng}
+\begin{itemize}
+    \item Chuyên gia và thành viên được cấp quyền có thể đăng bài hướng dẫn, bài đánh giá và nội dung chia sẻ kinh nghiệm.
+    \item Người dùng có thể tìm kiếm bài viết, bình luận và tương tác với nội dung cộng đồng.
+    \item Hệ thống hỗ trợ tạo sự kiện, workshop hoặc photowalk và quản lý danh sách đăng ký tham gia.
+    \item Quản trị viên có thể kiểm duyệt bài viết, bình luận, đánh giá và xử lý nội dung vi phạm.
+\end{itemize}
+
+\subsection{Chức năng hỗ trợ bởi AI}
+\begin{itemize}
+    \item Hệ thống gợi ý Film Lab và loại phim phù hợp dựa trên nhu cầu, vị trí, sở thích và lịch sử sử dụng của người dùng.
+    \item Hệ thống hỗ trợ tìm kiếm ngữ nghĩa trong kho kiến thức nhiếp ảnh.
+    \item Trợ lý AI có thể giải đáp câu hỏi về nhiếp ảnh phim và đề xuất nội dung liên quan.
+    \item Hệ thống có thể ghi nhận kết quả phân tích chất lượng ảnh scan để hỗ trợ Film Lab và khách hàng.
+\end{itemize}

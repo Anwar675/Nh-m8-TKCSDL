@@ -20,8 +20,7 @@ Nh-m8-TKCSDL/
 │   ├── 03_conceptual.tex          # Thiết kế cơ sở dữ liệu mức khái niệm
 │   ├── 04_logical.tex             # Thiết kế mức logic và chuẩn hóa dữ liệu
 │   ├── 05_physical.tex            # Thiết kế mức vật lý
-│   ├── 06_datadictionary.tex      # Từ điển dữ liệu
-│   └── 07_conclusion.tex          # Kết luận và hướng phát triển
+│   └── 06_conclusion.tex          # Kết luận và hướng phát triển
 │
 ├── appendices/                    # Các nội dung phụ lục
 │   └── A_phan_cong.tex            # Bảng phân công nhiệm vụ của nhóm

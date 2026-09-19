@@ -12,9 +12,8 @@ Trên cơ sở đó, các thực thể được chia thành những nhóm: ngư�
 \begin{itemize}
     \item Xác định tác nhân, yêu cầu dữ liệu, quy tắc nghiệp vụ và các mối quan hệ quan trọng của hệ thống.
     \item Đồng bộ phạm vi P1--P5 ở Chương 2--3, lập danh mục thực thể, bảng cardinality và sơ đồ truy vết Order--Processing--Archive theo mô hình hiện tại. ERD tổng thể cuối cùng vẫn cần hoàn thiện sau khi bổ sung các quan hệ còn thiếu.
-    \item Đồng bộ 36 bảng hiện có giữa mô hình logic, DDL và từ điển dữ liệu: 11 bảng Core, 5 bảng P3, 14 bảng P4 và 6 bảng P5. Bảng dùng chung chỉ định nghĩa một lần trong từng chương; phân tích khóa ứng viên và các giới hạn chuẩn hóa còn tồn tại.
+    \item Đồng bộ 36 bảng hiện có giữa mô hình logic và DDL: 11 bảng Core, 5 bảng P3, 14 bảng P4 và 6 bảng P5. Bảng dùng chung chỉ định nghĩa một lần trong từng chương; phân tích khóa ứng viên và các giới hạn chuẩn hóa còn tồn tại.
     \item Đề xuất định hướng thiết kế vật lý trên PostgreSQL về kiểu dữ liệu, ràng buộc, chỉ mục, audit, soft-delete, multi-tenant và lưu trữ file scan.
-    \item Xây dựng Data Dictionary cho toàn bộ 36 bảng đã mô hình hóa, gồm cả P3 và nhật ký hội thoại AI; thống nhất UUID, TIMESTAMPTZ, NULL, audit và FK. Các yêu cầu chưa có mô hình bảng vẫn cần bổ sung riêng.
 \end{itemize}
 
 \section{Đánh giá thiết kế}

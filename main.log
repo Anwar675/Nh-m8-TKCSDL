@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.8.15)  19 SEP 2026 01:07
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.9.19)  19 SEP 2026 19:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -11,217 +11,118 @@ Document Class: report 2025/01/22 v1.4n Standard LaTeX document class
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\size12.clo
 File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 )
-\c@part=\count275
-\c@chapter=\count276
-\c@section=\count277
-\c@subsection=\count278
-\c@subsubsection=\count279
-\c@paragraph=\count280
-\c@subparagraph=\count281
-\c@figure=\count282
-\c@table=\count283
+\c@part=\count271
+\c@chapter=\count272
+\c@section=\count273
+\c@subsection=\count274
+\c@subsubsection=\count275
+\c@paragraph=\count276
+\c@subparagraph=\count277
+\c@figure=\count278
+\c@table=\count279
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
 \bibindent=\dimen148
-) (preamble.tex (packages.tex (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex
-/latex/vntex\vietnam.sty
-Package: vietnam 2009/07/12 v1.3 support for Vietnamese
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
-Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
-Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5enc.def
-File: t5enc.def 2006/11/21 v1.4 Vietnamese T5 encoding
-Now handling font encoding T5 ...
-... processing UTF-8 mapping file for font encoding T5
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5enc.dfu
-File: t5enc.dfu 2006/08/19 v1.1 UTF8 support for Vietnamese
-   defining Unicode char U+00AB (decimal 171)
-   defining Unicode char U+00BB (decimal 187)
-   defining Unicode char U+00C0 (decimal 192)
-   defining Unicode char U+00C1 (decimal 193)
-   defining Unicode char U+00C2 (decimal 194)
-   defining Unicode char U+00C3 (decimal 195)
-   defining Unicode char U+00C8 (decimal 200)
-   defining Unicode char U+00C9 (decimal 201)
-   defining Unicode char U+00CA (decimal 202)
-   defining Unicode char U+00CC (decimal 204)
-   defining Unicode char U+00CD (decimal 205)
-   defining Unicode char U+00D2 (decimal 210)
-   defining Unicode char U+00D3 (decimal 211)
-   defining Unicode char U+00D4 (decimal 212)
-   defining Unicode char U+00D5 (decimal 213)
-   defining Unicode char U+00D9 (decimal 217)
-   defining Unicode char U+00DA (decimal 218)
-   defining Unicode char U+00DD (decimal 221)
-   defining Unicode char U+00E0 (decimal 224)
-   defining Unicode char U+00E1 (decimal 225)
-   defining Unicode char U+00E2 (decimal 226)
-   defining Unicode char U+00E3 (decimal 227)
-   defining Unicode char U+00E8 (decimal 232)
-   defining Unicode char U+00E9 (decimal 233)
-   defining Unicode char U+00EA (decimal 234)
-   defining Unicode char U+00EC (decimal 236)
-   defining Unicode char U+00ED (decimal 237)
-   defining Unicode char U+00F2 (decimal 242)
-   defining Unicode char U+00F3 (decimal 243)
-   defining Unicode char U+00F4 (decimal 244)
-   defining Unicode char U+00F5 (decimal 245)
-   defining Unicode char U+00F9 (decimal 249)
-   defining Unicode char U+00FA (decimal 250)
-   defining Unicode char U+00FD (decimal 253)
-   defining Unicode char U+0102 (decimal 258)
-   defining Unicode char U+0103 (decimal 259)
-   defining Unicode char U+0110 (decimal 272)
-   defining Unicode char U+0111 (decimal 273)
-   defining Unicode char U+0128 (decimal 296)
-   defining Unicode char U+0129 (decimal 297)
-   defining Unicode char U+0131 (decimal 305)
-   defining Unicode char U+0168 (decimal 360)
-   defining Unicode char U+0169 (decimal 361)
-   defining Unicode char U+01A0 (decimal 416)
-   defining Unicode char U+01A1 (decimal 417)
-   defining Unicode char U+01AF (decimal 431)
-   defining Unicode char U+01B0 (decimal 432)
-   defining Unicode char U+1EA0 (decimal 7840)
-   defining Unicode char U+1EA1 (decimal 7841)
-   defining Unicode char U+1EA2 (decimal 7842)
-   defining Unicode char U+1EA3 (decimal 7843)
-   defining Unicode char U+1EA4 (decimal 7844)
-   defining Unicode char U+1EA5 (decimal 7845)
-   defining Unicode char U+1EA6 (decimal 7846)
-   defining Unicode char U+1EA7 (decimal 7847)
-   defining Unicode char U+1EA8 (decimal 7848)
-   defining Unicode char U+1EA9 (decimal 7849)
-   defining Unicode char U+1EAA (decimal 7850)
-   defining Unicode char U+1EAB (decimal 7851)
-   defining Unicode char U+1EAC (decimal 7852)
-   defining Unicode char U+1EAD (decimal 7853)
-   defining Unicode char U+1EAE (decimal 7854)
-   defining Unicode char U+1EAF (decimal 7855)
-   defining Unicode char U+1EB0 (decimal 7856)
-   defining Unicode char U+1EB1 (decimal 7857)
-   defining Unicode char U+1EB2 (decimal 7858)
-   defining Unicode char U+1EB3 (decimal 7859)
-   defining Unicode char U+1EB4 (decimal 7860)
-   defining Unicode char U+1EB5 (decimal 7861)
-   defining Unicode char U+1EB6 (decimal 7862)
-   defining Unicode char U+1EB7 (decimal 7863)
-   defining Unicode char U+1EB8 (decimal 7864)
-   defining Unicode char U+1EB9 (decimal 7865)
-   defining Unicode char U+1EBA (decimal 7866)
-   defining Unicode char U+1EBB (decimal 7867)
-   defining Unicode char U+1EBC (decimal 7868)
-   defining Unicode char U+1EBD (decimal 7869)
-   defining Unicode char U+1EBE (decimal 7870)
-   defining Unicode char U+1EBF (decimal 7871)
-   defining Unicode char U+1EC0 (decimal 7872)
-   defining Unicode char U+1EC1 (decimal 7873)
-   defining Unicode char U+1EC2 (decimal 7874)
-   defining Unicode char U+1EC3 (decimal 7875)
-   defining Unicode char U+1EC4 (decimal 7876)
-   defining Unicode char U+1EC5 (decimal 7877)
-   defining Unicode char U+1EC6 (decimal 7878)
-   defining Unicode char U+1EC7 (decimal 7879)
-   defining Unicode char U+1EC8 (decimal 7880)
-   defining Unicode char U+1EC9 (decimal 7881)
-   defining Unicode char U+1ECA (decimal 7882)
-   defining Unicode char U+1ECB (decimal 7883)
-   defining Unicode char U+1ECC (decimal 7884)
-   defining Unicode char U+1ECD (decimal 7885)
-   defining Unicode char U+1ECE (decimal 7886)
-   defining Unicode char U+1ECF (decimal 7887)
-   defining Unicode char U+1ED0 (decimal 7888)
-   defining Unicode char U+1ED1 (decimal 7889)
-   defining Unicode char U+1ED2 (decimal 7890)
-   defining Unicode char U+1ED3 (decimal 7891)
-   defining Unicode char U+1ED4 (decimal 7892)
-   defining Unicode char U+1ED5 (decimal 7893)
-   defining Unicode char U+1ED6 (decimal 7894)
-   defining Unicode char U+1ED7 (decimal 7895)
-   defining Unicode char U+1ED8 (decimal 7896)
-   defining Unicode char U+1ED9 (decimal 7897)
-   defining Unicode char U+1EDA (decimal 7898)
-   defining Unicode char U+1EDB (decimal 7899)
-   defining Unicode char U+1EDC (decimal 7900)
-   defining Unicode char U+1EDD (decimal 7901)
-   defining Unicode char U+1EDE (decimal 7902)
-   defining Unicode char U+1EDF (decimal 7903)
-   defining Unicode char U+1EE0 (decimal 7904)
-   defining Unicode char U+1EE1 (decimal 7905)
-   defining Unicode char U+1EE2 (decimal 7906)
-   defining Unicode char U+1EE3 (decimal 7907)
-   defining Unicode char U+1EE4 (decimal 7908)
-   defining Unicode char U+1EE5 (decimal 7909)
-   defining Unicode char U+1EE6 (decimal 7910)
-   defining Unicode char U+1EE7 (decimal 7911)
-   defining Unicode char U+1EE8 (decimal 7912)
-   defining Unicode char U+1EE9 (decimal 7913)
-   defining Unicode char U+1EEA (decimal 7914)
-   defining Unicode char U+1EEB (decimal 7915)
-   defining Unicode char U+1EEC (decimal 7916)
-   defining Unicode char U+1EED (decimal 7917)
-   defining Unicode char U+1EEE (decimal 7918)
-   defining Unicode char U+1EEF (decimal 7919)
-   defining Unicode char U+1EF0 (decimal 7920)
-   defining Unicode char U+1EF1 (decimal 7921)
-   defining Unicode char U+1EF2 (decimal 7922)
-   defining Unicode char U+1EF3 (decimal 7923)
-   defining Unicode char U+1EF4 (decimal 7924)
-   defining Unicode char U+1EF5 (decimal 7925)
-   defining Unicode char U+1EF6 (decimal 7926)
-   defining Unicode char U+1EF7 (decimal 7927)
-   defining Unicode char U+1EF8 (decimal 7928)
-   defining Unicode char U+1EF9 (decimal 7929)
-   defining Unicode char U+200C (decimal 8204)
-   defining Unicode char U+2013 (decimal 8211)
-   defining Unicode char U+2014 (decimal 8212)
-   defining Unicode char U+2018 (decimal 8216)
-   defining Unicode char U+2019 (decimal 8217)
-   defining Unicode char U+201A (decimal 8218)
-   defining Unicode char U+201C (decimal 8220)
-   defining Unicode char U+201D (decimal 8221)
-   defining Unicode char U+201E (decimal 8222)
-   defining Unicode char U+2030 (decimal 8240)
-   defining Unicode char U+2031 (decimal 8241)
-   defining Unicode char U+2039 (decimal 8249)
-   defining Unicode char U+203A (decimal 8250)
-   defining Unicode char U+2423 (decimal 9251)
+)
+(preamble.tex (packages.tex
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/fontspec\fontspec.sty
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/xparse\xpars
+e.sty
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\expl3.sty
+Package: expl3 2025-12-24 L3 programming layer (loader) 
+
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-xet
+ex.def
+File: l3backend-xetex.def 2025-10-09 L3 backend support: XeTeX
+\g__graphics_track_int=\count280
+\g__pdfannot_backend_int=\count281
+\g__pdfannot_backend_link_int=\count282
 ))
-LaTeX Font Info:    Trying to load font information for T5+cmr on input line 11
-6.
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmr.fd
-File: t5cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
-Package: inputenc 2024/02/08 v1.3d Input encoding file
-\inpenc@prehook=\toks17
-\inpenc@posthook=\toks18
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\vncaps.tex
-File: vncaps.tex 2006/06/07 v1.1 Captions in Vietnamese
-)) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
+Package: xparse 2025-10-09 L3 Experimental document command parser
+)
+Package: fontspec 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTeX
+
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/fontspec\fontspec-xetex
+.sty
+Package: fontspec-xetex 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTe
+X
+\l__fontspec_script_int=\count283
+\l__fontspec_language_int=\count284
+\l__fontspec_strnum_int=\count285
+\l__fontspec_tmp_int=\count286
+\l__fontspec_tmpa_int=\count287
+\l__fontspec_tmpb_int=\count288
+\l__fontspec_tmpc_int=\count289
+\l__fontspec_em_int=\count290
+\l__fontspec_emdef_int=\count291
+\l__fontspec_strong_int=\count292
+\l__fontspec_strongdef_int=\count293
+\l__fontspec_tmpa_dim=\dimen149
+\l__fontspec_tmpb_dim=\dimen150
+\l__fontspec_tmpc_dim=\dimen151
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/fontspec\fontspec.cfg))
+)
+
+Package fontspec Info: 
+(fontspec)             Font family 'TimesNewRoman(0)' created for font 'Times
+(fontspec)             New Roman' with options [Ligatures=TeX,Ligatures=TeX].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.: <->"Times New
+(fontspec)             Roman/OT:script=latn;language=dflt;mapping=tex-text;"
+(fontspec)             - 'small caps'  (m/sc) with NFSS spec.: <->"Times New
+(fontspec)             Roman/OT:script=latn;language=dflt;+smcp;mapping=tex-tex
+t;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.: <->"Times New
+(fontspec)             Roman/B/OT:script=latn;language=dflt;mapping=tex-text;"
+(fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: <->"Times
+(fontspec)             New
+(fontspec)             Roman/B/OT:script=latn;language=dflt;+smcp;mapping=tex-t
+ext;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.: <->"Times New
+(fontspec)             Roman/I/OT:script=latn;language=dflt;mapping=tex-text;"
+(fontspec)             - 'italic small caps'  (m/scit) with NFSS spec.:
+(fontspec)             <->"Times New
+(fontspec)             Roman/I/OT:script=latn;language=dflt;+smcp;mapping=tex-t
+ext;"
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.: <->"Times New
+(fontspec)             Roman/BI/OT:script=latn;language=dflt;mapping=tex-text;"
+
+(fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.:
+(fontspec)             <->"Times New
+(fontspec)             Roman/BI/OT:script=latn;language=dflt;+smcp;mapping=tex-
+text;"
+
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
 Package: geometry 2026/03/07 v6.0 Page Geometry
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
-\KV@toks@=\toks19
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
+\KV@toks@=\toks17
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
-Package: iftex 2024/12/12 v1.0g TeX engine tests
-))
-\Gm@cnth=\count284
-\Gm@cntv=\count285
-\c@Gm@tempcnt=\count286
-\Gm@bindingoffset=\dimen149
-\Gm@wd@mp=\dimen150
-\Gm@odd@mp=\dimen151
-\Gm@even@mp=\dimen152
-\Gm@layoutwidth=\dimen153
-\Gm@layoutheight=\dimen154
-\Gm@layouthoffset=\dimen155
-\Gm@layoutvoffset=\dimen156
-\Gm@dimlist=\toks20
+)
+\Gm@cnth=\count294
+\Gm@cntv=\count295
+\c@Gm@tempcnt=\count296
+\Gm@bindingoffset=\dimen152
+\Gm@wd@mp=\dimen153
+\Gm@odd@mp=\dimen154
+\Gm@even@mp=\dimen155
+\Gm@layoutwidth=\dimen156
+\Gm@layoutheight=\dimen157
+\Gm@layouthoffset=\dimen158
+\Gm@layoutvoffset=\dimen159
+\Gm@dimlist=\toks18
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
 Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
@@ -240,30 +141,35 @@ Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@widthL=\skip62
 \f@nch@widthC=\skip63
 \f@nch@widthR=\skip64
-\@temptokenb=\toks21
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setspace.sty
+\@temptokenb=\toks19
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
-\lst@mode=\count287
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
+\lst@mode=\count297
 \lst@gtempboxa=\box53
-\lst@token=\toks22
-\lst@length=\count288
-\lst@currlwidth=\dimen157
-\lst@column=\count289
-\lst@pos=\count290
-\lst@lostspace=\dimen158
-\lst@width=\dimen159
-\lst@newlines=\count291
-\lst@lineno=\count292
-\lst@maxwidth=\dimen160
+\lst@token=\toks20
+\lst@length=\count298
+\lst@currlwidth=\dimen160
+\lst@column=\count299
+\lst@pos=\count300
+\lst@lostspace=\dimen161
+\lst@width=\dimen162
+\lst@newlines=\count301
+\lst@lineno=\count302
+\lst@maxwidth=\dimen163
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpatch.sty
 File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
-\c@lstnumber=\count293
-\lst@skipnumbers=\count294
+\c@lstnumber=\count303
+\lst@skipnumbers=\count304
 \lst@framebox=\box54
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
 File: listings.cfg 2025/11/14 1.11b listings configuration
 ))
 Package: listings 2025/11/14 1.11b (Carsten Heinz)
@@ -275,17 +181,16 @@ Package: listings 2025/11/14 1.11b (Carsten Heinz)
     so I'm assuming it got fixed.
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
 Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package xcolor Info: Driver file: pdftex.def on input line 274.
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
-File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
+Package xcolor Info: Driver file: xetex.def on input line 274.
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\xetex.def
+File: xetex.def 2025/11/01 v5.0p Graphics/color driver for xetex
 ) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.lt
 x)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
 Package xcolor Info: Model `RGB' extended on input line 1365.
 Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
 Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
@@ -295,33 +200,35 @@ Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/frontendlayer\tikz.
-sty (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgf.
 sty
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfrcs.st
 y
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
 -common.tex
-\pgfutil@everybye=\toks23
-\pgfutil@tempdima=\dimen161
-\pgfutil@tempdimb=\dimen162
+\pgfutil@everybye=\toks21
+\pgfutil@tempdima=\dimen164
+\pgfutil@tempdimb=\dimen165
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
 -latex.def
 \pgfutil@abb=\box55
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfrcs.
-code.tex (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf\pgf.revi
-sion.tex)
+code.tex
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf\pgf.revision.tex)
 Package: pgfrcs 2025-08-29 v3.1.11a (3.1.11a)
 ))
 Package: pgf 2025-08-29 v3.1.11a (3.1.11a)
 
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgfcore.
-sty (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.s
-ty
+sty
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
 Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
 Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
 )
@@ -329,10 +236,10 @@ Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
 fg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 106.
+Package graphics Info: Driver file: xetex.def on input line 106.
 )
-\Gin@req@height=\dimen163
-\Gin@req@width=\dimen164
+\Gin@req@height=\dimen166
+\Gin@req@width=\dimen167
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/systemlayer\pgfsys.
 sty
@@ -342,53 +249,59 @@ Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
 
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
 .code.tex
-\pgfkeys@pathtoks=\toks24
-\pgfkeys@temptoks=\toks25
+\pgfkeys@pathtoks=\toks22
+\pgfkeys@temptoks=\toks23
 
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
 libraryfiltered.code.tex
-\pgfkeys@tmptoks=\toks26
+\pgfkeys@tmptoks=\toks24
 ))
-\pgf@x=\dimen165
-\pgf@y=\dimen166
-\pgf@xa=\dimen167
-\pgf@ya=\dimen168
-\pgf@xb=\dimen169
-\pgf@yb=\dimen170
-\pgf@xc=\dimen171
-\pgf@yc=\dimen172
-\pgf@xd=\dimen173
-\pgf@yd=\dimen174
+\pgf@x=\dimen168
+\pgf@y=\dimen169
+\pgf@xa=\dimen170
+\pgf@ya=\dimen171
+\pgf@xb=\dimen172
+\pgf@yb=\dimen173
+\pgf@xc=\dimen174
+\pgf@yc=\dimen175
+\pgf@xd=\dimen176
+\pgf@yd=\dimen177
 \w@pgf@writea=\write3
 \r@pgf@reada=\read2
-\c@pgf@counta=\count295
-\c@pgf@countb=\count296
-\c@pgf@countc=\count297
-\c@pgf@countd=\count298
-\t@pgf@toka=\toks27
-\t@pgf@tokb=\toks28
-\t@pgf@tokc=\toks29
-\pgf@sys@id@count=\count299
+\c@pgf@counta=\count305
+\c@pgf@countb=\count306
+\c@pgf@countc=\count307
+\c@pgf@countd=\count308
+\t@pgf@toka=\toks25
+\t@pgf@tokb=\toks26
+\t@pgf@tokc=\toks27
+\pgf@sys@id@count=\count309
 
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgf.c
 fg
 File: pgf.cfg 2025-08-29 v3.1.11a (3.1.11a)
 )
-Driver file for pgf: pgfsys-pdftex.def
+Driver file for pgf: pgfsys-xetex.def
 
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
-s-pdftex.def
-File: pgfsys-pdftex.def 2025-08-29 v3.1.11a (3.1.11a)
+s-xetex.def
+File: pgfsys-xetex.def 2025-08-29 v3.1.11a (3.1.11a)
+
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+s-dvipdfmx.def
+File: pgfsys-dvipdfmx.def 2025-08-29 v3.1.11a (3.1.11a)
 
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
 s-common-pdf.def
 File: pgfsys-common-pdf.def 2025-08-29 v3.1.11a (3.1.11a)
+)
+\pgfsys@objnum=\count310
 )))
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
 ssoftpath.code.tex
 File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfsyssoftpath@smallbuffer@items=\count300
-\pgfsyssoftpath@bigbuffer@items=\count301
+\pgfsyssoftpath@smallbuffer@items=\count311
+\pgfsyssoftpath@bigbuffer@items=\count312
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
 sprotocol.code.tex
@@ -404,12 +317,12 @@ Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
 code.tex)
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathparse
 r.code.tex
-\pgfmath@dimen=\dimen175
-\pgfmath@count=\count302
+\pgfmath@dimen=\dimen178
+\pgfmath@count=\count313
 \pgfmath@box=\box56
-\pgfmath@toks=\toks30
-\pgfmath@stack@operand=\toks31
-\pgfmath@stack@operation=\toks32
+\pgfmath@toks=\toks28
+\pgfmath@stack@operand=\toks29
+\pgfmath@stack@operation=\toks30
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
 ions.code.tex)
@@ -433,39 +346,39 @@ ions.integerarithmetics.code.tex)
 code.tex)
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfloat
 .code.tex
-\c@pgfmathroundto@lastzeros=\count303
+\c@pgfmathroundto@lastzeros=\count314
 ))
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfint.code.
 tex)
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 epoints.code.tex
 File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@picminx=\dimen176
-\pgf@picmaxx=\dimen177
-\pgf@picminy=\dimen178
-\pgf@picmaxy=\dimen179
-\pgf@pathminx=\dimen180
-\pgf@pathmaxx=\dimen181
-\pgf@pathminy=\dimen182
-\pgf@pathmaxy=\dimen183
-\pgf@xx=\dimen184
-\pgf@xy=\dimen185
-\pgf@yx=\dimen186
-\pgf@yy=\dimen187
-\pgf@zx=\dimen188
-\pgf@zy=\dimen189
+\pgf@picminx=\dimen179
+\pgf@picmaxx=\dimen180
+\pgf@picminy=\dimen181
+\pgf@picmaxy=\dimen182
+\pgf@pathminx=\dimen183
+\pgf@pathmaxx=\dimen184
+\pgf@pathminy=\dimen185
+\pgf@pathmaxy=\dimen186
+\pgf@xx=\dimen187
+\pgf@xy=\dimen188
+\pgf@yx=\dimen189
+\pgf@yy=\dimen190
+\pgf@zx=\dimen191
+\pgf@zy=\dimen192
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 epathconstruct.code.tex
 File: pgfcorepathconstruct.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@path@lastx=\dimen190
-\pgf@path@lasty=\dimen191
+\pgf@path@lastx=\dimen193
+\pgf@path@lasty=\dimen194
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 epathusage.code.tex
 File: pgfcorepathusage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@shorten@end@additional=\dimen192
-\pgf@shorten@start@additional=\dimen193
+\pgf@shorten@end@additional=\dimen195
+\pgf@shorten@start@additional=\dimen196
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 escopes.code.tex
@@ -473,19 +386,19 @@ File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgfpic=\box57
 \pgf@hbox=\box58
 \pgf@layerbox@main=\box59
-\pgf@picture@serial@count=\count304
+\pgf@picture@serial@count=\count315
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 egraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgflinewidth=\dimen194
+\pgflinewidth=\dimen197
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 etransformations.code.tex
 File: pgfcoretransformations.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@pt@x=\dimen195
-\pgf@pt@y=\dimen196
-\pgf@pt@temp=\dimen197
+\pgf@pt@x=\dimen198
+\pgf@pt@y=\dimen199
+\pgf@pt@temp=\dimen256
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 equick.code.tex
@@ -502,14 +415,14 @@ File: pgfcorepathprocessing.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 earrows.code.tex
 File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfarrowsep=\dimen198
+\pgfarrowsep=\dimen257
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 eshade.code.tex
 File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@max=\dimen199
-\pgf@sys@shading@range@num=\count305
-\pgf@shadingcount=\count306
+\pgf@max=\dimen258
+\pgf@sys@shading@range@num=\count316
+\pgf@shadingcount=\count317
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 eimage.code.tex
@@ -548,8 +461,8 @@ File: pgfmoduleplot.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfco
 mp-version-0-65.sty
 Package: pgfcomp-version-0-65 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@nodesepstart=\dimen256
-\pgf@nodesepend=\dimen257
+\pgf@nodesepstart=\dimen259
+\pgf@nodesepend=\dimen260
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfco
 mp-version-1-18.sty
@@ -560,17 +473,17 @@ y
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfkeys.s
 ty
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
-.code.tex)) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/math\pg
-fmath.sty
+.code.tex))
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/pgf/math\pgfmath.sty
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.code
 .tex))
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgffor.
 code.tex
 Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
-\pgffor@iter=\dimen258
-\pgffor@skip=\dimen259
-\pgffor@stack=\toks33
-\pgffor@toks=\toks34
+\pgffor@iter=\dimen261
+\pgffor@skip=\dimen262
+\pgffor@stack=\toks31
+\pgffor@toks=\toks32
 ))
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z\tikz.code.tex
@@ -579,105 +492,110 @@ Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
 aryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@plot@mark@count=\count307
-\pgfplotmarksize=\dimen260
+\pgf@plot@mark@count=\count318
+\pgfplotmarksize=\dimen263
 )
-\tikz@lastx=\dimen261
-\tikz@lasty=\dimen262
-\tikz@lastxsaved=\dimen263
-\tikz@lastysaved=\dimen264
-\tikz@lastmovetox=\dimen265
-\tikz@lastmovetoy=\dimen266
-\tikzleveldistance=\dimen267
-\tikzsiblingdistance=\dimen268
+\tikz@lastx=\dimen264
+\tikz@lasty=\dimen265
+\tikz@lastxsaved=\dimen266
+\tikz@lastysaved=\dimen267
+\tikz@lastmovetox=\dimen268
+\tikz@lastmovetoy=\dimen269
+\tikzleveldistance=\dimen270
+\tikzsiblingdistance=\dimen271
 \tikz@figbox=\box62
 \tikz@figbox@bg=\box63
 \tikz@tempbox=\box64
 \tikz@tempbox@bg=\box65
-\tikztreelevel=\count308
-\tikznumberofchildren=\count309
-\tikznumberofcurrentchild=\count310
-\tikz@fig@count=\count311
+\tikztreelevel=\count319
+\tikznumberofchildren=\count320
+\tikznumberofcurrentchild=\count321
+\tikz@fig@count=\count322
 
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
 matrix.code.tex
 File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfmatrixcurrentrow=\count312
-\pgfmatrixcurrentcolumn=\count313
-\pgf@matrix@numberofcolumns=\count314
+\pgfmatrixcurrentrow=\count323
+\pgfmatrixcurrentcolumn=\count324
+\pgf@matrix@numberofcolumns=\count325
 )
-\tikz@expandcount=\count315
+\tikz@expandcount=\count326
 
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-))) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.s
-ty
+)))
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen269
-\lightrulewidth=\dimen270
-\cmidrulewidth=\dimen271
-\belowrulesep=\dimen272
-\belowbottomsep=\dimen273
-\aboverulesep=\dimen274
-\abovetopsep=\dimen275
-\cmidrulesep=\dimen276
-\cmidrulekern=\dimen277
-\defaultaddspace=\dimen278
-\@cmidla=\count316
-\@cmidlb=\count317
-\@aboverulesep=\dimen279
-\@belowrulesep=\dimen280
-\@thisruleclass=\count318
-\@lastruleclass=\count319
-\@thisrulewidth=\dimen281
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty
+\heavyrulewidth=\dimen272
+\lightrulewidth=\dimen273
+\cmidrulewidth=\dimen274
+\belowrulesep=\dimen275
+\belowbottomsep=\dimen276
+\aboverulesep=\dimen277
+\abovetopsep=\dimen278
+\cmidrulesep=\dimen279
+\cmidrulekern=\dimen280
+\defaultaddspace=\dimen281
+\@cmidla=\count327
+\@cmidlb=\count328
+\@aboverulesep=\dimen282
+\@belowrulesep=\dimen283
+\@thisruleclass=\count329
+\@lastruleclass=\count330
+\@thisrulewidth=\dimen284
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty
 Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
 \LTleft=\skip65
 \LTright=\skip66
 \LTpre=\skip67
 \LTpost=\skip68
-\LTchunksize=\count320
-\LTcapwidth=\dimen282
+\LTchunksize=\count331
+\LTcapwidth=\dimen285
 \LT@head=\box66
 \LT@firsthead=\box67
 \LT@foot=\box68
 \LT@lastfoot=\box69
 \LT@gbox=\box70
-\LT@cols=\count321
-\LT@rows=\count322
-\c@LT@tables=\count323
-\c@LT@chunks=\count324
-\LT@p@ftn=\toks35
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+\LT@cols=\count332
+\LT@rows=\count333
+\c@LT@tables=\count334
+\c@LT@chunks=\count335
+\LT@p@ftn=\toks33
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
 Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
-\col@sep=\dimen283
+\col@sep=\dimen286
 \ar@mcellbox=\box71
-\extrarowheight=\dimen284
-\NC@list=\toks36
+\extrarowheight=\dimen287
+\NC@list=\toks34
 \extratabsurround=\skip69
 \backup@length=\skip70
 \ar@cellbox=\box72
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
 Package: enumitem 2025/02/06 v3.11 Customized lists
 \labelindent=\skip71
-\enit@outerparindent=\dimen285
-\enit@toks=\toks37
+\enit@outerparindent=\dimen288
+\enit@toks=\toks35
 \enit@inbox=\box73
-\enit@count@id=\count325
-\enitdp@description=\count326
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
+\enit@count@id=\count336
+\enitdp@description=\count337
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
 Package: titlesec 2025/01/04 v2.17 Sectioning titles
 \ttl@box=\box74
 \beforetitleunit=\skip72
 \aftertitleunit=\skip73
-\ttl@plus=\dimen286
-\ttl@minus=\dimen287
-\ttl@toksa=\toks38
-\titlewidth=\dimen288
-\titlewidthlast=\dimen289
-\titlewidthfirst=\dimen290
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/tocloft\tocloft.sty
+\ttl@plus=\dimen289
+\ttl@minus=\dimen290
+\ttl@toksa=\toks36
+\titlewidth=\dimen291
+\titlewidthlast=\dimen292
+\titlewidthfirst=\dimen293
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/tocloft\tocloft.sty
 Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
 Package tocloft Info: The document has chapter divisions on input line 51.
 \cftparskip=\skip74
@@ -709,14 +627,15 @@ Package tocloft Info: The document has chapter divisions on input line 51.
 \cftbeforefigskip=\skip100
 \cftfigindent=\skip101
 \cftfignumwidth=\skip102
-\c@lofdepth=\count327
-\c@lotdepth=\count328
+\c@lofdepth=\count338
+\c@lotdepth=\count339
 \cftbeforelottitleskip=\skip103
 \cftafterlottitleskip=\skip104
 \cftbeforetabskip=\skip105
 \cfttabindent=\skip106
 \cfttabnumwidth=\skip107
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2025-07-12 v7.01o Hypertext links for LaTeX
 
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
@@ -729,6 +648,7 @@ Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.s
 ty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
 Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
 )
@@ -743,11 +663,14 @@ Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-)) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
+Package pdftexcmds Info: \pdfdraftmode not found.
+))
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2025-06-21 v2.57 Cross-referencing by name of section
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 )
@@ -758,31 +681,28 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count329
-) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+\c@section@level=\count340
+)
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count330
+\etb@tempcnta=\count341
 )
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.s
 ty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 )
 )
-\@linkdim=\dimen291
-\Hy@linkcounter=\count331
-\Hy@pagecounter=\count332
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
+\@linkdim=\dimen294
+\Hy@linkcounter=\count342
+\Hy@pagecounter=\count343
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2025-07-12 v7.01o Hyperref: PDFDocEncoding definition (HO)
-Now handling font encoding PD1 ...
-... no UTF-8 mapping file for font encoding PD1
 ) (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count333
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
+\Hy@SavedSpaceFactor=\count344
+ (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2025-07-12 v7.01o Hyperref: PDF Unicode definition (HO)
-Now handling font encoding PU ...
-... no UTF-8 mapping file for font encoding PU
 )
 Package hyperref Info: Hyper figures OFF on input line 4195.
 Package hyperref Info: Link nesting OFF on input line 4200.
@@ -791,13 +711,15 @@ Package hyperref Info: Plain pages OFF on input line 4210.
 Package hyperref Info: Backreferencing OFF on input line 4215.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4462.
-\c@Hy@tempcnt=\count334
+\c@Hy@tempcnt=\count345
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4801.
-\XeTeXLinkMargin=\dimen292
+\XeTeXLinkMargin=\dimen295
+
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 
@@ -806,9 +728,9 @@ Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count335
-\Field@Width=\dimen293
-\Fld@charsize=\dimen294
+\Fld@menulength=\count346
+\Field@Width=\dimen296
+\Fld@charsize=\dimen297
 Package hyperref Info: Hyper figures OFF on input line 6078.
 Package hyperref Info: Link nesting OFF on input line 6083.
 Package hyperref Info: Hyper index ON on input line 6086.
@@ -816,15 +738,19 @@ Package hyperref Info: backreferencing OFF on input line 6093.
 Package hyperref Info: Link coloring OFF on input line 6098.
 Package hyperref Info: Link coloring with OCG OFF on input line 6103.
 Package hyperref Info: PDF/A mode OFF on input line 6108.
-\Hy@abspage=\count336
-\c@Item=\count337
-\c@Hfootnote=\count338
+\Hy@abspage=\count347
+\c@Item=\count348
+\c@Hfootnote=\count349
 )
-Package hyperref Info: Driver (autodetected): hpdftex.
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
-File: hpdftex.def 2025-07-12 v7.01o Hyperref driver for pdfTeX
-\Fld@listcount=\count339
-\c@bookmark@seq@number=\count340
+Package hyperref Info: Driver (autodetected): hxetex.
+
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hxetex.def
+File: hxetex.def 2025-07-12 v7.01o Hyperref driver for XeTeX
+\pdfm@box=\box75
+\c@Hy@AnnotLevel=\count350
+\HyField@AnnotCount=\count351
+\Fld@listcount=\count352
+\c@bookmark@seq@number=\count353
 
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfil
 echeck.sty
@@ -890,26 +816,26 @@ File: tikzlibraryshapes.multipart.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\
 pgflibraryshapes.multipart.code.tex
 File: pgflibraryshapes.multipart.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfnodepartlowerbox=\box75
-\pgfnodeparttwobox=\box76
-\pgfnodepartthreebox=\box77
-\pgfnodepartfourbox=\box78
-\pgfnodeparttwentybox=\box79
-\pgfnodepartnineteenbox=\box80
-\pgfnodeparteighteenbox=\box81
-\pgfnodepartseventeenbox=\box82
-\pgfnodepartsixteenbox=\box83
-\pgfnodepartfifteenbox=\box84
-\pgfnodepartfourteenbox=\box85
-\pgfnodepartthirteenbox=\box86
-\pgfnodeparttwelvebox=\box87
-\pgfnodepartelevenbox=\box88
-\pgfnodeparttenbox=\box89
-\pgfnodepartninebox=\box90
-\pgfnodeparteightbox=\box91
-\pgfnodepartsevenbox=\box92
-\pgfnodepartsixbox=\box93
-\pgfnodepartfivebox=\box94
+\pgfnodepartlowerbox=\box76
+\pgfnodeparttwobox=\box77
+\pgfnodepartthreebox=\box78
+\pgfnodepartfourbox=\box79
+\pgfnodeparttwentybox=\box80
+\pgfnodepartnineteenbox=\box81
+\pgfnodeparteighteenbox=\box82
+\pgfnodepartseventeenbox=\box83
+\pgfnodepartsixteenbox=\box84
+\pgfnodepartfifteenbox=\box85
+\pgfnodepartfourteenbox=\box86
+\pgfnodepartthirteenbox=\box87
+\pgfnodeparttwelvebox=\box88
+\pgfnodepartelevenbox=\box89
+\pgfnodeparttenbox=\box90
+\pgfnodepartninebox=\box91
+\pgfnodeparteightbox=\box92
+\pgfnodepartsevenbox=\box93
+\pgfnodepartsixbox=\box94
+\pgfnodepartfivebox=\box95
 )))
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibraryarrows.code.tex
@@ -918,23 +844,18 @@ File: tikzlibraryarrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
 aryarrows.code.tex
 File: pgflibraryarrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\arrowsize=\dimen295
+\arrowsize=\dimen298
 ))
 (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarycalc.code.tex
 File: tikzlibrarycalc.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)) (config.tex (C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings
-\lstlang1.sty
+)) (config.tex
+(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 78.
 Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 78.
-))
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
-tex.def
-File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count341
-) (main.aux)
+)) (main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
@@ -947,20 +868,86 @@ LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
 LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for T5/cmr/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
+
+Package fontspec Info: 
+(fontspec)             Adjusting the maths setup (use [no-math] to avoid
+(fontspec)             this).
+
+\symlegacymaths=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 16.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 16.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 16.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 16.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 16.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 16.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 16.
+LaTeX Font Info:    Redeclaring math accent \check on input line 16.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 16.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 16.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 16.
+LaTeX Font Info:    Redeclaring math symbol \colon on input line 16.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 16.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 16.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 16.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 16.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 16.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 16.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 16.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 16.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 16.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 16.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 16.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 16.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 16.
+LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
+(Font)              `operators' in the math version `normal' on input line 16.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> TU/TimesNewRoman(0)/m/n on input line 1
+6.
+LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
+(Font)              `operators' in the math version `bold' on input line 16.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> TU/TimesNewRoman(0)/m/n on input line 
+16.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  TU/TimesNewRoman(0)/m/n --> TU/TimesNewRoman(0)/m/n on 
+input line 16.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> TU/TimesNewRoman(0)/m/it on input line
+ 16.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> TU/TimesNewRoman(0)/b/n on input line 
+16.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 16.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 16.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  TU/TimesNewRoman(0)/m/n --> TU/TimesNewRoman(0)/b/n on 
+input line 16.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> TU/TimesNewRoman(0)/b/it on input lin
+e 16.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 16.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 16.
+
 *geometry* driver: auto-detecting
-*geometry* detected driver: pdftex
+*geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
-* driver: pdftex
+* driver: xetex
 * paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
@@ -991,37 +978,15 @@ LaTeX Font Info:    ... okay on input line 16.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\c@lstlisting=\count342
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
-ii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count343
-\scratchdimen=\dimen296
-\scratchbox=\box95
-\nofMPsegments=\count344
-\nofMParguments=\count345
-\everyMPshowfont=\toks39
-\MPscratchCnt=\count346
-\MPscratchDim=\dimen297
-\MPnumerator=\count347
-\makeMPintoPDFobject=\count348
-\everyMPtoPDFconversion=\toks40
-)
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
-ase.sty
-Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-85.
-
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
-fg
-File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
-))
+\c@lstlisting=\count354
 Package hyperref Info: Link coloring ON on input line 16.
 (main.out) (main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
+
+
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
 
 (titlepage.tex
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -1030,23 +995,11 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 27.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 27.
-[1
+ [1
 
-{C:/Users/admin/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]) (abstract.t
-ex
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.24 
-      [1
+]) (abstract.tex [1
 
 ]) (main.toc [2]
-LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 4
-2.
-(C:\Users\admin\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmtt.fd
-File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1062,1587 +1015,385 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[4]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[5]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[6])
+[4])
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
 
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\headheight}{14.49998pt}.
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[7] (chapters/01_introduction.tex
-Ch\uhorn \ohorn ng 1.
-[8
+[5] (chapters/01_introduction.tex
+Chapter 1.
+[6
 
+
+]) (chapters/02_requirement.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.87933pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.87933pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.87933pt}.
+
+[7]
+Chapter 2.
+[8
 
 ]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
-[9]) (chapters/02_requirement.tex
+[9]) (chapters/03_conceptual.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
 [10]
-Ch\uhorn \ohorn ng 2.
+Chapter 3.
 [11
 
 ]
-Overfull \hbox (2.32445pt too wide) in paragraph at lines 21--21
-[]|\T5/cmr/bx/n/12 Ph¦n| 
- []
-
-
-Underfull \hbox (badness 2435) in paragraph at lines 24--25
-\T5/cmr/m/n/12 Lab/Service/Package v  Or-der/Order Item;
- []
-
-
-Underfull \hbox (badness 2376) in paragraph at lines 25--25
-[]|\T5/cmr/m/n/12 Ng÷íi dòng v  vªn
- []
-
-
-Underfull \hbox (badness 1286) in paragraph at lines 26--26
-[]|\T5/cmr/m/n/12 ^^^ìn h ng v  xû lþ
- []
-
-
-Underfull \hbox (badness 1308) in paragraph at lines 27--27
-[]|\T5/cmr/m/n/12 Kho £nh sè v  chñ
- []
+File: figures/ERD_P2.png Graphic file (type bmp)
+<figures/ERD_P2.png>
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
 [12]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
 [13]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[14]
-Overfull \hbox (9.49068pt too wide) in paragraph at lines 81--82
-[]\T5/cmr/m/n/12 Thi¸t k¸ pay-ment_transactions, de-liv-ery_partners, no-ti-fi-
-ca-tions v  ad-min_logs;
+Underfull \hbox (badness 10000) in paragraph at lines 61--61
+[]|$[][][][][] [] [][][][][][] []
  []
 
 
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+Underfull \hbox (badness 10000) in paragraph at lines 62--62
+[]|$[][][][][][] [] [][][][][][][][] []
+ []
 
-[15]
 ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
-[16]) (chapters/03_conceptual.tex
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[17]
-Ch\uhorn \ohorn ng 3.
-
-Underfull \hbox (badness 10000) in paragraph at lines 16--16
-[]|\T5/cmr/m/n/12 P1 --
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 18--19
-[]|\T5/cmr/m/n/12 film_rolls, pro-cess-ing_stages, stage_logs, or-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 20--21
-[]|\T5/cmr/m/n/12 products, prod-uct_categories, list-ings, mar-ket-
- []
-
-ignored error: Infinite glue shrinkage found in box being split [18
+[14
 
 ]
-Overfull \hbox (10.81844pt too wide) in paragraph at lines 25--26
-[]\T5/cmr/m/n/12 P2 cán ph£i thi¸t k¸ c¡c ph¦n mð rëng user_profiles, ad-dresse
-s, user_preferences,
+Underfull \hbox (badness 10000) in paragraph at lines 99--99
+[]|$[][][][][][][][][][][] []
  []
 
+File: figures/ERD_P4.png Graphic file (type bmp)
+<figures/ERD_P4.png>
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
-[19]
-Overfull \hbox (33.24603pt too wide) in paragraph at lines 54--55
-[]\T5/cmr/m/n/12 orders dòng or-der_id, cus-tomer_id, lab_id, or-der_code, sta-
-tus, ful-fill-ment_method,
- []
+[15]
 
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
-Overfull \hbox (12.6232pt too wide) in paragraph at lines 54--55
-\T5/cmr/m/n/12 ser-vice_id ho°c pack-age_id, quan-tity, unit_price, ser-vice_op
-tions v  item_note. 
- []
+[16]
+File: figures/ERD_P5.png Graphic file (type bmp)
+<figures/ERD_P5.png>
+) (chapters/04_logical.tex
 
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
-Underfull \hbox (badness 10000) in paragraph at lines 67--67
-[]|\T5/cmr/m/n/12 service_packages --
+[17
+
+]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
+
+[18]
+Chapter 4.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 19.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 19.
+[19
+
+]
+Overfull \hbox (0.67813pt too wide) in paragraph at lines 58--59
+\TU/TimesNewRoman(0)/m/n/10 der_status_history_id; 
  []
 
 ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
 [20]
-<figures/ERD_P2.png, id=1016, 664.4825pt x 1316.92pt>
-File: figures/ERD_P2.png Graphic file (type png)
-<use figures/ERD_P2.png>
-Package pdftex.def Info: figures/ERD_P2.png  used on input line 79.
-(pdftex.def)             Requested size: 290.78134pt x 576.29175pt.
+ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
 [21]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
-[22 <./figures/ERD_P2.png>]
+[22]
+ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
 [23]
-Overfull \hbox (5.11818pt too wide) in paragraph at lines 94--95
-[]\T5/cmr/m/n/12 processing_stages: danh möc cæng ^^_o¤n gçm pro-cess-ing_stage
-_id, stage_code,
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
-[24
+[24]
+ignored error: Infinite glue shrinkage found in box being split
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
+
+[25]) (chapters/05_physical.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
+
+[26]
+Chapter 5.
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <14.4> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 23.
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <8> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 26.
+[27
 
 ]
-<figures/ERD_P4.png, id=1038, 2427.0675pt x 2519.4125pt>
-File: figures/ERD_P4.png Graphic file (type png)
-<use figures/ERD_P4.png>
-Package pdftex.def Info: figures/ERD_P4.png  used on input line 127.
-(pdftex.def)             Requested size: 426.78006pt x 443.01817pt.
-
-Overfull \hbox (24.69682pt too wide) in paragraph at lines 138--139
-[]\T5/cmr/m/n/12 scan_files câ 0--1 photo_metadata; méi meta-data thuëc ^^_óng 
-mët file, scan_file_id
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
-[25]
+[28]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
-[26 <./figures/ERD_P4.png>]
+[29]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
-[27]
-<figures/ERD_P5.png, id=1055, 1206.5075pt x 581.17125pt>
-File: figures/ERD_P5.png Graphic file (type png)
-<use figures/ERD_P5.png>
-Package pdftex.def Info: figures/ERD_P5.png  used on input line 156.
-(pdftex.def)             Requested size: 426.77594pt x 205.57677pt.
+[30]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
-[28
-
- <./figures/ERD_P5.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 177--177
-[]|\T5/cmr/m/n/12 ARTICLE / AR-TI-
- []
-
-
-Overfull \hbox (1.46982pt too wide) in paragraph at lines 178--178
-[]|\T5/cmr/m/n/12 COMMUNITY_EVENT
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 179--179
-[]|\T5/cmr/m/n/12 USER_INTERACTION
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 180--180
-[]|\T5/cmr/m/n/12 AI_CHAT_LOG /
- []
-
-
-Overfull \hbox (31.5423pt too wide) in paragraph at lines 185--186
-\T5/cmr/m/n/12 scores, com-ments, ^^_«ng kþ sü ki»n, de-liv-ery_partners, no-ti
--fi-ca-tions, pay-ment_transactions
- []
-
+[31]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[29]) (chapters/04_logical.tex
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[30
-
-]
-Ch\uhorn \ohorn ng 4.
-[31
-
-]
-LaTeX Font Info:    Font shape `T5/cmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `T5/cmtt/m/n' tried instead on input line 29.
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
 [32]
-ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
 [33]
-Overfull \hbox (0.3348pt too wide) in paragraph at lines 169--170
-[]\T5/cmr/m/n/12 CHECK: \T5/cmtt/m/n/12 status IN ('pending', 'approved', 'susp
-ended', 'closed')\T5/cmr/m/n/12 . 
- []
-
-ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
 [34]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
 [35]
-Overfull \hbox (21.76569pt too wide) in paragraph at lines 279--280
-[]\T5/cmr/m/n/12 CHECK: \T5/cmtt/m/n/12 status IN ('pending', 'confirmed', 'rec
-eived', 'processing',
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
 [36]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
 [37]
-ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
 [38]
-ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
 [39]
-Overfull \hbox (9.4187pt too wide) in paragraph at lines 439--440
-[]\T5/cmr/m/n/12 CHECK: \T5/cmtt/m/n/12 completed_at IS NULL OR started_at IS N
-ULL OR completed_at
- []
-
-
-Overfull \hbox (46.45966pt too wide) in paragraph at lines 465--466
-[]\T5/cmr/m/n/12 CHECK: \T5/cmtt/m/n/12 old_status IN ('pending', 'confirmed', 
-'received', 'processing',
- []
-
-
-Overfull \hbox (46.45966pt too wide) in paragraph at lines 466--467
-[]\T5/cmr/m/n/12 CHECK: \T5/cmtt/m/n/12 new_status IN ('pending', 'confirmed', 
-'received', 'processing',
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
 [40]
-Overfull \hbox (55.61777pt too wide) detected at line 520
-[] \OMS/cmsy/m/n/12 ! [] ! [] ! [] ! [] ! [] ! []
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
 [41]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
-[42]
-ignored error: Infinite glue shrinkage found in box being split
+[42]) (chapters/07_conclusion.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
 [43]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[44]
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[45]
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[46]
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[47]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[48]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[49]
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[50]
-Overfull \hbox (9.4187pt too wide) in paragraph at lines 1002--1003
-[]\T5/cmr/m/n/12 CHECK: \T5/cmtt/m/n/12 interaction_type IN ('view', 'like', 's
-earch', 'bookmark',
- []
-
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[51]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[52]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[53]) (chapters/05_physical.tex
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[54]
-Ch\uhorn \ohorn ng 5.
-[55
+Chapter 6.
+[44
 
 ]
-LaTeX Font Info:    Font shape `T5/cmtt/bx/n' in size <8> not available
-(Font)              Font shape `T5/cmtt/m/n' tried instead on input line 30.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
-[56]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[57]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[58]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[59]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[60]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[61]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[62]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[63]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[64]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[65]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[66]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[67]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[68]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[69]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[70]) (chapters/06_datadictionary.tex
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[71]
-Ch\uhorn \ohorn ng 6.
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 35--35
-[]|\T5/cmr/m/n/10 VARCHAR(255)|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 36--36
-[]|\T5/cmr/m/n/10 VARCHAR(255)|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 37--37
-[]|\T5/cmr/m/n/10 VARCHAR(150)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 40--40
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 41--41
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 42--42
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-[72
-
-]
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 59--59
-[]|\T5/cmr/m/n/10 VARCHAR(100)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 61--61
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 62--62
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[73]
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 78--78
-[]|\T5/cmr/m/n/10 VARCHAR(100)|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 79--79
-[]|\T5/cmr/m/n/10 VARCHAR(150)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 81--81
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 82--82
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 99--99
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 101--101
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 102--102
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[74]
-Overfull \hbox (15.44542pt too wide) in paragraph at lines 118--118
-\T5/cmtt/m/n/10 permissions.permission_ 
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 119--119
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 120--120
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 137--137
-[]|\T5/cmr/m/n/10 VARCHAR(150)|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 138--138
-[]|\T5/cmr/m/n/10 VARCHAR(255)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 142--142
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 143--143
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 144--144
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 145--145
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[75]
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 163--163
-[]|\T5/cmr/m/n/10 VARCHAR(150)|  
- []
-
-
-Overfull \hbox (3.5721pt too wide) in paragraph at lines 165--165
-[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 168--168
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 169--169
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[76]
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 187--187
-[]|\T5/cmr/m/n/10 VARCHAR(150)|  
- []
-
-
-Overfull \hbox (3.5721pt too wide) in paragraph at lines 189--189
-[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 191--191
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 192--192
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[77]
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 210--210
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 211--211
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (3.5721pt too wide) in paragraph at lines 232--232
-[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
- []
-
-
-Overfull \hbox (3.5721pt too wide) in paragraph at lines 233--233
-[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 236--236
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 237--237
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 238--238
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[78]
-Overfull \hbox (3.5721pt too wide) in paragraph at lines 258--258
-[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 261--261
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 262--262
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[79]
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 283--283
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 284--284
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 287--287
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 288--288
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[80]
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 305--305
-[]|\T5/cmr/m/n/10 VARCHAR(100)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 309--309
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 310--310
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 329--329
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 330--330
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 333--333
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 334--334
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[81]
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 354--354
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 356--356
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 357--357
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[82]
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 378--378
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 379--379
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 381--381
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 382--382
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[83]
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 401--401
-[]|\T5/cmr/m/n/10 VARCHAR(255)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 405--405
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 406--406
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[84]
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 423--423
-[]|\T5/cmr/m/n/10 VARCHAR(150)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 426--426
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 427--427
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 445--445
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 446--446
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 447--447
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[85]
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 463--463
-[]|\T5/cmr/m/n/10 VARCHAR(100)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 464--464
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 465--465
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 482--482
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 483--483
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[86]
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 499--499
-[]|\T5/cmr/m/n/10 VARCHAR(100)|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 500--500
-[]|\T5/cmr/m/n/10 VARCHAR(150)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 504--504
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 505--505
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 521--521
-[]|\T5/cmr/m/n/10 VARCHAR(100)|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 522--522
-[]|\T5/cmr/m/n/10 VARCHAR(150)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 525--525
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 526--526
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[87]
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 542--542
-[]|\T5/cmr/m/n/10 VARCHAR(100)|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 543--543
-[]|\T5/cmr/m/n/10 VARCHAR(150)|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 544--544
-[]|\T5/cmr/m/n/10 VARCHAR(100)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 547--547
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 548--548
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 569--569
-[]|\T5/cmr/m/n/10 VARCHAR(100)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 572--572
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 573--573
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[88]
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 589--589
-[]|\T5/cmr/m/n/10 VARCHAR(150)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 591--591
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 592--592
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[89]
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 609--609
-[]|\T5/cmr/m/n/10 VARCHAR(150)|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 610--610
-[]|\T5/cmr/m/n/10 VARCHAR(100)|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 611--611
-[]|\T5/cmr/m/n/10 VARCHAR(150)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 614--614
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 615--615
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 633--633
-[]|\T5/cmr/m/n/10 VARCHAR(200)|  
- []
-
-
-Overfull \hbox (3.5721pt too wide) in paragraph at lines 634--634
-[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 636--636
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 637--637
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[90]
-Overfull \hbox (3.5721pt too wide) in paragraph at lines 655--655
-[]|\T5/cmr/m/n/10 NUMERIC(12,2)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 657--657
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 658--658
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[91]
-Overfull \hbox (25.94286pt too wide) in paragraph at lines 674--674
-\T5/cmtt/m/n/10 transactions.marketplace_ 
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 679--679
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 680--680
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 697--697
-[]|\T5/cmr/m/n/10 VARCHAR(100)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 699--699
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 700--700
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[92]
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 718--718
-[]|\T5/cmr/m/n/10 VARCHAR(255)|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 720--720
-[]|\T5/cmr/m/n/10 VARCHAR(255)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 723--723
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 724--724
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[93]
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 744--744
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 745--745
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 762--762
-[]|\T5/cmr/m/n/10 VARCHAR(255)|  
- []
-
-
-Overfull \hbox (2.18355pt too wide) in paragraph at lines 764--764
-[]|\T5/cmr/m/n/10 VARCHAR(255)|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 765--765
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 767--767
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 768--768
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[94]
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 788--788
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 789--789
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-ignored error: Infinite glue shrinkage found in box being split
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[95]
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 809--809
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-
-Overfull \hbox (4.40523pt too wide) in paragraph at lines 810--810
-[]|\T5/cmr/m/n/10 TIMESTAMPTZ|  
- []
-
-) (chapters/07_conclusion.tex
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[96]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[97]
-Ch\uhorn \ohorn ng 7.
-[98
-
-]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
-
-[99])
+[45])
 No file main.bbl.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 17.97171pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97171pt}.
+(fancyhdr)                Make it at least 15.0434pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.0434pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.97171pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.0434pt}.
 
-[100] (main.aux)
+[46] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 34A9C2A02C9E2CA86A92730CC5AB2E3F;53088.
+(rerunfilecheck)             Checksum: 0F5D8DC50186B52F3701BBCB43A40814;23012.
  ) 
 Here is how much of TeX's memory you used:
- 27747 strings out of 467871
- 526663 string characters out of 5418376
- 1483881 words of memory out of 5000000
- 55243 multiletter control sequences out of 15000+600000
- 645696 words of font info for 68 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 112i,12n,113p,738b,2011s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\admin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
-1200.pk><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmex10.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/type1/publ
-ic/amsfonts/cm/cmmi12.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/amsfonts/cm/cmmi8.pfb><C:/Users/admin/AppData/Local/Programs/MiKTeX
-/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/admin/AppData/Local/Program
-s/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/admin/AppData/Local/
-Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/admin/AppDa
-ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/adm
-in/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnbx12.pfb><C:/Users/adm
-in/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr10.pfb><C:/Users/admi
-n/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr12.pfb><C:/Users/admin
-/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr6.pfb><C:/Users/admin/A
-ppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt10.pfb><C:/Users/admin/A
-ppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt12.pfb><C:/Users/admin/A
-ppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vntt8.pfb>
-Output written on main.pdf (101 pages, 900731 bytes).
-PDF statistics:
- 2297 PDF objects out of 2487 (max. 8388607)
- 931 named destinations out of 1000 (max. 500000)
- 1460 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 27271 strings out of 402987
+ 564444 string characters out of 5448524
+ 1573108 words of memory out of 5000000
+ 55549 multiletter control sequences out of 15000+600000
+ 631089 words of font info for 84 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 112i,12n,113p,600b,1985s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
+Output written on main.pdf (47 pages).
